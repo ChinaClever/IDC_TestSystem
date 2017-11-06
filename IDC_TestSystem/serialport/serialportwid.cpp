@@ -1,3 +1,9 @@
+/*
+ * 串口窗口
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "serialportwid.h"
 #include "ui_serialportwid.h"
 
