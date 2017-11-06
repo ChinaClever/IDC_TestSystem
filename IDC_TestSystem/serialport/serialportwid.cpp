@@ -106,9 +106,9 @@ void SerialPortWid::on_loopBtn_clicked()
     {
         bool ret = mSerialPort->loopTest();
         if(ret) {
-             InfoMsgBox box(this, tr("串口:%1回循测试成功").arg(mSerialPort->getSerialName()));
+             InfoMsgBox box(this, tr("串口:%1回环测试成功").arg(mSerialPort->getSerialName()));
         } else {
-             CriticalMsgBox box(this, tr("串口:%1回循测试失败").arg(mSerialPort->getSerialName()));
+             CriticalMsgBox box(this, tr("串口:%1回环测试失败").arg(mSerialPort->getSerialName()));
         }
     } else {
          CriticalMsgBox box(this, tr("请先打开串口"));

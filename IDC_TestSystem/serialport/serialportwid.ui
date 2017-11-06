@@ -152,7 +152,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>回循测试</string>
+    <string>回环测试</string>
    </property>
   </widget>
  </widget>
