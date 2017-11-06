@@ -16,6 +16,8 @@ public:
     explicit SerialPortWid(QWidget *parent = 0);
     ~SerialPortWid();
 
+    SerialPort *getSerialPort(){return mSerialPort;}
+
 protected:
     void initSerialPort();
     void initWidget();

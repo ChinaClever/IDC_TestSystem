@@ -6,6 +6,7 @@ SerialPortWid::SerialPortWid(QWidget *parent) :
     ui(new Ui::SerialPortWid)
 {
     ui->setupUi(this);
+    mSerialPort = new SerialPort(this);
 
     initSerialPort();
     initWidget();
@@ -19,8 +20,6 @@ SerialPortWid::~SerialPortWid()
 
 void SerialPortWid::initSerialPort()
 {
-    mSerialPort = new SerialPort(this);
-
     QStringList com = mSerialPort->getList(); // 端口列表
     ui->comBox->clear();
     ui->comBox->addItems(com);
