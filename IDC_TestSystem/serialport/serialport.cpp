@@ -132,33 +132,46 @@ int SerialPort::write(uchar *sent, int len)
     return write(array);
 }
 
-
 /**
  * @brief 读串口
  * @param array
  * @return 长度
  */
+int SerialPort::recv(QByteArray &array)
+{
+    QByteArray dataTemp;
+    if(isOpen)
+    {
+        while (mSerial->waitForReadyRead(50)); // 等待窗口接收完全
+        while (!mSerial->atEnd()) {
+            dataTemp += mSerial->readAll();     //因为串口是不稳定的，也许读到的是部分数据而已，但也可能是全部数据
+        }
+        array += dataTemp;
+    }
+
+    return dataTemp.length();
+}
+
+
 int SerialPort::read(QByteArray &array)
 {
-    int len = 0;
+    int len=0, count=0;
     if(!isOpen) return len;
 
     QWriteLocker locker(&mRwLock);
-    for(int i=0; i<5; ++i)
+    do
     {
         /* 处理所有还没有被处理的各类事件，主要是不用用户感觉到ka */
         // QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
         // msleep(35);
-        serialReadSlot();
-
-        if(mSerialData.size() > len)
-            len = mSerialData.size();
-        else
-            break;
-    }
-
-    if(len > 0) array = mSerialData;
-    mSerialData.clear();
+        int rtn = recv(array);
+        if(rtn > 0) {
+            len += rtn;
+            count = 2;
+        } else {
+            count++;
+        }
+    } while (count < 3) ;
 
     return len;
 }
@@ -175,21 +188,17 @@ int SerialPort::read(uchar *recv)
 }
 
 
+
 /**
  * @brief 串口接收糟函数
  */
 void SerialPort::serialReadSlot(void)
 {
-    if(isOpen)
-    {
-        QByteArray dataTemp;
-        while (mSerial->waitForReadyRead(60)); // 等待窗口接收完全
-        while (!mSerial->atEnd())
-            dataTemp += mSerial->readAll();     //因为串口是不稳定的，也许读到的是部分数据而已，但也可能是全部数据
+    QByteArray dataTemp;
+    recv(dataTemp);
 
-        mSerialData += dataTemp;
-        //emit readyReadSig();
-    }
+    mSerialData += dataTemp;
+    //emit readyReadSig();
 }
 
 /**
@@ -227,7 +236,7 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv)
 /**
  * @brief 回环测试
  */
-void SerialPort::test()
+boolean SerialPort::loopTest()
 {
     QByteArray sentArray,recvArray;
 
@@ -239,4 +248,5 @@ void SerialPort::test()
         qDebug() << "Serial test Err:" <<ret;
     else
         qDebug() << "Serial test OK";
+    return ret;
 }

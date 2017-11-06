@@ -80,7 +80,7 @@ void SerialPortWid::openSerialSlot()
         if(!com.isEmpty())
             serialPortChanged(com);
         else
-             CriticalMsgBox box(this, tr("没有串口"));
+            CriticalMsgBox box(this, tr("没有串口"));
     }
 }
 
@@ -97,4 +97,20 @@ void SerialPortWid::updateBtnSlot()
 
     initSerialPort();
     connect(ui->comBox,SIGNAL(currentIndexChanged(QString)),this,SLOT(serialPortChanged(QString)));
+    InfoMsgBox box(this, tr("串口刷新成功"));
+}
+
+void SerialPortWid::on_loopBtn_clicked()
+{
+    if(mSerialPort->isOpened())
+    {
+        bool ret = mSerialPort->loopTest();
+        if(ret) {
+             InfoMsgBox box(this, tr("串口:%1回循测试成功").arg(mSerialPort->getSerialName()));
+        } else {
+             CriticalMsgBox box(this, tr("串口:%1回循测试失败").arg(mSerialPort->getSerialName()));
+        }
+    } else {
+         CriticalMsgBox box(this, tr("请先打开串口"));
+    }
 }

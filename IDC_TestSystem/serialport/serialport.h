@@ -28,9 +28,12 @@ public:
     int transmit(const QByteArray &witeArray, QByteArray &readArray);
     int transmit(uchar *sent, int len, uchar *recv);
 
-    void test();
+    boolean loopTest();
 
 signals:
+
+protected:
+    int recv(QByteArray &array);
 
 private slots:
     void serialReadSlot(void);
