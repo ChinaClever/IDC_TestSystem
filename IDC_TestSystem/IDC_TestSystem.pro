@@ -29,6 +29,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(common/common.pri)
 include(serialport/serialport.pri)
+include(SI-PDU/SI-PDU.pri)
 
 
 SOURCES += \
