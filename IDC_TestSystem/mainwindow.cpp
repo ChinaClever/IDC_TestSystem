@@ -16,10 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    SerialPortWid *wid = new SerialPortWid(ui->widget);
+//    SerialPortWid *wid = new SerialPortWid(ui->widget);
 
-    SI_RtuThread *rtuThread =  SI_RtuThread::bulid(this);
-    rtuThread->init(wid->getSerialPort());
+//    SI_RtuThread *rtuThread =  SI_RtuThread::bulid(this);
+//    rtuThread->init(wid->getSerialPort());
 
 
 }
