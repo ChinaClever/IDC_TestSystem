@@ -1,3 +1,9 @@
+/*
+ * RTU发送数据
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_rtu_sent.h"
 
 
@@ -50,7 +56,7 @@ static int rtu_sent_packet(SI_Rtu_Sent *pkt, uchar *ptr)
     *(ptr++) = ((pkt->len) >> 8); /*长度高8位*/
     *(ptr++) = (0xff)&(pkt->len); /*低8位*/
 
-     /*填入CRC*/
+    /*填入CRC*/
     pkt->crc = si_rtu_crc(buf, 6);
     *(ptr++) = (0xff)&(pkt->crc); /*低8位*/
     *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
@@ -100,7 +106,14 @@ static int rtu_sent_setCmd(uchar addr, uchar reg, ushort value, uchar *buf)
 }
 
 
-SI_RtuSent::SI_RtuSent()
-{
 
+
+int SI_RtuSent::sentDataBuff(uchar addr, uchar line, uchar *buf)
+{
+    return rtu_sent_buff(addr, line, buf);
+}
+
+int SI_RtuSent::sentCmdBuff(uchar addr, uchar reg, ushort value, uchar *buf)
+{
+    return rtu_sent_setCmd(addr, reg, value, buf);
 }

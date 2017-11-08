@@ -7,6 +7,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "serialportwid.h"
+#include "si_modbus/si_rtu/si_rtuthread.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     SerialPortWid *wid = new SerialPortWid(ui->widget);
+
+    SI_RtuThread *rtuThread =  SI_RtuThread::bulid(this);
+    rtuThread->init(wid->getSerialPort());
+
 
 }
 

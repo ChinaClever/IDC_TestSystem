@@ -1,3 +1,9 @@
+/*
+ * ETU接收数据
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_rtu_recv.h"
 
 
@@ -20,7 +26,7 @@ static int rtu_recv_len(uchar *buf, int len)
         len = buf[2]*256 + buf[3];
         if(len == SI_RTU_ONE_LEN) {
             ret = 1;
-        } else if (len != SI_RTU_THREE_LEN) {
+        } else if (len == SI_RTU_THREE_LEN) {
             ret = 3;
         } else  {
             ret = -3;
@@ -117,7 +123,7 @@ static int rtu_recv_data(uchar *ptr, int line, SI_RtuRecvLine *msg)
     ptr =  rtu_recv_data(ptr, line, msg->sw); // 开关状态
 
     if(line == 1) {
-          msg->lineNum =  *(ptr++);
+        msg->lineNum =  *(ptr++);
     } else {
         ret = SI_RTU_THREE_LEN;
     }
@@ -169,8 +175,7 @@ static bool rtu_recv_packet(uchar *buf, int len, SI_Rtu_Recv *pkt)
 }
 
 
-
-SI_RtuRecv::SI_RtuRecv()
+bool SI_RtuRecv::recvPacket(uchar *buf, int len, SI_Rtu_Recv *pkt)
 {
-
+    return rtu_recv_packet(buf, len, pkt);
 }

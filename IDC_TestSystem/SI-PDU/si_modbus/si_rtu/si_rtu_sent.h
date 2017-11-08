@@ -19,15 +19,8 @@ struct SI_Rtu_Sent {
 class SI_RtuSent
 {
 public:
-    SI_RtuSent();
-
-
-    ///////////============
-    ///
-    ///
-    /// 增加命令发送命令
-    ///
-    ///
+    int sentDataBuff(uchar addr, uchar line, uchar *buf);
+    int sentCmdBuff(uchar addr, uchar reg, ushort value, uchar *buf);
 };
 
 ushort si_rtu_crc(uchar *buf, int len);

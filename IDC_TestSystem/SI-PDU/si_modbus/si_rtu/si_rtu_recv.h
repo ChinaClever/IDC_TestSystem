@@ -35,15 +35,13 @@ struct SI_Rtu_Recv {
     ushort len; // 表示数据字节数
 
     SI_RtuRecvLine data;
-
-
     ushort crc; // 检验码
 };
 
 class SI_RtuRecv
 {
 public:
-    SI_RtuRecv();
+    bool recvPacket(uchar *buf, int len, SI_Rtu_Recv *pkt);
 };
 
 #endif // SI_RTU_RECV_H
