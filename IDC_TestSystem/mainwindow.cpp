@@ -7,7 +7,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "serialportwid.h"
-#include "si_modbus/si_rtu/si_rtuthread.h"
+#include "si_rtu/si_rtuthread.h"
 
 
 MainWindow::MainWindow(QWidget *parent) :
