@@ -18,21 +18,11 @@ static QSettings *pConfigIni = NULL;
  */
 bool sys_configFile_open(void)
 {
-    bool ret = true;
-
-    QString fileName = "sysconfig.ini";
-    QString strFilename = cm_pathOfData(fileName);
-
-   // QString strFilename = QCoreApplication::applicationDirPath();
-   // strFilename += "/" + fileName;
-
-    if(!QFileInfo(strFilename).exists())
-        ret = false;
-
-    if(pConfigIni==NULL)
-    {
+    QString strFilename = cm_pathOfData( "sysconfig.ini");
+    bool ret = QFileInfo(strFilename).exists();
+    if(pConfigIni==NULL) {
         pConfigIni = new QSettings(strFilename, QSettings::IniFormat);
-//        pConfigIni->setIniCodec(QTextCodec::codecForName("utf-8")); // gb18030
+        //        pConfigIni->setIniCodec(QTextCodec::codecForName("utf-8")); // gb18030
     }
 
     return ret;
@@ -44,9 +34,10 @@ bool sys_configFile_open(void)
  */
 void sys_configFile_close(void)
 {
-    delete pConfigIni;
-    pConfigIni = NULL;
-   // sync();
+    // delete pConfigIni;
+    // pConfigIni = NULL;
+
+    pConfigIni->sync();
 }
 
 /**
@@ -55,9 +46,12 @@ void sys_configFile_close(void)
  */
 QString sys_configFile_readStr(QString strParameterName, QString strGroup)
 {
-    QString strParameter = "";
     strParameterName = "/" + strGroup + "/" + strParameterName;
-    strParameter = pConfigIni->value(strParameterName).toString();
+
+    sys_configFile_open();
+    QString strParameter = pConfigIni->value(strParameterName).toString();
+    sys_configFile_close();
+
     return strParameter;
 }
 
@@ -66,12 +60,13 @@ QString sys_configFile_readStr(QString strParameterName, QString strGroup)
  * 开发人员：Lzy     2016 - 七夕
  */
 int sys_configFile_readInt(QString strParameterName, QString strGroup)
-{
-    int nParameter = -1;
-    strParameterName = "/" + strGroup + "/" + strParameterName;
-    nParameter = pConfigIni->value(strParameterName).toInt();
+{       
+    bool ok;
 
-    return nParameter;
+    int ret = sys_configFile_readStr(strParameterName, strGroup).toInt(&ok);
+    if(!ok)  ret = -1;
+
+    return ret;
 }
 
 /**
@@ -80,11 +75,12 @@ int sys_configFile_readInt(QString strParameterName, QString strGroup)
  */
 double sys_configFile_readDouble(QString strParameterName, QString strGroup)
 {
-    double fParameter = 0;
-    strParameterName = "/" + strGroup + "/" + strParameterName;
-    fParameter = pConfigIni->value(strParameterName).toDouble();
+    bool ok;
 
-    return fParameter;
+    double ret = sys_configFile_readStr(strParameterName, strGroup).toDouble(&ok);
+    if(!ok)  ret = -1;
+
+    return ret;
 }
 
 /**

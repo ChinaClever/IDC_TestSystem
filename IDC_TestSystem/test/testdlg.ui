@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TestDlg</class>
+ <widget class="QDialog" name="TestDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>110</y>
+     <width>841</width>
+     <height>421</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>实时信息</string>
+   </property>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>811</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>设备号</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>开关</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>电压</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>电流</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>功功功率</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>视在功率</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>功率因素</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>电能</string>
+     </property>
+    </column>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

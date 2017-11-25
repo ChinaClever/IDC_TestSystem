@@ -33,6 +33,7 @@ struct SI_Rtu_Recv {
     uchar addr; // 表示从机地址码
     uchar fn; // 表示功能码
     ushort len; // 表示数据字节数
+    char offLine;
 
     SI_RtuRecvLine data;
     ushort crc; // 检验码

@@ -10,11 +10,7 @@ extern void com_setBackColour(const QString &str,QWidget *target);
 
 QuMsgBox::QuMsgBox(QWidget *parent,QString strContext) : QMessageBox(parent)
 {
-    //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    //    setWindowTitle(tr("提示信息"));
     com_setBackColour(tr("提示信息"),this);
-    setWindowIcon(QIcon(":/images/logo.jpg"));
-    resize(600, 400);
 
     setIcon(QMessageBox::Question);
     setText(strContext);
@@ -48,11 +44,7 @@ bool QuMsgBox::Exec(void)
 
 WaringMsgBox::WaringMsgBox(QWidget *parent,QString strContext) : QMessageBox(parent)
 {
-    //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    //    setWindowTitle(tr("警告信息"));
     com_setBackColour(tr("警告信息"),this);
-    setWindowIcon(QIcon(":/images/logo.jpg"));
-    resize(500, 400);
 
     setIcon(QMessageBox::Warning);
     setText(strContext);
@@ -87,12 +79,7 @@ bool WaringMsgBox::Exec(void)
 InfoMsgBox::InfoMsgBox(QWidget *parent,QString strContext) :
     QMessageBox(parent)
 {
-    //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    //    setWindowTitle(tr("信息提示"));
     com_setBackColour(tr("信息提示"),this);
-    setWindowIcon(QIcon(":/images/logo.jpg"));
-    resize(500, 400);
-
     setIcon(QMessageBox::Information);
     setText(strContext);
 
@@ -116,11 +103,7 @@ InfoMsgBox::~InfoMsgBox()
 CriticalMsgBox::CriticalMsgBox(QWidget *parent,QString strContext) :
     QMessageBox(parent)
 {
-    //    setWindowFlags(Qt::WindowStaysOnTopHint);
-    //    setWindowTitle(tr("错误提示"));
     com_setBackColour(tr("错误提示"),this);
-    setWindowIcon(QIcon(":/images/logo.jpg"));
-    resize(500, 400);
 
     setIcon(QMessageBox::Critical);
     setText(strContext);
@@ -132,7 +115,7 @@ CriticalMsgBox::CriticalMsgBox(QWidget *parent,QString strContext) :
     confirmBut->setFocus();
     setStyleSheet( "QPushButton:hover{background-color:rgb(91, 237, 238);}" );
 
-    //QTimer::singleShot(AutoOutTime*1000,this,SLOT(close())); 自动关闭
+//    QTimer::singleShot(AutoOutTime*1000,this,SLOT(close())); 自动关闭
 
     exec(); /* 自动 运行*/
 }

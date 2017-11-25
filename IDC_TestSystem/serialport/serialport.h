@@ -22,13 +22,13 @@ public:
     int write(const QByteArray &array);
     int write(uchar *sent, int len);
 
-    int read(QByteArray &array);
-    int read(uchar *recv);
+    int read(QByteArray &array, int msecs=1);
+    int read(uchar *recv, int msecs=1);
 
-    int transmit(const QByteArray &witeArray, QByteArray &readArray);
-    int transmit(uchar *sent, int len, uchar *recv);
+    int transmit(const QByteArray &witeArray, QByteArray &readArray, int msecs=1);
+    int transmit(uchar *sent, int len, uchar *recv, int msecs=1);
 
-    boolean loopTest();
+    bool loopTest();
 
 signals:
 

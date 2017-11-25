@@ -16,10 +16,9 @@ public:
 
     void init(SerialPort *serial);
     bool sentSetCmd(uchar addr, uchar reg, ushort value);
+    int transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs);
 
 protected:
-    void run();
-    void transData(int addr, int line);
 
 signals:
 
@@ -28,7 +27,6 @@ public slots:
 private:
     uchar *mBuf;
     SerialPort *mSerial;
-    SI_Rtu_Recv *mRtuPkt;
     QMutex *mMutex;
     bool isRun;
 

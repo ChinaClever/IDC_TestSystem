@@ -31,6 +31,7 @@ include(common/common.pri)
 include(serialport/serialport.pri)
 include(SI-PDU/SI-PDU.pri)
 include(IP-PDU/IP-PDU.pri)
+include(test/test.pri)
 
 SOURCES += \
         main.cpp \
@@ -41,3 +42,6 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+RESOURCES += \
+    images/image.qrc

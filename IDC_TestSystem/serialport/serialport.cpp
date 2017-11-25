@@ -7,6 +7,8 @@
 #include "serialport.h"
 #include <QSerialPortInfo>
 
+#define SERIAL_READ_TIMEOUT  100  // 100MS
+
 SerialPort::SerialPort(QObject *parent) : QObject(parent)
 {
     isOpen = false;
@@ -142,7 +144,7 @@ int SerialPort::recv(QByteArray &array)
     QByteArray dataTemp;
     if(isOpen)
     {
-        while (mSerial->waitForReadyRead(50)); // 等待窗口接收完全
+        while (mSerial->waitForReadyRead(SERIAL_READ_TIMEOUT)); // 等待窗口接收完全
         while (!mSerial->atEnd()) {
             dataTemp += mSerial->readAll();     //因为串口是不稳定的，也许读到的是部分数据而已，但也可能是全部数据
         }
@@ -153,7 +155,7 @@ int SerialPort::recv(QByteArray &array)
 }
 
 
-int SerialPort::read(QByteArray &array)
+int SerialPort::read(QByteArray &array, int msecs)
 {
     int len=0, count=0;
     if(!isOpen) return len;
@@ -167,19 +169,19 @@ int SerialPort::read(QByteArray &array)
         int rtn = recv(array);
         if(rtn > 0) {
             len += rtn;
-            count = 2;
+            count = msecs-1;
         } else {
             count++;
         }
-    } while (count < 3) ;
+    } while (count < msecs) ;
 
     return len;
 }
 
-int SerialPort::read(uchar *recv)
+int SerialPort::read(uchar *recv, int msecs)
 {
     QByteArray array;
-    int ret = read(array);
+    int ret = read(array, msecs);
 
     for(int i=0; i<ret; ++i)
         recv[i] = array.at(i);
@@ -207,11 +209,15 @@ void SerialPort::serialReadSlot(void)
  * @param readArray 接收到的数据
  * @return 收到的数据长度
  */
-int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray)
+int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray, int msecs)
 {
     int ret = write(witeArray);
-    if(ret > 0)
-        ret = read(readArray);
+    if(ret > 0) {
+        ret = read(readArray, msecs);
+        if(ret <=0 ) {
+//             qDebug() << "SerialPort transmit read err";
+        }
+    }
     return ret;
 }
 
@@ -221,14 +227,17 @@ int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray)
   * 出口参数：recv -> 接收缓冲区
   * 返回值：读取的实际长度  <=0 出错
   */
-int SerialPort::transmit(uchar *sent, int len, uchar *recv)
+int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
 {
-    int ret = write(sent, len);
+    QByteArray witeArray, readArray;
+    witeArray.append((char *)sent, len);
+
+    int ret = transmit(witeArray, readArray, msecs);
     if(ret > 0) {
-        ret = read(recv);
-        if(ret <=0 )
-            qDebug() << "Serial Trans Err!!!";
+        for(int i=0; i<ret; ++i)
+            recv[i] = readArray.at(i);
     }
+
     return ret;
 }
 
@@ -236,7 +245,7 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv)
 /**
  * @brief 回环测试
  */
-boolean SerialPort::loopTest()
+bool SerialPort::loopTest()
 {
     QByteArray sentArray,recvArray;
 
