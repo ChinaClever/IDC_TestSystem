@@ -6,7 +6,23 @@
 
 #define SI_DEV_NUM  32
 
-typedef SI_Rtu_Recv SiDevPacket;
+struct SiDevModubsCount
+{
+    SiDevModubsCount() {count=okCount=errCount=0;}
+
+    int count;
+    int okCount;
+    int errCount;
+};
+
+
+struct SiDevPacket
+{
+    SiDevPacket() {}
+
+    SiDevModubsCount count;
+    SI_Rtu_Recv rtuData;
+};
 
 class SIDataPackets
 {

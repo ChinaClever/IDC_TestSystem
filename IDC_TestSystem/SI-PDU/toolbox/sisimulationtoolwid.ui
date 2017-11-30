@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>137</width>
-    <height>262</height>
+    <width>180</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,10 +16,10 @@
   <widget class="QPushButton" name="thresholdBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>150</y>
-     <width>91</width>
-     <height>31</height>
+     <x>50</x>
+     <y>230</y>
+     <width>100</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -29,10 +29,10 @@
   <widget class="QPushButton" name="mnTestBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>10</y>
-     <width>91</width>
-     <height>31</height>
+     <x>50</x>
+     <y>30</y>
+     <width>100</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -42,10 +42,10 @@
   <widget class="QPushButton" name="curveBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>100</y>
-     <width>91</width>
-     <height>31</height>
+     <x>50</x>
+     <y>160</y>
+     <width>100</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
@@ -55,27 +55,27 @@
   <widget class="QPushButton" name="realBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>50</y>
-     <width>91</width>
-     <height>31</height>
+     <x>50</x>
+     <y>90</y>
+     <width>100</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
     <string>实时信息</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="recordBtn">
+  <widget class="QPushButton" name="envBtn">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>200</y>
-     <width>91</width>
-     <height>31</height>
+     <x>50</x>
+     <y>300</y>
+     <width>100</width>
+     <height>35</height>
     </rect>
    </property>
    <property name="text">
-    <string>历史纪录</string>
+    <string>环境信息</string>
    </property>
   </widget>
  </widget>

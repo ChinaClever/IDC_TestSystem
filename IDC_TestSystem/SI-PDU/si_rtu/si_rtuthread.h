@@ -17,6 +17,7 @@ public:
     void init(SerialPort *serial);
     bool sentSetCmd(uchar addr, uchar reg, ushort value);
     int transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs);
+    QByteArray getSentCmd();
 
 protected:
 
@@ -26,6 +27,8 @@ public slots:
 
 private:
     uchar *mBuf;
+    int mLen;
+
     SerialPort *mSerial;
     QMutex *mMutex;
     bool isRun;

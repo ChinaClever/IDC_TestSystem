@@ -6,6 +6,10 @@ enum {
     SI_Test_Stop,
     SI_Test_Simulate,  // 模拟测试
     SI_Test_Function, // 功能测试
+
+    SI_Env_Info, // 环境信息_
+
+    SI_Log_Modbus, // Modbus日志界面
 };
 
 

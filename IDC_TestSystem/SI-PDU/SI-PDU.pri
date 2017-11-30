@@ -16,7 +16,10 @@ HEADERS += \
     $$PWD/toolbox/sisetmodbuscmddlg.h \
     $$PWD/si_com/sidatapackets.h \
     $$PWD/si_com/siconfigfile.h \
-    $$PWD/si_simulate/si_simulatethread.h
+    $$PWD/si_simulate/si_simulatethread.h \
+    $$PWD/toolbox/sisetmodbustimedlg.h \
+    $$PWD/toolbox/silogstoolwid.h \
+    $$PWD/si_simulate/sienvtablewid.h
 
 	
 SOURCES += \
@@ -33,7 +36,10 @@ SOURCES += \
     $$PWD/toolbox/sisetmodbuscmddlg.cpp \
     $$PWD/si_com/sidatapackets.cpp \
     $$PWD/si_com/siconfigfile.cpp \
-    $$PWD/si_simulate/si_simulatethread.cpp
+    $$PWD/si_simulate/si_simulatethread.cpp \
+    $$PWD/toolbox/sisetmodbustimedlg.cpp \
+    $$PWD/toolbox/silogstoolwid.cpp \
+    $$PWD/si_simulate/sienvtablewid.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
@@ -43,7 +49,10 @@ FORMS += \
     $$PWD/toolbox/sisettingtoolwid.ui \
     $$PWD/toolbox/sisetlinenum.ui \
     $$PWD/toolbox/sisetdevnumdlg.ui \
-    $$PWD/toolbox/sisetmodbuscmddlg.ui
+    $$PWD/toolbox/sisetmodbuscmddlg.ui \
+    $$PWD/toolbox/sisetmodbustimedlg.ui \
+    $$PWD/toolbox/silogstoolwid.ui \
+    $$PWD/si_simulate/sienvtablewid.ui
 
 
 

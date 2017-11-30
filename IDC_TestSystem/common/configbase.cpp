@@ -97,3 +97,20 @@ void ConfigBase::setModbusCmd(int num)
     QString str = QString("%1_modbus_cmd").arg(prefix);
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
+
+
+int ConfigBase::getModbusTime()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_modbus_time").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret <= 0)  ret = 1;
+    return ret;
+}
+
+void ConfigBase::setModbusTime(int num)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_modbus_time").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(num), prefix);
+}

@@ -81,13 +81,12 @@ int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
     char offLine = 0;
     uchar *buf = mBuf;
 
-    int rtn = mRtuSent->sentDataBuff(addr,line, buf); // 把数据打包成通讯格式的数据
+    int rtn = mLen = mRtuSent->sentDataBuff(addr,line, buf); // 把数据打包成通讯格式的数据
     rtn = mSerial->transmit(buf, rtn, buf, msecs); // 传输数据，发送同时接收
     if(rtn > 0)
     {
         bool ret = mRtuRecv->recvPacket(buf, rtn, pkt); // 解释数据
-        if(ret)
-        {
+        if(ret) {
             if(addr == pkt->addr) {
                 offLine = 1;
             }
@@ -98,3 +97,9 @@ int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
     return offLine;
 }
 
+QByteArray SI_RtuThread::getSentCmd()
+{
+    QByteArray array;
+    array.append((char *)mBuf, mLen);
+    return array;
+}

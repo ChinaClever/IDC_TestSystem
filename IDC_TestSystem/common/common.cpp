@@ -100,6 +100,61 @@ void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
     widget->setPalette(palette);
 }
 
+/**
+ * @brief button 样式
+ */
+void button_style_sheet(QWidget *target)
+{
+    target->setStyleSheet("QPushButton{background-color:rgb(102, 199, 249);}"
+                          "QPushButton{font-family:'Microsoft YaHei';font-size:14px; color:rgb(0, 0, 0);}"
+                          "QPushButton:hover{background-color:rgb(91, 237, 238);}"
+                          "QPushButton:pressed{background-color:rgb(143, 185, 181);}"
+                          "QComboBox{background-color:rgb(255,255,255);}" );
+    target->setFont(QFont("微软雅黑",12));
+}
+
+/**
+ * @brief button 样式 背景色为蓝色，字体为白色
+ */
+void btnBlue_style_sheet(QWidget *target)
+{
+    target->setStyleSheet("QPushButton{background-color:rgb(12,62,180); color:rgb(255, 255, 255);}"
+                          "QPushButton:hover{background-color:rgb(91, 237, 238);color:rgb(0, 0, 0);}"
+                          "QPushButton:pressed{background-color:rgb(143, 185, 181);color:rgb(0, 0, 0);}");
+    target->setFont(QFont("微软雅黑",12));
+}
+
+void groupBox_background_icon(QWidget *target)
+{
+    set_background_icon(target,":/image/box_back.jpg");
+    button_style_sheet(target);
+}
+
+/**
+ * @brief 转16进制
+ * @param array
+ * @return
+ */
+QString cm_ByteArrayToHexStr(const QByteArray &array)
+{
+    QString strArray = array.toHex(); // 十六进制
+    for(int i=0; i<array.size(); ++i)
+        strArray.insert(2+3*i, " "); // 插入空格
+    return strArray;
+}
+
+/**
+ * @brief 转十进制
+ * @param array
+ * @return
+ */
+QString cm_ByteArrayToUcharStr(const QByteArray &array)
+{
+    QString strArray ;
+    for(int i=0; i<array.size(); ++i)
+        strArray += QString::number((uchar)array.at(i)) + " ";  // 十进制
+    return strArray;
+}
 
 
 

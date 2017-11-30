@@ -30,6 +30,9 @@ protected:
     void initDevCmd();
     void updateDevCmd(int num);
 
+    void initModbusTime();
+    void updateModbusTime(int num);
+
 private slots:
     void on_serialBtn_clicked();
 
@@ -38,6 +41,8 @@ private slots:
     void on_devNumBtn_clicked();
 
     void on_cmdBtn_clicked();
+
+    void on_timeBtn_clicked();
 
 private:
     Ui::SiSettingToolWid *ui;

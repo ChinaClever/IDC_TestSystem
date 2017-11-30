@@ -1,4 +1,5 @@
 #include "si_simulatethread.h"
+#include "si_sql/sidbmodbuscmd.h"
 
 SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 {
@@ -34,6 +35,37 @@ void SI_SimulateThread::stopThread()
     wait();
 }
 
+void SI_SimulateThread::sentOkCmd(int devId)
+{
+    SiDevPacket *dev = mPackets->getDev(devId);
+    SiDevModubsCount *count = &(dev->count);
+    count->count++;
+    count->okCount ++;
+}
+
+
+
+void SI_SimulateThread::saveErrCmd(int devId)
+{
+    SiDevPacket *dev = mPackets->getDev(devId);
+    SiDevModubsCount *count = &(dev->count);
+    count->count++;
+    count->errCount ++;
+
+    QByteArray array = mRtu->getSentCmd();
+    QString strArray = cm_ByteArrayToHexStr(array);
+    strArray += tr(" (十进制数：");
+    strArray += cm_ByteArrayToUcharStr(array);
+    strArray += ")";
+
+    SiDbModbusCmdItem item;
+    item.dev_id = devId+1;
+    item.msg = strArray;
+    SiDbModbusCmd::bulid()->insertItem(item);
+}
+
+
+
 void SI_SimulateThread::workDown()
 {
     int ret = 0;
@@ -42,14 +74,14 @@ void SI_SimulateThread::workDown()
     for(int i=0; i<item->devNum; ++i)
     {
         for(int k=0; k<item->cmdModel; ++k) { // 双命令模式
-            ret = mRtu->transData(i+1, item->lineNum, mPackets->getDev(i), item->msecs);
+            ret = mRtu->transData(i+1, item->lineNum, &(mPackets->getDev(i)->rtuData), item->msecs);
             if(ret) break ;
         }
 
-        if(ret) {
-
-        } else {
-
+        if(ret) { // 正常收到数据
+            sentOkCmd(i);
+        } else { // 数据异常
+            saveErrCmd(i);
         }
     }
 }
@@ -61,5 +93,4 @@ void SI_SimulateThread::run()
     while(isRun) {
         workDown();
     }
-
 }

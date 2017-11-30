@@ -36,7 +36,11 @@ QString cm_pathOfData(const QString& name);
 bool cm_isDigitStr(const QString &src);
 bool cm_isIPaddress(const QString& ip);
 
+QString cm_ByteArrayToHexStr(const QByteArray &array);
+QString cm_ByteArrayToUcharStr(const QByteArray &array);
 
+void btnBlue_style_sheet(QWidget *target);
+void groupBox_background_icon(QWidget *target);
 void set_background_icon(QWidget *widget, const QString &icon);
 void set_background_color(QWidget *widget, const QColor &color);
 void set_background_icon(QWidget *widget, const QString &icon, const QSize &size);

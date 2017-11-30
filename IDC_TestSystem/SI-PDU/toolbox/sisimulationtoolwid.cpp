@@ -1,12 +1,17 @@
 #include "sisimulationtoolwid.h"
 #include "ui_sisimulationtoolwid.h"
 #include "si_com/siconfigfile.h"
+#include <QGridLayout>
 
 SiSimulationToolWid::SiSimulationToolWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SiSimulationToolWid)
 {
     ui->setupUi(this);
+
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->addWidget(this);
+//    com_setBackColour("",this);
 }
 
 SiSimulationToolWid::~SiSimulationToolWid()
@@ -54,4 +59,9 @@ void SiSimulationToolWid::on_mnTestBtn_clicked()
         break;
     }
 
+}
+
+void SiSimulationToolWid::on_envBtn_clicked()
+{
+    emit simulateSig(SI_Env_Info);
 }

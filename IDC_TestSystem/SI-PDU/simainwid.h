@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include "toolbox/sitoolboxwid.h"
+#include "si_simulate/si_simulatethread.h"
+#include "si_logs/silogmodbuscmdwid.h"
+#include "si_simulate/sienvtablewid.h"
 
 namespace Ui {
 class SIMainWid;
@@ -17,14 +20,19 @@ public:
     ~SIMainWid();
 
 protected:
+    void initWid();
 
 private slots:
+    void toolBoxSlot(int);
 
 private:
     Ui::SIMainWid *ui;
 
     SitoolBoxWid *mtoolBoxWid;
+    SI_SimulateThread *mSimulateThread;
+    SiEnvTableWid *mEnvTableWid;
 
+    SiLogModbusCmdWid *mLogModbusCmdWid;
 };
 
 #endif // SIMAINWID_H

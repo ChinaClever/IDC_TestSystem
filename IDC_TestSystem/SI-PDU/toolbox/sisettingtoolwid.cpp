@@ -4,6 +4,7 @@
 #include "sisetlinenum.h"
 #include "sisetdevnumdlg.h"
 #include "sisetmodbuscmddlg.h"
+#include "sisetmodbustimedlg.h"
 
 SiSettingToolWid::SiSettingToolWid(QWidget *parent) :
     QWidget(parent),
@@ -16,6 +17,7 @@ SiSettingToolWid::SiSettingToolWid(QWidget *parent) :
     initLineNum();
     initDevNum();
     initDevCmd();
+    initModbusTime();
 }
 
 SiSettingToolWid::~SiSettingToolWid()
@@ -95,8 +97,8 @@ void SiSettingToolWid::initLineNum()
 void SiSettingToolWid::on_lineBtn_clicked()
 {
     SiSetLineNum dlg(this);
-    dlg.exec();
-    updateLineNum(dlg.getLineNum());
+    if(dlg.exec() == QDialog::Accepted)
+        updateLineNum(dlg.getLineNum());
 }
 
 void SiSettingToolWid::updateDevNum(int num)
@@ -119,8 +121,8 @@ void SiSettingToolWid::initDevNum()
 void SiSettingToolWid::on_devNumBtn_clicked()
 {
     SiSetDevNumDlg dlg(this);
-    dlg.exec();
-    updateDevNum(dlg.getNum());
+    if(dlg.exec() == QDialog::Accepted)
+        updateDevNum(dlg.getNum());
 }
 
 void SiSettingToolWid::updateDevCmd(int num)
@@ -150,6 +152,30 @@ void SiSettingToolWid::initDevCmd()
 void SiSettingToolWid::on_cmdBtn_clicked()
 {
     SiSetModbusCmdDlg dlg(this);
-    dlg.exec();
-    updateDevCmd(dlg.getCmdNum());
+    if(dlg.exec() == QDialog::Accepted)
+        updateDevCmd(dlg.getCmdNum());
+}
+
+void SiSettingToolWid::updateModbusTime(int num)
+{
+    SiConfigFile *config = SiConfigFile::bulid();
+    config->item->msecs = 5*(num+1);
+
+    QString str = QString::number(config->item->msecs) + "00ms";
+    ui->timeLab->setText(str);
+    config->setModbusTime(num);
+}
+
+void SiSettingToolWid::initModbusTime()
+{
+    SiConfigFile *config = SiConfigFile::bulid();
+    int num = config->getModbusTime();
+    updateDevCmd(num);
+}
+
+void SiSettingToolWid::on_timeBtn_clicked()
+{
+    SiSetModbusTimeDlg dlg(this);
+    if(dlg.exec() == QDialog::Accepted)
+        updateModbusTime(dlg.getIndex());
 }

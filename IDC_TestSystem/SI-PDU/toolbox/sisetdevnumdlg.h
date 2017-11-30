@@ -20,6 +20,11 @@ public:
 protected:
     void initWid();
 
+private slots:
+    void on_cancelBtn_clicked();
+
+    void on_okBtn_clicked();
+
 private:
     Ui::SiSetDevNumDlg *ui;
 };

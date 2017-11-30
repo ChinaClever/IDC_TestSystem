@@ -9,6 +9,11 @@ SitoolBoxWid::SitoolBoxWid(QWidget *parent) :
 
     initWid();
 
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->setContentsMargins(0, 0, 0, 0);
+    gridLayout->addWidget(this);
+    groupBox_background_icon(this);
+    btnBlue_style_sheet(this);
 }
 
 SitoolBoxWid::~SitoolBoxWid()
@@ -22,6 +27,11 @@ void SitoolBoxWid::initWid()
     int page = 0;
 
     mSimulationToolWid = new SiSimulationToolWid(ui->toolBox->widget(page++));
+    connect(mSimulationToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+
+    mLogsToolWid = new SiLogsToolWid(ui->toolBox->widget(page++));
+    connect(mLogsToolWid, SIGNAL(logsSig(int)), this, SIGNAL(toolBoxSig(int)));
+
     mTestToolWid = new SiTestToolWid(ui->toolBox->widget(page++));
     mSettingToolWid = new SiSettingToolWid(ui->toolBox->widget(page++));
 }

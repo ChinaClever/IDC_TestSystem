@@ -14,6 +14,8 @@ protected:
     void run();
     void init();
     void workDown();
+    void sentOkCmd(int devId);
+    void saveErrCmd(int devId);
 
 signals:
 

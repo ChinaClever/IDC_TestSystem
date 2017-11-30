@@ -7,6 +7,7 @@ SiSetModbusCmdDlg::SiSetModbusCmdDlg(QWidget *parent) :
     ui(new Ui::SiSetModbusCmdDlg)
 {
     ui->setupUi(this);
+    groupBox_background_icon(this);
     initWid();
 }
 
@@ -40,4 +41,14 @@ int SiSetModbusCmdDlg::getCmdNum()
     }
 
     return ret;
+}
+
+void SiSetModbusCmdDlg::on_cancelBtn_clicked()
+{
+    this->close();
+}
+
+void SiSetModbusCmdDlg::on_okBtn_clicked()
+{
+    this->accept();
 }

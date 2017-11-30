@@ -8,6 +8,7 @@ SiSetLineNum::SiSetLineNum(QWidget *parent) :
 {
     ui->setupUi(this);
     initWid();
+    groupBox_background_icon(this);
 }
 
 SiSetLineNum::~SiSetLineNum()
@@ -41,4 +42,14 @@ int SiSetLineNum::getLineNum()
     }
 
     return ret;
+}
+
+void SiSetLineNum::on_cancelBtn_clicked()
+{
+    this->close();
+}
+
+void SiSetLineNum::on_okBtn_clicked()
+{
+    this->accept();
 }

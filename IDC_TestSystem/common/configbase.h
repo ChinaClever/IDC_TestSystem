@@ -19,6 +19,9 @@ public:
     int getModbusCmd();
     void setModbusCmd(int num);
 
+    int getModbusTime();
+    void setModbusTime(int num);
+
     virtual QString getPrefix()=0;
 };
 

@@ -25,6 +25,8 @@ protected:
 private slots:
     void on_mnTestBtn_clicked();
 
+    void on_envBtn_clicked();
+
 private:
     Ui::SiSimulationToolWid *ui;
 };

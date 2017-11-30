@@ -8,6 +8,7 @@ SiSetDevNumDlg::SiSetDevNumDlg(QWidget *parent) :
 {
     ui->setupUi(this);
     initWid();
+    groupBox_background_icon(this);
 }
 
 SiSetDevNumDlg::~SiSetDevNumDlg()
@@ -25,4 +26,14 @@ void SiSetDevNumDlg::initWid()
 int SiSetDevNumDlg::getNum()
 {
     return ui->spinBox->value();
+}
+
+void SiSetDevNumDlg::on_cancelBtn_clicked()
+{
+    this->close();
+}
+
+void SiSetDevNumDlg::on_okBtn_clicked()
+{
+    this->accept();
 }

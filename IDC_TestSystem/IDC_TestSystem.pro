@@ -31,6 +31,9 @@ include(common/common.pri)
 include(serialport/serialport.pri)
 include(SI-PDU/SI-PDU.pri)
 include(IP-PDU/IP-PDU.pri)
+include(sql/sql.pri)
+include(logs/logs.pri)
+include(excel/excel.pri)
 include(test/test.pri)
 
 SOURCES += \

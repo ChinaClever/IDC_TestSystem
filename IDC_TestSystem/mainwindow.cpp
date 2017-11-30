@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //    rtuThread->init(wid->getSerialPort());
 
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
-
+    set_background_icon(ui->widget,":/image/title_back.jpg");
 }
 
 MainWindow::~MainWindow()
