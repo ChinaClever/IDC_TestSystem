@@ -65,6 +65,6 @@ void SiDbModbusCmd::selectItem(QSqlQuery &query, SiDbModbusCmdItem &item)
     item.id = query.value("id").toInt();
     item.date = query.value("date").toString();
     item.time = query.value("time").toString();
-    item.dev_id = query.value("dev_id").toDouble();
+    item.dev_id = query.value("dev_id").toInt();
     item.msg = query.value("msg").toString();
 }

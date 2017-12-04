@@ -27,6 +27,12 @@ private slots:
 
     void on_envBtn_clicked();
 
+    void on_thresholdBtn_clicked();
+
+    void on_transBtn_clicked();
+
+    void on_realBtn_clicked();
+
 private:
     Ui::SiSimulationToolWid *ui;
 };

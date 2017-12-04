@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QSqlError>
+#include "basicsql.h"
 
 class SqlTableModel : public QWidget
 {

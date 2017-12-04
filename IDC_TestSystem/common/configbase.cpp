@@ -114,3 +114,20 @@ void ConfigBase::setModbusTime(int num)
     QString str = QString("%1_modbus_time").arg(prefix);
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
+
+
+int ConfigBase::getLogTime()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_log_time").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret <= 0)  ret = 60;
+    return ret;
+}
+
+void ConfigBase::setLogTime(int num)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_log_time").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(num), prefix);
+}

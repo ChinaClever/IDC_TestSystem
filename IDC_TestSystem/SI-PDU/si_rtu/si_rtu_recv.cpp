@@ -84,6 +84,18 @@ static uchar *rtu_recv_data(uchar *ptr, int line, uchar *value)
     return ptr;
 }
 
+static void rtu_recv_alarm(SI_sDataUnit &unit, int line)
+{
+    for(int i=0; i<line; ++i)
+    {
+        if((unit.value[i] > unit.max[i]) || (unit.value[i] < unit.min[i])) {
+            unit.alarm[i] = 1;
+        } else {
+            unit.alarm[i] = 0;
+        }
+    }
+}
+
 
 /**
   * 功　能：读取电参数 数据
@@ -102,17 +114,22 @@ static int rtu_recv_data(uchar *ptr, int line, SI_RtuRecvLine *msg)
 
     ptr =  rtu_recv_data(ptr, line, msg->vol.min);
     ptr =  rtu_recv_data(ptr, line, msg->vol.max);
+    rtu_recv_alarm(msg->vol, line);
+
     ptr =  rtu_recv_data(ptr, line, msg->cur.min);
     ptr =  rtu_recv_data(ptr, line, msg->cur.max);
+    rtu_recv_alarm(msg->cur, line);
 
     msg->tem.value[0] =  *(ptr++);// 温度
     msg->hum.value[0] =  *(ptr++);// 湿度
     if(line > 1) {
         msg->tem.max[0] =  *(ptr++);
         msg->tem.min[0] =  *(ptr++);
+        rtu_recv_alarm(msg->tem, line);
 
         msg->hum.max[0] =  *(ptr++);
         msg->hum.min[0] =  *(ptr++);
+        rtu_recv_alarm(msg->hum, line);
 
         msg->lineNum =  *(ptr++);
     }

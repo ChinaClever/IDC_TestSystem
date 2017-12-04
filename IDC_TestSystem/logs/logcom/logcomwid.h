@@ -20,14 +20,15 @@ public:
 
 protected:
     void initBtnBar();
-    virtual QString getTableName()=0;
+    virtual BasicSql *getDb()=0;
     virtual void initTable()=0;
     bool refreshTable(const QString &table);
+    void setStretch();
 
 protected slots:
     void initFunSLot();
     void doubleSlot(QModelIndex);
-    virtual void clearTableSlot()=0;
+    void clearTableSlot();
     void refreshSlot();
     void exportSlot();
     void setGroupBoxTitle(const QString &title);

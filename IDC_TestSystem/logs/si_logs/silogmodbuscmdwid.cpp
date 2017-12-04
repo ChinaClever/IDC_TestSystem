@@ -6,18 +6,17 @@ SiLogModbusCmdWid::SiLogModbusCmdWid(QWidget *parent) : LogComWid(parent)
 
 }
 
-
-QString SiLogModbusCmdWid::getTableName()
+BasicSql *SiLogModbusCmdWid::getDb()
 {
-    return  SiDbModbusCmd::bulid()->tableName();
+    return  SiDbModbusCmd::bulid();
 }
 
 void SiLogModbusCmdWid::initTable()
 {
-    QString table = getTableName();
+    QString table = getDb()->tableName();
     this->refreshTable(table);
 
-    mTableTile = "Modbus" + tr("传输日志");
+    mTableTile = "Modbus" + tr("传输错误日志");
     setGroupBoxTitle(mTableTile);
 
     mHeadList.clear();
@@ -25,14 +24,3 @@ void SiLogModbusCmdWid::initTable()
     model->setHeaders(mHeadList);
 }
 
-
-void SiLogModbusCmdWid::clearTableSlot()
-{
-    model->model->setTable("markingtable");
-    SiDbModbusCmd* db = SiDbModbusCmd::bulid();
-    db->clear();
-    db->createTable();
-    initTable();
-    //    if(model->removeRow(0))
-    //        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
-}

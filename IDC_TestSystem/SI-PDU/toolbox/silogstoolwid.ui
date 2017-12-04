@@ -26,7 +26,7 @@
     <string>ModBus日志</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="transBtn">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -36,10 +36,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>历史纪录</string>
+    <string>传输日志</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="envBtn">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -49,7 +49,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>传感器日志</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_4">
@@ -65,17 +65,33 @@
     <string>PushButton</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_5">
+  <widget class="QPushButton" name="timeBtn">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>230</y>
+     <y>250</y>
      <width>111</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>日志纪录间隔</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="timeLab">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>110</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>60分钟</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
    </property>
   </widget>
  </widget>

@@ -4,7 +4,7 @@
 #include "si_rtu/si_rtuthread.h"
 #include "siconfigfile.h"
 
-#define SI_DEV_NUM  32
+#define SI_DEV_NUM  100
 
 struct SiDevModubsCount
 {

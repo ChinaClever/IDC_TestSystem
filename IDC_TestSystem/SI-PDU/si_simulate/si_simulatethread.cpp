@@ -62,6 +62,7 @@ void SI_SimulateThread::saveErrCmd(int devId)
     item.dev_id = devId+1;
     item.msg = strArray;
     SiDbModbusCmd::bulid()->insertItem(item);
+    msleep(5);
 }
 
 

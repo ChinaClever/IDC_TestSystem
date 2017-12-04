@@ -19,7 +19,14 @@ HEADERS += \
     $$PWD/si_simulate/si_simulatethread.h \
     $$PWD/toolbox/sisetmodbustimedlg.h \
     $$PWD/toolbox/silogstoolwid.h \
-    $$PWD/si_simulate/sienvtablewid.h
+    $$PWD/si_simulate/si_envtablewid.h \
+    $$PWD/si_simulate/si_thresholdtablewid.h \
+    $$PWD/si_simulate/si_transtablewid.h \
+    $$PWD/si_simulate/si_devtablewid.h \
+    $$PWD/toolbox/silogstimetooldlg.h \
+    $$PWD/si_logsthread/si_translogthread.h \
+    $$PWD/si_logsthread/si_comlogthread.h \
+    $$PWD/si_logsthread/si_envlogthread.h
 
 	
 SOURCES += \
@@ -39,7 +46,14 @@ SOURCES += \
     $$PWD/si_simulate/si_simulatethread.cpp \
     $$PWD/toolbox/sisetmodbustimedlg.cpp \
     $$PWD/toolbox/silogstoolwid.cpp \
-    $$PWD/si_simulate/sienvtablewid.cpp
+    $$PWD/si_simulate/si_envtablewid.cpp \
+    $$PWD/si_simulate/si_thresholdtablewid.cpp \
+    $$PWD/si_simulate/si_transtablewid.cpp \
+    $$PWD/si_simulate/si_devtablewid.cpp \
+    $$PWD/toolbox/silogstimetooldlg.cpp \
+    $$PWD/si_logsthread/si_translogthread.cpp \
+    $$PWD/si_logsthread/si_comlogthread.cpp \
+    $$PWD/si_logsthread/si_envlogthread.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
@@ -52,7 +66,7 @@ FORMS += \
     $$PWD/toolbox/sisetmodbuscmddlg.ui \
     $$PWD/toolbox/sisetmodbustimedlg.ui \
     $$PWD/toolbox/silogstoolwid.ui \
-    $$PWD/si_simulate/sienvtablewid.ui
+    $$PWD/toolbox/silogstimetooldlg.ui
 
 
 

@@ -65,3 +65,18 @@ void SiSimulationToolWid::on_envBtn_clicked()
 {
     emit simulateSig(SI_Env_Info);
 }
+
+void SiSimulationToolWid::on_thresholdBtn_clicked()
+{
+     emit simulateSig(SI_Threshold_Info);
+}
+
+void SiSimulationToolWid::on_transBtn_clicked()
+{
+     emit simulateSig(SI_Trans_Info);
+}
+
+void SiSimulationToolWid::on_realBtn_clicked()
+{
+     emit simulateSig(SI_DevReal_Info);
+}

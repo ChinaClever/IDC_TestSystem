@@ -15,11 +15,21 @@ public:
     explicit SiLogsToolWid(QWidget *parent = 0);
     ~SiLogsToolWid();
 
+protected:
+    void initLogTime();
+    void updateLogTime(int num);
+
 signals:
     void logsSig(int);
 
 private slots:
     void on_modbusBtn_clicked();
+
+    void on_timeBtn_clicked();
+
+    void on_transBtn_clicked();
+
+    void on_envBtn_clicked();
 
 private:
     Ui::SiLogsToolWid *ui;

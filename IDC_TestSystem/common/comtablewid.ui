@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SiEnvTableWid</class>
- <widget class="QWidget" name="SiEnvTableWid">
+ <class>ComTableWid</class>
+ <widget class="QWidget" name="ComTableWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>665</width>
-    <height>498</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,14 @@
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
      <property name="title">
-      <string>设备环境信息</string>
+      <string>表格</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">

@@ -11,11 +11,7 @@ public:
 
 protected:
     void initTable();
-    QString getTableName();
-
-protected slots:
-    virtual void clearTableSlot();
-
+    BasicSql *getDb();
 };
 
 #endif // SILOGMODBUSCMDWID_H

@@ -22,6 +22,9 @@ public:
     int getModbusTime();
     void setModbusTime(int num);
 
+    int getLogTime();
+    void setLogTime(int num);
+
     virtual QString getPrefix()=0;
 };
 

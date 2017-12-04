@@ -22,9 +22,16 @@ void LogComWid::setGroupBoxTitle(const QString &title)
     ui->groupBox->setTitle(title);
 }
 
+void LogComWid::setStretch()
+{
+
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+
+
 void LogComWid::initFunSLot()
 {
-    QString name =  getTableName();
+    QString name =  getDb()->tableName();
 
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);//
@@ -73,6 +80,19 @@ void LogComWid::refreshSlot()
     initTable();
 }
 
+
+void LogComWid::clearTableSlot()
+{
+    model->model->setTable("markingtable");
+    BasicSql* db = getDb();
+    db->clear();
+    db->createTable();
+    initTable();
+    //    if(model->removeRow(0))
+    //        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
+}
+
+
 void LogComWid::doubleSlot(QModelIndex)
 {
     QString str = tr("是否删除这条纪录?");
@@ -88,7 +108,7 @@ void LogComWid::doubleSlot(QModelIndex)
 void LogComWid::exportSlot()
 {
     LOG_ExportDlg dlg(this);
-    QString name = getTableName();
+    QString name = getDb()->tableName();
     dlg.set(name, mHeadList, mTableTile);
 
     QDate start, end;

@@ -8,7 +8,9 @@ HEADERS += \
     $$PWD/si_logs/silogmodbuscmdwid.h \
     $$PWD/logcom/log_exportdlg.h \
     $$PWD/logcom/log_datewidget.h \
-    $$PWD/logcom/log_datehash.h
+    $$PWD/logcom/log_datehash.h \
+    $$PWD/si_logs/silogmodbustranswid.h \
+    $$PWD/si_logs/silogenvwid.h
    
    
     
@@ -21,7 +23,9 @@ SOURCES += \
     $$PWD/si_logs/silogmodbuscmdwid.cpp \
     $$PWD/logcom/log_exportdlg.cpp \
     $$PWD/logcom/log_datewidget.cpp \
-    $$PWD/logcom/log_datehash.cpp
+    $$PWD/logcom/log_datehash.cpp \
+    $$PWD/si_logs/silogmodbustranswid.cpp \
+    $$PWD/si_logs/silogenvwid.cpp
     
     
 
