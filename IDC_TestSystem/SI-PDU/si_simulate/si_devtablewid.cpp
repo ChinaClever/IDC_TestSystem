@@ -19,7 +19,7 @@ SI_DevTableWid::SI_DevTableWid(QWidget *parent) : ComTableWid(parent)
  */
 void SI_DevTableWid::initWid()
 {
-    QString title = tr("设备阈值信息");
+    QString title = tr("设备实时信息");
     QStringList header;
     header << tr("设备号") << tr("相数")  << tr("开关")
            << tr("电压") << tr("电流") << tr("视在功率")

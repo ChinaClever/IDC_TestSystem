@@ -6,6 +6,7 @@
  */
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
+#include "si_logsthread/si_alarmlogthread.h"
 
 SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 {
@@ -51,6 +52,8 @@ void SI_SimulateThread::stopThread()
     wait();
 }
 
+
+
 /**
  * @brief 命令传送成功
  * @param devId
@@ -61,6 +64,8 @@ void SI_SimulateThread::sentOkCmd(int devId)
     SiDevModubsCount *count = &(dev->count);
     count->count++;
     count->okCount ++;
+
+    SI_AlarmLogThread::bulid()->saveAlarm(devId);
 }
 
 

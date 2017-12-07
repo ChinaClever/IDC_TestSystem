@@ -65,6 +65,8 @@ void SIMainWid::initWid()
     ui->stackedWid->addWidget(mLogThresholdWid);
     mLogThreads.append(new SI_ThresholdLogThread(this));
 
+    mLogAlarmWid = new SiLogAlarmWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogAlarmWid);
 
 
     for(int i=0; i<mLogThreads.size(); ++i)
@@ -116,6 +118,10 @@ void SIMainWid::toolBoxSlot(int id)
 
     case SI_Log_Threshold:
         ui->stackedWid->setCurrentWidget(mLogThresholdWid);
+        break;
+
+    case SI_Log_Alarm:
+        ui->stackedWid->setCurrentWidget(mLogAlarmWid);
         break;
 
     default:

@@ -89,7 +89,8 @@ static void rtu_recv_alarm(SI_sDataUnit &unit, int line)
     for(int i=0; i<line; ++i)
     {
         if((unit.value[i] > unit.max[i]) || (unit.value[i] < unit.min[i])) {
-            unit.alarm[i] = 1;
+            if(unit.alarm[i] == 0)
+                unit.alarm[i] = 1;
         } else {
             unit.alarm[i] = 0;
         }

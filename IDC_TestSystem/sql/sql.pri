@@ -8,7 +8,8 @@ HEADERS += \
     $$PWD/si_sql/sidbmodbustrans.h \
     $$PWD/si_sql/sidbenv.h \
     $$PWD/si_sql/sidbrealrecords.h \
-    $$PWD/si_sql/sidbthresholds.h
+    $$PWD/si_sql/sidbthresholds.h \
+    $$PWD/si_sql/sidbalarm.h
    
     
    
@@ -20,7 +21,8 @@ SOURCES += \
     $$PWD/si_sql/sidbmodbustrans.cpp \
     $$PWD/si_sql/sidbenv.cpp \
     $$PWD/si_sql/sidbrealrecords.cpp \
-    $$PWD/si_sql/sidbthresholds.cpp
+    $$PWD/si_sql/sidbthresholds.cpp \
+    $$PWD/si_sql/sidbalarm.cpp
     
     
     

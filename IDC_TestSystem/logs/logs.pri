@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/si_logs/silogmodbustranswid.h \
     $$PWD/si_logs/silogenvwid.h \
     $$PWD/si_logs/silogrealrecordwid.h \
-    $$PWD/si_logs/silogthresholdwid.h
+    $$PWD/si_logs/silogthresholdwid.h \
+    $$PWD/si_logs/silogalarmwid.h
    
    
     
@@ -29,7 +30,8 @@ SOURCES += \
     $$PWD/si_logs/silogmodbustranswid.cpp \
     $$PWD/si_logs/silogenvwid.cpp \
     $$PWD/si_logs/silogrealrecordwid.cpp \
-    $$PWD/si_logs/silogthresholdwid.cpp
+    $$PWD/si_logs/silogthresholdwid.cpp \
+    $$PWD/si_logs/silogalarmwid.cpp
     
     
 

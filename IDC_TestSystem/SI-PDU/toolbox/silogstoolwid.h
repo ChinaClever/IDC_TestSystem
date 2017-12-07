@@ -35,6 +35,8 @@ private slots:
 
     void on_thresholdBtn_clicked();
 
+    void on_alarmBtn_clicked();
+
 private:
     Ui::SiLogsToolWid *ui;
 };

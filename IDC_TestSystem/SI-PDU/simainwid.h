@@ -4,7 +4,7 @@
 #include <QWidget>
 #include "toolbox/sitoolboxwid.h"
 #include "si_simulate/si_simulatethread.h"
-#include "si_logs/silogthresholdwid.h"
+#include "si_logs/silogalarmwid.h"
 #include "si_simulate/si_devtablewid.h"
 #include "si_logsthread/si_thresholdlogthread.h"
 
@@ -39,6 +39,7 @@ private:
     SI_ThresholdTableWid *mThresholdTableWid;
 
     SiLogEnvWid *mLogEnvWid;
+    SiLogAlarmWid *mLogAlarmWid;
     SiLogModbusCmdWid *mLogModbusCmdWid;
     SiLogModbusTransWid *mLogModbusTransWid;
     SiLogRealRecordWid *mLogRealRecordWid;

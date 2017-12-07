@@ -28,7 +28,8 @@ HEADERS += \
     $$PWD/si_logsthread/si_comlogthread.h \
     $$PWD/si_logsthread/si_envlogthread.h \
     $$PWD/si_logsthread/si_recordlogthread.h \
-    $$PWD/si_logsthread/si_thresholdlogthread.h
+    $$PWD/si_logsthread/si_thresholdlogthread.h \
+    $$PWD/si_logsthread/si_alarmlogthread.h
 
 	
 SOURCES += \
@@ -57,7 +58,8 @@ SOURCES += \
     $$PWD/si_logsthread/si_comlogthread.cpp \
     $$PWD/si_logsthread/si_envlogthread.cpp \
     $$PWD/si_logsthread/si_recordlogthread.cpp \
-    $$PWD/si_logsthread/si_thresholdlogthread.cpp
+    $$PWD/si_logsthread/si_thresholdlogthread.cpp \
+    $$PWD/si_logsthread/si_alarmlogthread.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \

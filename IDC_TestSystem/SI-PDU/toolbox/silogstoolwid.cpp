@@ -80,3 +80,8 @@ void SiLogsToolWid::on_thresholdBtn_clicked()
 {
     emit logsSig(SI_Log_Threshold);
 }
+
+void SiLogsToolWid::on_alarmBtn_clicked()
+{
+     emit logsSig(SI_Log_Alarm);
+}

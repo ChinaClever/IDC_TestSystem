@@ -17,6 +17,7 @@ enum {
     SI_Log_Env,  //设备环境日志
     SI_Log_Records, // 设备纪录日志
     SI_Log_Threshold, // 设备阈值日志
+    SI_Log_Alarm,
 };
 
 

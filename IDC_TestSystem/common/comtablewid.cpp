@@ -175,10 +175,10 @@ void ComTableWid::setItemColor(int id, int column, int alarm)
         item->setTextColor(QColor(Qt::black));
         break;
     case 1:
-        item->setTextColor(QColor(Qt::red));
+        item->setTextColor(QColor(Qt::yellow));
         break;
     case 2:
-        item->setTextColor(QColor(Qt::yellow));
+        item->setTextColor(QColor(Qt::red));
         break;
     default:
         break;
