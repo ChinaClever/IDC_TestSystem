@@ -1,3 +1,9 @@
+/*
+ * Si 日志窗口
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "silogstoolwid.h"
 #include "ui_silogstoolwid.h"
 #include "si_com/siconfigfile.h"
@@ -22,7 +28,10 @@ void SiLogsToolWid::on_modbusBtn_clicked()
 }
 
 
-
+/**
+ * @brief 更新日志时间间隔
+ * @param num
+ */
 void SiLogsToolWid::updateLogTime(int num)
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -33,6 +42,9 @@ void SiLogsToolWid::updateLogTime(int num)
     config->setLogTime(num);
 }
 
+/**
+ * @brief 初始化蛙声时间
+ */
 void SiLogsToolWid::initLogTime()
 {
     SiConfigFile *config = SiConfigFile::bulid();

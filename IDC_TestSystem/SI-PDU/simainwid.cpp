@@ -1,3 +1,9 @@
+/*
+ * Si 主窗口
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "simainwid.h"
 #include "ui_simainwid.h"
 

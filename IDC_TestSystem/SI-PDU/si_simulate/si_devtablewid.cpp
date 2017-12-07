@@ -1,3 +1,9 @@
+/*
+ * Si 设备信息实时显示表格
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_devtablewid.h"
 
 SI_DevTableWid::SI_DevTableWid(QWidget *parent) : ComTableWid(parent)
@@ -8,7 +14,9 @@ SI_DevTableWid::SI_DevTableWid(QWidget *parent) : ComTableWid(parent)
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
-
+/**
+ * @brief 初始化表格
+ */
 void SI_DevTableWid::initWid()
 {
     QString title = tr("设备阈值信息");
@@ -19,14 +27,25 @@ void SI_DevTableWid::initWid()
     initTableWid(header, 4, title);
 }
 
-
+/**
+ * @brief 设置设备名称
+ * @param row 行号
+ * @param column   列号
+ * @param id
+ */
 void SI_DevTableWid::setDevName(int row, int column, int id)
 {
     QString name =tr("%1").arg(id+1);
     setTableItem(row, column, name);
 }
 
-
+/**
+ * @brief 设备相数
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setLine(int row, int column, int id, int line)
 {
     QString name =tr("L%1").arg(line+1);
@@ -34,13 +53,23 @@ void SI_DevTableWid::setLine(int row, int column, int id, int line)
 }
 
 
-
+/**
+ * @brief 获取设备数据包
+ * @param id 设备号
+ * @return
+ */
 SI_Rtu_Recv *SI_DevTableWid::getPacket(int id)
 {
     return &(SIDataPackets::bulid()->getDev(id)->rtuData);
 }
 
-
+/**
+ * @brief 更新开关状态
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setSw(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -58,7 +87,13 @@ void SI_DevTableWid::setSw(int row, int column, int id, int line)
     setItemColor(row, column, alarm);
 }
 
-
+/**
+ * @brief 设置电压值
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setVolValue(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -71,6 +106,13 @@ void SI_DevTableWid::setVolValue(int row, int column, int id, int line)
     setItemColor(row, column, unit->alarm[line]);
 }
 
+/**
+ * @brief 设置电流值
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setCurValue(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -83,7 +125,13 @@ void SI_DevTableWid::setCurValue(int row, int column, int id, int line)
     setItemColor(row, column, unit->alarm[line]);
 }
 
-
+/**
+ * @brief 设置功率
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setPow(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -94,7 +142,13 @@ void SI_DevTableWid::setPow(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
-
+/**
+ * @brief 设置有功功率
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setActivePow(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -105,6 +159,13 @@ void SI_DevTableWid::setActivePow(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
+/**
+ * @brief 设置功率因素
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setPf(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -115,6 +176,13 @@ void SI_DevTableWid::setPf(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
+/**
+ * @brief 设置电能
+ * @param row 行号
+ * @param column 列号
+ * @param id 设备号
+ * @param line 相数
+ */
 void SI_DevTableWid::setEle(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -125,6 +193,9 @@ void SI_DevTableWid::setEle(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
+/**
+ * @brief 检查行数
+ */
 void SI_DevTableWid::checkRowCount()
 {
     int row = 0;

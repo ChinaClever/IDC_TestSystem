@@ -1,3 +1,9 @@
+/*
+ * Si 环境日志保存线程
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_envlogthread.h"
 #include "si_sql/sidbenv.h"
 

@@ -1,3 +1,9 @@
+/*
+ * Si 模拟窗口
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisimulationtoolwid.h"
 #include "ui_sisimulationtoolwid.h"
 #include "si_com/siconfigfile.h"
@@ -19,6 +25,9 @@ SiSimulationToolWid::~SiSimulationToolWid()
     delete ui;
 }
 
+/**
+ * @brief 开始模拟测试
+ */
 void SiSimulationToolWid::startSimulateTest()
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -28,6 +37,9 @@ void SiSimulationToolWid::startSimulateTest()
     ui->mnTestBtn->setText(tr("停止测试"));
 }
 
+/**
+ * @brief 停止模拟测试
+ */
 void SiSimulationToolWid::stopSimulateTest()
 {
     QuMsgBox box(this, tr("是否停止测试？？"));

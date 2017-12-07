@@ -1,3 +1,9 @@
+/*
+ * Si 设备相数
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisetlinenum.h"
 #include "ui_sisetlinenum.h"
 #include "si_com/siconfigfile.h"

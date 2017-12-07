@@ -1,3 +1,9 @@
+/*
+ * Si 日志保存时间间隔对话框
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "silogstimetooldlg.h"
 #include "ui_silogstimetooldlg.h"
 #include "si_com/siconfigfile.h"
@@ -16,7 +22,9 @@ SiLogsTimeToolDlg::~SiLogsTimeToolDlg()
     delete ui;
 }
 
-
+/**
+ * @brief 初始化窗口
+ */
 void SiLogsTimeToolDlg::initWid()
 {
     SiConfigFile *config = SiConfigFile::bulid();

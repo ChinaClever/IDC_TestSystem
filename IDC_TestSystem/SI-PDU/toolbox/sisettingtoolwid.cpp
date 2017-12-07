@@ -1,3 +1,9 @@
+/*
+ * Si 设置窗口
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisettingtoolwid.h"
 #include "ui_sisettingtoolwid.h"
 #include "si_com/siconfigfile.h"
@@ -25,6 +31,10 @@ SiSettingToolWid::~SiSettingToolWid()
     delete ui;
 }
 
+/**
+ * @brief 初始化串口
+ * @return
+ */
 bool SiSettingToolWid::initSerialPort()
 {
     bool ret = false;
@@ -45,6 +55,9 @@ bool SiSettingToolWid::initSerialPort()
     return ret;
 }
 
+/**
+ * @brief 更新串口窗口
+ */
 void SiSettingToolWid::updateSerialWid()
 {
     QPalette pe;
@@ -70,6 +83,10 @@ void SiSettingToolWid::on_serialBtn_clicked()
     updateSerialWid();
 }
 
+/**
+ * @brief 更新相数
+ * @param num
+ */
 void SiSettingToolWid::updateLineNum(int num)
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -87,6 +104,9 @@ void SiSettingToolWid::updateLineNum(int num)
     config->setLineNum(num);
 }
 
+/**
+ * @brief 初始化相数
+ */
 void SiSettingToolWid::initLineNum()
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -101,6 +121,10 @@ void SiSettingToolWid::on_lineBtn_clicked()
         updateLineNum(dlg.getLineNum());
 }
 
+/**
+ * @brief 更新设备数量
+ * @param num
+ */
 void SiSettingToolWid::updateDevNum(int num)
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -125,6 +149,10 @@ void SiSettingToolWid::on_devNumBtn_clicked()
         updateDevNum(dlg.getNum());
 }
 
+/**
+ * @brief 更新
+ * @param num
+ */
 void SiSettingToolWid::updateDevCmd(int num)
 {
     SiConfigFile *config = SiConfigFile::bulid();
@@ -156,6 +184,10 @@ void SiSettingToolWid::on_cmdBtn_clicked()
         updateDevCmd(dlg.getCmdNum());
 }
 
+/**
+ * @brief 更新间隔时间
+ * @param num
+ */
 void SiSettingToolWid::updateModbusTime(int num)
 {
     SiConfigFile *config = SiConfigFile::bulid();

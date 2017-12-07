@@ -1,3 +1,9 @@
+/*
+ * Si 命令模式
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisetmodbuscmddlg.h"
 #include "ui_sisetmodbuscmddlg.h"
 #include "si_com/siconfigfile.h"

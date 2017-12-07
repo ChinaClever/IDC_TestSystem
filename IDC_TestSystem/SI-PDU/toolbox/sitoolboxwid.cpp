@@ -1,3 +1,9 @@
+/*
+ * Si toolBox
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sitoolboxwid.h"
 #include "ui_sitoolboxwid.h"
 

@@ -1,5 +1,6 @@
 /*
- * Si 设备数据包的静态类
+ * Si 公共日志保存的基类
+ *  只需要实现 virtual void saveLogs()=0;
  *
  *  Created on: 2018年1月1日
  *      Author: Lzy
@@ -21,11 +22,19 @@ SI_ComLogThread::~SI_ComLogThread()
     wait();
 }
 
+/**
+ * @brief 获取设备数据包
+ * @param id 设备号
+ * @return
+ */
 SiDevPacket *SI_ComLogThread::getPacket(int id)
 {
     return SIDataPackets::bulid()->getDev(id);
 }
 
+/**
+ * @brief 线程处理的入品方法
+ */
 void SI_ComLogThread::workDown()
 {
     int sec = SiConfigFile::bulid()->item->logMins * 60;
@@ -41,16 +50,25 @@ void SI_ComLogThread::run()
     isRun = false;
 }
 
+/**
+ * @brief 开启线程
+ */
 void SI_ComLogThread::startThread()
 {
     timer->start(1*1000);
 }
 
+/**
+ * @brief 停止线程
+ */
 void SI_ComLogThread::stopThread()
 {
     timer->stop();
 }
 
+/**
+ * @brief 定时启动线程
+ */
 void SI_ComLogThread::timeoutDone()
 {
     if(isRun == false) {
@@ -58,6 +76,10 @@ void SI_ComLogThread::timeoutDone()
     }
 }
 
+/**
+ * @brief
+ * @param id
+ */
 void SI_ComLogThread::toolBoxSlot(int id)
 {
     switch (id) {

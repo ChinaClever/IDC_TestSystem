@@ -1,3 +1,9 @@
+/*
+ * Si 实时数据日志保存线程
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_recordlogthread.h"
 #include "si_sql/sidbrealrecords.h"
 

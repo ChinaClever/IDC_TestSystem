@@ -1,3 +1,9 @@
+/*
+ * Si 传输表格
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_transtablewid.h"
 
 SI_TransTableWid::SI_TransTableWid(QWidget *parent) : ComTableWid(parent)
@@ -8,7 +14,9 @@ SI_TransTableWid::SI_TransTableWid(QWidget *parent) : ComTableWid(parent)
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
-
+/**
+ * @brief 初始化表格
+ */
 void SI_TransTableWid::initWid()
 {
     QString title = tr("命令传输情况");
@@ -17,13 +25,22 @@ void SI_TransTableWid::initWid()
     initTableWid(header, 4, title);
 }
 
-
+/**
+ * @brief 设备表
+ * @param id
+ * @param column
+ */
 void SI_TransTableWid::setDevName(int id, int column)
 {
     QString name =tr("%1").arg(id+1);
     setTableItem(id, column, name);
 }
 
+/**
+ * @brief 设备状态
+ * @param id
+ * @param column
+ */
 void SI_TransTableWid::setDevState(int id, int column)
 {
     QString str =tr("高线");
@@ -39,7 +56,12 @@ SiDevPacket *SI_TransTableWid::getPacket(int id)
     return SIDataPackets::bulid()->getDev(id);
 }
 
-
+/**
+ * @brief 设置Item
+ * @param id
+ * @param column
+ * @param value
+ */
 void SI_TransTableWid::setValue(int id, int column, int value)
 {
     QString str = "---";
@@ -47,18 +69,33 @@ void SI_TransTableWid::setValue(int id, int column, int value)
     setTableItem(id, column, str);
 }
 
+/**
+ * @brief 传输次数
+ * @param id
+ * @param column
+ */
 void SI_TransTableWid::setAllValue(int id, int column)
 {
     int value = getPacket(id)->count.count ;
     setValue(id, column, value);
 }
 
+/**
+ * @brief 成功次数
+ * @param id
+ * @param column
+ */
 void SI_TransTableWid::setOK(int id, int column)
 {
     int value = getPacket(id)->count.okCount ;
     setValue(id, column, value);
 }
 
+/**
+ * @brief 失败次数
+ * @param id
+ * @param column
+ */
 void SI_TransTableWid::setErr(int id, int column)
 {
     int value = getPacket(id)->count.errCount ;

@@ -1,3 +1,9 @@
+/*
+ * Si 设备阈值实时显示表格
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_thresholdtablewid.h"
 
 SI_ThresholdTableWid::SI_ThresholdTableWid(QWidget *parent) : ComTableWid(parent)
@@ -8,7 +14,9 @@ SI_ThresholdTableWid::SI_ThresholdTableWid(QWidget *parent) : ComTableWid(parent
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
-
+/**
+ * @brief 初始化表格
+ */
 void SI_ThresholdTableWid::initWid()
 {
     QString title = tr("设备阈值信息");
@@ -19,14 +27,25 @@ void SI_ThresholdTableWid::initWid()
     initTableWid(header, 4, title);
 }
 
-
+/**
+ * @brief 设备设备表
+ * @param row
+ * @param column
+ * @param id
+ */
 void SI_ThresholdTableWid::setDevName(int row, int column, int id)
 {
     QString name =tr("%1").arg(id+1);
     setTableItem(row, column, name);
 }
 
-
+/**
+ * @brief 设备相数
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setLine(int row, int column, int id, int line)
 {
     QString name =tr("L%1").arg(line+1);
@@ -42,7 +61,13 @@ SI_sDataUnit *SI_ThresholdTableWid::getVolUnit(int id)
     return unit;
 }
 
-
+/**
+ * @brief 设置电压值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setVolValue(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -55,6 +80,13 @@ void SI_ThresholdTableWid::setVolValue(int row, int column, int id, int line)
     setItemColor(row, column, unit->alarm[line]);
 }
 
+/**
+ * @brief 设置电压最小值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setVolMin(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -66,6 +98,13 @@ void SI_ThresholdTableWid::setVolMin(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
+/**
+ * @brief 设置电压最大值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setVolMax(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -79,7 +118,6 @@ void SI_ThresholdTableWid::setVolMax(int row, int column, int id, int line)
 
 
 
-
 SI_sDataUnit *SI_ThresholdTableWid::getCurUnit(int id)
 {
     SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
@@ -88,7 +126,13 @@ SI_sDataUnit *SI_ThresholdTableWid::getCurUnit(int id)
     return unit;
 }
 
-
+/**
+ * @brief 电流值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setCurValue(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -101,6 +145,13 @@ void SI_ThresholdTableWid::setCurValue(int row, int column, int id, int line)
     setItemColor(row, column, unit->alarm[line]);
 }
 
+/**
+ * @brief 电流最小值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setCurMin(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -112,6 +163,13 @@ void SI_ThresholdTableWid::setCurMin(int row, int column, int id, int line)
     setTableItem(row, column, str);
 }
 
+/**
+ * @brief 电流最大值
+ * @param row 行号
+ * @param column 列号
+ * @param id  设备号
+ * @param line 相数
+ */
 void SI_ThresholdTableWid::setCurMax(int row, int column, int id, int line)
 {
     QString str = "---";
@@ -122,6 +180,7 @@ void SI_ThresholdTableWid::setCurMax(int row, int column, int id, int line)
 
     setTableItem(row, column, str);
 }
+
 
 void SI_ThresholdTableWid::checkRowCount()
 {

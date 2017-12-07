@@ -1,3 +1,9 @@
+/*
+ * 数据库
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sidbmodbustrans.h"
 
 SiDbModbusTrans::SiDbModbusTrans()

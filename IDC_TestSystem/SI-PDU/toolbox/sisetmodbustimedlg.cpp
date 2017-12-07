@@ -1,3 +1,9 @@
+/*
+ * Si 传输间隔时间
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisetmodbustimedlg.h"
 #include "ui_sisetmodbustimedlg.h"
 #include "si_com/siconfigfile.h"

@@ -1,3 +1,9 @@
+/*
+ * Si 模拟测试线程
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
 
@@ -9,18 +15,25 @@ SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
     mRtu = SI_RtuThread::bulid(this);
 }
 
-void SI_SimulateThread::init()
-{
-    SerialPort *serial = SiConfigFile::bulid()->item->serial;
-    mRtu->init(serial);
-}
-
 SI_SimulateThread::~SI_SimulateThread()
 {
     isRun = false;
     wait();
 }
 
+
+/**
+ * @brief 初始化
+ */
+void SI_SimulateThread::init()
+{
+    SerialPort *serial = SiConfigFile::bulid()->item->serial;
+    mRtu->init(serial);
+}
+
+/**
+ * @brief 开启线程
+ */
 void SI_SimulateThread::startThread()
 {
     if(!isRun) {
@@ -29,12 +42,19 @@ void SI_SimulateThread::startThread()
     }
 }
 
+/**
+ * @brief 停止线程
+ */
 void SI_SimulateThread::stopThread()
 {
     isRun = false;
     wait();
 }
 
+/**
+ * @brief 命令传送成功
+ * @param devId
+ */
 void SI_SimulateThread::sentOkCmd(int devId)
 {
     SiDevPacket *dev = mPackets->getDev(devId);
@@ -44,7 +64,10 @@ void SI_SimulateThread::sentOkCmd(int devId)
 }
 
 
-
+/**
+ * @brief 保存失败命令
+ * @param devId
+ */
 void SI_SimulateThread::saveErrCmd(int devId)
 {
     SiDevPacket *dev = mPackets->getDev(devId);
@@ -66,7 +89,9 @@ void SI_SimulateThread::saveErrCmd(int devId)
 }
 
 
-
+/**
+ * @brief 处理方法
+ */
 void SI_SimulateThread::workDown()
 {
     int ret = 0;

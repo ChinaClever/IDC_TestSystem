@@ -1,3 +1,9 @@
+/*
+ * Si 环境信息实时显示表格
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_envtablewid.h"
 
 
@@ -10,6 +16,9 @@ SI_EnvTableWid::SI_EnvTableWid(QWidget *parent) : ComTableWid(parent)
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
+/**
+ * @brief 初始化表格
+ */
 void SI_EnvTableWid::initWid()
 {
     QString title = tr("设备环境信息");
@@ -19,13 +28,22 @@ void SI_EnvTableWid::initWid()
     initTableWid(header, 4, title);
 }
 
-
+/**
+ * @brief 设备名称
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setDevName(int id, int column)
 {
     QString name =tr("%1").arg(id+1);
     setTableItem(id, column, name);
 }
 
+/**
+ * @brief 获取温度数据结构体
+ * @param id
+ * @return
+ */
 SI_sDataUnit *SI_EnvTableWid::getTempUnit(int id)
 {
     SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
@@ -34,7 +52,11 @@ SI_sDataUnit *SI_EnvTableWid::getTempUnit(int id)
     return unit;
 }
 
-
+/**
+ * @brief 更新温度值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setTempValue(int id, int column)
 {
     QString str = "---";
@@ -47,6 +69,11 @@ void SI_EnvTableWid::setTempValue(int id, int column)
     setItemColor(id, column, unit->alarm[0]);
 }
 
+/**
+ * @brief 更新温度最小值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setTempMin(int id, int column)
 {
     QString str = "---";
@@ -58,6 +85,11 @@ void SI_EnvTableWid::setTempMin(int id, int column)
     setTableItem(id, column, str);
 }
 
+/**
+ * @brief 更新温度最大值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setTempMax(int id, int column)
 {
     QString str = "---";
@@ -70,7 +102,11 @@ void SI_EnvTableWid::setTempMax(int id, int column)
 }
 
 
-
+/**
+ * @brief 获取温度数据结构体
+ * @param id
+ * @return
+ */
 SI_sDataUnit *SI_EnvTableWid::getHumUnit(int id)
 {
     SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
@@ -79,7 +115,11 @@ SI_sDataUnit *SI_EnvTableWid::getHumUnit(int id)
     return unit;
 }
 
-
+/**
+ * @brief 设置温度值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setHumValue(int id, int column)
 {
     QString str = "---";
@@ -92,6 +132,11 @@ void SI_EnvTableWid::setHumValue(int id, int column)
     setItemColor(id, column, unit->alarm[0]);
 }
 
+/**
+ * @brief 设置温度最小值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setHumMin(int id, int column)
 {
     QString str = "---";
@@ -103,6 +148,11 @@ void SI_EnvTableWid::setHumMin(int id, int column)
     setTableItem(id, column, str);
 }
 
+/**
+ * @brief 设置温度最大值
+ * @param id
+ * @param column
+ */
 void SI_EnvTableWid::setHumMax(int id, int column)
 {
     QString str = "---";

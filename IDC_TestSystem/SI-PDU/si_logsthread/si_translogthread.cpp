@@ -1,3 +1,9 @@
+/*
+ * Si 传输日志保存线程
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_translogthread.h"
 #include "si_sql/sidbmodbustrans.h"
 

@@ -1,3 +1,9 @@
+/*
+ * Si 设备数量
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sisetdevnumdlg.h"
 #include "ui_sisetdevnumdlg.h"
 #include "si_com/siconfigfile.h"

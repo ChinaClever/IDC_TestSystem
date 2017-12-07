@@ -1,3 +1,9 @@
+/*
+ * Si 设备阈值日志保存线程
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "si_thresholdlogthread.h"
 #include "si_sql/sidbthresholds.h"
 
