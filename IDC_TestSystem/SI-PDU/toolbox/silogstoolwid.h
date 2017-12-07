@@ -31,6 +31,10 @@ private slots:
 
     void on_envBtn_clicked();
 
+    void on_recordBtn_clicked();
+
+    void on_thresholdBtn_clicked();
+
 private:
     Ui::SiLogsToolWid *ui;
 };

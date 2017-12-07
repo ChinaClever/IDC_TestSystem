@@ -1,3 +1,10 @@
+/*
+ * tableWidget公共蕨类
+ *     提供接口，protect所有方法
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "comtablewid.h"
 #include "ui_comtablewid.h"
 #include <QGridLayout>
@@ -85,10 +92,11 @@ void ComTableWid::addInitRow()
     addRowContent(list);
 }
 
-
-
 /**
- * @brief 初始化表格窗口
+ * @brief 初始化表格
+ * @param header 列表头
+ * @param line 表格行数
+ * @param title 表格名称
  */
 void ComTableWid::initTableWid(QStringList &header, int line, const QString &title)
 {
@@ -98,7 +106,12 @@ void ComTableWid::initTableWid(QStringList &header, int line, const QString &tit
     ui->groupBox->setTitle(title);
 }
 
-
+/**
+ * @brief 修改表格Item
+ * @param id  行号
+ * @param column 列号
+ * @param str 内容
+ */
 void ComTableWid::setTableItem(int id, int column, const QString &str)
 {
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
@@ -125,6 +138,10 @@ void ComTableWid::checkTableRow(int line)
     }
 }
 
+/**
+ * @brief 清除一行内容
+ * @param row 行号
+ */
 void ComTableWid::clearRow(int row)
 {
     int column = ui->tableWidget->columnCount();
@@ -134,7 +151,7 @@ void ComTableWid::clearRow(int row)
 }
 
 /**
- * @brief 清空表格
+ * @brief 清除表格所有内容
  */
 void ComTableWid::clearTable()
 {
@@ -143,7 +160,12 @@ void ComTableWid::clearTable()
         clearRow(i);
 }
 
-
+/**
+ * @brief 设置Item的颜色
+ * @param id 行号
+ * @param column 列号
+ * @param alarm 颜色号
+ */
 void ComTableWid::setItemColor(int id, int column, int alarm)
 {
     QTableWidgetItem *item = ui->tableWidget->item(id, column);

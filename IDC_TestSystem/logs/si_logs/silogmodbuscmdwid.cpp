@@ -1,3 +1,9 @@
+/*
+ * Modbus传输错误日志
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "silogmodbuscmdwid.h"
 #include "si_sql/sidbmodbuscmd.h"
 

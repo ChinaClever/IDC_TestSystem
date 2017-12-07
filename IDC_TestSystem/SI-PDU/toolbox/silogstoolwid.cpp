@@ -58,3 +58,13 @@ void SiLogsToolWid::on_envBtn_clicked()
 {
      emit logsSig(SI_Log_Env);
 }
+
+void SiLogsToolWid::on_recordBtn_clicked()
+{
+     emit logsSig(SI_Log_Records);
+}
+
+void SiLogsToolWid::on_thresholdBtn_clicked()
+{
+    emit logsSig(SI_Log_Threshold);
+}

@@ -1,3 +1,12 @@
+/*
+ * 日志窗口公共基类
+ *      只需要实现二个纯虚函数即可
+ *       virtual BasicSql *getDb()=0;
+         virtual void initTable()=0;
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "logcomwid.h"
 #include "ui_logcomwid.h"
 #include "common.h"
@@ -17,18 +26,26 @@ LogComWid::~LogComWid()
     delete ui;
 }
 
+/**
+ * @brief 设置窗口名称
+ * @param title
+ */
 void LogComWid::setGroupBoxTitle(const QString &title)
 {
     ui->groupBox->setTitle(title);
 }
 
+/**
+ * @brief 列平均分配
+ */
 void LogComWid::setStretch()
 {
-
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
-
+/**
+ * @brief 初始化方法
+ */
 void LogComWid::initFunSLot()
 {
     QString name =  getDb()->tableName();
@@ -52,6 +69,9 @@ void LogComWid::initFunSLot()
     initBtnBar();
 }
 
+/**
+ * @brief 初始化按钮
+ */
 void LogComWid::initBtnBar()
 {
     mBtnBar = new LogBtnBar(ui->widget);
@@ -63,7 +83,11 @@ void LogComWid::initBtnBar()
 }
 
 
-
+/**
+ * @brief 刷新表格
+ * @param table 表格名
+ * @return
+ */
 bool LogComWid::refreshTable(const QString &table)
 {
     bool ret = model->refreshTable(table);
@@ -80,7 +104,9 @@ void LogComWid::refreshSlot()
     initTable();
 }
 
-
+/**
+ * @brief 清空数据库
+ */
 void LogComWid::clearTableSlot()
 {
     model->model->setTable("markingtable");
@@ -92,7 +118,9 @@ void LogComWid::clearTableSlot()
     //        QTimer::singleShot(10,this,SLOT(clearTableSlot()));
 }
 
-
+/**
+ * @brief 删除一条纪录
+ */
 void LogComWid::doubleSlot(QModelIndex)
 {
     QString str = tr("是否删除这条纪录?");
@@ -105,6 +133,9 @@ void LogComWid::doubleSlot(QModelIndex)
     }
 }
 
+/**
+ * @brief 日志导出
+ */
 void LogComWid::exportSlot()
 {
     LOG_ExportDlg dlg(this);

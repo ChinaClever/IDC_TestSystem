@@ -1,3 +1,9 @@
+/*
+ * Modbus传输统计日志
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "silogmodbustranswid.h"
 #include "si_sql/sidbmodbustrans.h"
 

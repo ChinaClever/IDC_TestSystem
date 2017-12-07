@@ -1,3 +1,9 @@
+/*
+ * 配置文件公共基类
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "configbase.h"
 
 ConfigBase::ConfigBase()
@@ -79,7 +85,7 @@ void ConfigBase::setDevNum(int num)
 }
 
 /**
- * @brief ConfigBase::getModbusCmd
+ * @brief 获取Modbus命令模式的模式
  * @return
  */
 int ConfigBase::getModbusCmd()
@@ -91,6 +97,10 @@ int ConfigBase::getModbusCmd()
     return ret;
 }
 
+/**
+ * @brief 设置Modbus命令模
+ * @param num
+ */
 void ConfigBase::setModbusCmd(int num)
 {
     QString prefix = getPrefix();
@@ -98,7 +108,10 @@ void ConfigBase::setModbusCmd(int num)
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
 
-
+/**
+ * @brief 获取Modbus 传输时间间隔Time
+ * @return
+ */
 int ConfigBase::getModbusTime()
 {
     QString prefix = getPrefix();
@@ -108,6 +121,10 @@ int ConfigBase::getModbusTime()
     return ret;
 }
 
+/**
+ * @brief 设置Modbus 传输时间间隔Time
+ * @return
+ */
 void ConfigBase::setModbusTime(int num)
 {
     QString prefix = getPrefix();
@@ -116,6 +133,10 @@ void ConfigBase::setModbusTime(int num)
 }
 
 
+/**
+ * @brief 获取日志存储时间隔
+ * @return
+ */
 int ConfigBase::getLogTime()
 {
     QString prefix = getPrefix();
@@ -125,6 +146,10 @@ int ConfigBase::getLogTime()
     return ret;
 }
 
+/**
+ * @brief 设置日志存储时间间隔
+ * @param num
+ */
 void ConfigBase::setLogTime(int num)
 {
     QString prefix = getPrefix();

@@ -1,7 +1,8 @@
 ﻿/*
  * common.cpp
+ * 公共方法接口
  *
- *  Created on: 2016年10月11日
+ *  Created on: 2018年1月1日
  *      Author: Lzy
  */
 #include "common.h"
@@ -11,6 +12,11 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+/**
+ * @brief 设置背景颜色
+ * @param str 窗口标题名
+ * @param target 目标窗口
+ */
 void com_setBackColour(const QString &str,QWidget *target)
 {
     target->setWindowTitle(str);
@@ -72,7 +78,11 @@ bool cm_isIPaddress(const QString& ip)
     return false;
 }
 
-
+/**
+ * @brief 设备背景图标
+ * @param widget 窗口
+ * @param icon 图片路径
+ */
 void set_background_icon(QWidget *widget, const QString &icon)
 {
     QPalette palette;
@@ -82,6 +92,11 @@ void set_background_icon(QWidget *widget, const QString &icon)
     widget->setPalette(palette);
 }
 
+/**
+ * @brief 设备背景颜色
+ * @param widget
+ * @param color
+ */
 void set_background_color(QWidget *widget, const QColor &color)
 {
     QPalette palette;
@@ -91,6 +106,12 @@ void set_background_color(QWidget *widget, const QColor &color)
 }
 
 
+/**
+ * @brief 设置背景图片
+ * @param widget
+ * @param icon
+ * @param size
+ */
 void set_background_icon(QWidget *widget, const QString &icon,const QSize &size)
 {    
     QPalette palette;
@@ -124,6 +145,10 @@ void btnBlue_style_sheet(QWidget *target)
     target->setFont(QFont("微软雅黑",12));
 }
 
+/**
+ * @brief 设置groupBox_background_icon
+ * @param target
+ */
 void groupBox_background_icon(QWidget *target)
 {
     set_background_icon(target,":/image/box_back.jpg");

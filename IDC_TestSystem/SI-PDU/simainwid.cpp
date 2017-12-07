@@ -9,13 +9,18 @@ SIMainWid::SIMainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initWid();
     mSimulateThread = new SI_SimulateThread(this);
+    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
 SIMainWid::~SIMainWid()
 {
     delete ui;
+}
+
+void SIMainWid::initFunSLot()
+{
+    initWid();
 }
 
 void SIMainWid::initWid()
@@ -46,8 +51,18 @@ void SIMainWid::initWid()
     ui->stackedWid->addWidget(mLogEnvWid);
     mLogThreads.append(new SI_EnvLogThread(this));
 
+    mLogRealRecordWid = new SiLogRealRecordWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogRealRecordWid);
+    mLogThreads.append(new SI_RecordLogThread(this));
+
+    mLogThresholdWid = new SiLogThresholdWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogThresholdWid);
+    mLogThreads.append(new SI_ThresholdLogThread(this));
+
+
+
     for(int i=0; i<mLogThreads.size(); ++i)
-         connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogThreads.at(i), SLOT(toolBoxSlot(int)));
+        connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogThreads.at(i), SLOT(toolBoxSlot(int)));
 }
 
 void SIMainWid::toolBoxSlot(int id)
@@ -87,6 +102,14 @@ void SIMainWid::toolBoxSlot(int id)
 
     case SI_Log_Env:
         ui->stackedWid->setCurrentWidget(mLogEnvWid);
+        break;
+
+    case SI_Log_Records:
+        ui->stackedWid->setCurrentWidget(mLogRealRecordWid);
+        break;
+
+    case SI_Log_Threshold:
+        ui->stackedWid->setCurrentWidget(mLogThresholdWid);
         break;
 
     default:

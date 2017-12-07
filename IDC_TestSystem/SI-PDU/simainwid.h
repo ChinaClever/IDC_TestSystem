@@ -4,9 +4,9 @@
 #include <QWidget>
 #include "toolbox/sitoolboxwid.h"
 #include "si_simulate/si_simulatethread.h"
-#include "si_logs/silogenvwid.h"
+#include "si_logs/silogthresholdwid.h"
 #include "si_simulate/si_devtablewid.h"
-#include "si_logsthread/si_envlogthread.h"
+#include "si_logsthread/si_thresholdlogthread.h"
 
 namespace Ui {
 class SIMainWid;
@@ -24,6 +24,7 @@ protected:
     void initWid();
 
 private slots:
+    void initFunSLot();
     void toolBoxSlot(int);
 
 private:
@@ -40,6 +41,8 @@ private:
     SiLogEnvWid *mLogEnvWid;
     SiLogModbusCmdWid *mLogModbusCmdWid;
     SiLogModbusTransWid *mLogModbusTransWid;
+    SiLogRealRecordWid *mLogRealRecordWid;
+    SiLogThresholdWid *mLogThresholdWid;
 
     QList<SI_ComLogThread *> mLogThreads;
 

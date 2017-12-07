@@ -10,7 +10,9 @@ HEADERS += \
     $$PWD/logcom/log_datewidget.h \
     $$PWD/logcom/log_datehash.h \
     $$PWD/si_logs/silogmodbustranswid.h \
-    $$PWD/si_logs/silogenvwid.h
+    $$PWD/si_logs/silogenvwid.h \
+    $$PWD/si_logs/silogrealrecordwid.h \
+    $$PWD/si_logs/silogthresholdwid.h
    
    
     
@@ -25,7 +27,9 @@ SOURCES += \
     $$PWD/logcom/log_datewidget.cpp \
     $$PWD/logcom/log_datehash.cpp \
     $$PWD/si_logs/silogmodbustranswid.cpp \
-    $$PWD/si_logs/silogenvwid.cpp
+    $$PWD/si_logs/silogenvwid.cpp \
+    $$PWD/si_logs/silogrealrecordwid.cpp \
+    $$PWD/si_logs/silogthresholdwid.cpp
     
     
 

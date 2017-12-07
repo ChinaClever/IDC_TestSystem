@@ -7,14 +7,16 @@ enum {
     SI_Test_Simulate,  // 模拟测试
     SI_Test_Function, // 功能测试
 
-    SI_DevReal_Info,
-    SI_Trans_Info,
-    SI_Threshold_Info,
+    SI_DevReal_Info, // 设备实时信息界面
+    SI_Trans_Info, // Modbus传输统计实时显示界面
+    SI_Threshold_Info, // 设备阈值实时显示界面
     SI_Env_Info, // 环境信息_
 
     SI_Log_Modbus, // Modbus日志界面
-    SI_Log_Trans,
-    SI_Log_Env,
+    SI_Log_Trans, // Modbus 传输日志
+    SI_Log_Env,  //设备环境日志
+    SI_Log_Records, // 设备纪录日志
+    SI_Log_Threshold, // 设备阈值日志
 };
 
 

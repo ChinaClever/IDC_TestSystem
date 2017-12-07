@@ -1,3 +1,9 @@
+/*
+ * Si 设备数据包的静态类
+ *
+ *  Created on: 2018年1月1日
+ *      Author: Lzy
+ */
 #include "sidatapackets.h"
 
 SIDataPackets::SIDataPackets()

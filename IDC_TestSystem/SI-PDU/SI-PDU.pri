@@ -26,7 +26,9 @@ HEADERS += \
     $$PWD/toolbox/silogstimetooldlg.h \
     $$PWD/si_logsthread/si_translogthread.h \
     $$PWD/si_logsthread/si_comlogthread.h \
-    $$PWD/si_logsthread/si_envlogthread.h
+    $$PWD/si_logsthread/si_envlogthread.h \
+    $$PWD/si_logsthread/si_recordlogthread.h \
+    $$PWD/si_logsthread/si_thresholdlogthread.h
 
 	
 SOURCES += \
@@ -53,7 +55,9 @@ SOURCES += \
     $$PWD/toolbox/silogstimetooldlg.cpp \
     $$PWD/si_logsthread/si_translogthread.cpp \
     $$PWD/si_logsthread/si_comlogthread.cpp \
-    $$PWD/si_logsthread/si_envlogthread.cpp
+    $$PWD/si_logsthread/si_envlogthread.cpp \
+    $$PWD/si_logsthread/si_recordlogthread.cpp \
+    $$PWD/si_logsthread/si_thresholdlogthread.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
