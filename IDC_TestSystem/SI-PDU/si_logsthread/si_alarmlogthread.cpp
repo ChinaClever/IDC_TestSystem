@@ -30,7 +30,7 @@ SI_AlarmLogThread *SI_AlarmLogThread::bulid()
 void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const QString &str)
 {
     SiDbAlarmItem item;
-    item.id = id+1;
+    item.dev_id = id+1;
     item.line = line+1;
     item.type_str = typeStr;
     item.msg = str;
