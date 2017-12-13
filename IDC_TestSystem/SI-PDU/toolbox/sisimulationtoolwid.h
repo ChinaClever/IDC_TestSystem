@@ -20,7 +20,7 @@ signals:
 
 protected:
     void startSimulateTest();
-    void stopSimulateTest();
+    bool stopSimulateTest();
 
 private slots:
     void on_mnTestBtn_clicked();
@@ -32,6 +32,8 @@ private slots:
     void on_transBtn_clicked();
 
     void on_realBtn_clicked();
+
+    void on_settingBtn_clicked();
 
 private:
     Ui::SiSimulationToolWid *ui;

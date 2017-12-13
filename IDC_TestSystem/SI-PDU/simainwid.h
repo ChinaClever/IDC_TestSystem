@@ -7,6 +7,7 @@
 #include "si_logs/silogalarmwid.h"
 #include "si_simulate/si_devtablewid.h"
 #include "si_logsthread/si_thresholdlogthread.h"
+#include "si_setting/si_setmainwid.h"
 
 namespace Ui {
 class SIMainWid;
@@ -35,6 +36,7 @@ private:
 
     SI_DevTableWid *mDevTableWid;
     SI_EnvTableWid *mEnvTableWid;
+    SI_SetMainWid *mSetMainWid;
     SI_TransTableWid *mTransTableWid;
     SI_ThresholdTableWid *mThresholdTableWid;
 

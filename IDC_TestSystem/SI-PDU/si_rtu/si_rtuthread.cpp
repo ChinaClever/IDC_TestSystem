@@ -50,7 +50,7 @@ void SI_RtuThread::init(SerialPort *serial)
  * @param value 值
  * @return true
  */
-bool SI_RtuThread::sentSetCmd(uchar addr, uchar reg, ushort value)
+bool SI_RtuThread::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     bool ret = false;
     static uchar buf[RTU_BUF_SIZE] = {0};
@@ -58,7 +58,7 @@ bool SI_RtuThread::sentSetCmd(uchar addr, uchar reg, ushort value)
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
-        int rtn = mSerial->transmit(buf, len, mBuf);
+        int rtn = mSerial->transmit(buf, len, mBuf, msecs);
         if(len == rtn) {
             if(memcmp(buf, mBuf,rtn) == 0)
                 ret = true;
@@ -82,7 +82,10 @@ int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
     uchar *buf = mBuf;
 
     int rtn = mLen = mRtuSent->sentDataBuff(addr,line, buf); // 把数据打包成通讯格式的数据
-    rtn = mSerial->transmit(buf, rtn, buf, msecs); // 传输数据，发送同时接收
+    if(mSerial) {
+        rtn = mSerial->transmit(buf, rtn, buf, msecs); // 传输数据，发送同时接收
+    } else rtn = 0;
+
     if(rtn > 0)
     {
         bool ret = mRtuRecv->recvPacket(buf, rtn, pkt); // 解释数据

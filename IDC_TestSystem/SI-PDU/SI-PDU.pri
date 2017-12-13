@@ -29,7 +29,12 @@ HEADERS += \
     $$PWD/si_logsthread/si_envlogthread.h \
     $$PWD/si_logsthread/si_recordlogthread.h \
     $$PWD/si_logsthread/si_thresholdlogthread.h \
-    $$PWD/si_logsthread/si_alarmlogthread.h
+    $$PWD/si_logsthread/si_alarmlogthread.h \
+    $$PWD/si_setting/si_setmainwid.h \
+    $$PWD/si_setting/si_addrsetwid.h \
+    $$PWD/si_setting/si_unitsetwid.h \
+    $$PWD/si_setting/si_thresholdsetwid.h \
+    $$PWD/si_setting/si_elesetwid.h
 
 	
 SOURCES += \
@@ -59,7 +64,12 @@ SOURCES += \
     $$PWD/si_logsthread/si_envlogthread.cpp \
     $$PWD/si_logsthread/si_recordlogthread.cpp \
     $$PWD/si_logsthread/si_thresholdlogthread.cpp \
-    $$PWD/si_logsthread/si_alarmlogthread.cpp
+    $$PWD/si_logsthread/si_alarmlogthread.cpp \
+    $$PWD/si_setting/si_setmainwid.cpp \
+    $$PWD/si_setting/si_addrsetwid.cpp \
+    $$PWD/si_setting/si_unitsetwid.cpp \
+    $$PWD/si_setting/si_thresholdsetwid.cpp \
+    $$PWD/si_setting/si_elesetwid.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
@@ -72,7 +82,12 @@ FORMS += \
     $$PWD/toolbox/sisetmodbuscmddlg.ui \
     $$PWD/toolbox/sisetmodbustimedlg.ui \
     $$PWD/toolbox/silogstoolwid.ui \
-    $$PWD/toolbox/silogstimetooldlg.ui
+    $$PWD/toolbox/silogstimetooldlg.ui \
+    $$PWD/si_setting/si_setmainwid.ui \
+    $$PWD/si_setting/si_addrsetwid.ui \
+    $$PWD/si_setting/si_unitsetwid.ui \
+    $$PWD/si_setting/si_thresholdsetwid.ui \
+    $$PWD/si_setting/si_elesetwid.ui
 
 
 

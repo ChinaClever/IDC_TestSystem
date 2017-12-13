@@ -17,7 +17,7 @@ SiSimulationToolWid::SiSimulationToolWid(QWidget *parent) :
 
     QGridLayout *gridLayout = new QGridLayout(parent);
     gridLayout->addWidget(this);
-//    com_setBackColour("",this);
+    //    com_setBackColour("",this);
 }
 
 SiSimulationToolWid::~SiSimulationToolWid()
@@ -40,16 +40,20 @@ void SiSimulationToolWid::startSimulateTest()
 /**
  * @brief 停止模拟测试
  */
-void SiSimulationToolWid::stopSimulateTest()
+bool SiSimulationToolWid::stopSimulateTest()
 {
+    bool ret = false;
     QuMsgBox box(this, tr("是否停止测试？？"));
     if(box.Exec()) {
         SiConfigFile *config = SiConfigFile::bulid();
         config->item->testMode = SI_Test_Stop;
         emit simulateSig(SI_Test_Stop);
 
+        ret = true;
         ui->mnTestBtn->setText(tr("一键模拟"));
     }
+
+    return ret;
 }
 
 void SiSimulationToolWid::on_mnTestBtn_clicked()
@@ -80,15 +84,28 @@ void SiSimulationToolWid::on_envBtn_clicked()
 
 void SiSimulationToolWid::on_thresholdBtn_clicked()
 {
-     emit simulateSig(SI_Threshold_Info);
+    emit simulateSig(SI_Threshold_Info);
 }
 
 void SiSimulationToolWid::on_transBtn_clicked()
 {
-     emit simulateSig(SI_Trans_Info);
+    emit simulateSig(SI_Trans_Info);
 }
 
 void SiSimulationToolWid::on_realBtn_clicked()
 {
-     emit simulateSig(SI_DevReal_Info);
+    emit simulateSig(SI_DevReal_Info);
+}
+
+void SiSimulationToolWid::on_settingBtn_clicked()
+{
+    SiConfigFile *config = SiConfigFile::bulid();
+    int mode = config->item->testMode;
+
+    if(mode != SI_Test_Stop) {
+        bool ret = stopSimulateTest();
+        if(!ret) return;
+    }
+
+    emit simulateSig(SI_DevSet_Info);
 }

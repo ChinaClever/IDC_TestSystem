@@ -46,6 +46,9 @@ void SIMainWid::initWid()
     mEnvTableWid = new SI_EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
 
+    mSetMainWid = new SI_SetMainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSetMainWid);
+
     mLogModbusCmdWid = new SiLogModbusCmdWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogModbusCmdWid);
 
@@ -98,6 +101,10 @@ void SIMainWid::toolBoxSlot(int id)
 
     case SI_Env_Info:
         ui->stackedWid->setCurrentWidget(mEnvTableWid);
+        break;
+
+    case SI_DevSet_Info:
+        ui->stackedWid->setCurrentWidget(mSetMainWid);
         break;
 
     case SI_Log_Modbus:

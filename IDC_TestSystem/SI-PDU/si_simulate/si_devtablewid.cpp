@@ -24,7 +24,7 @@ void SI_DevTableWid::initWid()
     header << tr("设备号") << tr("相数")  << tr("开关")
            << tr("电压") << tr("电流") << tr("视在功率")
            << tr("有功功率") << tr("功率因素") << tr("电能");
-    initTableWid(header, 4, title);
+    initTableWid(header, 1, title);
 }
 
 /**

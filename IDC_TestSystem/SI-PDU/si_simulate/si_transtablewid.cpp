@@ -101,7 +101,7 @@ void SI_TransTableWid::setErr(int id, int column)
     int value = getPacket(id)->count.errCount ;
     setValue(id, column, value);
     if(value) {
-        setItemColor(id, column, 1);
+        setItemColor(id, column, 2);
     }
 }
 

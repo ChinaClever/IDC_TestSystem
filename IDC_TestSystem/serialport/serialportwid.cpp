@@ -54,10 +54,13 @@ void SerialPortWid::serialPortChanged(QString com)
     if(!com.isEmpty())
     {
         mSerialPort->close();
-        bool ret = mSerialPort->open(com);
+        qint32 baudRate = ui->baudComBox->currentText().toInt();
+        bool ret = mSerialPort->open(com, baudRate);
         if(ret) {
             ui->workBtn->setText(tr("关闭串口"));
             ui->stateLab->setText(tr("串口已打开"));
+            ui->comBox->setEnabled(false);
+            ui->baudComBox->setEnabled(false);
         }  else {
             ui->workBtn->setText(tr("打开串口"));
             ui->stateLab->setText(tr("串口打开失败"));
@@ -75,6 +78,8 @@ void SerialPortWid::openSerialSlot()
         mSerialPort->close();
         ui->workBtn->setText(tr("打开串口"));
         ui->stateLab->setText(tr("串口已关闭"));
+        ui->comBox->setEnabled(false);
+        ui->baudComBox->setEnabled(true);
     } else { /*未打开，现在打开*/
         QString com = ui->comBox->currentText();
         if(!com.isEmpty())

@@ -11,6 +11,7 @@ enum {
     SI_Trans_Info, // Modbus传输统计实时显示界面
     SI_Threshold_Info, // 设备阈值实时显示界面
     SI_Env_Info, // 环境信息_
+    SI_DevSet_Info,
 
     SI_Log_Modbus, // Modbus日志界面
     SI_Log_Trans, // Modbus 传输日志

@@ -11,8 +11,7 @@ public:
     ~SI_SimulateThread();
 
 protected:
-    void run();
-    void init();
+    void run();    
     void workDown();
     void sentOkCmd(int devId);
     void saveErrCmd(int devId);
@@ -22,6 +21,10 @@ signals:
 public slots:
     void startThread();
     void stopThread();
+
+private slots:
+    void initSlot();
+
 
 private:
     bool isRun;

@@ -45,7 +45,7 @@
   <widget class="QLabel" name="devLineLab">
    <property name="geometry">
     <rect>
-     <x>100</x>
+     <x>110</x>
      <y>130</y>
      <width>54</width>
      <height>25</height>
@@ -58,7 +58,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>50</x>
      <y>130</y>
      <width>54</width>
      <height>25</height>

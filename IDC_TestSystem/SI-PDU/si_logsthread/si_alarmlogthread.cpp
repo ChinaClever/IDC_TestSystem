@@ -20,7 +20,13 @@ SI_AlarmLogThread *SI_AlarmLogThread::bulid()
     return sington;
 }
 
-
+/**
+ * @brief 保存日志
+ * @param id
+ * @param line
+ * @param typeStr
+ * @param str
+ */
 void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const QString &str)
 {
     SiDbAlarmItem item;
@@ -32,7 +38,14 @@ void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const 
     msleep(5);
 }
 
-
+/**
+ * @brief 数据单元处理
+ * @param id
+ * @param str
+ * @param unit
+ * @param rate
+ * @param sym
+ */
 void SI_AlarmLogThread::unitAlarm(int id, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym)
 {
     QString typeStr = str + tr("报警");
@@ -51,7 +64,10 @@ void SI_AlarmLogThread::unitAlarm(int id, const QString &str, SI_sDataUnit &unit
     }
 }
 
-
+/**
+ * @brief 保存日志
+ * @param id
+ */
 void SI_AlarmLogThread::saveAlarm(int id)
 {
     SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);

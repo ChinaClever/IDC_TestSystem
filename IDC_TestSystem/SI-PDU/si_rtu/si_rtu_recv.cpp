@@ -69,7 +69,17 @@ static uchar *rtu_recv_data(uchar *ptr, int line, uint *value)
 static uchar *rtu_recv_data(uchar *ptr, int line, ushort *value)
 {
     for(int i=0; i<line; ++i) {
-        value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电压
+        value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return ptr;
+}
+
+static uchar *rtu_recv_unit(uchar *ptr, int line, SI_sDataUnit &unit)
+{
+    for(int i=0; i<line; ++i) {
+        ptr = rtu_recv_data(ptr, 1, &unit.min[i]);
+        ptr = rtu_recv_data(ptr, 1, &unit.max[i]);
     }
 
     return ptr;
@@ -113,12 +123,10 @@ static int rtu_recv_data(uchar *ptr, int line, SI_RtuRecvLine *msg)
     ptr =  rtu_recv_data(ptr, line, msg->pow);
     ptr =  rtu_recv_data(ptr, line, msg->ele);
 
-    ptr =  rtu_recv_data(ptr, line, msg->vol.min);
-    ptr =  rtu_recv_data(ptr, line, msg->vol.max);
+    ptr =  rtu_recv_unit(ptr, line, msg->vol);
     rtu_recv_alarm(msg->vol, line);
 
-    ptr =  rtu_recv_data(ptr, line, msg->cur.min);
-    ptr =  rtu_recv_data(ptr, line, msg->cur.max);
+    ptr =  rtu_recv_unit(ptr, line, msg->cur);
     rtu_recv_alarm(msg->cur, line);
 
     msg->tem.value[0] =  *(ptr++);// 温度

@@ -14,6 +14,7 @@ SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 
     mPackets = SIDataPackets::bulid();
     mRtu = SI_RtuThread::bulid(this);
+     QTimer::singleShot(400,this,SLOT(initSlot()));
 }
 
 SI_SimulateThread::~SI_SimulateThread()
@@ -26,7 +27,7 @@ SI_SimulateThread::~SI_SimulateThread()
 /**
  * @brief 初始化
  */
-void SI_SimulateThread::init()
+void SI_SimulateThread::initSlot()
 {
     SerialPort *serial = SiConfigFile::bulid()->item->serial;
     mRtu->init(serial);
@@ -38,7 +39,6 @@ void SI_SimulateThread::init()
 void SI_SimulateThread::startThread()
 {
     if(!isRun) {
-        init();
         QTimer::singleShot(1000,this,SLOT(start()));  // 启动线程
     }
 }
@@ -50,6 +50,12 @@ void SI_SimulateThread::stopThread()
 {
     isRun = false;
     wait();
+
+    SiConfigItem *item = SiConfigFile::bulid()->item;
+    for(int i=0; i<item->devNum; ++i) {
+        SiDevPacket *dev = mPackets->getDev(i);
+        dev->rtuData.offLine = 0;
+    }
 }
 
 

@@ -15,7 +15,7 @@ public:
     ~SI_RtuThread();
 
     void init(SerialPort *serial);
-    bool sentSetCmd(uchar addr, uchar reg, ushort value);
+    bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     int transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs);
     QByteArray getSentCmd();
 
