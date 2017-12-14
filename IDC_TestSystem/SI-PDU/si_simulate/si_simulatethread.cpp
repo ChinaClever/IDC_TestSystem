@@ -49,15 +49,18 @@ void SI_SimulateThread::startThread()
 void SI_SimulateThread::stopThread()
 {
     isRun = false;
-    wait();
+//    wait();
+}
 
+void SI_SimulateThread::setOffLine()
+{
     SiConfigItem *item = SiConfigFile::bulid()->item;
     for(int i=0; i<item->devNum; ++i) {
         SiDevPacket *dev = mPackets->getDev(i);
         dev->rtuData.offLine = 0;
     }
-}
 
+}
 
 
 /**
@@ -130,4 +133,5 @@ void SI_SimulateThread::run()
     while(isRun) {
         workDown();
     }
+    setOffLine();
 }

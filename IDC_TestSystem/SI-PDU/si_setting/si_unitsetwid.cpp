@@ -51,10 +51,10 @@ void SI_UnitSetWid::updateData(int line)
     double value = mUnit->value[line] / mRate;
     ui->spinBox->setValue(value);
 
-    int max = mUnit->max[line];
+    int max = mUnit->max[line] / mRate;
     ui->maxSpinBox->setValue(max);
 
-    int min = mUnit->min[line];
+    int min = mUnit->min[line] / mRate;
     ui->minSpinBox->setValue(min);
 
     QString str = "color:black;";
@@ -87,12 +87,12 @@ void SI_UnitSetWid::setData(int addr, int reg, int value)
 
 void SI_UnitSetWid::on_maxBtn_clicked()
 {
-    int value = ui->maxSpinBox->value();
+    int value = ui->maxSpinBox->value() * mRate;
     setData(mAddr, mReg, value);
 }
 
 void SI_UnitSetWid::on_minBtn_clicked()
 {
-    int value = ui->minSpinBox->value();
+    int value = ui->minSpinBox->value() * mRate;
     setData(mAddr, mReg+1, value);
 }

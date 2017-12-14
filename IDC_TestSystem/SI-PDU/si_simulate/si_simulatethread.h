@@ -15,6 +15,7 @@ protected:
     void workDown();
     void sentOkCmd(int devId);
     void saveErrCmd(int devId);
+    void setOffLine();
 
 signals:
 
