@@ -31,12 +31,13 @@ void SI_TransLogThread::saveLogItem(int id)
     item.ok_count = packet->count.okCount;
     item.err_count = packet->count.errCount;
 
-    QString str =tr("高线");
+    QString str =tr("离线");
     if(packet->rtuData.offLine)
         str =tr("在线");
     item.state = str;
 
     SiDbModbusTrans::bulid()->insertItem(item);
+    msleep(5);
 }
 
 

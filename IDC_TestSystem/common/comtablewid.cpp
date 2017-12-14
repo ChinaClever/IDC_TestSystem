@@ -134,7 +134,6 @@ void ComTableWid::checkTableRow(int line)
     {
         for(int i=0; i<row-line; ++i)
             ui->tableWidget->removeRow(line);
-
     }
 }
 

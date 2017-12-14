@@ -15,7 +15,7 @@ public:
 
 protected:
     void saveMsg(int id, int line, const QString &typeStr, const QString &str);
-    void unitAlarm(int id, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym);
+    void unitAlarm(int id, int line, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym);
 
 };
 

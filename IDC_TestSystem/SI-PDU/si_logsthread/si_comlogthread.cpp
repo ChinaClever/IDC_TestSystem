@@ -37,9 +37,13 @@ SiDevPacket *SI_ComLogThread::getPacket(int id)
  */
 void SI_ComLogThread::workDown()
 {
+//    static QReadWriteLock  rwLock;
     int sec = SiConfigFile::bulid()->item->logMins * 60;
     if(mCount++ % sec == 0)
+    {
+//        QWriteLocker locker(&rwLock); // 正在操作时不允许关闭
         saveLogs();
+    }
 }
 
 

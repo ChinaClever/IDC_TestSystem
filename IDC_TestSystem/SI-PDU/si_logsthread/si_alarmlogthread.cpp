@@ -46,10 +46,10 @@ void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const 
  * @param rate
  * @param sym
  */
-void SI_AlarmLogThread::unitAlarm(int id, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym)
+void SI_AlarmLogThread::unitAlarm(int id, int line, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym)
 {
     QString typeStr = str + tr("报警");
-    for(int i=0; i<3; ++i)
+    for(int i=0; i<line; ++i)
     {
         if(unit.alarm[i] == 1)
         {
@@ -73,8 +73,9 @@ void SI_AlarmLogThread::saveAlarm(int id)
     SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
     SI_RtuRecvLine *dev = &(packet->rtuData.data);
 
-    unitAlarm(id, tr("电流"), dev->cur, COM_RATE_CUR, "A");
-    unitAlarm(id, tr("电压"), dev->vol, COM_RATE_VOL, "V");
-    unitAlarm(id, tr("温度"), dev->tem, COM_RATE_TEM, " ℃");
-    unitAlarm(id, tr("湿度"), dev->hum, COM_RATE_HUM, " %");
+    int line = dev->lineNum;
+    unitAlarm(id, line, tr("电流"), dev->cur, COM_RATE_CUR, "A");
+    unitAlarm(id, line, tr("电压"), dev->vol, COM_RATE_VOL, "V");
+    unitAlarm(id, 1, tr("温度"), dev->tem, COM_RATE_TEM, " ℃");
+    unitAlarm(id, 1, tr("湿度"), dev->hum, COM_RATE_HUM, " %");
 }
