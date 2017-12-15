@@ -123,6 +123,7 @@ void SI_SimulateThread::workDown()
             if(ret) break ;
         }
         if(isRun) msleep(550);
+        else break;
 
         if(ret) { // 正常收到数据
             sentOkCmd(i);
