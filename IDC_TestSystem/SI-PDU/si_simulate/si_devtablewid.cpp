@@ -10,7 +10,7 @@ SI_DevTableWid::SI_DevTableWid(QWidget *parent) : ComTableWid(parent)
 {
     initWid();
     timer = new QTimer(this);
-    timer->start(2*1000);
+    timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -78,7 +78,7 @@ void SI_DevTableWid::setSw(int row, int column, int id, int line)
     int value = getPacket(id)->data.sw[line];
     if(value == 0) {
         str = tr("断开");
-        alarm = 1;
+        alarm = 2;
     } else  {
         str = tr("闭合");
     }
@@ -154,7 +154,7 @@ void SI_DevTableWid::setActivePow(int row, int column, int id, int line)
     QString str = "---";
     double value = getPacket(id)->data.activePow[line] / COM_RATE_POW;
     if(value >= 0)
-        str = QString::number(value) + "KVA";
+        str = QString::number(value) + "KW";
 
     setTableItem(row, column, str);
 }
@@ -188,7 +188,7 @@ void SI_DevTableWid::setEle(int row, int column, int id, int line)
     QString str = "---";
     double value = getPacket(id)->data.ele[line] / COM_RATE_ELE;
     if(value >= 0)
-        str = QString::number(value);
+        str = QString::number(value) + "KWh";
 
     setTableItem(row, column, str);
 }
@@ -204,8 +204,8 @@ void SI_DevTableWid::checkRowCount()
     {
         SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
         int line = packet->rtuData.data.lineNum;
-        for(int j=0; j<line; ++j)
-        {
+        if((line<1) || (line>3)) line = packet->rtuData.data.lineNum = 1;
+        for(int j=0; j<line; ++j)  {
             row++;
         }
     }

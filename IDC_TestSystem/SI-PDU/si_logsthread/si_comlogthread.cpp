@@ -7,6 +7,14 @@
  */
 #include "si_comlogthread.h"
 
+static QReadWriteLock *gRwLock = new QReadWriteLock();
+
+QReadWriteLock *get_log_lock()
+{
+    return gRwLock;
+}
+
+
 SI_ComLogThread::SI_ComLogThread(QObject *parent) : QThread(parent)
 {
     mCount = 1;
@@ -37,11 +45,12 @@ SiDevPacket *SI_ComLogThread::getPacket(int id)
  */
 void SI_ComLogThread::workDown()
 {
-//    static QReadWriteLock  rwLock;
     int sec = SiConfigFile::bulid()->item->logMins * 60;
     if(mCount++ % sec == 0)
     {
-//        QWriteLocker locker(&rwLock); // 正在操作时不允许关闭
+        msleep(rand() % 300);
+        QReadWriteLock *lock = get_log_lock();
+        QWriteLocker locker(lock); // 正在操作时不允许关闭
         saveLogs();
     }
 }
@@ -49,9 +58,11 @@ void SI_ComLogThread::workDown()
 
 void SI_ComLogThread::run()
 {
-    isRun = true;
-    workDown();
-    isRun = false;
+    if(isRun == false) {
+        isRun = true;
+        workDown();
+        isRun = false;
+    }
 }
 
 /**
@@ -59,7 +70,8 @@ void SI_ComLogThread::run()
  */
 void SI_ComLogThread::startThread()
 {
-    timer->start(1*1000);
+    int time = rand() % 100;
+    timer->start(1*1000 + time);
 }
 
 /**

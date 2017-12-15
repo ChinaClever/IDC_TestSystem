@@ -48,7 +48,7 @@ void SI_RecordLogThread::saveLogItem(int id)
             item.ele = packet->data.ele[i] / COM_RATE_ELE;
 
             SiDbRealRecords::bulid()->insertItem(item);
-            msleep(5);
+            msleep(LOG_DELAY);
         }
     }
 }

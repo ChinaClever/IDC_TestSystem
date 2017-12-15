@@ -103,6 +103,7 @@ int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
 QByteArray SI_RtuThread::getSentCmd()
 {
     QByteArray array;
+    if((mLen < 0) || (mLen > RTU_BUF_SIZE))  mLen = 2048;
     array.append((char *)mBuf, mLen);
     return array;
 }

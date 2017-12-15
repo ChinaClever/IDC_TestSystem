@@ -41,7 +41,7 @@ void SI_ThresholdLogThread::saveLogItem(int id)
             item.cur_max = packet->data.cur.max[i] / COM_RATE_CUR;
 
             SiDbThresholds::bulid()->insertItem(item);
-            msleep(5);
+            msleep(LOG_DELAY);
         }
     }
 }

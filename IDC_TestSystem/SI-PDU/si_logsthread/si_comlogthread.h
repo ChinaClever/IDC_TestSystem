@@ -3,6 +3,8 @@
 
 #include "si_com/sidatapackets.h"
 
+#define LOG_DELAY 30
+
 class SI_ComLogThread : public QThread
 {
     Q_OBJECT

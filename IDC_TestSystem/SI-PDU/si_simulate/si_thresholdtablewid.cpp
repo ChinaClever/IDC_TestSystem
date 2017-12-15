@@ -10,7 +10,7 @@ SI_ThresholdTableWid::SI_ThresholdTableWid(QWidget *parent) : ComTableWid(parent
 {
     initWid();
     timer = new QTimer(this);
-    timer->start(2*1000);
+    timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
@@ -190,6 +190,7 @@ void SI_ThresholdTableWid::checkRowCount()
     {
         SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
         int line = packet->rtuData.data.lineNum;
+        if((line<1) || (line>3)) line = packet->rtuData.data.lineNum = 1;
         for(int j=0; j<line; ++j)
         {
             row++;

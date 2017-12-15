@@ -18,10 +18,10 @@ static int rtu_recv_len(uchar *buf, int len)
 
     if(len < SI_RTU_ONE_LEN) {
         ret = -1;
-        qDebug() << "rtu recv Err: len too short!!" << len ;
+        qDebug() << "rtu recv Err: len too short!!" << len;
     } else if(len > SI_RTU_THREE_LEN + 7) {
         ret = -2;
-        qDebug() << "rtu recv Err: len too long!!" << len  ;
+        qDebug() << "rtu recv Err: len too long!!" << len;
     } else {
         len = buf[2]*256 + buf[3];
         if(len == SI_RTU_ONE_LEN) {
@@ -31,6 +31,7 @@ static int rtu_recv_len(uchar *buf, int len)
         } else  {
             ret = -3;
             qDebug() << "rtu recv len Err!!" << len  ;
+            len = 0;
         }
     }
 
@@ -50,6 +51,7 @@ static int rtu_recv_head(uchar *ptr,  SI_Rtu_Recv *pkt)
     pkt->addr = *(ptr++);// 从机地址码
     pkt->fn = *(ptr++);  /*功能码*/
     pkt->len = (*ptr) * 256 + *(ptr+1); /*数据长度*/
+    if(pkt->len > SERIAL_LEN) pkt->len = 0;
 
     return 4;
 }
@@ -203,5 +205,11 @@ static bool rtu_recv_packet(uchar *buf, int len, SI_Rtu_Recv *pkt)
 
 bool SI_RtuRecv::recvPacket(uchar *buf, int len, SI_Rtu_Recv *pkt)
 {
-    return rtu_recv_packet(buf, len, pkt);
+    bool ret = false;
+    if((len > 2) && (len < 1024))
+        ret = rtu_recv_packet(buf, len, pkt);
+    else
+        qDebug() << "SI_RtuRecv recvPacket err" << ret;
+
+    return ret;
 }

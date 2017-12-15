@@ -37,7 +37,7 @@ void SI_TransLogThread::saveLogItem(int id)
     item.state = str;
 
     SiDbModbusTrans::bulid()->insertItem(item);
-    msleep(5);
+    msleep(LOG_DELAY);
 }
 
 

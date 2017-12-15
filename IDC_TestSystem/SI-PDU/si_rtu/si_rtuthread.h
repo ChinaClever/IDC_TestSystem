@@ -3,7 +3,7 @@
 
 #include "si_rtu_recv.h"
 
-#define RTU_BUF_SIZE 512
+#define RTU_BUF_SIZE 2*SERIAL_LEN
 
 class SI_RtuThread : public QThread
 {

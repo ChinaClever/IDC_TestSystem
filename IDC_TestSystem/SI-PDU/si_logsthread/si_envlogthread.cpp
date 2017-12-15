@@ -37,7 +37,7 @@ void SI_EnvLogThread::saveLogItem(int id)
         item.hum_max = packet->data.hum.max[0];
 
         SiDbEnv::bulid()->insertItem(item);
-        msleep(5);
+        msleep(LOG_DELAY);
     }
 
 }

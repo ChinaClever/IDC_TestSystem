@@ -7,6 +7,7 @@
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
 #include "si_logsthread/si_alarmlogthread.h"
+extern QReadWriteLock *get_log_lock();
 
 SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 {
@@ -14,7 +15,7 @@ SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 
     mPackets = SIDataPackets::bulid();
     mRtu = SI_RtuThread::bulid(this);
-     QTimer::singleShot(400,this,SLOT(initSlot()));
+    QTimer::singleShot(400,this,SLOT(initSlot()));
 }
 
 SI_SimulateThread::~SI_SimulateThread()
@@ -39,7 +40,7 @@ void SI_SimulateThread::initSlot()
 void SI_SimulateThread::startThread()
 {
     if(!isRun) {
-        QTimer::singleShot(1000,this,SLOT(start()));  // 启动线程
+        QTimer::singleShot(100,this,SLOT(start()));  // 启动线程
     }
 }
 
@@ -49,7 +50,7 @@ void SI_SimulateThread::startThread()
 void SI_SimulateThread::stopThread()
 {
     isRun = false;
-//    wait();
+    //    wait();
 }
 
 void SI_SimulateThread::setOffLine()
@@ -59,7 +60,6 @@ void SI_SimulateThread::setOffLine()
         SiDevPacket *dev = mPackets->getDev(i);
         dev->rtuData.offLine = 0;
     }
-
 }
 
 
@@ -74,6 +74,8 @@ void SI_SimulateThread::sentOkCmd(int devId)
     count->count++;
     count->okCount ++;
 
+    QReadWriteLock *lock = get_log_lock();
+    QWriteLocker locker(lock); // 正在操作时不允许关闭
     SI_AlarmLogThread::bulid()->saveAlarm(devId);
 }
 
@@ -86,8 +88,8 @@ void SI_SimulateThread::saveErrCmd(int devId)
 {
     SiDevPacket *dev = mPackets->getDev(devId);
     SiDevModubsCount *count = &(dev->count);
-    count->count++;
-    count->errCount ++;
+    count->count += 1;
+    count->errCount += 1;
 
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
@@ -98,8 +100,11 @@ void SI_SimulateThread::saveErrCmd(int devId)
     SiDbModbusCmdItem item;
     item.dev_id = devId+1;
     item.msg = strArray;
+
+    QReadWriteLock *lock = get_log_lock();
+    QWriteLocker locker(lock); // 正在操作时不允许关闭
     SiDbModbusCmd::bulid()->insertItem(item);
-    msleep(5);
+    msleep(30);
 }
 
 
@@ -117,7 +122,7 @@ void SI_SimulateThread::workDown()
             ret = mRtu->transData(i+1, item->lineNum, &(mPackets->getDev(i)->rtuData), item->msecs);
             if(ret) break ;
         }
-        msleep(850);
+        if(isRun) msleep(550);
 
         if(ret) { // 正常收到数据
             sentOkCmd(i);

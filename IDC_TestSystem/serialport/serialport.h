@@ -4,7 +4,9 @@
 #include "common.h"
 #include <QSerialPort>
 
-class SerialPort : public QObject
+#define SERIAL_LEN  2*1024
+
+class SerialPort : public QThread
 {
     Q_OBJECT
 public:
@@ -34,12 +36,14 @@ signals:
 
 protected:
     int recv(QByteArray &array);
+    bool reOpen(const QByteArray &array);
 
 private slots:
     void serialReadSlot(void);
 
 private:
     bool isOpen;
+    int mCount;
     QSerialPort  *mSerial;
     QReadWriteLock  mRwLock;
     QByteArray mSerialData;

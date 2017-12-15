@@ -166,7 +166,7 @@ void BasicSql::throwError(const QSqlError &err)
 
 bool BasicSql::clear()
 {
-    //    QString cmd = QString("truncate table %1").arg(tableName());
+//        QString cmd = QString("truncate table %1").arg(tableName());
     QString cmd = QString("DROP  table %1").arg(tableName());
     QSqlQuery query(cmd);
     bool ret = query.exec(cmd);
@@ -217,7 +217,7 @@ void BasicSql::initDb()
     static bool s_initDbFinshed = false;
     if(s_initDbFinshed == false){
         QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName(cm_pathOfData("screen.db"));
+        db.setDatabaseName(cm_pathOfData("test.db"));
         if (!db.open()) { //打开数据库
             qDebug() << "init Db error !!!";
         }

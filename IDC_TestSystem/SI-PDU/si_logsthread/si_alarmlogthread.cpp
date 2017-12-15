@@ -35,7 +35,7 @@ void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const 
     item.type_str = typeStr;
     item.msg = str;
     SiDbAlarm::bulid()->insertItem(item);
-    msleep(5);
+    msleep(15);
 }
 
 /**

@@ -6,10 +6,11 @@
  */
 #include "serialport.h"
 #include <QSerialPortInfo>
+#include <QApplication>
 
-#define SERIAL_READ_TIMEOUT  100  // 100MS
+#define SERIAL_READ_TIMEOUT  75  // 100MS
 
-SerialPort::SerialPort(QObject *parent) : QObject(parent)
+SerialPort::SerialPort(QObject *parent) : QThread(parent)
 {
     isOpen = false;
     mSerial = NULL;
@@ -32,6 +33,7 @@ bool SerialPort::open(const QString &name,qint32 baudRate)
 
     if(!isOpen)
     {
+        mCount = 0;
         mSerial = new QSerialPort(name);       //串口号，一定要对应好，大写！！！
         ret = mSerial->open(QIODevice::ReadWrite);      //读写打开
         if(ret)
@@ -71,6 +73,31 @@ bool SerialPort::close(void)
 }
 
 /**
+ * @brief 重新打开串口 发送到一定程序，串口发送数据无反应
+ * @param array
+ * @return
+ */
+bool SerialPort::reOpen(const QByteArray &array)
+{
+    QString com = getSerialName();
+    int br = mSerial->baudRate();
+
+    close();
+    bool ret = open(com, br);
+    if(ret) {
+        int len = mSerial->write(array); //
+        if(len <= 0) {
+            qDebug() << "SerialPort reOpen write err" << len;
+            len = 0;
+            ret = false;
+        }
+    }
+    qDebug() << "SerialPort reOpen " << ret << com << br;
+
+    return ret;
+}
+
+/**
  * @brief 获取端口名称
  * @return
  */
@@ -105,7 +132,7 @@ QStringList SerialPort::getList()
 
 bool SerialPort::isContains(const QString &name)
 {
-     return getList().contains(name);
+    return getList().contains(name);
 }
 
 
@@ -120,7 +147,18 @@ int SerialPort::write(const QByteArray &array)
 
     if(isOpen) {
         len = mSerial->write(array);
-        mSerial->flush();
+        if(len > 0) {
+            // mSerial->flush();
+            msleep(350);
+        }
+
+        // 串口每过段时间重新打开一下
+        if((mCount++ > 50*60) || (len <=0)){ // 发送失败
+            bool ret = reOpen(array);  // 重新打开串口
+            if(!ret) {
+                qDebug() << "SerialPort transmit write err";
+            }
+        }
     }
 
     return len;
@@ -144,10 +182,15 @@ int SerialPort::recv(QByteArray &array)
     QByteArray dataTemp;
     if(isOpen)
     {
+        /* 处理所有还没有被处理的各类事件，主要是不用用户感觉到ka */
+        QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        msleep(SERIAL_READ_TIMEOUT);
         while (mSerial->waitForReadyRead(SERIAL_READ_TIMEOUT)); // 等待窗口接收完全
         while (!mSerial->atEnd()) {
             dataTemp += mSerial->readAll();     //因为串口是不稳定的，也许读到的是部分数据而已，但也可能是全部数据
         }
+        if(!mSerial->isReadable()) qDebug() << "Serial not Read Err!!! ###########";
+
         array += dataTemp;
     }
 
@@ -163,9 +206,6 @@ int SerialPort::read(QByteArray &array, int msecs)
     QWriteLocker locker(&mRwLock);
     do
     {
-        /* 处理所有还没有被处理的各类事件，主要是不用用户感觉到ka */
-        // QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-        // msleep(35);
         int rtn = recv(array);
         if(rtn > 0) {
             len += rtn;
@@ -182,9 +222,13 @@ int SerialPort::read(uchar *recv, int msecs)
 {
     QByteArray array;
     int ret = read(array, msecs);
-
-    for(int i=0; i<ret; ++i)
-        recv[i] = array.at(i);
+    if(ret < SERIAL_LEN) {
+        for(int i=0; i<ret; ++i)
+            recv[i] = array.at(i);
+    } else {
+        qDebug() << "SerialPort read too long :" << ret;
+        ret = 0;
+    }
 
     return ret;
 }
@@ -214,10 +258,14 @@ int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray, int
     int ret = write(witeArray);
     if(ret > 0) {
         ret = read(readArray, msecs);
-        if(ret <=0 ) {
-//             qDebug() << "SerialPort transmit read err";
+        if((ret < 0) || (ret > SERIAL_LEN)) {
+            qDebug() << "SerialPort transmit read err"  << ret;
+            ret = 0;
+        } else if(ret == 0) {
+            // qDebug() << "SerialPort transmit read no data"  << ret;
         }
     }
+
     return ret;
 }
 
