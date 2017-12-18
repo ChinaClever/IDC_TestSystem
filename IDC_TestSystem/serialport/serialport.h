@@ -36,7 +36,7 @@ signals:
 
 protected:
     int recv(QByteArray &array);
-    bool reOpen(const QByteArray &array);
+    bool reOpen();
 
 private slots:
     void serialReadSlot(void);

@@ -26,19 +26,6 @@
     <string>修改</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="minSpinBox">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>0</y>
-     <width>60</width>
-     <height>30</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <number>999</number>
-   </property>
-  </widget>
   <widget class="QPushButton" name="maxBtn">
    <property name="geometry">
     <rect>
@@ -52,7 +39,26 @@
     <string>修改</string>
    </property>
   </widget>
-  <widget class="QSpinBox" name="maxSpinBox">
+  <widget class="QDoubleSpinBox" name="spinBox">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>60</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <double>999.000000000000000</double>
+   </property>
+  </widget>
+  <widget class="QDoubleSpinBox" name="maxSpinBox">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -64,17 +70,20 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="decimals">
+    <number>1</number>
+   </property>
    <property name="maximum">
-    <number>999</number>
+    <double>999.000000000000000</double>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="spinBox">
+  <widget class="QDoubleSpinBox" name="minSpinBox">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>260</x>
      <y>0</y>
      <width>60</width>
      <height>30</height>

@@ -122,7 +122,7 @@ void SI_SimulateThread::workDown()
             ret = mRtu->transData(i+1, item->lineNum, &(mPackets->getDev(i)->rtuData), item->msecs);
             if(ret) break ;
         }
-        if(isRun) msleep(550);
+        if(isRun) msleep(455);
         else break;
 
         if(ret) { // 正常收到数据

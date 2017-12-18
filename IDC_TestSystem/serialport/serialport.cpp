@@ -8,7 +8,7 @@
 #include <QSerialPortInfo>
 #include <QApplication>
 
-#define SERIAL_READ_TIMEOUT  75  // 100MS
+#define SERIAL_READ_TIMEOUT  55  // 100MS
 
 SerialPort::SerialPort(QObject *parent) : QThread(parent)
 {
@@ -33,7 +33,7 @@ bool SerialPort::open(const QString &name,qint32 baudRate)
 
     if(!isOpen)
     {
-        mCount = 0;
+        mCount = 1;
         mSerial = new QSerialPort(name);       //串口号，一定要对应好，大写！！！
         ret = mSerial->open(QIODevice::ReadWrite);      //读写打开
         if(ret)
@@ -77,22 +77,14 @@ bool SerialPort::close(void)
  * @param array
  * @return
  */
-bool SerialPort::reOpen(const QByteArray &array)
+bool SerialPort::reOpen()
 {
     QString com = getSerialName();
     int br = mSerial->baudRate();
 
     close();
     bool ret = open(com, br);
-    if(ret) {
-        int len = mSerial->write(array); //
-        if(len <= 0) {
-            qDebug() << "SerialPort reOpen write err" << len;
-            len = 0;
-            ret = false;
-        }
-    }
-    qDebug() << "SerialPort reOpen " << ret << com << br;
+    if(!ret) qDebug() << "SerialPort reOpen " << ret << com << br;
 
     return ret;
 }
@@ -146,18 +138,13 @@ int SerialPort::write(const QByteArray &array)
     int len=0;
 
     if(isOpen) {
+        // 串口每过段时间重新打开一下
+        if((mCount++ % 555) == 0)  reOpen();  // 重新打开串口
+
         len = mSerial->write(array);
         if(len > 0) {
-            // mSerial->flush();
-            msleep(350);
-        }
-
-        // 串口每过段时间重新打开一下
-        if((mCount++ > 50*60) || (len <=0)){ // 发送失败
-            bool ret = reOpen(array);  // 重新打开串口
-            if(!ret) {
-                qDebug() << "SerialPort transmit write err";
-            }
+            mSerial->flush();
+            msleep(255);
         }
     }
 
