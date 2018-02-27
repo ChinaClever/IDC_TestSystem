@@ -49,6 +49,7 @@ void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const 
 void SI_AlarmLogThread::unitAlarm(int id, int line, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym)
 {
     QString typeStr = str + tr("报警");
+    if(line > 3) {  qDebug() << "SI_AlarmLogThread unitAlarm line err" << line ;  return; }
     for(int i=0; i<line; ++i)
     {
         if(unit.alarm[i] == 1)
