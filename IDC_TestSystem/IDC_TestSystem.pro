@@ -34,6 +34,7 @@ include(IP-PDU/IP-PDU.pri)
 include(sql/sql.pri)
 include(logs/logs.pri)
 include(excel/excel.pri)
+include(eload/eload.pri)
 include(test/test.pri)
 
 SOURCES += \
