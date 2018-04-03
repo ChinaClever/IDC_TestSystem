@@ -1,4 +1,4 @@
-#ifndef BASICSQL_H
+﻿#ifndef BASICSQL_H
 #define BASICSQL_H
 
 #include <QtSql>
@@ -54,7 +54,7 @@ private:
 
 
 //该类为sql通用类型。
-template <typename T>
+template <typename T> //模板
 class SqlBasic:public BasicSql
 {
 public:
@@ -87,7 +87,7 @@ public:
     }
 
 protected:
-    virtual void selectItem(QSqlQuery &query,T &item)=0;
+    virtual void selectItem(QSqlQuery &query,T &item)=0; //纯虚函数
     QVector<T> selectItems(const QString &condition)
     {
         QVector<T> items;
