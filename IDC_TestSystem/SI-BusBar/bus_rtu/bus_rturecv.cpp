@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "bus_rturecv.h"
 
 static ushort rtu_crc(uchar *buf, int len)

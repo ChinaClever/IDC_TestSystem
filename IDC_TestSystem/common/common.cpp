@@ -131,6 +131,7 @@ void button_style_sheet(QWidget *target)
                           "QPushButton:hover{background-color:rgb(91, 237, 238);}"
                           "QPushButton:pressed{background-color:rgb(143, 185, 181);}"
                           "QComboBox{background-color:rgb(255,255,255);}" );
+
     target->setFont(QFont("微软雅黑",12));
 }
 
@@ -153,6 +154,7 @@ void groupBox_background_icon(QWidget *target)
 {
     set_background_icon(target,":/image/box_back.jpg");
     button_style_sheet(target);
+//    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
 }
 
 /**

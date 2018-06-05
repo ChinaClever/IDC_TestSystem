@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "bus_dptg.h"
 
 BUS_DpTg::BUS_DpTg()
@@ -101,11 +107,21 @@ void BUS_DpTg::tgBox(sBoxData *box)
         tgObj(box);
         LineTg(box);
     }
+
+    int line = BUS_LINE_NUM;
+    if(!box->dc) line = 2;
+    box->lineNum = line;
 }
+
+
 
 void BUS_DpTg::tgBus(sBusData *bus)
 {
-    for(int i=0; i<=bus->boxNum; ++i) { // 插接箱统计
+    int line = BUS_LINE_NUM;
+    if(!bus->box[0].dc) line = 2;
+    bus->box[0].loopNum = line;
+
+    for(int i=1; i<=bus->boxNum; ++i) { // 插接箱统计
         tgBox(&(bus->box[i]));
     }
 }

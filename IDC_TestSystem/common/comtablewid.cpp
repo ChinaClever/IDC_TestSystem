@@ -119,6 +119,17 @@ void ComTableWid::setTableItem(int id, int column, const QString &str)
 }
 
 /**
+ * @brief 设置一行数据
+ * @param id 行号
+ * @param listStr 字符链表
+ */
+void ComTableWid::setTableRow(int id, QStringList &listStr)
+{
+    for(int i=0; i<listStr.size(); ++i)
+        setTableItem(id, i, listStr.at(i));
+}
+
+/**
  * @brief 表格行数重新调整
  * @param line 目标行数
  */

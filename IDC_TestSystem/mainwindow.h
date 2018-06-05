@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "simainwid.h"
+#include "bus_mainwid.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,10 +25,13 @@ private slots:
 
     void on_sipduBtn_clicked();
 
+    void on_siBusBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     SIMainWid *mSiWid;
+    BUS_MainWid *mBusWid;
 };
 
 #endif // MAINWINDOW_H

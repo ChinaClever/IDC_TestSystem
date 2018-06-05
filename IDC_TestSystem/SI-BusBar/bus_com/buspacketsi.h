@@ -72,7 +72,7 @@ struct sBoxData {
     char name[BUS_NAME_LEN];
 
     char offLine; // 离线标识
-    int loopNum; // 回路数量
+    int lineNum,loopNum; // 回路数量
     char version;
 
     BUS_RtuCount count;
@@ -81,10 +81,7 @@ struct sBoxData {
     BUS_sObjUnit loop[BUS_LOOP_NUM]; // 回路数据
     BUS_sEnvData env[BUS_SENSOR_NUM]; // 环境状态
 
-    char boxAlarm, boxVolAlarm, boxCurAlarm, boxEnvAlarm; // 插接箱告警
-    char boxStatus; // 插接箱状态
     char boxSpec; //  0 表示 SI  1 表示 IP
-
     int ratedCur; // 额定电流
     int rate; // 电压频率
     char dc; // 交直流标志位

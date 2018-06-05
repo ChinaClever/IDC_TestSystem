@@ -13,6 +13,7 @@ protected:
     void tgBus(sBusData *bus);
     void tgBox(sBoxData *box);
     void tgObj(sBoxData *box);
+    void startBox();
 
     void lineTgObj(sBoxData *box, int line, int loop);
     void LineTg(sBoxData *box);
