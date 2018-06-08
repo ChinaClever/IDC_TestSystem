@@ -125,11 +125,11 @@ void BUS_RtuTrans::envData(sBoxData *box, BUS_RtuRecv *pkt)
     }
 }
 
-int BUS_RtuTrans::transmit(int addr, sBoxData *box)
+int BUS_RtuTrans::transmit(int addr, sBoxData *box, int msecs)
 {
     BUS_RtuRecv *pkt = mRtuPkt; //数据包
 
-    int ret = transData(addr, pkt, 10);
+    int ret = transData(addr, pkt, msecs);
     if(ret) {
         loopData(box, pkt); //更新数据
         envData(box, pkt);

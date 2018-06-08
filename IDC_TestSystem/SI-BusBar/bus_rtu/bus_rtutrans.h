@@ -9,7 +9,7 @@ public:
     BUS_RtuTrans();
 
     void init(SerialPort *serial);
-    int transmit(int addr, sBoxData *box); //发送数据并回收
+    int transmit(int addr, sBoxData *box, int msecs); //发送数据并回收
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     QByteArray getSentCmd();
 

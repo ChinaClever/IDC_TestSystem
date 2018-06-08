@@ -8,6 +8,7 @@ BUS_ToolBoxWid::BUS_ToolBoxWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    initWid();
     QGridLayout *gridLayout = new QGridLayout(parent);
     gridLayout->setContentsMargins(0, 0, 0, 0);
     gridLayout->addWidget(this);
@@ -17,4 +18,16 @@ BUS_ToolBoxWid::BUS_ToolBoxWid(QWidget *parent) :
 BUS_ToolBoxWid::~BUS_ToolBoxWid()
 {
     delete ui;
+}
+
+
+void BUS_ToolBoxWid::initWid()
+{
+    int page = 0;
+
+    mSimulationToolWid = new BUS_SimulationToolWid(ui->toolBox->widget(page++));
+    connect(mSimulationToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+
+    mSettingToolWid = new BUS_SettingToolWid(ui->toolBox->widget(page++));
+
 }

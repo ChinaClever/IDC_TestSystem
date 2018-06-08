@@ -12,6 +12,8 @@ BUS_MainWid::BUS_MainWid(QWidget *parent) :
     ui(new Ui::BUS_MainWid)
 {
     ui->setupUi(this);
+
+    mSimulateThread = new BUS_SimulateThread(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -23,22 +25,16 @@ BUS_MainWid::~BUS_MainWid()
 void BUS_MainWid::initFunSLot()
 {
     mtoolBoxWid = new BUS_ToolBoxWid(ui->toolBoxWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
-    mBusTableWid = new BUS_BusTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mBusTableWid);
+    mSimulateWid = new BUS_SimulateWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSimulateWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
+}
 
-    mBoxTableWid = new BUS_BoxTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mBoxTableWid);
-
-    mLoopTableWid = new BUS_LoopTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLoopTableWid);
-
-    mTransTableWid = new BUS_TransTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mTransTableWid);
-
-    mThresholdTableWid = new BUS_ThresholdTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mThresholdTableWid);
-
-    mEnvTableWid = new BUS_EnvTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mEnvTableWid);
+void BUS_MainWid::toolBoxSlot(int id)
+{
+    if((id >= BUS_Info_Bus) && (id <= BUS_Info_Set)) {
+        ui->stackedWid->setCurrentWidget(mSimulateWid);
+    }
 }

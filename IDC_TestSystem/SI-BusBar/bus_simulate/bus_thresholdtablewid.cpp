@@ -12,7 +12,7 @@ void BUS_ThresholdTableWid::initWid()
     header << tr("母线") << tr("接插箱") << tr("回路")
            << tr("电压") << tr("电压下限") << tr("电压上限")
            << tr("电流") << tr("电流下限") << tr("电流上限");
-    initTableWid(header, 1, title);
+    initTableWid(header, 4, title);
 }
 
 

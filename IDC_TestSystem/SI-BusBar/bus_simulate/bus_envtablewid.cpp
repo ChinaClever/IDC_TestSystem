@@ -17,7 +17,7 @@ void BUS_EnvTableWid::initWid()
     QStringList header;
     header << tr("母线") << tr("接插箱") << tr("传感器")
             << tr("温度") << tr("温度下限") << tr("温度上限");
-    initTableWid(header, 1, title);
+    initTableWid(header, 4, title);
 }
 
 

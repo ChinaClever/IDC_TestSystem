@@ -71,7 +71,6 @@ void SIMainWid::initWid()
     mLogAlarmWid = new SiLogAlarmWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogAlarmWid);
 
-
     for(int i=0; i<mLogThreads.size(); ++i)
         connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogThreads.at(i), SLOT(toolBoxSlot(int)));
 }

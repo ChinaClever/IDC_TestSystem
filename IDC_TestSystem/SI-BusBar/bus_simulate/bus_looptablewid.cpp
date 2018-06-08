@@ -38,8 +38,11 @@ void BUS_LoopTableWid::setObjUnit(BUS_sObjUnit &unit, QStringList &list)
 {
     list << unit.name;
 
-    QString  str = tr("闭合");
-    if(0 == unit.sw) str = tr("断开");
+    QString  str = "---";
+    switch (unit.sw) {
+    case 0: str = tr("断开"); break;
+    case 1: str = tr("闭合"); break;
+    }
     list << str;
 
     double value = unit.vol.value / COM_RATE_VOL;
@@ -87,7 +90,7 @@ int BUS_LoopTableWid::updateBus(sBusData *bus, int row)
 {
     QString busName = bus->box[0].name;
     for(int i=0; i<=bus->boxNum; ++i) {
-        row += updateBox(bus->box[i], busName, row);
+        row = updateBox(bus->box[i], busName, row);
     }
 
     return row;
@@ -103,7 +106,7 @@ void BUS_LoopTableWid::updateData()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *bus = BusPacketSi::bulid()->getBus(i);
-        row += updateBus(bus, row);
+        row = updateBus(bus, row);
     }
 
     checkTableRow(row);

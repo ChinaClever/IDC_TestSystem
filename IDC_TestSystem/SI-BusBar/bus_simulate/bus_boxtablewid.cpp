@@ -32,7 +32,7 @@ void BUS_BoxTableWid::setLineName(sBoxData &box)
         if(box.dc==0) {
             name = "D" + QString::number(i+1);
         }
-        box.line[i].sw = 1;
+        box.line[i].sw = 2;
 
         QByteArray ba = name.toLatin1();
         char *mm = ba.data();

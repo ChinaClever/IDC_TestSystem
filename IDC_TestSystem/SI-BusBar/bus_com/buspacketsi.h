@@ -105,6 +105,10 @@ public:
     sBusData *getBus(int bus) {return &(mBus[bus]);}
     sBoxData *getBox(int bus, int box) {return &(mBus[bus].box[box]);}
 
+protected:
+    void initData();
+    void initBoxName();
+    void initBusName();
 private:
     sBusData mBus[BUS_NUM];
 };

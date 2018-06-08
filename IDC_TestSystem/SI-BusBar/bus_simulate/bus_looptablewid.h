@@ -10,7 +10,9 @@ class BUS_LoopTableWid : public ComTableWid
 public:
     explicit BUS_LoopTableWid(QWidget *parent = nullptr);
 
+public slots:
     void updateData();
+
 protected:
     virtual void initWid();
     virtual void setAlarm(BUS_sObjUnit &unit, int row);

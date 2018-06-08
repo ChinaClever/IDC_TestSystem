@@ -153,7 +153,7 @@ void btnBlue_style_sheet(QWidget *target)
 void groupBox_background_icon(QWidget *target)
 {
     set_background_icon(target,":/image/box_back.jpg");
-    button_style_sheet(target);
+    btnBlue_style_sheet(target);
 //    target->setStyleSheet(BTN_FOCUS_BACK_COLOR);
 }
 

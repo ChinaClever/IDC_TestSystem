@@ -6,7 +6,7 @@
  */
 #include "bus_transtablewid.h"
 
-BUS_TransTableWid::BUS_TransTableWid(QWidget *parent) : ComTableWid(parent)
+BUS_TransTableWid::BUS_TransTableWid(QWidget *parent) : BUS_LoopTableWid(parent)
 {
     initWid();
 }
@@ -47,28 +47,3 @@ int BUS_TransTableWid::updateBox(sBoxData &box, const QString &bus, int row)
     return row;
 }
 
-int BUS_TransTableWid::updateBus(sBusData *bus, int row)
-{
-    QString busName = bus->box[0].name;
-    for(int i=1; i<=bus->boxNum; ++i) {
-        row += updateBox(bus->box[i], busName, row);
-    }
-
-    return row;
-}
-
-/**
- * @brief 数据更新入口函数
- */
-void BUS_TransTableWid::updateData()
-{
-    int row = 0;
-
-    for(int i=0; i<BUS_NUM; ++i)
-    {
-        sBusData *bus = BusPacketSi::bulid()->getBus(i);
-        row += updateBus(bus, row);
-    }
-
-    checkTableRow(row);
-}

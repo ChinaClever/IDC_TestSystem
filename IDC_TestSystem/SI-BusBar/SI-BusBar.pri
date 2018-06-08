@@ -17,7 +17,12 @@ HEADERS += \
     $$PWD/bus_simulate/bus_transtablewid.h \
     $$PWD/bus_simulate/bus_thresholdtablewid.h \
     $$PWD/bus_simulate/bus_envtablewid.h \
-    $$PWD/bus_toolbox/bus_toolboxwid.h
+    $$PWD/bus_toolbox/bus_toolboxwid.h \
+    $$PWD/bus_toolbox/bus_settingtoolwid.h \
+    $$PWD/bus_com/bus_configfile.h \
+    $$PWD/bus_simulate/bus_simulatewid.h \
+    $$PWD/bus_simulate/bus_simulatethread.h \
+    $$PWD/bus_toolbox/bus_simulationtoolwid.h
 
 	
 SOURCES += \
@@ -35,11 +40,19 @@ SOURCES += \
     $$PWD/bus_simulate/bus_transtablewid.cpp \
     $$PWD/bus_simulate/bus_thresholdtablewid.cpp \
     $$PWD/bus_simulate/bus_envtablewid.cpp \
-    $$PWD/bus_toolbox/bus_toolboxwid.cpp
+    $$PWD/bus_toolbox/bus_toolboxwid.cpp \
+    $$PWD/bus_toolbox/bus_settingtoolwid.cpp \
+    $$PWD/bus_com/bus_configfile.cpp \
+    $$PWD/bus_simulate/bus_simulatewid.cpp \
+    $$PWD/bus_simulate/bus_simulatethread.cpp \
+    $$PWD/bus_toolbox/bus_simulationtoolwid.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \
-    $$PWD/bus_toolbox/bus_toolboxwid.ui
+    $$PWD/bus_toolbox/bus_toolboxwid.ui \
+    $$PWD/bus_toolbox/bus_settingtoolwid.ui \
+    $$PWD/bus_simulate/bus_simulatewid.ui \
+    $$PWD/bus_toolbox/bus_simulationtoolwid.ui
 
 
 

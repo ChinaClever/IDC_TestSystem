@@ -9,6 +9,8 @@ class BUS_ThresholdTableWid : public BUS_LoopTableWid
 public:
     explicit BUS_ThresholdTableWid(QWidget *parent = nullptr);
 
+
+
 protected:
     void initWid();
     void setAlarm(BUS_sObjUnit &unit, int row);

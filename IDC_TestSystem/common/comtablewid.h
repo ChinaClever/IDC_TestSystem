@@ -31,6 +31,8 @@ private:
     void addItemContent(int row, int column, const QString &content);
     void addRowContent(QStringList &list);
     void addInitRow();
+    void addTableRows(int line);
+    void delTableRows(int line);
 
 private:
     Ui::ComTableWid *ui;
