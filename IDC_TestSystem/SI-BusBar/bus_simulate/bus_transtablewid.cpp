@@ -52,7 +52,7 @@ int BUS_TransTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 int BUS_TransTableWid::updateBus(sBusData *bus, int row)
 {
     QString busName = bus->box[0].name;
-    for(int i=0; i<=1; ++i) {
+    for(int i=0; i<=7; ++i) {
         row = updateBox(bus->box[i], busName, row);
     }
 

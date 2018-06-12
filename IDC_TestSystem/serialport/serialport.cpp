@@ -117,6 +117,7 @@ bool SerialPort::isContains(const QString &name)
 
 void SerialPort::timeoutDone()
 {
+    QWriteLocker locker(&mRwLock);
     if(mWriteArray.size()) {
         int ret = write();
         if(ret) {
