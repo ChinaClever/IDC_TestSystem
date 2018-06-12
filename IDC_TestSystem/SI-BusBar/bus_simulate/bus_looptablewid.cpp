@@ -89,7 +89,7 @@ int BUS_LoopTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 int BUS_LoopTableWid::updateBus(sBusData *bus, int row)
 {
     QString busName = bus->box[0].name;
-    for(int i=0; i<=bus->boxNum; ++i) {
+    for(int i=1; i<=bus->boxNum; ++i) {
         row = updateBox(bus->box[i], busName, row);
     }
 

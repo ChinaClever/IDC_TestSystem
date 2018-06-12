@@ -107,11 +107,11 @@ void BUS_SimulateThread::workDown()
 {
     int ret = 0;
 
-    for(int i=0; i<BUS_NUM; ++i)
+    for(int i=0; i<1; ++i)
     {
         ///////=================
 //        for(int k=0; k<mPacket->getBus(i)->boxNum; ++k)
-            for(int k=0; k<5; ++k)
+            for(int k=0; k<=1; ++k)
         { // 双命令模式
             int addr = k;
             sBoxData *box = mPacket->getBox(i, k);

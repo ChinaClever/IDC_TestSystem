@@ -14,6 +14,7 @@ protected:
     void setAlarm(int err, int row);
     void setObjUnit(BUS_RtuCount &unit, QStringList &list);
     int updateBox(sBoxData &box, const QString &bus, int row);
+    int updateBus(sBusData *bus, int row);
 };
 
 #endif // BUS_TRANSTABLEWID_H
