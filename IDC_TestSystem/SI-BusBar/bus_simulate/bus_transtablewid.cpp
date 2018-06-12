@@ -15,7 +15,7 @@ void BUS_TransTableWid::initWid()
 {
     QString title = tr("传输统计信息");
     QStringList header;
-    header << tr("母线") << tr("接插箱") << tr("失败次数") << tr("成功次数") << tr("总次数");
+    header << tr("母线") << tr("接插箱") <<tr("失败率") << tr("失败次数") << tr("成功次数") << tr("总次数");
     initTableWid(header, 1, title);
 }
 
@@ -29,7 +29,9 @@ void BUS_TransTableWid::setAlarm(int err, int row)
 
 void BUS_TransTableWid::setObjUnit(BUS_RtuCount &unit, QStringList &list)
 {
-    list << QString::number(unit.errCount)
+    int count = unit.count; if(count<1) count = 1;
+    list << QString::number(unit.errCount*100.0 / count, 'f', 2)
+         << QString::number(unit.errCount)
          << QString::number(unit.okCount)
          << QString::number(unit.count);
 }

@@ -19,7 +19,8 @@ HEADERS += \
     $$PWD/bus_logs/buslogmodbuscmdwid.h \
     $$PWD/bus_logs/buslogmodbustranswid.h \
     $$PWD/bus_logs/buslogrealrecordwid.h \
-    $$PWD/bus_logs/buslogthresholdwid.h
+    $$PWD/bus_logs/buslogthresholdwid.h \
+    $$PWD/bus_logs/buslogswid.h
    
    
     
@@ -43,7 +44,8 @@ SOURCES += \
     $$PWD/bus_logs/buslogmodbuscmdwid.cpp \
     $$PWD/bus_logs/buslogmodbustranswid.cpp \
     $$PWD/bus_logs/buslogrealrecordwid.cpp \
-    $$PWD/bus_logs/buslogthresholdwid.cpp
+    $$PWD/bus_logs/buslogthresholdwid.cpp \
+    $$PWD/bus_logs/buslogswid.cpp
     
     
 
@@ -54,7 +56,8 @@ FORMS += \
     $$PWD/logcom/logcalendardlg.ui \
     $$PWD/logcom/logcomwid.ui \
     $$PWD/logcom/log_exportdlg.ui \
-    $$PWD/logcom/log_datewidget.ui
+    $$PWD/logcom/log_datewidget.ui \
+    $$PWD/bus_logs/buslogswid.ui
     
    
 

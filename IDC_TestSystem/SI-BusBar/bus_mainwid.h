@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "bus_toolbox/bus_toolboxwid.h"
 #include "bus_simulate/bus_simulatethread.h"
+#include "bus_logs/buslogswid.h"
 
 namespace Ui {
 class BUS_MainWid;
@@ -27,6 +28,7 @@ private:
     BUS_SimulateThread *mSimulateThread;
     BUS_ToolBoxWid *mtoolBoxWid;
     BUS_SimulateWid *mSimulateWid;
+    BusLogsWid *mLogsWid;
 };
 
 #endif // BUS_MAINWID_H

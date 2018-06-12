@@ -22,7 +22,8 @@ HEADERS += \
     $$PWD/bus_com/bus_configfile.h \
     $$PWD/bus_simulate/bus_simulatewid.h \
     $$PWD/bus_simulate/bus_simulatethread.h \
-    $$PWD/bus_toolbox/bus_simulationtoolwid.h
+    $$PWD/bus_toolbox/bus_simulationtoolwid.h \
+    $$PWD/bus_toolbox/buslogstoolwid.h
 
 	
 SOURCES += \
@@ -45,14 +46,16 @@ SOURCES += \
     $$PWD/bus_com/bus_configfile.cpp \
     $$PWD/bus_simulate/bus_simulatewid.cpp \
     $$PWD/bus_simulate/bus_simulatethread.cpp \
-    $$PWD/bus_toolbox/bus_simulationtoolwid.cpp
+    $$PWD/bus_toolbox/bus_simulationtoolwid.cpp \
+    $$PWD/bus_toolbox/buslogstoolwid.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \
     $$PWD/bus_toolbox/bus_toolboxwid.ui \
     $$PWD/bus_toolbox/bus_settingtoolwid.ui \
     $$PWD/bus_simulate/bus_simulatewid.ui \
-    $$PWD/bus_toolbox/bus_simulationtoolwid.ui
+    $$PWD/bus_toolbox/bus_simulationtoolwid.ui \
+    $$PWD/bus_toolbox/buslogstoolwid.ui
 
 
 

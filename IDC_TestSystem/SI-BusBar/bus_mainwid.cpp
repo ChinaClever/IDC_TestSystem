@@ -30,6 +30,9 @@ void BUS_MainWid::initFunSLot()
     mSimulateWid = new BUS_SimulateWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSimulateWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
+
+    mLogsWid = new BusLogsWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogsWid);
 }
 
 void BUS_MainWid::toolBoxSlot(int id)

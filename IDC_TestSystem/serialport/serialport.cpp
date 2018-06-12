@@ -139,7 +139,7 @@ int SerialPort::write(const QByteArray &array)
 
     if(isOpen) {
         // 串口每过段时间重新打开一下
-//        if((mCount++ % 555) == 0)  reOpen();  // 重新打开串口
+        if((mCount++ % 50) == 0)  reOpen();  // 重新打开串口
 
         len = mSerial->write(array);
         if(len > 0) {
