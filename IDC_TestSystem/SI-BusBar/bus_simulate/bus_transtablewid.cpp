@@ -30,7 +30,7 @@ void BUS_TransTableWid::setAlarm(int err, int row)
 void BUS_TransTableWid::setObjUnit(BUS_RtuCount &unit, QStringList &list)
 {
     int count = unit.count; if(count<1) count = 1;
-    list << QString::number(unit.errCount*100.0 / count, 'f', 2)
+    list << QString::number(unit.errCount*100.0 / count, 'f', 2) +"%"
          << QString::number(unit.errCount)
          << QString::number(unit.okCount)
          << QString::number(unit.count);

@@ -1,7 +1,7 @@
 #ifndef BUSLOGMODBUSCMDWID_H
 #define BUSLOGMODBUSCMDWID_H
 
-#include "buslogenvwid.h">
+#include "buslogenvwid.h"
 
 class BusLogModbusCmdWid : public LogComWid
 {

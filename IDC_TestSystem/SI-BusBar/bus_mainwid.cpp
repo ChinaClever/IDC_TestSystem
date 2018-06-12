@@ -39,5 +39,7 @@ void BUS_MainWid::toolBoxSlot(int id)
 {
     if((id >= BUS_Info_Bus) && (id <= BUS_Info_Set)) {
         ui->stackedWid->setCurrentWidget(mSimulateWid);
+    } else if((id >= BUS_Log_Modbus) && (id <= BUS_Log_Alarm)) {
+         ui->stackedWid->setCurrentWidget(mLogsWid);
     }
 }
