@@ -1,7 +1,7 @@
 #ifndef BUS_TOOLBOXWID_H
 #define BUS_TOOLBOXWID_H
 
-#include "bus_simulationtoolwid.h"
+#include "buslogstoolwid.h"
 
 namespace Ui {
 class BUS_ToolBoxWid;
@@ -25,6 +25,7 @@ private:
     Ui::BUS_ToolBoxWid *ui;
 
     BUS_SettingToolWid *mSettingToolWid;
+    BusLogsToolWid *mLogsToolWid;
     BUS_SimulationToolWid *mSimulationToolWid;
 };
 

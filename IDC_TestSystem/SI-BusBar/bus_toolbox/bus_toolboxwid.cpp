@@ -28,6 +28,9 @@ void BUS_ToolBoxWid::initWid()
     mSimulationToolWid = new BUS_SimulationToolWid(ui->toolBox->widget(page++));
     connect(mSimulationToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
 
+    mLogsToolWid = new BusLogsToolWid(ui->toolBox->widget(page++));
+    connect(mLogsToolWid, SIGNAL(logsSig(int)), this, SIGNAL(toolBoxSig(int)));
+
     mSettingToolWid = new BUS_SettingToolWid(ui->toolBox->widget(page++));
 
 }
