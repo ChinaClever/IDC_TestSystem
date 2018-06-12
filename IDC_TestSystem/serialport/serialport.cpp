@@ -80,6 +80,8 @@ bool SerialPort::close(void)
 bool SerialPort::reOpen()
 {
     QString com = getSerialName();
+    qDebug() << "#########" <<com;
+
     int br = mSerial->baudRate();
 
     close();
@@ -139,13 +141,13 @@ int SerialPort::write(const QByteArray &array)
 
     if(isOpen) {
         // 串口每过段时间重新打开一下
-        if((mCount++ % 50) == 0)  reOpen();  // 重新打开串口
+//        if((mCount++ % 5) == 0)  reOpen();  // 重新打开串口
 
         len = mSerial->write(array);
         if(len > 0) {
             mSerial->flush();
-            mSerial->waitForBytesWritten(SERIAL_READ_TIMEOUT);
-            msleep(255);
+//            mSerial->waitForBytesWritten(SERIAL_READ_TIMEOUT);
+//            msleep(255);
         }
     }
 
@@ -171,9 +173,9 @@ int SerialPort::recv(QByteArray &array)
     if(isOpen)
     {
         /* 处理所有还没有被处理的各类事件，主要是不用用户感觉到ka */
-        QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-//        msleep(SERIAL_READ_TIMEOUT);
-        while (mSerial->waitForReadyRead(SERIAL_READ_TIMEOUT)); // 等待窗口接收完全
+//        QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
+        msleep(SERIAL_READ_TIMEOUT);
+//        while (mSerial->waitForReadyRead(SERIAL_READ_TIMEOUT)); // 等待窗口接收完全
         while (!mSerial->atEnd()) {
             dataTemp += mSerial->readAll();     //因为串口是不稳定的，也许读到的是部分数据而已，但也可能是全部数据
         }
