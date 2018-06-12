@@ -25,12 +25,7 @@ void BUS_SimulateThread::initSlot()
     mRtu = new BUS_RtuTrans();
     mRtu->init(serial);
 
-    isRun = false;
-    timer = new QTimer(this);
-    timer->start(1*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-
-//    startThread();
+    startThread();
 }
 
 /**
@@ -136,19 +131,9 @@ void BUS_SimulateThread::workDown()
 
 void BUS_SimulateThread::run()
 {
-//    isRun = true;
-//    while(isRun) {
+    isRun = true;
+    while(isRun) {
         workDown();
-//    }
-//    setOffLine();
-}
-
-void BUS_SimulateThread::timeoutDone()
-{
-    if(isRun == false) {
-        isRun = true;
-         run();
-          isRun = false;
     }
-
+    setOffLine();
 }
