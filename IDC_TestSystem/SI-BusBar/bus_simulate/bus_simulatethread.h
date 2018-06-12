@@ -26,10 +26,12 @@ public slots:
 
 private slots:
     void initSlot();
+    void timeoutDone();
 
 private:
     bool isRun;
 
+    QTimer *timer;
     BusPacketSi *mPacket;
     BUS_RtuTrans *mRtu;
 };

@@ -15,20 +15,24 @@ public:
     explicit BusLogsWid(QWidget *parent = 0);
     ~BusLogsWid();
 
-//signals:
-//     void updateSig();
+signals:
+     void updateSig();
 
-//public slots:
-//    void simulateSlot(int);
+public slots:
+    void updateWidSlot(int);
 
-//protected slots:
-//     void initFunSLot();
-//     void timeoutDone();
+protected slots:
+     void initFunSLot();
 
 private:
     Ui::BusLogsWid *ui;
 
     BusLogAlarmWid *mLogAlarmWid;
+    BusLogEnvWid *mLogEnvWid;
+    BusLogModbusCmdWid *mLogModbusCmdWid;
+    BusLogModbusTransWid *mLogModbusTransWid;
+    BusLogRealRecordWid *mLogRealRecordWid;
+    BusLogThresholdWid *mLogThresholdWid;
 };
 
 #endif // BUSLOGSWID_H

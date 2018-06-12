@@ -33,6 +33,7 @@ void BUS_MainWid::initFunSLot()
 
     mLogsWid = new BusLogsWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogsWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 }
 
 void BUS_MainWid::toolBoxSlot(int id)
