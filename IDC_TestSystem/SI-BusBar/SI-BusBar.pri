@@ -23,8 +23,20 @@ HEADERS += \
     $$PWD/bus_simulate/bus_simulatewid.h \
     $$PWD/bus_simulate/bus_simulatethread.h \
     $$PWD/bus_toolbox/bus_simulationtoolwid.h \
-    $$PWD/bus_toolbox/buslogstoolwid.h
-
+    $$PWD/bus_toolbox/buslogstoolwid.h \
+    $$PWD/bus_logs/buslogalarmwid.h \
+    $$PWD/bus_logs/buslogenvwid.h \
+    $$PWD/bus_logs/buslogmodbuscmdwid.h \
+    $$PWD/bus_logs/buslogmodbustranswid.h \
+    $$PWD/bus_logs/buslogrealrecordwid.h \
+    $$PWD/bus_logs/buslogthresholdwid.h \
+    $$PWD/bus_logs/buslogswid.h \
+    $$PWD/bus_sql/busdbthresholds.h \
+    $$PWD/bus_sql/busdbrealrecords.h \
+    $$PWD/bus_sql/busdbmodbustrans.h \
+    $$PWD/bus_sql/busdbmodbuscmd.h \
+    $$PWD/bus_sql/busdbenv.h \
+    $$PWD/bus_sql/busdbalarm.h
 	
 SOURCES += \
     $$PWD/bus_rtu/bus_rtusent.cpp \
@@ -47,7 +59,20 @@ SOURCES += \
     $$PWD/bus_simulate/bus_simulatewid.cpp \
     $$PWD/bus_simulate/bus_simulatethread.cpp \
     $$PWD/bus_toolbox/bus_simulationtoolwid.cpp \
-    $$PWD/bus_toolbox/buslogstoolwid.cpp
+    $$PWD/bus_toolbox/buslogstoolwid.cpp \    
+    $$PWD/bus_logs/buslogalarmwid.cpp \
+    $$PWD/bus_logs/buslogenvwid.cpp \
+    $$PWD/bus_logs/buslogmodbuscmdwid.cpp \
+    $$PWD/bus_logs/buslogmodbustranswid.cpp \
+    $$PWD/bus_logs/buslogrealrecordwid.cpp \
+    $$PWD/bus_logs/buslogthresholdwid.cpp \
+    $$PWD/bus_logs/buslogswid.cpp \
+    $$PWD/bus_sql/busdbthresholds.cpp \
+    $$PWD/bus_sql/busdbrealrecords.cpp \
+    $$PWD/bus_sql/busdbmodbustrans.cpp \
+    $$PWD/bus_sql/busdbmodbuscmd.cpp \
+    $$PWD/bus_sql/busdbenv.cpp \
+    $$PWD/bus_sql/busdbalarm.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \
@@ -55,7 +80,8 @@ FORMS += \
     $$PWD/bus_toolbox/bus_settingtoolwid.ui \
     $$PWD/bus_simulate/bus_simulatewid.ui \
     $$PWD/bus_toolbox/bus_simulationtoolwid.ui \
-    $$PWD/bus_toolbox/buslogstoolwid.ui
+    $$PWD/bus_toolbox/buslogstoolwid.ui \
+    $$PWD/bus_logs/buslogswid.ui
 
 
 

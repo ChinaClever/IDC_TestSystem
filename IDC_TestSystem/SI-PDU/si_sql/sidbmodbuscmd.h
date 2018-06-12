@@ -1,7 +1,7 @@
 #ifndef SIDBMODBUSCMD_H
 #define SIDBMODBUSCMD_H
 
-#include "basicsql.h"
+#include "sql/basicsql.h"
 
 #define SI_DB_ModbusCmd "si_modbus_cmd"
 
