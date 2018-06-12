@@ -145,7 +145,7 @@ int SerialPort::write(const QByteArray &array)
         if(len > 0) {
             mSerial->flush();
             mSerial->waitForBytesWritten(SERIAL_READ_TIMEOUT);
-//            msleep(255);
+            msleep(255);
         }
     }
 
