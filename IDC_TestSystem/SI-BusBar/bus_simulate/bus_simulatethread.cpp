@@ -1,4 +1,4 @@
-#include "bus_simulatethread.h"
+﻿#include "bus_simulatethread.h"
 #include "bus_com/bus_configfile.h"
 
 BUS_SimulateThread::BUS_SimulateThread(QObject *parent) : QThread(parent)
