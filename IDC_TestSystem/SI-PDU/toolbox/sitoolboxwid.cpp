@@ -19,7 +19,7 @@ SitoolBoxWid::SitoolBoxWid(QWidget *parent) :
     gridLayout->setContentsMargins(0, 0, 0, 0);
     gridLayout->addWidget(this);
     groupBox_background_icon(this);
-    btnBlue_style_sheet(this);
+//    btnBlue_style_sheet(this);
 }
 
 SitoolBoxWid::~SitoolBoxWid()

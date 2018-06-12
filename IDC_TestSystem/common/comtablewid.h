@@ -19,6 +19,7 @@ public:
 protected:
     void initTableWid(QStringList &header, int line, const QString &title);
     void setTableItem(int id, int column, const QString &str);
+    void setTableRow(int id, QStringList &listStr);
     void checkTableRow(int line);
 
     void clearRow(int row);
@@ -30,6 +31,8 @@ private:
     void addItemContent(int row, int column, const QString &content);
     void addRowContent(QStringList &list);
     void addInitRow();
+    void addTableRows(int line);
+    void delTableRows(int line);
 
 private:
     Ui::ComTableWid *ui;

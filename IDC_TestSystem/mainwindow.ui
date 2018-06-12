@@ -76,7 +76,7 @@
         <string>数据中心机房运行模拟测试系统</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="busbarBtn">
+      <widget class="QPushButton" name="siBusBtn">
        <property name="geometry">
         <rect>
          <x>1320</x>
@@ -86,7 +86,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>BusBar</string>
+        <string>si-BusBar</string>
        </property>
       </widget>
       <widget class="QPushButton" name="ippduBtn">

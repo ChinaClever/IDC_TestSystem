@@ -40,11 +40,11 @@ bool SiSettingToolWid::initSerialPort()
     bool ret = false;
 
     SiConfigFile *config = SiConfigFile::bulid();
+    SerialPort *serial = mSerialPortDlg->getSerialPort();
+    config->item->serial = serial;
     QString com = config->getSerialName();
     if(!com.isEmpty())
     {
-        SerialPort *serial = mSerialPortDlg->getSerialPort();
-        config->item->serial = serial;
         ret = serial->isContains(com);
         if(ret) {
             ret = serial->open(com);

@@ -16,9 +16,9 @@ ComTableWid::ComTableWid(QWidget *parent) :
     ui->setupUi(this);
     groupBox_background_icon(this);
 
-//    QGridLayout *gridLayout = new QGridLayout(parent);
-//    gridLayout->setContentsMargins(0, 0, 0, 0);
-//    gridLayout->addWidget(this);
+    //    QGridLayout *gridLayout = new QGridLayout(parent);
+    //    gridLayout->setContentsMargins(0, 0, 0, 0);
+    //    gridLayout->addWidget(this);
 }
 
 ComTableWid::~ComTableWid()
@@ -114,8 +114,44 @@ void ComTableWid::initTableWid(QStringList &header, int line, const QString &tit
  */
 void ComTableWid::setTableItem(int id, int column, const QString &str)
 {
+    addTableRows(id+1);
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
-    item->setText(str);
+    if(str.isEmpty()) {
+        item->setText("---");
+    } else {
+        item->setText(str);
+    }
+}
+
+/**
+ * @brief 设置一行数据
+ * @param id 行号
+ * @param listStr 字符链表
+ */
+void ComTableWid::setTableRow(int id, QStringList &listStr)
+{
+    for(int i=0; i<listStr.size(); ++i)
+        setTableItem(id, i, listStr.at(i));
+}
+
+void ComTableWid::addTableRows(int line)
+{
+    int row = ui->tableWidget->rowCount();
+    if(row < line)
+    {
+        for(int i=0; i<line-row; ++i)
+            addInitRow();
+    }
+}
+
+void ComTableWid::delTableRows(int line)
+{
+    int row = ui->tableWidget->rowCount();
+    if(row > line)
+    {
+        for(int i=0; i<row-line; ++i)
+            ui->tableWidget->removeRow(line);
+    }
 }
 
 /**
@@ -124,17 +160,8 @@ void ComTableWid::setTableItem(int id, int column, const QString &str)
  */
 void ComTableWid::checkTableRow(int line)
 {
-    int row = ui->tableWidget->rowCount();
-    if(row < line)
-    {
-        for(int i=0; i<line-row; ++i)
-            addInitRow();
-    }
-    else if(row > line)
-    {
-        for(int i=0; i<row-line; ++i)
-            ui->tableWidget->removeRow(line);
-    }
+    addTableRows(line);
+    delTableRows(line);
 }
 
 /**
@@ -145,7 +172,7 @@ void ComTableWid::clearRow(int row)
 {
     int column = ui->tableWidget->columnCount();
     for(int i=0; i<column; ++i) {
-         setTableItem(row, i, "---");
+        setTableItem(row, i, "---");
     }
 }
 
@@ -167,6 +194,7 @@ void ComTableWid::clearTable()
  */
 void ComTableWid::setItemColor(int id, int column, int alarm)
 {
+    addTableRows(id+1);
     QTableWidgetItem *item = ui->tableWidget->item(id, column);
 
     switch (alarm) {
