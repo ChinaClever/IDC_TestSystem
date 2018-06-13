@@ -69,7 +69,7 @@ bool SerialPort::close(void)
         isOpen = false;
         mSerial->close();
         delete mSerial;
-        mSerial = NULL;
+//        mSerial = NULL;
     }
 
     return true;

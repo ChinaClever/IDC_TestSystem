@@ -1,6 +1,6 @@
 #ifndef BUSDBTHRESHOLDS_H
 #define BUSDBTHRESHOLDS_H
-#include "basicsql.h"
+#include "sql/basicsql.h"
 
 #define BUS_DB_Thresholds "bus_loop_thresholds"
 

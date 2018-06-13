@@ -34,7 +34,19 @@ HEADERS += \
     $$PWD/si_setting/si_addrsetwid.h \
     $$PWD/si_setting/si_unitsetwid.h \
     $$PWD/si_setting/si_thresholdsetwid.h \
-    $$PWD/si_setting/si_elesetwid.h
+    $$PWD/si_setting/si_elesetwid.h \
+    $$PWD/si_logs/silogmodbuscmdwid.h \
+    $$PWD/si_logs/silogmodbustranswid.h \
+    $$PWD/si_logs/silogenvwid.h \
+    $$PWD/si_logs/silogrealrecordwid.h \
+    $$PWD/si_logs/silogthresholdwid.h \
+    $$PWD/si_logs/silogalarmwid.h \
+    $$PWD/si_sql/sidbmodbuscmd.h \
+    $$PWD/si_sql/sidbmodbustrans.h \
+    $$PWD/si_sql/sidbenv.h \
+    $$PWD/si_sql/sidbrealrecords.h \
+    $$PWD/si_sql/sidbthresholds.h \
+    $$PWD/si_sql/sidbalarm.h \
 
 	
 SOURCES += \
@@ -69,7 +81,19 @@ SOURCES += \
     $$PWD/si_setting/si_addrsetwid.cpp \
     $$PWD/si_setting/si_unitsetwid.cpp \
     $$PWD/si_setting/si_thresholdsetwid.cpp \
-    $$PWD/si_setting/si_elesetwid.cpp
+    $$PWD/si_setting/si_elesetwid.cpp \
+    $$PWD/si_logs/silogmodbuscmdwid.cpp \
+    $$PWD/si_logs/silogmodbustranswid.cpp \
+    $$PWD/si_logs/silogenvwid.cpp \
+    $$PWD/si_logs/silogrealrecordwid.cpp \
+    $$PWD/si_logs/silogthresholdwid.cpp \
+    $$PWD/si_logs/silogalarmwid.cpp \
+    $$PWD/si_sql/sidbmodbuscmd.cpp \
+    $$PWD/si_sql/sidbmodbustrans.cpp \
+    $$PWD/si_sql/sidbenv.cpp \
+    $$PWD/si_sql/sidbrealrecords.cpp \
+    $$PWD/si_sql/sidbthresholds.cpp \
+    $$PWD/si_sql/sidbalarm.cpp \
 
 FORMS += \
     $$PWD/simainwid.ui \

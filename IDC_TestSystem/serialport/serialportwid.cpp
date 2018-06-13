@@ -78,7 +78,7 @@ void SerialPortWid::openSerialSlot()
         mSerialPort->close();
         ui->workBtn->setText(tr("打开串口"));
         ui->stateLab->setText(tr("串口已关闭"));
-        ui->comBox->setEnabled(false);
+        ui->comBox->setEnabled(true);
         ui->baudComBox->setEnabled(true);
     } else { /*未打开，现在打开*/
         QString com = ui->comBox->currentText();
