@@ -1,5 +1,6 @@
 ﻿#include "bus_simulatethread.h"
 #include "bus_com/bus_configfile.h"
+#include "bus_sql/busdbmodbuscmd.h"
 
 BUS_SimulateThread::BUS_SimulateThread(QObject *parent) : QThread(parent)
 {
@@ -20,12 +21,11 @@ BUS_SimulateThread::~BUS_SimulateThread()
 void BUS_SimulateThread::initSlot()
 {
     SerialPort *serial = BUS_ConfigFile::bulid()->item->serial;
+    mDpThread = new BUS_DpThread(this);
 
     mPacket = BusPacketSi::bulid();
     mRtu = new BUS_RtuTrans();
     mRtu->init(serial);
-
-    startThread();
 }
 
 /**
@@ -57,6 +57,17 @@ void BUS_SimulateThread::setOffLine()
     }
 }
 
+void BUS_SimulateThread::clearCount()
+{
+    for(int i=0; i<BUS_NUM; ++i)
+    {
+        for(int j=0; j<=BUS_BOX_NUM; ++j) {
+            sBoxData *box = mPacket->getBox(i,j);
+            box->count.count = box->count.errCount = box->count.okCount = 0;
+        }
+    }
+}
+
 
 /**
  * @brief 命令传送成功
@@ -67,9 +78,7 @@ void BUS_SimulateThread::sentOkCmd(BUS_RtuCount &count)
     count.count++;
     count.okCount ++;
 
-//    QReadWriteLock *lock = get_log_lock();
-//    QWriteLocker locker(lock); // 正在操作时不允许关闭
-//    SI_AlarmLogThread::bulid()->saveAlarm(devId);
+    mDpThread->start();
 }
 
 
@@ -77,25 +86,28 @@ void BUS_SimulateThread::sentOkCmd(BUS_RtuCount &count)
  * @brief 保存失败命令
  * @param devId
  */
-void BUS_SimulateThread::saveErrCmd(BUS_RtuCount &count)
+void BUS_SimulateThread::saveErrCmd(int busId, sBoxData *box)
 {
-    count.count += 1;
-    count.errCount += 1;
+    box->count.count += 1;
+    box->count.errCount += 1;
 
-//    QByteArray array = mRtu->getSentCmd();
-//    QString strArray = cm_ByteArrayToHexStr(array);
-//    strArray += tr(" (十进制数：");
-//    strArray += cm_ByteArrayToUcharStr(array);
-//    strArray += ")";
+    QByteArray array = mRtu->getSentCmd();
+    QString strArray = cm_ByteArrayToHexStr(array);
+    //    strArray += tr(" (十进制数：");
+    //    strArray += cm_ByteArrayToUcharStr(array);
+    //    strArray += ")";
 
-//    SiDbModbusCmdItem item;
-//    item.dev_id = devId+1;
-//    item.msg = strArray;
+    strArray += tr(" (接收数据：");
+    array = mRtu->getRecvCmd();
+    strArray += cm_ByteArrayToHexStr(array);
+    strArray += ")";
 
-//    QReadWriteLock *lock = get_log_lock();
-//    QWriteLocker locker(lock); // 正在操作时不允许关闭
-//    SiDbModbusCmd::bulid()->insertItem(item);
-//    msleep(30);
+    QStringList list;
+    list << mPacket->getBusName(busId);
+    list << box->name;
+    list <<strArray;
+
+    mDpThread->saveModbusCmd(list);
 }
 
 
@@ -107,19 +119,25 @@ void BUS_SimulateThread::workDown()
 {
     int ret = 0;
 
-    for(int i=0; i<1; ++i)
+    for(int i=0; i<1; ++i) // BUS_NUM
     {
-        ///////=================
-//        for(int k=0; k<mPacket->getBus(i)->boxNum; ++k)
-            for(int k=0; k<=7; ++k)
-        { // 双命令模式
+        BusConfigItem *item = BUS_ConfigFile::bulid()->item;
+        mPacket->getBus(i)->boxNum = item->devNum; /////========
+
+        for(int k=0; k<=mPacket->getBus(i)->boxNum; ++k)
+        {
             int addr = k;
             sBoxData *box = mPacket->getBox(i, k);
-            ret = mRtu->transmit(addr, box, 10);
+
+            for(int j=0; j<item->cmdModel; ++j) { // 双命令模式
+                ret = mRtu->transmit(addr, box, item->msecs);
+                if(ret) break;
+            }
+
             if(ret) { // 正常收到数据
                 sentOkCmd(box->count);
             } else { // 数据异常
-                saveErrCmd(box->count);
+                saveErrCmd(i, box);
             }
 
             if(isRun) msleep(455);
@@ -132,8 +150,11 @@ void BUS_SimulateThread::workDown()
 void BUS_SimulateThread::run()
 {
     isRun = true;
+    clearCount();
+
     while(isRun) {
         workDown();
+        msleep(10);;
     }
     setOffLine();
 }

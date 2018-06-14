@@ -106,7 +106,9 @@ void BUS_LoopTableWid::updateData()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *bus = BusPacketSi::bulid()->getBus(i);
-        row = updateBus(bus, row);
+        if(bus->boxNum) {
+            row = updateBus(bus, row);
+        }
     }
 
     checkTableRow(row);

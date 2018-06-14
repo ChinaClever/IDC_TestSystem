@@ -20,7 +20,7 @@ BusPacketSi *BusPacketSi::bulid()
     return sington;
 }
 
-void BusPacketSi::initBoxName()
+void BusPacketSi::initBox()
 {
     for(int i=0; i<BUS_NUM; ++i) {
         for(int j=1; j<=BUS_BOX_NUM; ++j) {
@@ -37,9 +37,10 @@ void BusPacketSi::initBoxName()
     }
 }
 
-void BusPacketSi::initBusName()
+void BusPacketSi::initBus()
 {
-    for(int i=0; i<BUS_NUM; ++i) {
+     mBus[0].boxNum = 10;
+    for(int i=0; i<BUS_NUM; ++i) {       
         sBoxData *box = &(mBus[i].box[0]);
 
         box->id = 0;
@@ -49,6 +50,6 @@ void BusPacketSi::initBusName()
 
 void BusPacketSi::initData()
 {    
-    initBusName();
-    initBoxName();
+    initBus();
+    initBox();
 }

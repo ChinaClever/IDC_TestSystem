@@ -18,6 +18,10 @@ public:
 signals:
     void logsSig(int);
 
+protected:
+    void updateLogTime(int num);
+    void initLogTime();
+
 private slots:
     void on_modbusBtn_clicked();
 
@@ -30,6 +34,8 @@ private slots:
     void on_thresholdBtn_clicked();
 
     void on_alarmBtn_clicked();
+
+    void on_timeBtn_clicked();
 
 private:
     Ui::BusLogsToolWid *ui;
