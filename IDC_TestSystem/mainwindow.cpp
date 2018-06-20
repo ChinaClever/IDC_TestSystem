@@ -40,6 +40,9 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWid()
 {
+    mMpduWid = new MPDU_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mMpduWid);
+
     mSiWid = new SIMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSiWid);
 
@@ -55,4 +58,9 @@ void MainWindow::on_sipduBtn_clicked()
 void MainWindow::on_siBusBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mBusWid);
+}
+
+void MainWindow::on_mpduBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mMpduWid);
 }

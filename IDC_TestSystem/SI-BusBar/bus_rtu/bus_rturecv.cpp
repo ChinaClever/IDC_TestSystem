@@ -6,10 +6,6 @@
  */
 #include "bus_rturecv.h"
 
-static ushort rtu_crc(uchar *buf, int len)
-{
-    return si_rtu_crc(buf, len);
-}
 
 /**
   * 功　能：长度 校验
