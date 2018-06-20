@@ -1,5 +1,7 @@
 #include "eload_rtusent.h"
 
+extern ushort rtu_crc(uchar *buf, int len);
+
 
 
 ELoad_RtuSent::ELoad_RtuSent()

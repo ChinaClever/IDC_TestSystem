@@ -172,7 +172,7 @@ static bool rtu_recv_crc(uchar *buf, int len, SI_Rtu_Recv *msg)
     int rtn = len-2; uchar *ptr = buf+rtn;
 
     msg->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
-    ushort crc = si_rtu_crc(buf, rtn);
+    ushort crc = rtu_crc(buf, rtn);
     if(crc != msg->crc) {
         ret = false;
         qDebug() << "rtu recv crc Err!";

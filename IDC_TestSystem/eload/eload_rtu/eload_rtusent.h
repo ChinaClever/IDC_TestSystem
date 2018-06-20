@@ -26,7 +26,6 @@ enum {
     ELoad_BR_19200 = 3,
     ELoad_BR_38400 = 4,
 };
-extern ushort si_rtu_crc(uchar *buf, int len);
 
 class ELoad_RtuSent
 {
@@ -45,7 +44,6 @@ public:
     int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t, uchar *buf);
 
 protected:
-    ushort rtu_crc(uchar *buf, int len){return si_rtu_crc(buf, len);}
     int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value, uchar *buf);
 
 private:

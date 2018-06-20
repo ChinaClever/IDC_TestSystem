@@ -1,7 +1,6 @@
 #include "mpdurtutestsent.h"
 
 
-
 MpduRtuTestSent::MpduRtuTestSent()
 {
 
