@@ -147,7 +147,7 @@ void BUS_SimulateThread::workDown()
                 saveErrCmd(i, box);
             }
 
-            if(isRun) msleep(455);
+            if(isRun) msleep(755);
             else return;
         }
     }
