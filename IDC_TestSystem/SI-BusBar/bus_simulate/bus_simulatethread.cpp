@@ -63,7 +63,7 @@ void BUS_SimulateThread::clearCount()
     {
         for(int j=0; j<=BUS_BOX_NUM; ++j) {
             sBoxData *box = mPacket->getBox(i,j);
-            box->count.count = box->count.errCount = box->count.okCount = 0;
+            memset(&(box->count), 0, sizeof(BUS_RtuCount));
         }
     }
 }
@@ -77,6 +77,7 @@ void BUS_SimulateThread::sentOkCmd(BUS_RtuCount &count)
 {
     count.count++;
     count.okCount ++;
+    count.longFlag = 0;
 
     mDpThread->start();
 }
@@ -90,6 +91,12 @@ void BUS_SimulateThread::saveErrCmd(int busId, sBoxData *box)
 {
     box->count.count += 1;
     box->count.errCount += 1;
+
+    box->count.longFlag += 1;
+    if(box->count.longFlag % 2 == 0) {
+        box->count.longCount += 1;
+    }
+
 
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);

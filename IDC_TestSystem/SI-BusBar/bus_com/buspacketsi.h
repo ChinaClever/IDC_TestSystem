@@ -61,6 +61,8 @@ struct BUS_RtuCount
     int count;
     int okCount;
     int errCount;
+    int longCount; // 连续丢命令
+    int longFlag;
 };
 
 
