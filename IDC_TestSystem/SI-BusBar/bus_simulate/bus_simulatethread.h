@@ -1,8 +1,8 @@
 #ifndef BUS_SIMULATETHREAD_H
 #define BUS_SIMULATETHREAD_H
 
-#include "bus_simulatewid.h"
 #include "bus_rtu/bus_rtutrans.h"
+#include "bus_dp/bus_dpthread.h"
 
 class BUS_SimulateThread : public QThread
 {
@@ -15,8 +15,9 @@ protected:
     void run();
     void workDown();
     void sentOkCmd(BUS_RtuCount &count);
-    void saveErrCmd(BUS_RtuCount &count);
+    void saveErrCmd(int busId, sBoxData *box);
     void setOffLine();
+    void clearCount();
 
 signals:
 
@@ -32,6 +33,7 @@ private:
 
     BusPacketSi *mPacket;
     BUS_RtuTrans *mRtu;
+    BUS_DpThread *mDpThread;
 };
 
 #endif // BUS_SIMULATETHREAD_H

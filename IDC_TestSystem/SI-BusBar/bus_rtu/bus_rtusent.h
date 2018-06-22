@@ -8,13 +8,8 @@
 #define BUS_RTU_SENT_LEN (22*BUS_RTU_LINE_NUM+1+3*3+1+1+3)  // 长度需要改变 ////============ 加上开关，功率因素之后，是为14 [追加交直流区分]
 #define BUS_RTU_SENT_DC_LEN (22*4+1+3*3+1+1+3)  // 长度需要改变 直流长度 [追加交直流区分
 
-struct BUS_Rtu_Sent {
-    BUS_Rtu_Sent():fn(3),reg(0),len(BUS_RTU_SENT_LEN){} // 下位机有问题
-    uchar addr; // 表示从机地址码
-    uchar fn;  // 表示功能码
-    ushort reg; // 表示寄存器首地址
-    ushort len; // 表示数据长度
-    ushort crc; // 表示CRC校验
+struct BUS_Rtu_Sent : public Rtu_Sent_Com{
+    BUS_Rtu_Sent(){len=BUS_RTU_SENT_LEN;} // 下位机有问题
 };
 
 class BUS_RtuSent

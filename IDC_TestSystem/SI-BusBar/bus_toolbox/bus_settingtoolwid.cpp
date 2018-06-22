@@ -10,6 +10,9 @@ BUS_SettingToolWid::BUS_SettingToolWid(QWidget *parent) :
     mSerialPortDlg = new SerialPortDlg(this);
 
     initSerialPort();
+    initModbusTime();
+    initDevCmd();
+    initDevNum();
 }
 
 BUS_SettingToolWid::~BUS_SettingToolWid()
@@ -32,7 +35,7 @@ bool BUS_SettingToolWid::initSerialPort()
 
     QString com = config->getSerialName();
     if(!com.isEmpty())
-    {        
+    {
         ret = serial->isContains(com);
         if(ret) {
             ret = serial->open(com);
@@ -69,4 +72,82 @@ void BUS_SettingToolWid::on_serialBtn_clicked()
 {
     mSerialPortDlg->exec();
     updateSerialWid();
+}
+
+
+/**
+ * @brief 更新
+ * @param num
+ */
+void BUS_SettingToolWid::updateDevCmd(int num)
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    config->item->cmdModel = num;
+    config->setModbusCmd(num);
+}
+
+void BUS_SettingToolWid::initDevCmd()
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    int num = config->getModbusCmd();
+    updateDevCmd(num);
+
+    ui->cmdBox->setCurrentIndex(num-1);
+}
+
+void BUS_SettingToolWid::on_cmdBtn_clicked()
+{
+    int num = ui->cmdBox->currentIndex();
+    updateDevCmd(num+1);
+}
+
+
+
+/**
+ * @brief 更新间隔时间
+ * @param num
+ */
+void BUS_SettingToolWid::updateModbusTime(int num)
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    config->item->msecs = 5*(num+1);
+    config->setModbusTime(num);
+}
+
+void BUS_SettingToolWid::initModbusTime()
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    int num = config->getModbusTime();
+    updateModbusTime(num);
+    ui->timeBox->setCurrentIndex(num);
+}
+
+void BUS_SettingToolWid::on_timeBtn_clicked()
+{
+    updateModbusTime(ui->timeBox->currentIndex());
+}
+
+
+/**
+ * @brief 更新设备数量
+ * @param num
+ */
+void BUS_SettingToolWid::updateDevNum(int num)
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    config->item->devNum = num;
+    config->setDevNum(num);
+}
+
+void BUS_SettingToolWid::initDevNum()
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    int num = config->getDevNum();;
+    updateDevNum(num);
+    ui->spinBox->setValue(num);
+}
+
+void BUS_SettingToolWid::on_devNumBtn_clicked()
+{
+    updateDevNum(ui->spinBox->value());
 }

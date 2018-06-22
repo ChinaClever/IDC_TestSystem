@@ -13,7 +13,7 @@ BUS_MainWid::BUS_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mSimulateThread = new BUS_SimulateThread(this);
+
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 

@@ -49,25 +49,12 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>162</width>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">
           <string>日志信息</string>
-         </attribute>
-        </widget>
-        <widget class="QWidget" name="testPage">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>98</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <attribute name="label">
-          <string>功能测试</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="settingPage">
@@ -75,12 +62,25 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>98</width>
-           <height>28</height>
+           <width>162</width>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">
           <string>配置信息</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="testPage">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>162</width>
+           <height>401</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>功能测试</string>
          </attribute>
         </widget>
        </widget>

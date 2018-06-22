@@ -17,7 +17,6 @@ HEADERS += \
     $$PWD/bus_simulate/bus_transtablewid.h \
     $$PWD/bus_simulate/bus_thresholdtablewid.h \
     $$PWD/bus_simulate/bus_envtablewid.h \
-    $$PWD/bus_toolbox/bus_toolboxwid.h \
     $$PWD/bus_toolbox/bus_settingtoolwid.h \
     $$PWD/bus_com/bus_configfile.h \
     $$PWD/bus_simulate/bus_simulatewid.h \
@@ -36,7 +35,13 @@ HEADERS += \
     $$PWD/bus_sql/busdbmodbustrans.h \
     $$PWD/bus_sql/busdbmodbuscmd.h \
     $$PWD/bus_sql/busdbenv.h \
-    $$PWD/bus_sql/busdbalarm.h
+    $$PWD/bus_sql/busdbalarm.h \
+    $$PWD/bus_dp/bus_dpalarmslave.h \
+    $$PWD/bus_dp/bus_dpslaverecord.h \
+    $$PWD/bus_dp/bus_dpsavethreshold.h \
+    $$PWD/bus_dp/bus_dpslaveenv.h \
+    $$PWD/bus_dp/bus_dpslavetrans.h \
+    $$PWD/bus_toolbox/bus_toolboxwid.h
 	
 SOURCES += \
     $$PWD/bus_rtu/bus_rtusent.cpp \
@@ -72,7 +77,12 @@ SOURCES += \
     $$PWD/bus_sql/busdbmodbustrans.cpp \
     $$PWD/bus_sql/busdbmodbuscmd.cpp \
     $$PWD/bus_sql/busdbenv.cpp \
-    $$PWD/bus_sql/busdbalarm.cpp
+    $$PWD/bus_sql/busdbalarm.cpp \
+    $$PWD/bus_dp/bus_dpalarmslave.cpp \
+    $$PWD/bus_dp/bus_dpslaverecord.cpp \
+    $$PWD/bus_dp/bus_dpsavethreshold.cpp \
+    $$PWD/bus_dp/bus_dpslaveenv.cpp \
+    $$PWD/bus_dp/bus_dpslavetrans.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \

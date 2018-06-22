@@ -10,7 +10,8 @@ BUS_RtuTrans::BUS_RtuTrans()
 {
     mSerial = NULL;
     isRun = false;
-    mBuf = (uchar *)malloc(2*BUS_ARRAY_LEN);
+    mSentBuf = (uchar *)malloc(2*BUS_ARRAY_LEN);
+    mRecvBuf = (uchar *)malloc(2*BUS_ARRAY_LEN);
     mMutex = new QMutex();
 
     mRtuPkt = new BUS_RtuRecv();
@@ -40,12 +41,13 @@ bool BUS_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     bool ret = false;
     static uchar buf[BUS_ARRAY_LEN] = {0};
     QMutexLocker locker(mMutex);
+    uchar *sent = mSentBuf;
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
-        int rtn = mSerial->transmit(buf, len, mBuf, msecs);
+        int rtn = mSerial->transmit(buf, len, sent, msecs);
         if(len == rtn) {
-            if(memcmp(buf, mBuf,rtn) == 0)
+            if(memcmp(buf, sent,rtn) == 0)
                 ret = true;
             else
                 qDebug() << "bus si sent Set Cmd Err";
@@ -64,16 +66,16 @@ bool BUS_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 int BUS_RtuTrans::transData(int addr, BUS_RtuRecv *pkt, int msecs)
 {
     char offLine = 0;
-    uchar *buf = mBuf;
+    uchar *sent = mSentBuf, *recv = mRecvBuf;
 
-    int rtn = mLen = mRtuSent->sentDataBuff(addr, buf); // 把数据打包成通讯格式的数据
+    int rtn = mSentLen = mRtuSent->sentDataBuff(addr, sent); // 把数据打包成通讯格式的数据
     if(mSerial) {
-        rtn = mSerial->transmit(buf, rtn, buf, msecs); // 传输数据，发送同时接收
+        rtn = mRecvLen = mSerial->transmit(sent, rtn, recv, msecs); // 传输数据，发送同时接收
     } else rtn = 0;
 
     if(rtn > 0)
     {
-        bool ret = bus_rtu_recv_packet(buf, rtn, pkt); // 解释数据
+        bool ret = bus_rtu_recv_packet(recv, rtn, pkt); // 解释数据
         if(ret) {
             if(addr == pkt->addr) {
                 offLine = 1;
@@ -146,7 +148,15 @@ int BUS_RtuTrans::transmit(int addr, sBoxData *box, int msecs)
 QByteArray BUS_RtuTrans::getSentCmd()
 {
     QByteArray array;
-    if((mLen < 0) || (mLen > BUS_ARRAY_LEN))  mLen = BUS_ARRAY_LEN;
-    array.append((char *)mBuf, mLen);
+    if((mSentLen < 0) || (mSentLen > BUS_ARRAY_LEN))  mSentLen = BUS_ARRAY_LEN;
+    array.append((char *)mSentBuf, mSentLen);
+    return array;
+}
+
+QByteArray BUS_RtuTrans::getRecvCmd()
+{
+    QByteArray array;
+    if((mRecvLen < 0) || (mRecvLen > BUS_ARRAY_LEN))  mRecvLen = BUS_ARRAY_LEN;
+    array.append((char *)mRecvBuf, mRecvLen);
     return array;
 }

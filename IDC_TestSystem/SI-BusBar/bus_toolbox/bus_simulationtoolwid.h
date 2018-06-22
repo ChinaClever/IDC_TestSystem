@@ -18,18 +18,18 @@ public:
 signals:
     void simulateSig(int);
 
+protected:
+    void startSimulateTest();
+    bool stopSimulateTest();
+
 private slots:
     void on_busBtn_clicked();
-
     void on_boxBtn_clicked();
-
     void on_loopBtn_clicked();
-
     void on_transBtn_clicked();
-
     void on_thresholdBtn_clicked();
-
     void on_envBtn_clicked();
+    void on_mnTestBtn_clicked();
 
 private:
     Ui::BUS_SimulationToolWid *ui;

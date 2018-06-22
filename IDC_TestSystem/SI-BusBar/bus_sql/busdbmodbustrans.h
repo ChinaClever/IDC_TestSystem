@@ -5,7 +5,7 @@
 #define BUS_DB_ModbusTrans "bus_modbus_trans"
 
 struct BusDbModbusTransItem : public DbBasicItem {
-    QString bus, box, loop, state;
+    QString bus, box, state;
     int all_count, ok_count, err_count;
 };
 

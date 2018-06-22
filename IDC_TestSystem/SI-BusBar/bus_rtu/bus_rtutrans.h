@@ -12,6 +12,7 @@ public:
     int transmit(int addr, sBoxData *box, int msecs); //发送数据并回收
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     QByteArray getSentCmd();
+    QByteArray getRecvCmd();
 
 protected:
     int transData(int addr, BUS_RtuRecv *pkt, int msecs);
@@ -20,8 +21,8 @@ protected:
     void envData(sBoxData *box, BUS_RtuRecv *pkt);
 
 private:
-    uchar *mBuf;
-    int mLen;
+    uchar *mSentBuf, *mRecvBuf;
+    int mSentLen, mRecvLen;
 
     SerialPort *mSerial;
     QMutex *mMutex;

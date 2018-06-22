@@ -202,7 +202,7 @@ void SiSettingToolWid::initModbusTime()
 {
     SiConfigFile *config = SiConfigFile::bulid();
     int num = config->getModbusTime();
-    updateDevCmd(num);
+    updateModbusTime(num);
 }
 
 void SiSettingToolWid::on_timeBtn_clicked()

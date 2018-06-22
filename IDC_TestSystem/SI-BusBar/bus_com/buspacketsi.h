@@ -61,6 +61,8 @@ struct BUS_RtuCount
     int count;
     int okCount;
     int errCount;
+    int longCount; // 连续丢命令
+    int longFlag;
 };
 
 
@@ -103,12 +105,13 @@ public:
     static BusPacketSi *bulid();
 
     sBusData *getBus(int bus) {return &(mBus[bus]);}
+    char *getBusName(int bus) {return mBus[bus].box[0].name;}
     sBoxData *getBox(int bus, int box) {return &(mBus[bus].box[box]);}
 
 protected:
     void initData();
-    void initBoxName();
-    void initBusName();
+    void initBox();
+    void initBus();
 private:
     sBusData mBus[BUS_NUM];
 };

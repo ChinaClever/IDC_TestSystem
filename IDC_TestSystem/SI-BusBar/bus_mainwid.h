@@ -3,8 +3,8 @@
 
 #include <QWidget>
 #include "bus_toolbox/bus_toolboxwid.h"
-#include "bus_simulate/bus_simulatethread.h"
 #include "bus_logs/buslogswid.h"
+#include "bus_simulate/bus_simulatewid.h"
 
 namespace Ui {
 class BUS_MainWid;
@@ -25,7 +25,6 @@ protected slots:
 private:
     Ui::BUS_MainWid *ui;
 
-    BUS_SimulateThread *mSimulateThread;
     BUS_ToolBoxWid *mtoolBoxWid;
     BUS_SimulateWid *mSimulateWid;
     BusLogsWid *mLogsWid;

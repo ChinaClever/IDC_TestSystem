@@ -5,6 +5,7 @@
 #include "bus_boxtablewid.h"
 #include "bus_bustablewid.h"
 #include "bus_envtablewid.h"
+#include "bus_simulatethread.h"
 
 namespace Ui {
 class BUS_SimulateWid;
@@ -32,6 +33,7 @@ private:
     Ui::BUS_SimulateWid *ui;
 
     QTimer *timer;
+    BUS_SimulateThread *mSimulateThread;
     BUS_BusTableWid *mBusTableWid;
     BUS_BoxTableWid *mBoxTableWid;
     BUS_LoopTableWid *mLoopTableWid;

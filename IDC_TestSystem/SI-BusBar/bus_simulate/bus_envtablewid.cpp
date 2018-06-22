@@ -39,7 +39,7 @@ int BUS_EnvTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 {
     if(box.offLine)
     {
-        for(int i=0; i<box.loopNum; ++i)
+        for(int i=0; i<box.lineNum; ++i)
         {
             QStringList list;
             list << bus << box.name;
