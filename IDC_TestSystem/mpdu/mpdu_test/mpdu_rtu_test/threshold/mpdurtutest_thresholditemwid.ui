@@ -16,9 +16,9 @@
   <widget class="QDoubleSpinBox" name="spinBox">
    <property name="geometry">
     <rect>
-     <x>171</x>
+     <x>181</x>
      <y>1</y>
-     <width>81</width>
+     <width>71</width>
      <height>31</height>
     </rect>
    </property>
@@ -37,7 +37,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>171</width>
+     <width>175</width>
      <height>30</height>
     </rect>
    </property>
