@@ -6,8 +6,7 @@ MpduRtuTest_SwWid::MpduRtuTest_SwWid(QWidget *parent) :
     ui(new Ui::MpduRtuTest_SwWid)
 {
     ui->setupUi(this);
-    com_setBackColour("", this);
-    mReg = 339;
+    mReg = 1003;
 }
 
 MpduRtuTest_SwWid::~MpduRtuTest_SwWid()

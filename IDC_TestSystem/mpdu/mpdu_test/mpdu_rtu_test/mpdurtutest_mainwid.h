@@ -17,6 +17,7 @@ public:
 
 protected:
     void initWid();
+    QString getName(int mode);
 
 private slots:
     void on_pushButton_clicked();

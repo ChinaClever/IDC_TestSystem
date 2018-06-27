@@ -21,19 +21,33 @@ MpduRtuTest_MainWid::~MpduRtuTest_MainWid()
     delete ui;
 }
 
+QString MpduRtuTest_MainWid::getName(int mode)
+{
+    QString str = tr("输出位");
+
+    switch (mode) {
+    case Mpdu_Rtu_Test_min: str += tr("最小值"); break;
+    case Mpdu_Rtu_Test_crMin: str += tr("下限值"); break;
+    case Mpdu_Rtu_Test_crMax: str += tr("上限值"); break;
+    case Mpdu_Rtu_Test_max: str += tr("最大值"); break;
+    default: break;
+    }
+
+    return str;
+}
+
+
 void MpduRtuTest_MainWid::initWid()
 {
     MpduRtuTest_SwWid *swWid = new MpduRtuTest_SwWid(ui->tabWidget);
     ui->tabWidget->addTab(swWid, tr("输出位开关"));
     swWid->initwid(mSerialPort);
 
-    MpduRtuTest_ThresholdOutputWid *wid = new MpduRtuTest_ThresholdOutputWid(ui->tabWidget);
-    wid->initwid(0, mSerialPort);
-    ui->tabWidget->addTab(wid, tr("输出位最小值"));
-
-    wid = new MpduRtuTest_ThresholdOutputWid(ui->tabWidget);
-    wid->initwid(1, mSerialPort);
-    ui->tabWidget->addTab(wid, tr("输出位最大值"));
+    for(int i=Mpdu_Rtu_Test_min; i<=Mpdu_Rtu_Test_max; ++i) {
+        MpduRtuTest_ThresholdOutputWid *wid = new MpduRtuTest_ThresholdOutputWid(ui->tabWidget);
+        wid->initwid(i, mSerialPort);
+        ui->tabWidget->addTab(wid, getName(i));
+    }
 }
 
 void MpduRtuTest_MainWid::on_pushButton_clicked()

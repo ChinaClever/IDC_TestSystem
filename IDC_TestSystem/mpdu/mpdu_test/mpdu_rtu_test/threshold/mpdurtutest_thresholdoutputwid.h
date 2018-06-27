@@ -18,6 +18,9 @@ public:
 
     void initwid(int mode, SerialPort *serial);
 
+protected:
+    int getReg(int mode);
+
 protected slots:
    void updateTextSlot(QString str);
 

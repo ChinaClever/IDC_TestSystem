@@ -6,7 +6,6 @@ MpduRtuTest_ThresholdOutputWid::MpduRtuTest_ThresholdOutputWid(QWidget *parent) 
     ui(new Ui::MpduRtuTest_ThresholdOutputWid)
 {
     ui->setupUi(this);
-    com_setBackColour("", this);
     mReg = 157;
 }
 
@@ -15,6 +14,20 @@ MpduRtuTest_ThresholdOutputWid::~MpduRtuTest_ThresholdOutputWid()
     delete ui;
 }
 
+int MpduRtuTest_ThresholdOutputWid::getReg(int mode)
+{
+    int reg;
+
+    switch (mode) {
+    case Mpdu_Rtu_Test_min: reg = 1099; break;
+    case Mpdu_Rtu_Test_crMin: reg = 1123; break;
+    case Mpdu_Rtu_Test_crMax: reg = 1147; break;
+    case Mpdu_Rtu_Test_max: reg = 1181; break;
+    default: break;
+    }
+
+    return reg;
+}
 
 void MpduRtuTest_ThresholdOutputWid::initwid(int mode, SerialPort *serial)
 {
@@ -28,7 +41,7 @@ void MpduRtuTest_ThresholdOutputWid::initwid(int mode, SerialPort *serial)
         mWid[i]->init(i, mode);
     }
 
-    if(mode) mReg = 229;
+    mReg = getReg(mode);
     mRtu = new MpduRtuTestThread(this);
     mRtu->init(serial);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));

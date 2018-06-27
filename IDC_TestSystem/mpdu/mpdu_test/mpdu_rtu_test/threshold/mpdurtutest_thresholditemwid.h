@@ -3,6 +3,13 @@
 
 #include <QWidget>
 
+enum{
+    Mpdu_Rtu_Test_min,
+    Mpdu_Rtu_Test_crMin,
+    Mpdu_Rtu_Test_crMax,
+    Mpdu_Rtu_Test_max,
+};
+
 namespace Ui {
 class MpduRtuTest_ThresholdItemWid;
 }
@@ -22,11 +29,15 @@ public:
     bool select();
     int status();
 
+protected:
+    QString getStr(int mode);
+
 private slots:
     void on_spinBox_valueChanged(double arg1);
 
 private:
     Ui::MpduRtuTest_ThresholdItemWid *ui;
+    int mRate;
 };
 
 #endif // MPDURTUTEST_THRESHOLDITEMWID_H

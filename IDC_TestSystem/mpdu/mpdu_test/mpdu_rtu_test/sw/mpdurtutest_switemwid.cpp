@@ -1,5 +1,6 @@
 #include "mpdurtutest_switemwid.h"
 #include "ui_mpdurtutest_switemwid.h"
+extern void com_setBackColour(const QString &,QWidget *target);
 
 
 MpduRtuTest_SwItemWid::MpduRtuTest_SwItemWid(QWidget *parent) :
@@ -7,6 +8,7 @@ MpduRtuTest_SwItemWid::MpduRtuTest_SwItemWid(QWidget *parent) :
     ui(new Ui::MpduRtuTest_SwItemWid)
 {
     ui->setupUi(this);
+    com_setBackColour("", this);
     ui->openRadio->setChecked(true);
 }
 
