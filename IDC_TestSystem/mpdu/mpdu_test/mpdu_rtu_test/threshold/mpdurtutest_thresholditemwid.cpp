@@ -1,4 +1,4 @@
-#include "mpdurtutest_thresholditemwid.h"
+﻿#include "mpdurtutest_thresholditemwid.h"
 #include "ui_mpdurtutest_thresholditemwid.h"
 extern void com_setBackColour(const QString &,QWidget *target);
 
@@ -8,7 +8,7 @@ MpduRtuTest_ThresholdItemWid::MpduRtuTest_ThresholdItemWid(QWidget *parent) :
 {
     ui->setupUi(this);
     com_setBackColour("", this);
-    mRate = 10;
+    mRate = 1;
 }
 
 MpduRtuTest_ThresholdItemWid::~MpduRtuTest_ThresholdItemWid()
