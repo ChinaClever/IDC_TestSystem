@@ -1,7 +1,7 @@
 #ifndef MPDURTUTEST_SWITEMWID_H
 #define MPDURTUTEST_SWITEMWID_H
 
-#include <QWidget>
+#include "../rtu/mpdurtutestthread.h"
 
 namespace Ui {
 class MpduRtuTest_SwItemWid;

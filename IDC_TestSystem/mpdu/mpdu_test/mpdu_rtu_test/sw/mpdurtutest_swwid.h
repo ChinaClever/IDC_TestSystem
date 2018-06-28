@@ -2,7 +2,6 @@
 #define MPDURTUTEST_SWWID_H
 
 #include "mpdurtutest_switemwid.h"
-#include "../rtu/mpdurtutestthread.h"
 
 namespace Ui {
 class MpduRtuTest_SwWid;
@@ -25,9 +24,7 @@ private slots:
     void on_checkBox_clicked(bool checked);
     void on_pushButton_clicked();
     void on_openRadio_clicked(bool checked);
-
     void on_closeRadio_clicked(bool checked);
-
 
 private:
     Ui::MpduRtuTest_SwWid *ui;

@@ -16,13 +16,14 @@ MpduRtuTest_ThresholdOutputWid::~MpduRtuTest_ThresholdOutputWid()
 
 int MpduRtuTest_ThresholdOutputWid::getReg(int mode)
 {
-    int reg;
+    int reg=1054;
 
     switch (mode) {
     case Mpdu_Rtu_Test_min: reg = 1099; break;
     case Mpdu_Rtu_Test_crMin: reg = 1123; break;
     case Mpdu_Rtu_Test_crMax: reg = 1147; break;
     case Mpdu_Rtu_Test_max: reg = 1181; break;
+    case Mpdu_Rtu_Test_delay: reg = 1055; break;
     default: break;
     }
 
@@ -38,7 +39,7 @@ void MpduRtuTest_ThresholdOutputWid::initwid(int mode, SerialPort *serial)
 
     for(int i=0; i<24; ++i) {
         mWid[i] = new MpduRtuTest_ThresholdItemWid(wid[i]);
-        mWid[i]->init(i, mode);
+        mWid[i]->initOutput(i, mode);
     }
 
     mReg = getReg(mode);
@@ -58,7 +59,7 @@ void MpduRtuTest_ThresholdOutputWid::on_checkBox_clicked(bool checked)
     for(int i=0; i<24; ++i) {
         mWid[i]->setSelect(checked);
     }
-    on_curDoubleSpinBox_valueChanged(ui->curDoubleSpinBox->value());
+    on_curSpinBox_valueChanged(ui->curSpinBox->value());
 }
 
 void MpduRtuTest_ThresholdOutputWid::on_pushButton_clicked()
@@ -78,7 +79,7 @@ void MpduRtuTest_ThresholdOutputWid::on_pushButton_clicked()
 }
 
 
-void MpduRtuTest_ThresholdOutputWid::on_curDoubleSpinBox_valueChanged(double arg1)
+void MpduRtuTest_ThresholdOutputWid::on_curSpinBox_valueChanged(int arg1)
 {
     if(ui->checkBox->isChecked())
     {
