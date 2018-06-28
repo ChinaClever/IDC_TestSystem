@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MpduRtuTest_ThresholdOutputWid</class>
- <widget class="QWidget" name="MpduRtuTest_ThresholdOutputWid">
+ <class>MpduRtuTest_OutputEleWid</class>
+ <widget class="QWidget" name="MpduRtuTest_OutputEleWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1424</width>
-    <height>718</height>
+    <height>716</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>9</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
+  <layout class="QGridLayout" name="gridLayout_2">
    <property name="bottomMargin">
-    <number>30</number>
+    <number>40</number>
    </property>
-   <item>
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QWidget" name="widget" native="true">
@@ -43,6 +34,69 @@
         </size>
        </property>
        <layout class="QGridLayout" name="gridLayout">
+        <item row="5" column="1">
+         <widget class="QWidget" name="widget_17" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QWidget" name="widget_18" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QWidget" name="widget_12" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QWidget" name="widget_11" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QWidget" name="widget_14" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QWidget" name="widget_13" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QWidget" name="widget_15" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QWidget" name="widget_24" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QWidget" name="widget_10" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="2">
          <widget class="QWidget" name="widget_9" native="true">
           <property name="styleSheet">
@@ -57,8 +111,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QWidget" name="widget_10" native="true">
+        <item row="1" column="0">
+         <widget class="QWidget" name="widget_4" native="true">
           <property name="styleSheet">
            <string notr="true"/>
           </property>
@@ -71,134 +125,8 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="QWidget" name="widget_13" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QWidget" name="widget_4" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QWidget" name="widget_5" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QWidget" name="widget_16" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0">
-         <widget class="QWidget" name="widget_22" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QWidget" name="widget_19" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QWidget" name="widget_7" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QWidget" name="widget_3" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="1">
-         <widget class="QWidget" name="widget_20" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2">
          <widget class="QWidget" name="widget_6" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="2">
-         <widget class="QWidget" name="widget_15" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="QWidget" name="widget_18" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QWidget" name="widget_11" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QWidget" name="widget_17" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QWidget" name="widget_12" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="1">
-         <widget class="QWidget" name="widget_23" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QWidget" name="widget_14" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="2">
-         <widget class="QWidget" name="widget_21" native="true">
-          <property name="styleSheet">
-           <string notr="true"/>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="2">
-         <widget class="QWidget" name="widget_24" native="true">
           <property name="styleSheet">
            <string notr="true"/>
           </property>
@@ -211,15 +139,90 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QWidget" name="widget_7" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QWidget" name="widget_5" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QWidget" name="widget_3" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QWidget" name="widget_21" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QWidget" name="widget_16" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QWidget" name="widget_22" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QWidget" name="widget_23" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QWidget" name="widget_19" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QWidget" name="widget_20" native="true">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
      <item>
       <widget class="QTextEdit" name="textEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="minimumSize">
         <size>
-         <width>100</width>
-         <height>280</height>
+         <width>200</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>16777215</height>
         </size>
        </property>
        <property name="font">
@@ -232,7 +235,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QWidget" name="widget_25" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -293,7 +296,7 @@
        <widget class="QCheckBox" name="checkBox">
         <property name="minimumSize">
          <size>
-          <width>80</width>
+          <width>100</width>
           <height>30</height>
          </size>
         </property>
@@ -309,7 +312,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="curSpinBox">
+       <widget class="QRadioButton" name="cleanRadio">
         <property name="minimumSize">
          <size>
           <width>100</width>
@@ -322,8 +325,8 @@
           <pointsize>12</pointsize>
          </font>
         </property>
-        <property name="maximum">
-         <number>999</number>
+        <property name="text">
+         <string>清除所有</string>
         </property>
        </widget>
       </item>

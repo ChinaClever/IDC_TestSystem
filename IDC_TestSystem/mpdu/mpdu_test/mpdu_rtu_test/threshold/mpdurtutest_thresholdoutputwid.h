@@ -27,7 +27,7 @@ protected slots:
 private slots:
     void on_checkBox_clicked(bool checked);
     void on_pushButton_clicked();
-    void on_curDoubleSpinBox_valueChanged(double arg1);
+    void on_curSpinBox_valueChanged(int arg1);
 
 private:
     Ui::MpduRtuTest_ThresholdOutputWid *ui;

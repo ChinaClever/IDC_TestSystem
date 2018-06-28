@@ -18,7 +18,7 @@ public:
     ~MpduRtuTestThread();
 
     void init(SerialPort *serial);
-    void setCmd(sMpduRtuTestSetCmd &cmd) {mList.append(cmd);}
+    void setCmd(const sMpduRtuTestSetCmd &cmd) {mList.append(cmd);}
     int mReg;
 
 protected:
