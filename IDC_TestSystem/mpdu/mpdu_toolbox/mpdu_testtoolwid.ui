@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Mpdu_TestToolWid</class>
+ <widget class="QWidget" name="Mpdu_TestToolWid">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>183</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QSpinBox" name="addrBox">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>150</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>18</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="serialBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>50</y>
+     <width>90</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>串口设置</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>120</y>
+     <width>91</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设备地址</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="devNumBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>190</y>
+     <width>90</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>修改</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="serialLab">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>141</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>COM0  未打开</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="updateBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>90</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>数据刷新</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
