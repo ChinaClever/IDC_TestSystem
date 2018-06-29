@@ -19,6 +19,14 @@
    </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
      <property name="title">
       <string>MPDU功能测试测试</string>
      </property>
