@@ -16,12 +16,12 @@ IP_MainWid::~IP_MainWid()
 
 void IP_MainWid::initFunSLot()
 {
-//    mtoolBoxWid = new BUS_ToolBoxWid(ui->toolBoxWid);
-//    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
+    mtoolBoxWid = new IP_ToolBoxWid(ui->toolBoxWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
-//    mSimulateWid = new BUS_SimulateWid(ui->stackedWid);
-//    ui->stackedWid->addWidget(mSimulateWid);
-//    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
+    mSimulateWid = new IP_SimulateWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSimulateWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
 
 //    mLogsWid = new BusLogsWid(ui->stackedWid);
 //    ui->stackedWid->addWidget(mLogsWid);
@@ -30,9 +30,9 @@ void IP_MainWid::initFunSLot()
 
 void IP_MainWid::toolBoxSlot(int id)
 {
-//    if((id >= BUS_Info_Bus) && (id <= BUS_Info_Set)) {
-//        ui->stackedWid->setCurrentWidget(mSimulateWid);
-//    } else if((id >= BUS_Log_Modbus) && (id <= BUS_Log_Alarm)) {
+    if((id >= IP_Info_Dev) && (id <= IP_Info_Set)) {
+        ui->stackedWid->setCurrentWidget(mSimulateWid);
+    } else if((id >= IP_Log_Modbus) && (id <= IP_Log_Alarm)) {
 //         ui->stackedWid->setCurrentWidget(mLogsWid);
-//    }
+    }
 }

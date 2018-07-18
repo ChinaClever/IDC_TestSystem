@@ -10,7 +10,6 @@ class IP_DevTableWid : public ComTableWid
 public:
     explicit IP_DevTableWid(QWidget *parent = nullptr);
 
-
 public slots:
     void updateData();
 

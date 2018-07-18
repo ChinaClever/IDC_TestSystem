@@ -1,12 +1,13 @@
 #ifndef IPDATAPACKETS_H
 #define IPDATAPACKETS_H
 #include "ip_rtu/ip_rtutrans.h"
+#include "ipconfigfile.h"
 
 #define IP_DEV_NUM  100
 
-struct IpDevModubsCount
+struct IP_RtuCount
 {
-    IpDevModubsCount() {count=okCount=errCount=0;}
+    IP_RtuCount() {count=okCount=errCount=0;}
 
     int count;
     int okCount;
@@ -16,7 +17,7 @@ struct IpDevModubsCount
 
 struct IpDevPacket
 {
-    IpDevModubsCount count;
+    IP_RtuCount count;
     IP_Rtu_Recv rtuData;
 };
 

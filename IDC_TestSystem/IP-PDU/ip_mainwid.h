@@ -2,6 +2,7 @@
 #define IP_MAINWID_H
 
 #include "ip_simulate/ip_simulatewid.h"
+#include "ip_toolbox/ip_toolboxwid.h"
 
 namespace Ui {
 class IP_MainWid;
@@ -21,6 +22,8 @@ protected slots:
 
 private:
     Ui::IP_MainWid *ui;
+    IP_SimulateWid *mSimulateWid;
+    IP_ToolBoxWid *mtoolBoxWid;
 };
 
 #endif // IP_MAINWID_H
