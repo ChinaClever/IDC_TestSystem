@@ -1,4 +1,4 @@
-#include "bus_settingtoolwid.h"
+﻿#include "bus_settingtoolwid.h"
 #include "ui_bus_settingtoolwid.h"
 
 
@@ -53,9 +53,10 @@ void BUS_SettingToolWid::updateSerialWid()
 {
     QPalette pe;
     SerialPort *serial = mSerialPortDlg->getSerialPort();
-    QString str = serial->getSerialName();
+    QString str;
 
     if(serial->isOpened()) {
+        str = serial->getSerialName();
         BUS_ConfigFile::bulid()->setSerialName(str);
         str += tr(" 已打开");
         pe.setColor(QPalette::WindowText,Qt::black);

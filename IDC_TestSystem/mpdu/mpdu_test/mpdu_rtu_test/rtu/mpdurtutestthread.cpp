@@ -1,4 +1,4 @@
-#include "mpdurtutestthread.h"
+﻿#include "mpdurtutestthread.h"
 
 MpduRtuTestThread::MpduRtuTestThread(QObject *parent) : QThread(parent)
 {
@@ -65,7 +65,7 @@ void MpduRtuTestThread::run()
             int id = i+1;
             if(mReg) id = mList.at(i).reg - mReg+1;
 
-            QString str = tr("输出位 %1 命令执行").arg(id);
+            QString str = tr("命令 %1 执行").arg(id);
             bool ret = sentSetCmd(mList.at(i).addr,mList.at(i).reg,mList.at(i).value, 5);
             if(ret) {
                 str += tr("成功!!");

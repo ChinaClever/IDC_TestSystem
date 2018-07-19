@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 串口窗口
  *
  *  Created on: 2018年1月1日
@@ -30,9 +30,12 @@ void SerialPortWid::initSerialPort()
     ui->comBox->clear();
     ui->comBox->addItems(com);
 
-    QString name = mSerialPort->getSerialName(); // 已打开端口
-    if(!name.isEmpty())
-        ui->comBox->setCurrentText(name);
+    if(mSerialPort->isOpened())
+    {
+        QString name = mSerialPort->getSerialName(); // 已打开端口
+        if(!name.isEmpty())
+            ui->comBox->setCurrentText(name);
+    }
 }
 
 

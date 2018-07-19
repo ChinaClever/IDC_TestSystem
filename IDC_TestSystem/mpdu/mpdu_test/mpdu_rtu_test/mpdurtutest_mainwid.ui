@@ -10,6 +10,12 @@
     <height>734</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -28,7 +34,7 @@
       </font>
      </property>
      <property name="title">
-      <string>MPDU功能测试测试</string>
+      <string>MPDU功能测试</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
