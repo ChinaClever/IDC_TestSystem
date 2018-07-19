@@ -4,7 +4,6 @@ IpDataPackets::IpDataPackets()
 {
     memset(&dev, 0, sizeof(IpDevPacket)*IP_DEV_NUM);
     devNum = 0;
-    lineNum = 1;
 }
 
 IpDataPackets *IpDataPackets::bulid()

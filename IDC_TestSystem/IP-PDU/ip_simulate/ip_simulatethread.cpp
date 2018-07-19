@@ -19,7 +19,7 @@ IP_SimulateThread::~IP_SimulateThread()
 void IP_SimulateThread::initSlot()
 {
     SerialPort *serial = IP_ConfigFile::bulid()->item->serial;
-    // mDpThread = new BUS_DpThread(this);
+    mDpThread = new IP_DpThread(this);
 
     mPacket = IpDataPackets::bulid();
     mRtu = IP_RtuTrans::bulid();
@@ -72,7 +72,7 @@ void IP_SimulateThread::sentOkCmd(IP_RtuCount &count)
     count.count++;
     count.okCount ++;
 
-    //    mDpThread->start();
+    mDpThread->start();
 }
 
 
@@ -94,10 +94,10 @@ void IP_SimulateThread::saveErrCmd(int id, IP_RtuCount &count)
     strArray += ")";
 
     QStringList list;
-    list << QString::number(id+1);
+    list << QString::number(id);
     list << strArray;
 
-    //    mDpThread->saveModbusCmd(list);
+    mDpThread->saveModbusCmd(list);
 }
 
 
@@ -110,7 +110,6 @@ void IP_SimulateThread::workDown()
 
     IpConfigItem *item = IP_ConfigFile::bulid()->item;
     mPacket->devNum = item->devNum;
-    mPacket->lineNum = item->lineNum;
 
     for(int k=0; k<=mPacket->devNum; ++k)
     {

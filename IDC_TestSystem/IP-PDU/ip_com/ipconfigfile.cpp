@@ -21,7 +21,7 @@ int IP_ConfigFile::getVersion()
     QString prefix = getPrefix();
     QString str = QString("%1_version_num").arg(prefix);
     int ret = sys_configFile_readInt(str, prefix);
-    if(ret <= 0)  ret = 1;
+    if(ret <= 0)  ret = 0;
     return ret;
 }
 

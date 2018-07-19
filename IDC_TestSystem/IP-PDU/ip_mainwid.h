@@ -3,6 +3,7 @@
 
 #include "ip_simulate/ip_simulatewid.h"
 #include "ip_toolbox/ip_toolboxwid.h"
+#include "ip_logs/iplogswid.h"
 
 namespace Ui {
 class IP_MainWid;
@@ -24,6 +25,7 @@ private:
     Ui::IP_MainWid *ui;
     IP_SimulateWid *mSimulateWid;
     IP_ToolBoxWid *mtoolBoxWid;
+    IpLogsWid *mLogsWid;
 };
 
 #endif // IP_MAINWID_H

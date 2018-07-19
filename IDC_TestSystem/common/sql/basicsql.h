@@ -5,6 +5,8 @@
 #include <QObject>
 #include "common.h"
 
+#define LOG_DELAY 30
+
 struct DbBasicItem{
     DbBasicItem():id(-1){
         QDateTime dateTime = QDateTime::currentDateTime();

@@ -68,7 +68,7 @@ bool IP_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
  */
 int IP_RtuTrans::transData(int addr, int line, IP_Rtu_Recv *pkt, int msecs)
 {
-    char offLine = 0;
+    uchar offLine = 0;
     uchar *sent = mSentBuf, *recv = mRecvBuf;
 
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, line,sent); // 把数据打包成通讯格式的数据

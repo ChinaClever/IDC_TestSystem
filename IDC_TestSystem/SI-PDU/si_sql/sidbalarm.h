@@ -12,8 +12,8 @@ struct SiDbAlarmItem : public DbBasicItem {
 
 class SiDbAlarm : public SqlBasic<SiDbAlarmItem>
 {
-    SiDbAlarm();
 public:
+    SiDbAlarm();
     static SiDbAlarm *bulid();
     virtual QString tableName(){return QString("%1").arg(SI_DB_Alarms);}
     bool insertItem(SiDbAlarmItem &item); // 插入

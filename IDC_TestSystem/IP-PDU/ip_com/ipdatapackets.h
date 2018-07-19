@@ -29,7 +29,6 @@ public:
     static IpDataPackets *bulid();
 
     int devNum;
-    int lineNum;
     IpDevPacket dev[IP_DEV_NUM];
     IpDevPacket *getDev(int num);
 };

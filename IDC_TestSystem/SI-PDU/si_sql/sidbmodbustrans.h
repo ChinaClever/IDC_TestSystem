@@ -13,8 +13,8 @@ struct SiDbModbusTransItem : public DbBasicItem {
 
 class SiDbModbusTrans : public SqlBasic<SiDbModbusTransItem>
 {
-    SiDbModbusTrans();
 public:
+    SiDbModbusTrans();
     static SiDbModbusTrans *bulid();
     virtual QString tableName(){return QString("%1").arg(SI_DB_ModbusTrans) ;}
     bool insertItem(SiDbModbusTransItem &item); // 插入

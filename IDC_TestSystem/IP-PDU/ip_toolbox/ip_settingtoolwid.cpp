@@ -12,7 +12,6 @@ IP_SettingToolWid::IP_SettingToolWid(QWidget *parent) :
     initModbusTime();
     initDevCmd();
     initDevNum();
-    initLineNum();
     initVersion();
 }
 
@@ -174,22 +173,3 @@ void IP_SettingToolWid::on_vBtn_clicked()
 }
 
 
-void IP_SettingToolWid::updateLineNum(int num)
-{
-    IP_ConfigFile *config = IP_ConfigFile::bulid();
-    config->item->lineNum = num +1;
-    config->setLineNum(num);
-}
-
-void IP_SettingToolWid::initLineNum()
-{
-    IP_ConfigFile *config = IP_ConfigFile::bulid();
-    int num = config->getLineNum();;
-    updateLineNum(num);
-    ui->lineBox->setCurrentIndex(num);
-}
-
-void IP_SettingToolWid::on_lineBtn_clicked()
-{
-    updateLineNum(ui->lineBox->currentIndex());
-}

@@ -2,6 +2,7 @@
 #define IP_SIMULATETHREAD_H
 
 #include "ip_com/ipdatapackets.h"
+#include "ip_dp/ip_dpthread.h"
 
 class IP_SimulateThread : public QThread
 {
@@ -32,7 +33,7 @@ private:
 
     IpDataPackets *mPacket;
     IP_RtuTrans *mRtu;
-//    BUS_DpThread *mDpThread;
+    IP_DpThread *mDpThread;
 };
 
 #endif // IP_SIMULATETHREAD_H

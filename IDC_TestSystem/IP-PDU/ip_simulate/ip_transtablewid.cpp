@@ -54,7 +54,7 @@ void IP_TransTableWid::updateData()
     int row = 0;
 
     IpDataPackets *packets = IpDataPackets::bulid();
-    for(int i=0; i<packets->devNum; ++i)
+    for(int i=1; i<=packets->devNum; ++i)
     {
         IpDevPacket *dev = packets->getDev(i);
         row = updateDev(dev, row);

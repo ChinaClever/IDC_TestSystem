@@ -34,6 +34,7 @@ void IP_DevTableWid::setAlarm(IP_RtuRecvLine &unit, int line, int row)
 
 void IP_DevTableWid::setObjUnit(IP_RtuRecvLine &unit, int line, QStringList &list)
 {
+    list << ("L"+QString::number(line+1));
     QString  str = "---";
     switch (unit.sw[line]) {
     case 0: str = tr("断开"); break;
@@ -85,10 +86,10 @@ void IP_DevTableWid::updateData()
     int row = 0;
 
     IpDataPackets *packets = IpDataPackets::bulid();
-    for(int i=0; i<packets->devNum; ++i)
+    for(int i=1; i<=packets->devNum; ++i)
     {
-        int line = packets->lineNum;
-        IpDevPacket *dev = packets->getDev(i);
+        IpDevPacket *dev = packets->getDev(i);        
+        int line = dev->rtuData.data.lineNum;
         row = updateDev(dev->rtuData, line, row);
     }
 

@@ -31,7 +31,6 @@ struct IpConfigItem
     int logMins; // 日志间隔时间分钟
 
     SerialPort *serial; // 串口对象
-    int lineNum; // 相数
     int devNum; // 级联数
     int cmdModel; // 命令模式
     int v;

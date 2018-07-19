@@ -30,7 +30,7 @@ void IP_ThresholdTableWid::setAlarm(IP_RtuRecvLine &unit, int line, int row)
 
 void IP_ThresholdTableWid::setObjUnit(IP_RtuRecvLine &unit, int line, QStringList &list)
 {
-
+    list << ("L"+QString::number(line+1));
     double value = unit.vol.value[line] / COM_RATE_VOL;
     list << QString::number(value) + "V";
 

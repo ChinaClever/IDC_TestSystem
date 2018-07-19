@@ -12,8 +12,8 @@ struct SiDbThresholdItem : public DbBasicItem {
 
 class SiDbThresholds : public SqlBasic<SiDbThresholdItem>
 {
-    SiDbThresholds();
 public:
+    SiDbThresholds();
     static SiDbThresholds *bulid();
     virtual QString tableName(){return QString("%1").arg(SI_DB_Thresholds) ;}
     bool insertItem(SiDbThresholdItem &item); // 插入

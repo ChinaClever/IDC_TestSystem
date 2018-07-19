@@ -29,9 +29,6 @@ protected:
     void initDevNum();
     void updateDevNum(int num);
 
-    void initLineNum();
-    void updateLineNum(int num);
-
     void initVersion();
     void updateVersion(int num);
 
@@ -41,8 +38,6 @@ private slots:
     void on_cmdBtn_clicked();
     void on_timeBtn_clicked();
     void on_vBtn_clicked();
-
-    void on_lineBtn_clicked();
 
 private:
     Ui::IP_SettingToolWid *ui;

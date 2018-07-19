@@ -17,7 +17,7 @@ static int rtu_recv_len(uchar *buf, int len)
         ret = -2;
         qDebug() << "rtu recv Err: len too long!!" << len;
     } else {
-        len = buf[2]*256 + buf[3];
+        len = buf[2];
         if(len == IP_RTU_ONE_LEN*2) {
             ret = 1;
         } else if (len == IP_RTU_THREE_LEN*2) {
@@ -43,10 +43,10 @@ static int rtu_recv_head(uchar *ptr,  IP_Rtu_Recv *pkt)
 {
     pkt->addr = *(ptr++);// 从机地址码
     pkt->fn = *(ptr++);  /*功能码*/
-    pkt->len = (*ptr) * 256 + *(ptr+1); /*数据长度*/
+    pkt->len = (*ptr); /*数据长度*/
     if(pkt->len > SERIAL_LEN) pkt->len = 0;
 
-    return 4;
+    return 3;
 }
 
 
@@ -113,10 +113,11 @@ static int rtu_recv_data(uchar *ptr, IP_RtuRecvLine *msg)
     ptr =  rtu_recv_unit(ptr, 1, msg->tem);
     ptr =  rtu_recv_unit(ptr, 1, msg->hum);
 
-    ptr =  rtu_recv_data(ptr, line, msg->vol.alarm);
-    ptr =  rtu_recv_data(ptr, line, msg->cur.alarm);
-    ptr =  rtu_recv_data(ptr, 1, msg->tem.alarm);
-    ptr =  rtu_recv_data(ptr, 1, msg->hum.alarm);
+    ptr += (2*2*line + 2 + 2);
+//    ptr =  rtu_recv_data(ptr, line, msg->vol.alarm);
+//    ptr =  rtu_recv_data(ptr, line, msg->cur.alarm);
+//    ptr =  rtu_recv_data(ptr, 1, msg->tem.alarm);
+//    ptr =  rtu_recv_data(ptr, 1, msg->hum.alarm);
 
     ptr =  rtu_recv_data(ptr, 2, msg->sw); // 开关状态
     ptr =  rtu_recv_data(ptr, 1, &(msg->lineNum));
@@ -154,10 +155,11 @@ static int rtu_recv_dataV3(uchar *ptr, IP_RtuRecvLine *msg)
     ptr =  rtu_recv_unit(ptr, 1, msg->tem);
     ptr =  rtu_recv_unit(ptr, 1, msg->hum);
 
-    ptr =  rtu_recv_data(ptr, line, msg->vol.alarm);
-    ptr =  rtu_recv_data(ptr, line, msg->cur.alarm);
-    ptr =  rtu_recv_data(ptr, 1, msg->tem.alarm);
-    ptr =  rtu_recv_data(ptr, 1, msg->hum.alarm);
+    ptr += (2*2*line + 2 + 2);
+//    ptr =  rtu_recv_data(ptr, line, msg->vol.alarm);
+//    ptr =  rtu_recv_data(ptr, line, msg->cur.alarm);
+//    ptr =  rtu_recv_data(ptr, 1, msg->tem.alarm);
+//    ptr =  rtu_recv_data(ptr, 1, msg->hum.alarm);
 
     ptr =  rtu_recv_data(ptr, 1, &(msg->lineNum));
     ptr =  rtu_recv_data(ptr, 1, &(msg->version));
@@ -212,6 +214,7 @@ static bool rtu_recv_packet(uchar *buf, int len, IP_Rtu_Recv *pkt)
         pkt->v = line;
         ret = rtu_recv_crc(buf, len, pkt);
     }
+
     return ret;
 }
 

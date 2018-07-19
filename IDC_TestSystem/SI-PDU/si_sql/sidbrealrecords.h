@@ -12,8 +12,8 @@ struct SiDbRealRecordItem : public DbBasicItem {
 
 class SiDbRealRecords : public SqlBasic<SiDbRealRecordItem>
 {
-    SiDbRealRecords();
 public:
+    SiDbRealRecords();
     static SiDbRealRecords *bulid();
     virtual QString tableName(){return QString("%1").arg(SI_DB_RealRecords) ;}
     bool insertItem(SiDbRealRecordItem &item); // 插入

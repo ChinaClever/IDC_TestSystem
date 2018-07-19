@@ -11,8 +11,8 @@ struct SiDbEnvItem : public DbBasicItem {
 
 class SiDbEnv : public SqlBasic<SiDbEnvItem>
 {
-    SiDbEnv();
 public:
+    SiDbEnv();
     static SiDbEnv *bulid();
     virtual QString tableName(){return QString("%1").arg(SI_DB_Env) ;}
     bool insertItem(SiDbEnvItem &item); // 插入
