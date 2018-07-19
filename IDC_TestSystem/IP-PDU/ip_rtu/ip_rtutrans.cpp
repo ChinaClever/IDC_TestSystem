@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "ip_rtutrans.h"
 
 IP_RtuTrans::IP_RtuTrans()

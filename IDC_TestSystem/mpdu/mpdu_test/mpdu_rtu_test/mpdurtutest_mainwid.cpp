@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "mpdurtutest_mainwid.h"
 #include "ui_mpdurtutest_mainwid.h"
 #include "threshold/mpdurtutest_thresholdoutputwid.h"

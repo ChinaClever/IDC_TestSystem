@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "ip_simulationtoolwid.h"
 #include "ui_ip_simulationtoolwid.h"
 

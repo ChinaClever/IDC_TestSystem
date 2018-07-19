@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "ipconfigfile.h"
 
 IP_ConfigFile::IP_ConfigFile()

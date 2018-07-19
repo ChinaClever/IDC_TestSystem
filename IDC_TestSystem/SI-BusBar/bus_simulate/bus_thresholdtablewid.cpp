@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "bus_thresholdtablewid.h"
 
 BUS_ThresholdTableWid::BUS_ThresholdTableWid(QWidget *parent) : BUS_LoopTableWid(parent)

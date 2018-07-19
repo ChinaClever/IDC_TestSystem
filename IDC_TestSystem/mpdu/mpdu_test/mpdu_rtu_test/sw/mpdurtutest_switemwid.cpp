@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "mpdurtutest_switemwid.h"
 #include "ui_mpdurtutest_switemwid.h"
 extern void com_setBackColour(const QString &,QWidget *target);

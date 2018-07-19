@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "ip_simulatethread.h"
 
 IP_SimulateThread::IP_SimulateThread(QObject *parent) : QThread(parent)

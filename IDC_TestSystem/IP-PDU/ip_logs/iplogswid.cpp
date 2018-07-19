@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "iplogswid.h"
 #include "ui_iplogswid.h"
 #include "ip_com/ipdatapackets.h"
