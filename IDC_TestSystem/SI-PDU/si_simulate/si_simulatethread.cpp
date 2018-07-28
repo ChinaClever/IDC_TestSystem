@@ -119,7 +119,8 @@ void SI_SimulateThread::workDown()
     for(int i=0; i<item->devNum; ++i)
     {
         for(int k=0; k<item->cmdModel; ++k) { // 双命令模式
-            ret = mRtu->transData(i+1, item->lineNum, &(mPackets->getDev(i)->rtuData), item->msecs);
+            SI_Rtu_Recv *pkt = &(mPackets->getDev(i)->rtuData);
+            ret = mRtu->transData(i+1, item->lineNum, pkt, item->msecs);
             if(ret) break ;
         }
         if(isRun) msleep(455);

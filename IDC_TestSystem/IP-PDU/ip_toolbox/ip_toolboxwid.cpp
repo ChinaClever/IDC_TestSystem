@@ -16,7 +16,7 @@ IP_ToolBoxWid::IP_ToolBoxWid(QWidget *parent) :
 
     initWid();
     QGridLayout *gridLayout = new QGridLayout(parent);
-    gridLayout->setContentsMargins(0, 0, 0, 0);
+    gridLayout->setContentsMargins(0, 0, 0, 10);
     gridLayout->addWidget(this);
     groupBox_background_icon(this);
 }

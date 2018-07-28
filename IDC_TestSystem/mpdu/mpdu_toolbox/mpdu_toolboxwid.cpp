@@ -15,7 +15,7 @@ MPDU_ToolBoxWid::MPDU_ToolBoxWid(QWidget *parent) :
     ui->setupUi(this);
 
     QGridLayout *gridLayout = new QGridLayout(parent);
-    gridLayout->setContentsMargins(0, 0, 0, 0);
+    gridLayout->setContentsMargins(0, 0, 0, 10);
     gridLayout->addWidget(this);
     groupBox_background_icon(this);
 }

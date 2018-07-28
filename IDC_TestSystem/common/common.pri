@@ -16,7 +16,8 @@ HEADERS += \
     $$PWD/sql/basicsql.h \
     $$PWD/sql/sqltablemodel.h \
 #    common/qcustomplot.h \
-    $$PWD/rtucom/rtusentcom.h
+    $$PWD/rtucom/rtusentcom.h \
+    $$PWD/websocket/websocketclient.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -33,7 +34,8 @@ SOURCES += \
     $$PWD/sql/basicsql.cpp \
     $$PWD/sql/sqltablemodel.cpp \
 #    common/qcustomplot.cpp \
-    $$PWD/rtucom/rtusentcom.cpp
+    $$PWD/rtucom/rtusentcom.cpp \
+    $$PWD/websocket/websocketclient.cpp
 
 FORMS += \
     $$PWD/comtablewid.ui \

@@ -224,10 +224,10 @@ void SI_DevTableWid::updateData()
     for(int i=0; i<devNum; ++i)
     {
         SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        int line = packet->rtuData.data.lineNum;
-        for(int j=0; j<line; ++j)
+        if(packet->rtuData.offLine)
         {
-            if(packet->rtuData.offLine)
+            int line = packet->rtuData.data.lineNum;
+            for(int j=0; j<line; ++j)
             {
                 int k=0;
                 setDevName(row, k++, i);
@@ -241,10 +241,10 @@ void SI_DevTableWid::updateData()
                 setActivePow(row, k++, i, j);
                 setPf(row, k++, i, j);
                 setEle(row, k++, i, j);
-            } else {
-                clearRow(row);
             }
             row++;
+        } else {
+            clearRow(row);
         }
     }
 }

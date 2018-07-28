@@ -3,7 +3,7 @@
 #include "ip_rtu/ip_rtutrans.h"
 #include "ipconfigfile.h"
 
-#define IP_DEV_NUM  100
+#define IP_DEV_NUM  35
 
 struct IP_RtuCount
 {

@@ -47,6 +47,8 @@ HEADERS += \
     $$PWD/si_sql/sidbrealrecords.h \
     $$PWD/si_sql/sidbthresholds.h \
     $$PWD/si_sql/sidbalarm.h \
+    $$PWD/si_service/json/si_buildjson.h \
+    $$PWD/si_service/si_servicethread.h
 
 	
 SOURCES += \
@@ -94,6 +96,8 @@ SOURCES += \
     $$PWD/si_sql/sidbrealrecords.cpp \
     $$PWD/si_sql/sidbthresholds.cpp \
     $$PWD/si_sql/sidbalarm.cpp \
+    $$PWD/si_service/json/si_buildjson.cpp \
+    $$PWD/si_service/si_servicethread.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \

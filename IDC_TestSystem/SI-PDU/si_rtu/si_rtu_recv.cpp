@@ -155,6 +155,7 @@ static int rtu_recv_data(uchar *ptr, int line, SI_RtuRecvLine *msg)
     } else {
         ret = SI_RTU_THREE_LEN;
     }
+    msg->lineNum = line;
 
     return ret;
 }
