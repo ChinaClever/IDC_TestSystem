@@ -28,7 +28,7 @@ struct IP_RtuRecvLine {
     ushort sw[IP_LINE_NUM]; // 开关  01表示断路器闭合，00表示打开)
     ushort lineNum; // 表示单三相 (01表示单相，03表示三相)
     ushort version;
-    uchar ip[10];
+    uchar ip[18];
     ushort reserve;
 };
 

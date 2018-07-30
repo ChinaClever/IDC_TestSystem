@@ -8,6 +8,7 @@
 #include "si_simulate/si_devtablewid.h"
 #include "si_logsthread/si_thresholdlogthread.h"
 #include "si_setting/si_setmainwid.h"
+#include "si_service/si_servicethread.h"
 
 namespace Ui {
 class SIMainWid;
@@ -48,7 +49,7 @@ private:
     SiLogThresholdWid *mLogThresholdWid;
 
     QList<SI_ComLogThread *> mLogThreads;
-
+    SI_ServiceThread *mServiceThread;
 };
 
 #endif // SIMAINWID_H

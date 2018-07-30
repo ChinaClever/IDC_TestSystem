@@ -36,7 +36,9 @@ HEADERS += \
     $$PWD/ip_dp/ip_dpslaveenv.h \
     $$PWD/ip_dp/ip_dpslavetrans.h \
     $$PWD/ip_dp/ip_dpthread.h \
-    $$PWD/ip_dp/ip_dpalarmslave.h
+    $$PWD/ip_dp/ip_dpalarmslave.h \
+    $$PWD/ip_service/ip_servicethread.h \
+    $$PWD/ip_service/json/ip_buildjson.h
 
 	
 SOURCES += \
@@ -74,7 +76,9 @@ SOURCES += \
     $$PWD/ip_dp/ip_dpslaveenv.cpp \
     $$PWD/ip_dp/ip_dpslavetrans.cpp \
     $$PWD/ip_dp/ip_dpthread.cpp \
-    $$PWD/ip_dp/ip_dpalarmslave.cpp
+    $$PWD/ip_dp/ip_dpalarmslave.cpp \
+    $$PWD/ip_service/ip_servicethread.cpp \
+    $$PWD/ip_service/json/ip_buildjson.cpp
 
 FORMS += \
     $$PWD/ip_mainwid.ui \

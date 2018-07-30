@@ -4,23 +4,22 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "si_buildjson.h"
+#include "ip_buildjson.h"
 
-SI_BuildJson::SI_BuildJson()
+IP_BuildJson::IP_BuildJson()
 {
 
 }
 
-SI_BuildJson *SI_BuildJson::bulid()
+IP_BuildJson *IP_BuildJson::bulid()
 {
-    static SI_BuildJson* sington = nullptr;
+    static IP_BuildJson* sington = nullptr;
     if(sington == nullptr)
-        sington = new SI_BuildJson();
+        sington = new IP_BuildJson();
     return sington;
 }
 
-
-bool SI_BuildJson::getJson(SiDevPacket *packet, QJsonObject &json)
+bool IP_BuildJson::getJson(IpDevPacket *packet, QJsonObject &json)
 {
     bool ret = true;
 
@@ -35,8 +34,7 @@ bool SI_BuildJson::getJson(SiDevPacket *packet, QJsonObject &json)
     return ret;
 }
 
-
-bool SI_BuildJson::saveJson(const QString &name, QJsonObject &json)
+bool IP_BuildJson::saveJson(const QString &name, QJsonObject &json)
 {
     QJsonDocument jsonDoc(json);
     QByteArray ba = jsonDoc.toJson();
@@ -46,14 +44,13 @@ bool SI_BuildJson::saveJson(const QString &name, QJsonObject &json)
         file.write(ba);
         file.close();
     } else {
-        qDebug() << "write json file failed";
+        qDebug() << "ip write json file failed";
     }
 
     return ret;
 }
 
-
-void SI_BuildJson::head(SiDevPacket *packet,QJsonObject &obj)
+void IP_BuildJson::head(IpDevPacket *packet,QJsonObject &obj)
 {
     obj.insert("company", "CLEVER");
     obj.insert("version", 1);
@@ -62,15 +59,14 @@ void SI_BuildJson::head(SiDevPacket *packet,QJsonObject &obj)
     ateInfo(packet, obj);
 }
 
-
-void SI_BuildJson::uutInfo(SiDevPacket *packet, QJsonObject &json)
+void IP_BuildJson::uutInfo(IpDevPacket *packet, QJsonObject &json)
 {
     QJsonObject obj;
     obj.insert("url", "www.clever.com");
     obj.insert("idc", "idc_test"); //
 
     obj.insert("room", "room_test");
-    obj.insert("module", "si_module");
+    obj.insert("module", "ip_module");
 
     QString str = "cab " + QString::number(packet->rtuData.addr);
     obj.insert("cabinet", str);
@@ -78,24 +74,26 @@ void SI_BuildJson::uutInfo(SiDevPacket *packet, QJsonObject &json)
     json.insert("uut_info", QJsonValue(obj));
 }
 
-void SI_BuildJson::ateInfo(SiDevPacket *packet, QJsonObject &json)
+void IP_BuildJson::ateInfo(IpDevPacket *packet, QJsonObject &json)
 {
     QJsonObject obj;
-    obj.insert("pdu_ip",  "---");
+    QString ip = (char *)packet->rtuData.data.ip;
+    if(ip.isEmpty()) ip = "---";
+
+    obj.insert("pdu_ip",  ip);
     obj.insert("pdu_num", packet->rtuData.addr); //
 
-    obj.insert("pdu_type", "Si-PDU");
+    obj.insert("pdu_type", "IP-PDU");
     obj.insert("pdu_spec", 1);
     obj.insert("pdu_line", packet->rtuData.data.lineNum);
 
-    QString name = "SI-PDU " + QString::number(packet->rtuData.addr);
+    QString name = "IP-PDU " + QString::number(packet->rtuData.addr);
     obj.insert("pdu_name", name);
 
     json.insert("ate_info", QJsonValue(obj));
 }
 
-
-void SI_BuildJson::objData(SI_RtuRecvLine *ObjData, int id, QJsonObject &obj)
+void IP_BuildJson::objData(IP_RtuRecvLine *ObjData, int id, QJsonObject &obj)
 {
     int value = ObjData->vol.value[id] ;
     if(value >= 0) obj.insert("vol", value / COM_RATE_VOL);
@@ -116,8 +114,7 @@ void SI_BuildJson::objData(SI_RtuRecvLine *ObjData, int id, QJsonObject &obj)
     if(value >= 0) obj.insert("switch", value);
 }
 
-
-void SI_BuildJson::lineData(SI_RtuRecvLine *ObjData, QJsonObject &json)
+void IP_BuildJson::lineData(IP_RtuRecvLine *ObjData, QJsonObject &json)
 {
     QJsonArray jsonArray;
     QString modeStr = "line";
@@ -136,8 +133,7 @@ void SI_BuildJson::lineData(SI_RtuRecvLine *ObjData, QJsonObject &json)
     if(num > 0) json.insert(QString("%1_item_list").arg(modeStr), QJsonValue(jsonArray));
 }
 
-
-void SI_BuildJson::alarmItem(int index, int id, SI_sDataUnit &unit, double rate, QJsonArray &jsonArray)
+void IP_BuildJson::alarmItem(int index, int id, IP_sDataUnit &unit, double rate, QJsonArray &jsonArray)
 {
     QString item, symbol, str="L";
     switch (index) {
@@ -184,7 +180,7 @@ void SI_BuildJson::alarmItem(int index, int id, SI_sDataUnit &unit, double rate,
     jsonArray.append(subObj);
 }
 
-void SI_BuildJson::thresholdItem(int index, int id, SI_sDataUnit &unit, double rate, QJsonObject &json)
+void IP_BuildJson::thresholdItem(int index, int id, IP_sDataUnit &unit, double rate, QJsonObject &json)
 {
     json.insert("id",  id);
     json.insert("type_index", index); //
@@ -200,7 +196,7 @@ void SI_BuildJson::thresholdItem(int index, int id, SI_sDataUnit &unit, double r
     }
 }
 
-void SI_BuildJson::lineVolThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
+void IP_BuildJson::lineVolThreshold(IP_RtuRecvLine *ObjData, QJsonArray &jsonArray)
 {
     int index = 1;
 
@@ -213,7 +209,7 @@ void SI_BuildJson::lineVolThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArr
     }
 }
 
-void SI_BuildJson::lineCurThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
+void IP_BuildJson::lineCurThreshold(IP_RtuRecvLine *ObjData, QJsonArray &jsonArray)
 {
     int index = 2;
 
@@ -226,7 +222,7 @@ void SI_BuildJson::lineCurThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArr
     }
 }
 
-void SI_BuildJson::envThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
+void IP_BuildJson::envThreshold(IP_RtuRecvLine *ObjData, QJsonArray &jsonArray)
 {
     int index = 5;
 
@@ -245,7 +241,7 @@ void SI_BuildJson::envThreshold(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
     }
 }
 
-void SI_BuildJson::thresholds(SI_RtuRecvLine *ObjData, QJsonObject &json)
+void IP_BuildJson::thresholds(IP_RtuRecvLine *ObjData, QJsonObject &json)
 {
     QJsonArray jsonArray;
 
@@ -256,8 +252,7 @@ void SI_BuildJson::thresholds(SI_RtuRecvLine *ObjData, QJsonObject &json)
     json.insert("threshold_item_list", QJsonValue(jsonArray));
 }
 
-
-void SI_BuildJson::envItem(int index, int id, const QString &name, int status, QJsonObject &json)
+void IP_BuildJson::envItem(int index, int id, const QString &name, int status, QJsonObject &json)
 {
     json.insert("id",  id);
     json.insert("type_index", index); //
@@ -266,7 +261,7 @@ void SI_BuildJson::envItem(int index, int id, const QString &name, int status, Q
     json.insert("status", status);
 }
 
-void SI_BuildJson::envSensor(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
+void IP_BuildJson::envSensor(IP_RtuRecvLine *ObjData, QJsonArray &jsonArray)
 {
     int index = 1;
 
@@ -284,7 +279,7 @@ void SI_BuildJson::envSensor(SI_RtuRecvLine *ObjData, QJsonArray &jsonArray)
     }
 }
 
-void SI_BuildJson::envs(SI_RtuRecvLine *ObjData, QJsonObject &json)
+void IP_BuildJson::envs(IP_RtuRecvLine *ObjData, QJsonObject &json)
 {
     QJsonArray jsonArray;
     envSensor(ObjData, jsonArray);
@@ -292,7 +287,7 @@ void SI_BuildJson::envs(SI_RtuRecvLine *ObjData, QJsonObject &json)
     json.insert("env_item_list", QJsonValue(jsonArray));
 }
 
-void SI_BuildJson::alarms(QJsonObject &json)
+void IP_BuildJson::alarms(QJsonObject &json)
 {
     if(!mAlarmJsonArray.isEmpty())
     {
@@ -304,10 +299,9 @@ void SI_BuildJson::alarms(QJsonObject &json)
     }
 }
 
-
-void SI_BuildJson::devData(SiDevPacket *packet, QJsonObject &obj)
+void IP_BuildJson::devData(IpDevPacket *packet, QJsonObject &obj)
 {
-    SI_RtuRecvLine *devData = &(packet->rtuData.data);
+    IP_RtuRecvLine *devData = &(packet->rtuData.data);
     lineData(devData, obj);
     thresholds(devData, obj);
     envs(devData, obj);
@@ -316,6 +310,7 @@ void SI_BuildJson::devData(SiDevPacket *packet, QJsonObject &obj)
     for(int i=0; i<6; ++i)
         obj.insert("segment"+QString::number(i+1), "");
 }
+
 
 
 

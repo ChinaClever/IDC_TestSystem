@@ -32,6 +32,8 @@ void IP_MainWid::initFunSLot()
     mLogsWid = new IpLogsWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
+
+    mServiceThread = new IP_ServiceThread(this);
 }
 
 void IP_MainWid::toolBoxSlot(int id)

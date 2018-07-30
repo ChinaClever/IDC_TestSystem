@@ -23,6 +23,7 @@ SerialPort::SerialPort(QObject *parent) : QThread(parent)
 SerialPort::~SerialPort()
 {
     close();
+    //    delete mSerial;
 }
 
 /**
@@ -68,8 +69,6 @@ bool SerialPort::close(void)
         QWriteLocker locker(&mRwLock); // 正在操作时不允许关闭
         isOpen = false;
         mSerial->close();
-        delete mSerial;
-        //        mSerial = NULL;
     }
 
     return true;
@@ -117,15 +116,17 @@ bool SerialPort::isContains(const QString &name)
 
 void SerialPort::timeoutDone()
 {
-    QWriteLocker locker(&mRwLock);
-    if(mWriteArray.size()) {
-        int ret = write();
-        if(ret) {
-            mWriteArray.clear();
-            mSerialData.clear();
+    if(isOpen) {
+        QWriteLocker locker(&mRwLock);
+        if(mWriteArray.size()) {
+            int ret = write();
+            if(ret) {
+                mWriteArray.clear();
+                mSerialData.clear();
+            }
+        } else {
+            recv(mSerialData);
         }
-    } else {
-        recv(mSerialData);
     }
 }
 

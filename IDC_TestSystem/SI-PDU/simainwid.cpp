@@ -6,7 +6,6 @@
  */
 #include "simainwid.h"
 #include "ui_simainwid.h"
-#include "si_service/si_servicethread.h"
 
 
 SIMainWid::SIMainWid(QWidget *parent) :
@@ -15,9 +14,6 @@ SIMainWid::SIMainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    SI_ServiceThread *mServiceThread = new SI_ServiceThread(this);
-
-    mSimulateThread = new SI_SimulateThread(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -29,6 +25,8 @@ SIMainWid::~SIMainWid()
 void SIMainWid::initFunSLot()
 {
     initWid();
+    mServiceThread = new SI_ServiceThread(this);
+    mSimulateThread = new SI_SimulateThread(this);
 }
 
 void SIMainWid::initWid()

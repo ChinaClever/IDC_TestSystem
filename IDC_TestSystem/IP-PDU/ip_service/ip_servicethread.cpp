@@ -4,11 +4,11 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "si_servicethread.h"
+#include "ip_servicethread.h"
 
-SI_ServiceThread::SI_ServiceThread(QObject *parent) : QThread(parent)
+IP_ServiceThread::IP_ServiceThread(QObject *parent) : QThread(parent)
 {
-    mBuildJson = SI_BuildJson::bulid();
+    mBuildJson = IP_BuildJson::bulid();
     mWebSocket = new WebSocketClient(this);
 
     isRun = false;
@@ -18,25 +18,25 @@ SI_ServiceThread::SI_ServiceThread(QObject *parent) : QThread(parent)
 }
 
 
-SI_ServiceThread::~SI_ServiceThread()
+IP_ServiceThread::~IP_ServiceThread()
 {
     isRun = false;
     wait();
 }
 
 
-void SI_ServiceThread::readDevList()
+void IP_ServiceThread::readDevList()
 {
-    for(int i=0; i<SI_DEV_NUM; ++i)
+    for(int i=0; i<IP_DEV_NUM; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
+        IpDevPacket *packet = IpDataPackets::bulid()->getDev(i);
         if(packet->rtuData.offLine > 0)  // 必须在线才进行检查
         {
             QJsonObject json;
             bool ret = mBuildJson->getJson(packet, json);
             if(ret) {
-                ret = mWebSocket->sendMessage(json);               
-//                 mBuildJson->saveJson("saveTest", json);
+                ret = mWebSocket->sendMessage(json);
+                 mBuildJson->saveJson("saveTest", json);
             }
         }
 
@@ -47,12 +47,12 @@ void SI_ServiceThread::readDevList()
     }
 }
 
-void SI_ServiceThread::timeoutDone()
+void IP_ServiceThread::timeoutDone()
 {
      if(!isRun) run(); //start();
 }
 
-void SI_ServiceThread::run()
+void IP_ServiceThread::run()
 {
     if(!isRun) {
         isRun = true;
@@ -60,3 +60,4 @@ void SI_ServiceThread::run()
         isRun = false;
     }
 }
+

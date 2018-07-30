@@ -67,7 +67,7 @@ void WebSocketClient::disconnected()
 void WebSocketClient::textMessageReceived(const QString &message)
 {
     mRecvList.append(message);
-//    qDebug() << "WebSocketClient recv" <<message;
+    qDebug() << "WebSocketClient recv" <<message;
 }
 
 QString WebSocketClient::getMessage()
