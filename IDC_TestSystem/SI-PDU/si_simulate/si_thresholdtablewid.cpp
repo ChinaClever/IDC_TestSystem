@@ -53,10 +53,10 @@ void SI_ThresholdTableWid::setLine(int row, int column, int id, int line)
 }
 
 
-SI_sDataUnit *SI_ThresholdTableWid::getVolUnit(int id)
+sDataUnit *SI_ThresholdTableWid::getVolUnit(int id, int line)
 {
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    SI_sDataUnit *unit = &(packet->rtuData.data.vol);
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+    sDataUnit *unit = &(packet->data.line[line].vol);
 
     return unit;
 }
@@ -71,13 +71,13 @@ SI_sDataUnit *SI_ThresholdTableWid::getVolUnit(int id)
 void SI_ThresholdTableWid::setVolValue(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getVolUnit(id);
-    double value = unit->value[line] / COM_RATE_VOL;
+    sDataUnit *unit = getVolUnit(id, line);
+    double value = unit->value / COM_RATE_VOL;
     if(value >= 0)
         str = QString::number(value) + "V";
 
     setTableItem(row, column, str);
-    setItemColor(row, column, unit->alarm[line]);
+    setItemColor(row, column, unit->alarm);
 }
 
 /**
@@ -90,8 +90,8 @@ void SI_ThresholdTableWid::setVolValue(int row, int column, int id, int line)
 void SI_ThresholdTableWid::setVolMin(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getVolUnit(id);
-    double value = unit->min[line] / COM_RATE_VOL;
+    sDataUnit *unit = getVolUnit(id, line);
+    double value = unit->min / COM_RATE_VOL;
     if(value >= 0)
         str = QString::number(value) + "V";
 
@@ -108,8 +108,8 @@ void SI_ThresholdTableWid::setVolMin(int row, int column, int id, int line)
 void SI_ThresholdTableWid::setVolMax(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getVolUnit(id);
-    double value = unit->max[line] / COM_RATE_VOL;
+    sDataUnit *unit = getVolUnit(id, line);
+    double value = unit->max / COM_RATE_VOL;
     if(value >= 0)
         str = QString::number(value) + "V";
 
@@ -118,10 +118,10 @@ void SI_ThresholdTableWid::setVolMax(int row, int column, int id, int line)
 
 
 
-SI_sDataUnit *SI_ThresholdTableWid::getCurUnit(int id)
+sDataUnit *SI_ThresholdTableWid::getCurUnit(int id, int line)
 {
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    SI_sDataUnit *unit = &(packet->rtuData.data.cur);
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+    sDataUnit *unit = &(packet->data.line[line].vol);
 
     return unit;
 }
@@ -136,13 +136,13 @@ SI_sDataUnit *SI_ThresholdTableWid::getCurUnit(int id)
 void SI_ThresholdTableWid::setCurValue(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getCurUnit(id);
-    double value = unit->value[line] / COM_RATE_CUR;
+    sDataUnit *unit = getCurUnit(id, line);
+    double value = unit->value / COM_RATE_CUR;
     if(value >= 0)
         str = QString::number(value) + "A";
 
     setTableItem(row, column, str);
-    setItemColor(row, column, unit->alarm[line]);
+    setItemColor(row, column, unit->alarm);
 }
 
 /**
@@ -155,8 +155,8 @@ void SI_ThresholdTableWid::setCurValue(int row, int column, int id, int line)
 void SI_ThresholdTableWid::setCurMin(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getCurUnit(id);
-    double value = unit->min[line] / COM_RATE_CUR;
+    sDataUnit *unit = getCurUnit(id, line);
+    double value = unit->min / COM_RATE_CUR;
     if(value >= 0)
         str = QString::number(value) + "A";
 
@@ -173,8 +173,8 @@ void SI_ThresholdTableWid::setCurMin(int row, int column, int id, int line)
 void SI_ThresholdTableWid::setCurMax(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getCurUnit(id);
-    double value = unit->max[line] / COM_RATE_CUR;
+    sDataUnit *unit = getCurUnit(id, line);
+    double value = unit->max / COM_RATE_CUR;
     if(value >= 0)
         str = QString::number(value) + "A";
 
@@ -188,9 +188,9 @@ void SI_ThresholdTableWid::checkRowCount()
     int devNum = SiConfigFile::bulid()->item->devNum;
     for(int i=0; i<devNum; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        int line = packet->rtuData.data.lineNum;
-        if((line<1) || (line>3)) line = packet->rtuData.data.lineNum = 1;
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        int line = packet->data.lineNum;
+        if((line<1) || (line>3)) line = packet->data.lineNum = 1;
         for(int j=0; j<line; ++j)
         {
             row++;
@@ -210,11 +210,11 @@ void SI_ThresholdTableWid::updateData()
     int devNum = SiConfigFile::bulid()->item->devNum;
     for(int i=0; i<devNum; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        int line = packet->rtuData.data.lineNum;
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        int line = packet->data.lineNum;
         for(int j=0; j<line; ++j)
         {
-            if(packet->rtuData.offLine)
+            if(packet->offLine)
             {
                 int k=0;
                 setDevName(row, k++, i);

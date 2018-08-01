@@ -1,7 +1,7 @@
 #ifndef WEBSOCKETCLIENT_H
 #define WEBSOCKETCLIENT_H
 
-#include <QtCore>
+#include "json/buildjson.h"
 #include <QWebSocket>
 
 #define WEB_SOCKET  "websocket"

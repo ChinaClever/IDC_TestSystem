@@ -26,7 +26,6 @@ public slots:
 private slots:
     void initSlot();
 
-
 private:
     bool isRun;
 

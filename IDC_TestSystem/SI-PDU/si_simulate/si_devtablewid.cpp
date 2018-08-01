@@ -58,9 +58,9 @@ void SI_DevTableWid::setLine(int row, int column, int id, int line)
  * @param id 设备号
  * @return
  */
-SI_Rtu_Recv *SI_DevTableWid::getPacket(int id)
+sDevData *SI_DevTableWid::getPacket(int id)
 {
-    return &(SIDataPackets::bulid()->getDev(id)->rtuData);
+    return &(SIDataPackets::bulid()->getDev(id)->data);
 }
 
 /**
@@ -75,7 +75,7 @@ void SI_DevTableWid::setSw(int row, int column, int id, int line)
     QString str = "---";
     int alarm = 0;
 
-    int value = getPacket(id)->data.sw[line];
+    int value = getPacket(id)->line[line].sw;
     if(value == 0) {
         str = tr("断开");
         alarm = 2;
@@ -97,13 +97,13 @@ void SI_DevTableWid::setSw(int row, int column, int id, int line)
 void SI_DevTableWid::setVolValue(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = &(getPacket(id)->data.vol);
-    double value = unit->value[line] / COM_RATE_VOL;
+    sDataUnit *unit = &(getPacket(id)->line[line].vol);
+    double value = unit->value / COM_RATE_VOL;
     if(value >= 0)
         str = QString::number(value) + "V";
 
     setTableItem(row, column, str);
-    setItemColor(row, column, unit->alarm[line]);
+    setItemColor(row, column, unit->alarm);
 }
 
 /**
@@ -116,13 +116,13 @@ void SI_DevTableWid::setVolValue(int row, int column, int id, int line)
 void SI_DevTableWid::setCurValue(int row, int column, int id, int line)
 {
     QString str = "---";
-    SI_sDataUnit *unit = &(getPacket(id)->data.cur);
-    double value = unit->value[line] / COM_RATE_CUR;
+    sDataUnit *unit = &(getPacket(id)->line[line].cur);
+    double value = unit->value / COM_RATE_CUR;
     if(value >= 0)
         str = QString::number(value) + "A";
 
     setTableItem(row, column, str);
-    setItemColor(row, column, unit->alarm[line]);
+    setItemColor(row, column, unit->alarm);
 }
 
 /**
@@ -135,7 +135,7 @@ void SI_DevTableWid::setCurValue(int row, int column, int id, int line)
 void SI_DevTableWid::setPow(int row, int column, int id, int line)
 {
     QString str = "---";
-    double value = getPacket(id)->data.pow[line] / COM_RATE_POW;
+    double value = getPacket(id)->line[line].pow / COM_RATE_POW;
     if(value >= 0)
         str = QString::number(value) + "KVA";
 
@@ -152,7 +152,7 @@ void SI_DevTableWid::setPow(int row, int column, int id, int line)
 void SI_DevTableWid::setActivePow(int row, int column, int id, int line)
 {
     QString str = "---";
-    double value = getPacket(id)->data.activePow[line] / COM_RATE_POW;
+    double value = getPacket(id)->line[line].activePow / COM_RATE_POW;
     if(value >= 0)
         str = QString::number(value) + "KW";
 
@@ -169,7 +169,7 @@ void SI_DevTableWid::setActivePow(int row, int column, int id, int line)
 void SI_DevTableWid::setPf(int row, int column, int id, int line)
 {
     QString str = "---";
-    double value = getPacket(id)->data.pf[line] / COM_RATE_PF;
+    double value = getPacket(id)->line[line].pf / COM_RATE_PF;
     if(value >= 0)
         str = QString::number(value);
 
@@ -186,7 +186,7 @@ void SI_DevTableWid::setPf(int row, int column, int id, int line)
 void SI_DevTableWid::setEle(int row, int column, int id, int line)
 {
     QString str = "---";
-    double value = getPacket(id)->data.ele[line] / COM_RATE_ELE;
+    double value = getPacket(id)->line[line].ele / COM_RATE_ELE;
     if(value >= 0)
         str = QString::number(value) + "KWh";
 
@@ -202,9 +202,9 @@ void SI_DevTableWid::checkRowCount()
     int devNum = SiConfigFile::bulid()->item->devNum;
     for(int i=0; i<devNum; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        int line = packet->rtuData.data.lineNum;
-        if((line<1) || (line>3)) line = packet->rtuData.data.lineNum = 1;
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        int line = packet->data.lineNum;
+        if((line<1) || (line>3)) line = packet->data.lineNum = 1;
         for(int j=0; j<line; ++j)  {
             row++;
         }
@@ -223,10 +223,10 @@ void SI_DevTableWid::updateData()
     int devNum = SiConfigFile::bulid()->item->devNum;
     for(int i=0; i<devNum; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        if(packet->rtuData.offLine)
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        if(packet->offLine)
         {
-            int line = packet->rtuData.data.lineNum;
+            int line = packet->data.lineNum;
             for(int j=0; j<line; ++j)
             {
                 int k=0;

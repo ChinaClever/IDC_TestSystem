@@ -1,7 +1,7 @@
 #ifndef BUS_LOOPTABLEWID_H
 #define BUS_LOOPTABLEWID_H
 
-#include "comtablewid.h"
+#include "tablewid/comtablewid.h"
 #include "bus_com/buspacketsi.h"
 
 class BUS_LoopTableWid : public ComTableWid

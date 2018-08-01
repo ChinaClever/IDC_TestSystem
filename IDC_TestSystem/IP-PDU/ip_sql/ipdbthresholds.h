@@ -1,11 +1,10 @@
 #ifndef IPDBTHRESHOLDS_H
 #define IPDBTHRESHOLDS_H
-#include "si_sql/sidbthresholds.h"
+#include "sqlcom/dblinethresholds.h"
 
-#define IP_DB_Thresholds "ip_dev_thresholds"
-typedef SiDbThresholdItem IpDbThresholdItem;
+#define IP_DB_Thresholds "ip_line_thresholds"
 
-class IpDbThresholds : public SiDbThresholds
+class IpDbThresholds : public DbLineThresholds
 {
     IpDbThresholds();
 public:

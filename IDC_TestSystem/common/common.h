@@ -1,9 +1,9 @@
 ﻿#ifndef COMMON_H
 #define COMMON_H
-#include <QtCore>
 #include "msgbox.h"
 #include "configbase.h"
 #include "rtucom/rtusentcom.h"
+#include "datapacket.h"
 
 //const QColor gray(174,225,254);//空设备,原为灰色，现为天蓝色
 //const QColor green(97,202,40);//正常
@@ -23,14 +23,6 @@
 /* 设置窗口背景色函数 */
 extern void com_setBackColour(const QString &,QWidget *target);
 
-// 倍率定义
-#define COM_RATE_VOL	1.0    // 电压
-#define COM_RATE_CUR	10.0    // 电流
-#define COM_RATE_POW	1000.0  // 功率
-#define COM_RATE_ELE	10.0    // 电能
-#define COM_RATE_PF     100.0   // 功率因素
-#define COM_RATE_TEM	1.0    // 温度
-#define COM_RATE_HUM	1.0    // 湿度
 
 
 QString cm_pathOfData(const QString& name);

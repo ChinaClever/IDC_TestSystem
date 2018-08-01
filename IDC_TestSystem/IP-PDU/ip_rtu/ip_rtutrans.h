@@ -16,6 +16,12 @@ public:
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
+protected:
+    void devData(IP_Rtu_Recv *pkt, sDataPacket *packet);
+    void dataUnit(int i, IP_sDataUnit &rtu, sDataUnit &data);
+    void devLine(IP_RtuRecvLine &rtuData, sDevData &data);
+    void envData(IP_RtuRecvLine &rtuData, sEnvData &data);
+
 private:
     uchar *mSentBuf, *mRecvBuf;
     int mSentLen, mRecvLen;

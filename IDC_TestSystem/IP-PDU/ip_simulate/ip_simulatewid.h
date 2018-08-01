@@ -16,20 +16,15 @@ public:
     explicit IP_SimulateWid(QWidget *parent = 0);
     ~IP_SimulateWid();
 
-signals:
-     void updateSig();
-
 public slots:
     void simulateSlot(int);
 
 protected slots:
      void initFunSLot();
-     void timeoutDone();
 
 private:
     Ui::IP_SimulateWid *ui;
 
-    QTimer *timer;
     IP_DevTableWid *mDevTableWid;
     IP_EnvTableWid *mEnvTableWid;
     IP_ThresholdTableWid *mThresholdTableWid;

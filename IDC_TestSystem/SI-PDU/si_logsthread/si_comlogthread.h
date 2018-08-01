@@ -14,7 +14,7 @@ protected:
     void run();
     void workDown();
     virtual void saveLogs()=0;
-    SiDevPacket *getPacket(int id);
+    sDataPacket *getPacket(int id);
 
     void startThread();
     void stopThread();

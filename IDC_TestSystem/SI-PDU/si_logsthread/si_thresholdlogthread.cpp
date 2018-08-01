@@ -22,23 +22,23 @@ void SI_ThresholdLogThread::saveLogs()
 
 void SI_ThresholdLogThread::saveLogItem(int id)
 {
-    SI_Rtu_Recv *packet = &(getPacket(id)->rtuData);
+    sDataPacket *packet = getPacket(id);
     if(packet->offLine > 0)
     {
         int line = packet->data.lineNum;
         for(int i=0; i<line; ++i)
         {
-            SiDbThresholdItem item;
+            DbLineThresholdItem item;
 
             item.dev_id = id+1;
             item.line = i+1;
-            item.vol = packet->data.vol.value[i] / COM_RATE_VOL;
-            item.vol_min = packet->data.vol.min[i] / COM_RATE_VOL;
-            item.vol_max = packet->data.vol.max[i] / COM_RATE_VOL;
+            item.vol = packet->data.line[i].vol.value / COM_RATE_VOL;
+            item.vol_min = packet->data.line[i].vol.min / COM_RATE_VOL;
+            item.vol_max = packet->data.line[i].vol.max / COM_RATE_VOL;
 
-            item.cur = packet->data.cur.value[i] / COM_RATE_CUR;
-            item.cur_min = packet->data.cur.min[i] / COM_RATE_CUR;
-            item.cur_max = packet->data.cur.max[i] / COM_RATE_CUR;
+            item.cur = packet->data.line[i].cur.value / COM_RATE_CUR;
+            item.cur_min = packet->data.line[i].cur.min / COM_RATE_CUR;
+            item.cur_max = packet->data.line[i].cur.max / COM_RATE_CUR;
 
             SiDbThresholds::bulid()->insertItem(item);
             msleep(LOG_DELAY);

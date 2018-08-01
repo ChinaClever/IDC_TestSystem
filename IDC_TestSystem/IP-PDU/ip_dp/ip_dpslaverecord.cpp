@@ -35,7 +35,7 @@ void IP_DpSlaveRecord::saveLogItem(int id)
         int line = packet->data.lineNum;
         for(int i=0; i<line; ++i)
         {
-            IpDbRealRecordItem item;
+            DbLineRecordItem item;
 
             item.dev_id = id;
             item.line = i+1;

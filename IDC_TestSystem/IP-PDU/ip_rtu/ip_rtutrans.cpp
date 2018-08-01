@@ -67,6 +67,51 @@ bool IP_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 }
 
 
+void IP_RtuTrans::dataUnit(int i, IP_sDataUnit &rtu, sDataUnit &data)
+{
+    data.value = rtu.value[i];
+    data.min = rtu.min[i];
+    data.max = rtu.max[i];
+    data.alarm = rtu.alarm[i];
+}
+
+void IP_RtuTrans::devLine(IP_RtuRecvLine &rtuData, sDevData &data)
+{
+    data.lineNum = rtuData.lineNum;
+
+    for(int i=0; i<data.lineNum; ++i) {
+        data.line[i].id = i;
+        dataUnit(i, rtuData.vol, data.line[i].vol);
+        dataUnit(i, rtuData.cur, data.line[i].cur);
+        data.line[i].ele = rtuData.ele[i];
+        data.line[i].pow = rtuData.pow[i];
+        data.line[i].activePow = rtuData.activePow[i];
+        data.line[i].pf = rtuData.pf[i];
+        data.line[i].sw = rtuData.sw[i];
+    }
+}
+
+void IP_RtuTrans::envData(IP_RtuRecvLine &rtuData, sEnvData &data)
+{
+    data.envNum = 1;
+
+    for(int i=0; i<data.envNum; ++i) {
+        dataUnit(i, rtuData.tem, data.tem[i]);
+        dataUnit(i, rtuData.hum, data.hum[i]);
+    }
+}
+
+void IP_RtuTrans::devData(IP_Rtu_Recv *pkt, sDataPacket *packet)
+{
+    packet->id = pkt->addr;
+    packet->offLine = pkt->offLine;
+    packet->br = pkt->data.br;
+
+    devLine(pkt->data, packet->data);
+    envData(pkt->data, packet->data.env);
+}
+
+
 /**
  * @brief Modbus数据读取
  * @param addr 设备地址

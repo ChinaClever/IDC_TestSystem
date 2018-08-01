@@ -1,11 +1,10 @@
 #ifndef IPDBALARM_H
 #define IPDBALARM_H
-#include "si_sql/sidbalarm.h"
+#include "sqlcom/dbalarm.h"
 
 #define IP_DB_Alarms "ip_dev_alarms"
-typedef SiDbAlarmItem IpDbAlarmItem;
 
-class IpDbAlarm : public SiDbAlarm
+class IpDbAlarm : public DbAlarm
 {
     IpDbAlarm();
 public:

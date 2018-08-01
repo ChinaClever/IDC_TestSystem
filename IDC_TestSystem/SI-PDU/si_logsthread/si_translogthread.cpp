@@ -23,16 +23,17 @@ void SI_TransLogThread::saveLogs()
 
 void SI_TransLogThread::saveLogItem(int id)
 {
-    SiDbModbusTransItem item;
+    DbModbusTransItem item;
 
     item.dev_id = id+1;
-    SiDevPacket *packet = getPacket(id);
-    item.all_count = packet->count.count;
-    item.ok_count = packet->count.okCount;
-    item.err_count = packet->count.errCount;
+    sDataPacket *packet = getPacket(id);
+
+    item.all_count = packet->rtuCount.count;
+    item.ok_count = packet->rtuCount.okCount;
+    item.err_count = packet->rtuCount.errCount;
 
     QString str =tr("离线");
-    if(packet->rtuData.offLine)
+    if(packet->offLine)
         str =tr("在线");
     item.state = str;
 

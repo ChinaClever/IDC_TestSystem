@@ -1,11 +1,10 @@
 #ifndef IPDBREALRECORDS_H
 #define IPDBREALRECORDS_H
-#include "si_sql/sidbrealrecords.h"
+#include "sqlcom/dblinerecords.h"
 
-#define IP_DB_RealRecords "ip_real_records"
-typedef SiDbRealRecordItem IpDbRealRecordItem;
+#define IP_DB_RealRecords "ip_line_records"
 
-class IpDbRealRecords : public SiDbRealRecords
+class IpDbRealRecords : public DbLineRecords
 {
     IpDbRealRecords();
 public:

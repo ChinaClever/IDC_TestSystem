@@ -1,11 +1,10 @@
 #ifndef IPDBMODBUSTRANS_H
 #define IPDBMODBUSTRANS_H
-#include "si_sql/sidbmodbustrans.h"
+#include "sqlcom/dbmodbustrans.h"
 
 #define IP_DB_ModbusTrans "ip_modbus_trans"
-typedef SiDbModbusTransItem IpDbModbusTransItem;
 
-class IpDbModbusTrans : public SiDbModbusTrans
+class IpDbModbusTrans : public DbModbusTrans
 {
     IpDbModbusTrans();
 public:

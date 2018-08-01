@@ -19,7 +19,7 @@ void IP_DpSlaveEnv::saveLogItem(int id)
     IP_Rtu_Recv *packet = &(dev->rtuData);
     if(packet->offLine > 0)
     {
-        IpDbEnvItem item;
+        DbEnvItem item;
 
         item.dev_id = id;
         item.tem = packet->data.tem.value[0];

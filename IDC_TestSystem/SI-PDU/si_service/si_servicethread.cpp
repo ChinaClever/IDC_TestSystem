@@ -27,10 +27,11 @@ SI_ServiceThread::~SI_ServiceThread()
 
 void SI_ServiceThread::readDevList()
 {
-    for(int i=0; i<SI_DEV_NUM; ++i)
+    SiConfigItem *item = SiConfigFile::bulid()->item;
+    for(int i=0; i<item->devNum; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        if(packet->rtuData.offLine > 0)  // 必须在线才进行检查
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        if(packet->offLine > 0)  // 必须在线才进行检查
         {
             QJsonObject json;
             bool ret = mBuildJson->getJson(packet, json);

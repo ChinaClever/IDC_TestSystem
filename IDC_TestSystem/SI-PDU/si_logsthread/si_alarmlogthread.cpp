@@ -29,7 +29,7 @@ SI_AlarmLogThread *SI_AlarmLogThread::bulid()
  */
 void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const QString &str)
 {
-    SiDbAlarmItem item;
+    DbAlarmItem item;
     item.dev_id = id+1;
     item.line = line+1;
     item.type_str = typeStr;
@@ -46,22 +46,18 @@ void SI_AlarmLogThread::saveMsg(int id, int line, const QString &typeStr, const 
  * @param rate
  * @param sym
  */
-void SI_AlarmLogThread::unitAlarm(int id, int line, const QString &str, SI_sDataUnit &unit, double rate, const QString &sym)
+void SI_AlarmLogThread::unitAlarm(int id, int i, const QString &str, sDataUnit &unit, double rate, const QString &sym)
 {
     QString typeStr = str + tr("报警");
-    if(line > 3) {  qDebug() << "SI_AlarmLogThread unitAlarm line err" << line ;  return; }
-    for(int i=0; i<line; ++i)
+    if(unit.alarm == 1)
     {
-        if(unit.alarm[i] == 1)
-        {
-             QString msg = tr("%1当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(" ")
-                    .arg(unit.value[i]/rate).arg(sym)
-                    .arg(unit.min[i]/rate).arg(sym)
-                    .arg(unit.max[i]/rate).arg(sym);
+        QString msg = tr("%1当前值：%2%3, 最小值：%4%5, 最大值：%6%7").arg(" ")
+                .arg(unit.value/rate).arg(sym)
+                .arg(unit.min/rate).arg(sym)
+                .arg(unit.max/rate).arg(sym);
 
-            saveMsg(id, i, typeStr, msg);
-            unit.alarm[i] = 2;
-        }
+        saveMsg(id, i, typeStr, msg);
+        unit.alarm = 2;
     }
 }
 
@@ -71,12 +67,18 @@ void SI_AlarmLogThread::unitAlarm(int id, int line, const QString &str, SI_sData
  */
 void SI_AlarmLogThread::saveAlarm(int id)
 {
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    SI_RtuRecvLine *dev = &(packet->rtuData.data);
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+     sDevData *data = &(packet->data);
 
-    int line = dev->lineNum;
-    unitAlarm(id, line, tr("电流"), dev->cur, COM_RATE_CUR, "A");
-    unitAlarm(id, line, tr("电压"), dev->vol, COM_RATE_VOL, "V");
-    unitAlarm(id, 1, tr("温度"), dev->tem, COM_RATE_TEM, " ℃");
-    unitAlarm(id, 1, tr("湿度"), dev->hum, COM_RATE_HUM, " %");
+    int line = data->lineNum;
+    for(int i=0; i<line; ++i) {
+        unitAlarm(id, i, tr("电流"), data->line[i].cur, COM_RATE_CUR, "A");
+        unitAlarm(id, i, tr("电压"), data->line[i].vol, COM_RATE_VOL, "V");
+    }
+
+    line = data->env.envNum;
+    for(int i=0; i<line; ++i) {
+        unitAlarm(id, i, tr("温度"), data->env.tem[i], COM_RATE_TEM, " ℃");
+        unitAlarm(id, i, tr("湿度"), data->env.hum[i], COM_RATE_HUM, " %");
+    }
 }

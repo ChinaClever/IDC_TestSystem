@@ -34,7 +34,7 @@ IP_DpThread::~IP_DpThread()
 
 void IP_DpThread::saveModbusCmd(QStringList &list)
 {
-    IpDbModbusCmdItem item;
+    DbModbusCmdItem item;
     item.dev_id = list.at(0).toInt();
 
     QWriteLocker locker(mRwLock); // 正在操作时不允许关闭

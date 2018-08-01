@@ -50,8 +50,7 @@ protected:
     QString tableMarking();
     void setTableMarking(const QString& marking);
 private:
-    static void initDb();
-    
+    static void initDb();    
 };
 
 
@@ -94,8 +93,8 @@ protected:
     {
         QVector<T> items;
         QSqlQuery query;
-        QString sql = QString("SELECT * from %1 %2").arg(tableName()).arg(condition);
-        query.prepare(sql);
+        QString sqlcom = QString("SELECT * from %1 %2").arg(tableName()).arg(condition);
+        query.prepare(sqlcom);
         if(query.exec()){
             T item;
             while(query.next()){
@@ -105,7 +104,7 @@ protected:
         } else {
             qDebug()<<" "<<query.lastError().databaseText();
             qDebug()<<" "<<query.lastError().driverText();
-            qDebug()<<sql;
+            qDebug()<<sqlcom;
             throwError(query.lastError());
         }
         return items;

@@ -44,10 +44,10 @@ void SI_EnvTableWid::setDevName(int id, int column)
  * @param id
  * @return
  */
-SI_sDataUnit *SI_EnvTableWid::getTempUnit(int id)
+sDataUnit *SI_EnvTableWid::getTempUnit(int id)
 {
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    SI_sDataUnit *unit = &(packet->rtuData.data.tem);
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+    sDataUnit *unit = &(packet->data.env.tem[0]);
 
     return unit;
 }
@@ -60,13 +60,13 @@ SI_sDataUnit *SI_EnvTableWid::getTempUnit(int id)
 void SI_EnvTableWid::setTempValue(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getTempUnit(id);
-    double value = unit->value[0] / COM_RATE_TEM;
+    sDataUnit *unit = getTempUnit(id);
+    double value = unit->value / COM_RATE_TEM;
     if(value >= 0)
         str = QString::number(value) + "℃";
 
     setTableItem(id, column, str);
-    setItemColor(id, column, unit->alarm[0]);
+    setItemColor(id, column, unit->alarm);
 }
 
 /**
@@ -77,8 +77,8 @@ void SI_EnvTableWid::setTempValue(int id, int column)
 void SI_EnvTableWid::setTempMin(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getTempUnit(id);
-    double value = unit->min[0] / COM_RATE_TEM;
+    sDataUnit *unit = getTempUnit(id);
+    double value = unit->min / COM_RATE_TEM;
     if(value >= 0)
         str = QString::number(value) + "℃";
 
@@ -93,8 +93,8 @@ void SI_EnvTableWid::setTempMin(int id, int column)
 void SI_EnvTableWid::setTempMax(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getTempUnit(id);
-    double value = unit->max[0] / COM_RATE_TEM;
+    sDataUnit *unit = getTempUnit(id);
+    double value = unit->max / COM_RATE_TEM;
     if(value >= 0)
         str = QString::number(value) + "℃";
 
@@ -107,10 +107,10 @@ void SI_EnvTableWid::setTempMax(int id, int column)
  * @param id
  * @return
  */
-SI_sDataUnit *SI_EnvTableWid::getHumUnit(int id)
+sDataUnit *SI_EnvTableWid::getHumUnit(int id)
 {
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    SI_sDataUnit *unit = &(packet->rtuData.data.hum);
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+    sDataUnit *unit = &(packet->data.env.hum[0]);
 
     return unit;
 }
@@ -123,13 +123,13 @@ SI_sDataUnit *SI_EnvTableWid::getHumUnit(int id)
 void SI_EnvTableWid::setHumValue(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getHumUnit(id);
-    double value = unit->value[0] / COM_RATE_HUM;
+    sDataUnit *unit = getHumUnit(id);
+    double value = unit->value / COM_RATE_HUM;
     if(value >= 0)
         str = QString::number(value) + "%";
 
     setTableItem(id, column, str);
-    setItemColor(id, column, unit->alarm[0]);
+    setItemColor(id, column, unit->alarm);
 }
 
 /**
@@ -140,8 +140,8 @@ void SI_EnvTableWid::setHumValue(int id, int column)
 void SI_EnvTableWid::setHumMin(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getHumUnit(id);
-    double value = unit->min[0] / COM_RATE_HUM;
+    sDataUnit *unit = getHumUnit(id);
+    double value = unit->min / COM_RATE_HUM;
     if(value >= 0)
         str = QString::number(value) + "%";
 
@@ -156,8 +156,8 @@ void SI_EnvTableWid::setHumMin(int id, int column)
 void SI_EnvTableWid::setHumMax(int id, int column)
 {
     QString str = "---";
-    SI_sDataUnit *unit = getHumUnit(id);
-    double value = unit->max[0] / COM_RATE_HUM;
+    sDataUnit *unit = getHumUnit(id);
+    double value = unit->max / COM_RATE_HUM;
     if(value >= 0)
         str = QString::number(value) + "%";
 
@@ -176,8 +176,8 @@ void SI_EnvTableWid::updateData()
 
     for(int i=0; i<row; ++i)
     {
-        SiDevPacket *packet = SIDataPackets::bulid()->getDev(i);
-        if(packet->rtuData.offLine)
+        sDataPacket *packet = SIDataPackets::bulid()->getDev(i);
+        if(packet->offLine)
         {
             int k=0;
             setDevName(i, k++);

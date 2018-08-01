@@ -22,7 +22,7 @@ void IP_DpSaveThreshold::saveLogItem(int id)
         int line = packet->data.lineNum;
         for(int i=0; i<line; ++i)
         {
-            IpDbThresholdItem item;
+            DbLineThresholdItem item;
 
             item.dev_id = id;
             item.line = i+1;

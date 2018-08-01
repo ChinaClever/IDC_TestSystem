@@ -35,7 +35,7 @@ SI_ComLogThread::~SI_ComLogThread()
  * @param id 设备号
  * @return
  */
-SiDevPacket *SI_ComLogThread::getPacket(int id)
+sDataPacket *SI_ComLogThread::getPacket(int id)
 {
     return SIDataPackets::bulid()->getDev(id);
 }

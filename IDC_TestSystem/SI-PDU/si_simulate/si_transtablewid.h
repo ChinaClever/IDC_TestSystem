@@ -16,7 +16,7 @@ protected:
     void setDevName(int id, int column);
     void setDevState(int id, int column);
 
-    SiDevPacket *getPacket(int id);
+    sDataPacket *getPacket(int id);
     void setValue(int id, int column, int value);
     void setAllValue(int id, int column);
     void setOK(int id, int column);

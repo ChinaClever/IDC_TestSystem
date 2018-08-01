@@ -15,7 +15,7 @@ IP_DpSlaveTrans::IP_DpSlaveTrans(QObject *parent) : IP_DpSlaveRecord(parent)
 
 void IP_DpSlaveTrans::saveLogItem(int id)
 {
-    IpDbModbusTransItem item;
+    DbModbusTransItem item;
 
     IpDevPacket *dev = IpDataPackets::bulid()->getDev(id);
     IP_RtuCount *packet = &(dev->count);

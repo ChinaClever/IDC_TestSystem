@@ -26,7 +26,7 @@ protected:
 
     void checkRowCount();
     void updateData();
-    SI_Rtu_Recv *getPacket(int id);
+    sDevData *getPacket(int id);
 
 protected slots:
     void timeoutDone();

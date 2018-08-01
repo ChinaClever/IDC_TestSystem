@@ -57,8 +57,8 @@ void SI_SimulateThread::setOffLine()
 {
     SiConfigItem *item = SiConfigFile::bulid()->item;
     for(int i=0; i<item->devNum; ++i) {
-        SiDevPacket *dev = mPackets->getDev(i);
-        dev->rtuData.offLine = 0;
+        sDataPacket *dev = mPackets->getDev(i);
+        dev->offLine = 0;
     }
 }
 
@@ -69,8 +69,8 @@ void SI_SimulateThread::setOffLine()
  */
 void SI_SimulateThread::sentOkCmd(int devId)
 {
-    SiDevPacket *dev = mPackets->getDev(devId);
-    SiDevModubsCount *count = &(dev->count);
+    sDataPacket *dev = mPackets->getDev(devId);
+    sRtuCount *count = &(dev->rtuCount);
     count->count++;
     count->okCount ++;
 
@@ -86,8 +86,8 @@ void SI_SimulateThread::sentOkCmd(int devId)
  */
 void SI_SimulateThread::saveErrCmd(int devId)
 {
-    SiDevPacket *dev = mPackets->getDev(devId);
-    SiDevModubsCount *count = &(dev->count);
+    sDataPacket *dev = mPackets->getDev(devId);
+    sRtuCount *count = &(dev->rtuCount);
     count->count += 1;
     count->errCount += 1;
 
@@ -97,7 +97,7 @@ void SI_SimulateThread::saveErrCmd(int devId)
     strArray += cm_ByteArrayToUcharStr(array);
     strArray += ")";
 
-    SiDbModbusCmdItem item;
+    DbModbusCmdItem item;
     item.dev_id = devId+1;
     item.msg = strArray;
 
@@ -119,7 +119,7 @@ void SI_SimulateThread::workDown()
     for(int i=0; i<item->devNum; ++i)
     {
         for(int k=0; k<item->cmdModel; ++k) { // 双命令模式
-            SI_Rtu_Recv *pkt = &(mPackets->getDev(i)->rtuData);
+            sDataPacket *pkt = mPackets->getDev(i);
             ret = mRtu->transData(i+1, item->lineNum, pkt, item->msecs);
             if(ret) break ;
         }

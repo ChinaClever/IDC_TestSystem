@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "logbtnbar.h"
-#include "sql/sqltablemodel.h"
+#include "sqlcom/sqltablemodel.h"
 #include "log_datewidget.h"
 
 namespace Ui {

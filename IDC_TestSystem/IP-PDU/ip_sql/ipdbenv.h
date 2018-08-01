@@ -1,11 +1,10 @@
 #ifndef IPDBENV_H
 #define IPDBENV_H
-#include "si_sql/sidbenv.h"
+#include "sqlcom/dbenv.h"
 
 #define IP_DB_Env "ip_env_sensor"
-typedef SiDbEnvItem IpDbEnvItem;
 
-class IpDbEnv : public SiDbEnv
+class IpDbEnv : public DbEnv
 {
     IpDbEnv();
 public:

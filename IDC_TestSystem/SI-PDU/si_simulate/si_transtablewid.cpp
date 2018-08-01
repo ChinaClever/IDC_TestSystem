@@ -44,14 +44,14 @@ void SI_TransTableWid::setDevName(int id, int column)
 void SI_TransTableWid::setDevState(int id, int column)
 {
     QString str =tr("高线");
-    SiDevPacket *packet = SIDataPackets::bulid()->getDev(id);
-    if(packet->rtuData.offLine)
+    sDataPacket *packet = SIDataPackets::bulid()->getDev(id);
+    if(packet->offLine)
         str =tr("在线");
 
     setTableItem(id, column, str);
 }
 
-SiDevPacket *SI_TransTableWid::getPacket(int id)
+sDataPacket *SI_TransTableWid::getPacket(int id)
 {
     return SIDataPackets::bulid()->getDev(id);
 }
@@ -76,7 +76,7 @@ void SI_TransTableWid::setValue(int id, int column, int value)
  */
 void SI_TransTableWid::setAllValue(int id, int column)
 {
-    int value = getPacket(id)->count.count ;
+    int value = getPacket(id)->rtuCount.count ;
     setValue(id, column, value);
 }
 
@@ -87,7 +87,7 @@ void SI_TransTableWid::setAllValue(int id, int column)
  */
 void SI_TransTableWid::setOK(int id, int column)
 {
-    int value = getPacket(id)->count.okCount ;
+    int value = getPacket(id)->rtuCount.okCount ;
     setValue(id, column, value);
 }
 
@@ -98,7 +98,7 @@ void SI_TransTableWid::setOK(int id, int column)
  */
 void SI_TransTableWid::setErr(int id, int column)
 {
-    int value = getPacket(id)->count.errCount ;
+    int value = getPacket(id)->rtuCount.errCount ;
     setValue(id, column, value);
     if(value) {
         setItemColor(id, column, 2);

@@ -15,12 +15,12 @@ protected:
     void setDevName(int row, int column, int id);
     void setLine(int row, int column, int id, int line);
 
-    SI_sDataUnit *getVolUnit(int id);
+    sDataUnit *getVolUnit(int id, int line);
     void setVolValue(int row, int column, int id, int line);
     void setVolMin(int row, int column, int id, int line);
     void setVolMax(int row, int column, int id, int line);
 
-    SI_sDataUnit *getCurUnit(int id);
+    sDataUnit *getCurUnit(int id, int line);
     void setCurValue(int row, int column, int id, int line);
     void setCurMin(int row, int column, int id, int line);
     void setCurMax(int row, int column, int id, int line);

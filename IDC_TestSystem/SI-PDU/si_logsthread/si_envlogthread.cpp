@@ -23,18 +23,18 @@ void SI_EnvLogThread::saveLogs()
 
 void SI_EnvLogThread::saveLogItem(int id)
 {
-    SI_Rtu_Recv *packet = &(getPacket(id)->rtuData);
+    sDataPacket *packet = getPacket(id);
     if(packet->offLine > 0)
     {
-        SiDbEnvItem item;
+        DbEnvItem item;
 
         item.dev_id = id+1;
-        item.tem = packet->data.tem.value[0];
-        item.tem_min = packet->data.tem.min[0];
-        item.tem_max = packet->data.tem.max[0];
-        item.hum = packet->data.hum.value[0];
-        item.hum_min = packet->data.hum.min[0];
-        item.hum_max = packet->data.hum.max[0];
+        item.tem = packet->data.env.tem[0].value;
+        item.tem_min = packet->data.env.tem[0].min;
+        item.tem_max = packet->data.env.tem[0].max;
+        item.hum = packet->data.env.hum[0].value;
+        item.hum_min = packet->data.env.hum[0].min;
+        item.hum_max = packet->data.env.hum[0].max;
 
         SiDbEnv::bulid()->insertItem(item);
         msleep(LOG_DELAY);

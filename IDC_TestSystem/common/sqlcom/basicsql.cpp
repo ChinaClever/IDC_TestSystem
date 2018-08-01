@@ -89,7 +89,7 @@ int BasicSql::count(const QString &column_name, const QString &condition)
         if(query.next())
             count = query.value(0).toInt();
     } else
-        qDebug()<< "sql count:" << query.lastError();
+        qDebug()<< "sqlcom count:" << query.lastError();
     return count;
 }
 
@@ -108,7 +108,7 @@ QStringList BasicSql::listColumn(const QString &column_name, const QString &cond
         while(query.next())
             list << query.value(0).toString();
     } else
-        qDebug()<< "sql listColumnStr:" << query.lastError();
+        qDebug()<< "sqlcom listColumnStr:" << query.lastError();
     return list;
 }
 
@@ -130,7 +130,7 @@ bool BasicSql::updateColumn(const QString& column_name, double value, const QStr
     QSqlQuery query;
     ret = query.exec(QString("update  %1 set %2=%3 %4").arg(tableName()).arg(column_name).arg(value).arg(condition));
     if(!ret)
-        qDebug()<< "sql updateColumn 1:" << query.lastError();
+        qDebug()<< "sqlcom updateColumn 1:" << query.lastError();
     return ret;
 }
 
@@ -140,7 +140,7 @@ bool BasicSql::updateColumn(const QString& column_name, const QString& value, co
     QSqlQuery query;
     ret = query.exec(QString("update  %1 set %2=\"%3\" %4").arg(tableName()).arg(column_name).arg(value).arg(condition));
     if(!ret)
-        qDebug()<< "sql updateColumn 2:" << query.lastError();
+        qDebug()<< "sqlcom updateColumn 2:" << query.lastError();
     return ret;
 }
 
@@ -171,7 +171,7 @@ bool BasicSql::clear()
     QSqlQuery query(cmd);
     bool ret = query.exec(cmd);
     if(!ret){
-        qDebug()<< "sql clear :" << query.lastError();
+        qDebug()<< "sqlcom clear :" << query.lastError();
     } else {
         createTable();
     }
