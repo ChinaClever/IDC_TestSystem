@@ -33,7 +33,6 @@ protected:
 
     DpThread *mDpThread;
     sDevPackets *mPackets;
-//    SI_RtuThread *mRtu;
 };
 
 #endif // SIMULATETHREAD_H

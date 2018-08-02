@@ -3,6 +3,7 @@
 SimulateThread::SimulateThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
+    mPackets = nullptr;
     QTimer::singleShot(400,this,SLOT(initSlot()));
 }
 
