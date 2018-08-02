@@ -24,12 +24,6 @@ HEADERS += \
     $$PWD/si_simulate/si_transtablewid.h \
     $$PWD/si_simulate/si_devtablewid.h \
     $$PWD/toolbox/silogstimetooldlg.h \
-    $$PWD/si_logsthread/si_translogthread.h \
-    $$PWD/si_logsthread/si_comlogthread.h \
-    $$PWD/si_logsthread/si_envlogthread.h \
-    $$PWD/si_logsthread/si_recordlogthread.h \
-    $$PWD/si_logsthread/si_thresholdlogthread.h \
-    $$PWD/si_logsthread/si_alarmlogthread.h \
     $$PWD/si_setting/si_setmainwid.h \
     $$PWD/si_setting/si_addrsetwid.h \
     $$PWD/si_setting/si_unitsetwid.h \
@@ -79,12 +73,6 @@ SOURCES += \
     $$PWD/si_simulate/si_transtablewid.cpp \
     $$PWD/si_simulate/si_devtablewid.cpp \
     $$PWD/toolbox/silogstimetooldlg.cpp \
-    $$PWD/si_logsthread/si_translogthread.cpp \
-    $$PWD/si_logsthread/si_comlogthread.cpp \
-    $$PWD/si_logsthread/si_envlogthread.cpp \
-    $$PWD/si_logsthread/si_recordlogthread.cpp \
-    $$PWD/si_logsthread/si_thresholdlogthread.cpp \
-    $$PWD/si_logsthread/si_alarmlogthread.cpp \
     $$PWD/si_setting/si_setmainwid.cpp \
     $$PWD/si_setting/si_addrsetwid.cpp \
     $$PWD/si_setting/si_unitsetwid.cpp \
