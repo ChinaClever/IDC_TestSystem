@@ -37,7 +37,8 @@ HEADERS += \
     $$PWD/dpcom/dpsaverecord.h \
     $$PWD/dpcom/dpsavetrans.h \
     $$PWD/websocket/webservicethread.h \
-    $$PWD/dpcom/dpthread.h
+    $$PWD/dpcom/dpthread.h \
+    $$PWD/tablewid/simulatethread.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -74,7 +75,8 @@ SOURCES += \
     $$PWD/dpcom/dpsavetrans.cpp \
     $$PWD/dpcom/dpalarmsave.cpp \
     $$PWD/websocket/webservicethread.cpp \
-    $$PWD/dpcom/dpthread.cpp
+    $$PWD/dpcom/dpthread.cpp \
+    $$PWD/tablewid/simulatethread.cpp
 
 FORMS += \
     $$PWD/comtablewid.ui \

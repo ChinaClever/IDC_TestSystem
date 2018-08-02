@@ -7,16 +7,9 @@
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
 
-SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
+SI_SimulateThread::SI_SimulateThread(QObject *parent) : SimulateThread(parent)
 {
-    isRun = false;
-    QTimer::singleShot(400,this,SLOT(initSlot()));
-}
 
-SI_SimulateThread::~SI_SimulateThread()
-{
-    isRun = false;
-    wait();
 }
 
 
@@ -33,64 +26,13 @@ void SI_SimulateThread::initSlot()
     mRtu->init(serial);
 }
 
-/**
- * @brief 开启线程
- */
-void SI_SimulateThread::startThread()
-{
-    if(!isRun) {
-        QTimer::singleShot(100,this,SLOT(start()));  // 启动线程
-    }
-}
-
-/**
- * @brief 停止线程
- */
-void SI_SimulateThread::stopThread()
-{
-    isRun = false;
-    //    wait();
-}
-
-void SI_SimulateThread::setOffLine()
-{
-    for(int i=0; i<mPackets->devNum; ++i) {
-        mPackets->dev[i].offLine = 0;
-    }
-}
-
-void SI_SimulateThread::clearCount()
-{
-    for(int i=0; i<mPackets->devNum; ++i)
-    {
-        sDataPacket *packet = &(mPackets->dev[i]);
-        memset(&(packet->rtuCount), 0, sizeof(sRtuCount));
-    }
-}
-
-
-/**
- * @brief 命令传送成功
- * @param devId
- */
-void SI_SimulateThread::sentOkCmd(sRtuCount &count)
-{
-    count.count++;
-    count.okCount ++;
-
-    mDpThread->start();
-}
-
 
 /**
  * @brief 保存失败命令
  * @param devId
  */
-void SI_SimulateThread::saveErrCmd(int id, sRtuCount &count)
+void SI_SimulateThread::writeErrCmd(int id)
 {
-    count.count += 1;
-    count.errCount += 1;
-
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
 
@@ -136,12 +78,3 @@ void SI_SimulateThread::workDown()
 }
 
 
-void SI_SimulateThread::run()
-{
-    isRun = true;
-    clearCount();
-    while(isRun) {
-        workDown();
-    }
-    setOffLine();
-}
