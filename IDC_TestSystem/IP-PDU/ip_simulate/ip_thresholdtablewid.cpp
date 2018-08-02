@@ -8,5 +8,5 @@
 
 IP_ThresholdTableWid::IP_ThresholdTableWid(QWidget *parent) : LineThresholdTableWid(parent)
 {
-
+     mPackets = IpDataPackets::bulid()->packets;
 }

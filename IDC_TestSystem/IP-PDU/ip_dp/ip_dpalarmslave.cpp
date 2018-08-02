@@ -9,7 +9,7 @@
 
 IP_DpAlarmSlave::IP_DpAlarmSlave(QObject *parent) : DpAlarmSave(parent)
 {
-
+    mPackets = IpDataPackets::bulid()->packets;
 }
 
 

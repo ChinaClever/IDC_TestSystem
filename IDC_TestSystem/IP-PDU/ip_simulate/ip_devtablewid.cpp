@@ -8,5 +8,5 @@
 
 IP_DevTableWid::IP_DevTableWid(QWidget *parent) : LineTableWid(parent)
 {
-//    mPackets = ;/////////
+    mPackets = IpDataPackets::bulid()->packets;
 }

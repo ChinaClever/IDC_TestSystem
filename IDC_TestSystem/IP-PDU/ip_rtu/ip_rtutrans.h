@@ -12,7 +12,7 @@ public:
 
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
-    int transData(int addr, int line, IP_Rtu_Recv *pkt, int msecs);
+    int transData(int addr, int line, sDataPacket *pkt, int msecs);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
@@ -30,6 +30,7 @@ private:
     QMutex *mMutex;
     bool isRun;
 
+    IP_Rtu_Recv *mRtuPkt;
     IP_RtuSent *mRtuSent;
     IP_RtuRecv *mRtuRecv;
 };

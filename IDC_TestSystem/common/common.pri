@@ -35,7 +35,8 @@ HEADERS += \
     $$PWD/dpcom/dpsaveline.h \
     $$PWD/dpcom/dpsavelinethreshold.h \
     $$PWD/dpcom/dpsaverecord.h \
-    $$PWD/dpcom/dpsavetrans.h
+    $$PWD/dpcom/dpsavetrans.h \
+    $$PWD/websocket/webservicethread.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -70,7 +71,8 @@ SOURCES += \
     $$PWD/dpcom/dpsavelinethreshold.cpp \
     $$PWD/dpcom/dpsaverecord.cpp \
     $$PWD/dpcom/dpsavetrans.cpp \
-    $$PWD/dpcom/dpalarmsave.cpp
+    $$PWD/dpcom/dpalarmsave.cpp \
+    $$PWD/websocket/webservicethread.cpp
 
 FORMS += \
     $$PWD/comtablewid.ui \

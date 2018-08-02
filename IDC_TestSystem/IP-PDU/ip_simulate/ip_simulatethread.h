@@ -14,8 +14,8 @@ public:
 protected:
     void run();
     void workDown();
-    void sentOkCmd(IP_RtuCount &count);
-    void saveErrCmd(int id, IP_RtuCount &count);
+    void sentOkCmd(sRtuCount &count);
+    void saveErrCmd(int id, sRtuCount &count);
     void setOffLine();
     void clearCount();
 
@@ -31,7 +31,7 @@ private slots:
 private:
     bool isRun;
 
-    IpDataPackets *mPacket;
+    sDevPackets *mPackets;
     IP_RtuTrans *mRtu;
     IP_DpThread *mDpThread;
 };

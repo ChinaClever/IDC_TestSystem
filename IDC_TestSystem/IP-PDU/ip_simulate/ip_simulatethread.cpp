@@ -27,7 +27,7 @@ void IP_SimulateThread::initSlot()
     SerialPort *serial = IP_ConfigFile::bulid()->item->serial;
     mDpThread = new IP_DpThread(this);
 
-    mPacket = IpDataPackets::bulid();
+    mPackets = IpDataPackets::bulid()->packets;
     mRtu = IP_RtuTrans::bulid();
     mRtu->init(serial);
 }
@@ -53,18 +53,18 @@ void IP_SimulateThread::stopThread()
 
 void IP_SimulateThread::setOffLine()
 {
-    for(int i=0; i<IP_DEV_NUM; ++i)
+    for(int i=0; i<mPackets->devNum; ++i)
     {
-        mPacket->getDev(i)->rtuData.offLine = 0;
+        mPackets->dev[i].offLine = 0;
     }
 }
 
 void IP_SimulateThread::clearCount()
 {
-    for(int i=0; i<IP_DEV_NUM; ++i)
+    for(int i=0; i<mPackets->devNum; ++i)
     {
-        IpDevPacket *packet = mPacket->getDev(i);
-        memset(&(packet->count), 0, sizeof(IP_RtuCount));
+        sDataPacket *packet = &(mPackets->dev[i]);
+        memset(&(packet->rtuCount), 0, sizeof(sRtuCount));
     }
 }
 
@@ -73,7 +73,7 @@ void IP_SimulateThread::clearCount()
  * @brief 命令传送成功
  * @param devId
  */
-void IP_SimulateThread::sentOkCmd(IP_RtuCount &count)
+void IP_SimulateThread::sentOkCmd(sRtuCount &count)
 {
     count.count++;
     count.okCount ++;
@@ -86,7 +86,7 @@ void IP_SimulateThread::sentOkCmd(IP_RtuCount &count)
  * @brief 保存失败命令
  * @param devId
  */
-void IP_SimulateThread::saveErrCmd(int id, IP_RtuCount &count)
+void IP_SimulateThread::saveErrCmd(int id, sRtuCount &count)
 {
     count.count += 1;
     count.errCount += 1;
@@ -115,24 +115,24 @@ void IP_SimulateThread::workDown()
     int ret = 0;
 
     IpConfigItem *item = IP_ConfigFile::bulid()->item;
-    mPacket->devNum = item->devNum;
+    mPackets->devNum = item->devNum;
 
-    for(int k=0; k<=mPacket->devNum; ++k)
+    for(int k=0; k<=mPackets->devNum; ++k)
     {
         int addr = k;
-        IpDevPacket *dev = mPacket->getDev(k);
+        sDataPacket *dev = &(mPackets->dev[k]);
         int v = item->v;
         if(v) v=3; else v = 1;
 
         for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
-            ret = mRtu->transData(addr, v, &(dev->rtuData),item->msecs);
+            ret = mRtu->transData(addr, v, dev,item->msecs);
             if(ret) break;
         }
 
         if(ret) { // 正常收到数据
-            sentOkCmd(dev->count);
+            sentOkCmd(dev->rtuCount);
         } else { // 数据异常
-            saveErrCmd(addr, dev->count);
+            saveErrCmd(addr, dev->rtuCount);
         }
 
         if(isRun) msleep(755);

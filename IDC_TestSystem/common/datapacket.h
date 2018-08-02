@@ -7,7 +7,7 @@
 #define OUTPUT_NUM 42
 #define SENOR_NUM 3
 #define NAME_SIZE 32
-#define DEV_NUM 32
+#define DEV_NUM 33
 
 // 倍率定义
 #define COM_RATE_VOL	1.0    // 电压

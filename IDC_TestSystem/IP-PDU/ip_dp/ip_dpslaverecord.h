@@ -2,21 +2,17 @@
 #define IP_DPSLAVERECORD_H
 
 #include "ip_com/ipdatapackets.h"
+#include "dpcom/dpsaveline.h"
+#include "ip_sql/ipdbrealrecords.h"
 
-class IP_DpSlaveRecord : public QThread
+class IP_DpSlaveRecord : public DpSaveLine
 {
     Q_OBJECT
 public:
     explicit IP_DpSlaveRecord(QObject *parent = nullptr);
-    ~IP_DpSlaveRecord();
-
-    void run();
-protected:
-    virtual void saveLogs();
-    virtual void saveLogItem(int id);
 
 protected:
-    bool isRun;
+    void insertItem(DbLineRecordItem &item){IpDbRealRecords::bulid()->insertItem(item);}
 };
 
 #endif // IP_DPSLAVERECORD_H

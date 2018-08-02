@@ -8,8 +8,8 @@
 
 IpDataPackets::IpDataPackets()
 {
-    memset(&dev, 0, sizeof(IpDevPacket)*IP_DEV_NUM);
-    devNum = 0;
+    packets = new sDevPackets();
+    memset(packets, 0, sizeof(sDevPackets));
 }
 
 IpDataPackets *IpDataPackets::bulid()
@@ -20,7 +20,7 @@ IpDataPackets *IpDataPackets::bulid()
     return sington;
 }
 
-IpDevPacket *IpDataPackets::getDev(int num)
+sDataPacket *IpDataPackets::getDev(int num)
 {
-    return &(dev[num]);
+    return &(packets->dev[num]);
 }

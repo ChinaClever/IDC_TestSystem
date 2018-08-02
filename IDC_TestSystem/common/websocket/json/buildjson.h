@@ -35,7 +35,6 @@ protected:
 
 protected:
     QJsonArray mAlarmJsonArray;
-
 };
 
 #endif // BUILDJSON_H

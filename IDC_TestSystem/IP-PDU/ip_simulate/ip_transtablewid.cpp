@@ -8,5 +8,5 @@
 
 IP_TransTableWid::IP_TransTableWid(QWidget *parent) : TransTableWid(parent)
 {
-
+     mPackets = IpDataPackets::bulid()->packets;
 }

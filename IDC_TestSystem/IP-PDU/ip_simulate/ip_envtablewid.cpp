@@ -8,5 +8,5 @@
 
 IP_EnvTableWid::IP_EnvTableWid(QWidget *parent) : EnvTableWid(parent)
 {
-
+     mPackets = IpDataPackets::bulid()->packets;
 }

@@ -14,6 +14,7 @@ IP_RtuTrans::IP_RtuTrans()
     mRecvBuf = (uchar *)malloc(2*SERIAL_LEN);
     mMutex = new QMutex();
 
+    mRtuPkt = new  IP_Rtu_Recv();
     mRtuSent = new IP_RtuSent();
     mRtuRecv = new IP_RtuRecv();
 }
@@ -87,7 +88,7 @@ void IP_RtuTrans::devLine(IP_RtuRecvLine &rtuData, sDevData &data)
         data.line[i].pow = rtuData.pow[i];
         data.line[i].activePow = rtuData.activePow[i];
         data.line[i].pf = rtuData.pf[i];
-        data.line[i].sw = rtuData.sw[i];
+        data.line[i].sw = rtuData.sw[i];        
     }
 }
 
@@ -106,6 +107,7 @@ void IP_RtuTrans::devData(IP_Rtu_Recv *pkt, sDataPacket *packet)
     packet->id = pkt->addr;
     packet->offLine = pkt->offLine;
     packet->br = pkt->data.br;
+    packet->version = pkt->data.version;
 
     devLine(pkt->data, packet->data);
     envData(pkt->data, packet->data.env);
@@ -117,7 +119,7 @@ void IP_RtuTrans::devData(IP_Rtu_Recv *pkt, sDataPacket *packet)
  * @param addr 设备地址
  * @param line
  */
-int IP_RtuTrans::transData(int addr, int line, IP_Rtu_Recv *pkt, int msecs)
+int IP_RtuTrans::transData(int addr, int line, sDataPacket *pkt, int msecs)
 {
     uchar offLine = 0;
     uchar *sent = mSentBuf, *recv = mRecvBuf;
@@ -129,10 +131,11 @@ int IP_RtuTrans::transData(int addr, int line, IP_Rtu_Recv *pkt, int msecs)
 
     if(rtn > 0)
     {
-        bool ret = mRtuRecv->recvPacket(recv, rtn, pkt); // 解释数据
+        bool ret = mRtuRecv->recvPacket(recv, rtn, mRtuPkt); // 解释数据
         if(ret) {
-            if(addr == pkt->addr) {
+            if(addr == mRtuPkt->addr) {
                 offLine = 1;
+                devData(mRtuPkt, pkt);
             }
         }
     }
