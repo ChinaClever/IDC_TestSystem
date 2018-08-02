@@ -26,7 +26,6 @@ void SIMainWid::initFunSLot()
 {
     initWid();
     mServiceThread = new SI_ServiceThread(this);
-    mSimulateThread = new SI_SimulateThread(this);
 }
 
 void SIMainWid::initWid()
@@ -34,96 +33,25 @@ void SIMainWid::initWid()
     mtoolBoxWid = new SitoolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
-    mDevTableWid = new SI_DevTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mDevTableWid);
-
-    mTransTableWid = new SI_TransTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mTransTableWid);
-
-    mThresholdTableWid = new SI_ThresholdTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mThresholdTableWid);
-
-    mEnvTableWid = new SI_EnvTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mEnvTableWid);
+    mSimulateWid = new SI_SimulateWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSimulateWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
 
     mSetMainWid = new SI_SetMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSetMainWid);
 
-    mLogModbusCmdWid = new SiLogModbusCmdWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogModbusCmdWid);
-
-    mLogModbusTransWid = new SiLogModbusTransWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogModbusTransWid);
-
-    mLogEnvWid = new SiLogEnvWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogEnvWid);
-
-    mLogRealRecordWid = new SiLogRealRecordWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogRealRecordWid);
-
-    mLogThresholdWid = new SiLogThresholdWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogThresholdWid);
-
-    mLogAlarmWid = new SiLogAlarmWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mLogAlarmWid);
+    mLogsWid = new SILogsWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogsWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 }
 
 void SIMainWid::toolBoxSlot(int id)
 {
-    switch (id) {
-    case SI_Test_Stop:
-        mSimulateThread->stopThread();
-        break;
-
-    case SI_Test_Simulate:
-        mSimulateThread->startThread();
-        break;
-
-    case SI_DevReal_Info:
-        ui->stackedWid->setCurrentWidget(mDevTableWid);
-        break;
-
-    case SI_Trans_Info:
-        ui->stackedWid->setCurrentWidget(mTransTableWid);
-        break;
-
-    case SI_Threshold_Info:
-        ui->stackedWid->setCurrentWidget(mThresholdTableWid);
-        break;
-
-    case SI_Env_Info:
-        ui->stackedWid->setCurrentWidget(mEnvTableWid);
-        break;
-
-    case SI_DevSet_Info:
-        ui->stackedWid->setCurrentWidget(mSetMainWid);
-        break;
-
-    case SI_Log_Modbus:
-        ui->stackedWid->setCurrentWidget(mLogModbusCmdWid);
-        break;
-
-    case SI_Log_Trans:
-        ui->stackedWid->setCurrentWidget(mLogModbusTransWid);
-        break;
-
-    case SI_Log_Env:
-        ui->stackedWid->setCurrentWidget(mLogEnvWid);
-        break;
-
-    case SI_Log_Records:
-        ui->stackedWid->setCurrentWidget(mLogRealRecordWid);
-        break;
-
-    case SI_Log_Threshold:
-        ui->stackedWid->setCurrentWidget(mLogThresholdWid);
-        break;
-
-    case SI_Log_Alarm:
-        ui->stackedWid->setCurrentWidget(mLogAlarmWid);
-        break;
-
-    default:
-        break;
+    if((id >= SI_DevReal_Info) && (id < SI_DevSet_Info)) {
+        ui->stackedWid->setCurrentWidget(mSimulateWid);
+    } else if((id >= SI_Log_Modbus) && (id <= SI_Log_Alarm)) {
+         ui->stackedWid->setCurrentWidget(mLogsWid);
+    } else if(id == SI_DevSet_Info) {
+         ui->stackedWid->setCurrentWidget(mSetMainWid);
     }
 }

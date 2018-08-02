@@ -19,10 +19,6 @@ HEADERS += \
     $$PWD/si_simulate/si_simulatethread.h \
     $$PWD/toolbox/sisetmodbustimedlg.h \
     $$PWD/toolbox/silogstoolwid.h \
-    $$PWD/si_simulate/si_envtablewid.h \
-    $$PWD/si_simulate/si_thresholdtablewid.h \
-    $$PWD/si_simulate/si_transtablewid.h \
-    $$PWD/si_simulate/si_devtablewid.h \
     $$PWD/toolbox/silogstimetooldlg.h \
     $$PWD/si_setting/si_setmainwid.h \
     $$PWD/si_setting/si_addrsetwid.h \
@@ -48,7 +44,9 @@ HEADERS += \
     $$PWD/si_dp/si_dpsaveenv.h \
     $$PWD/si_dp/si_dpsaverecord.h \
     $$PWD/si_dp/si_dpthread.h \
-    $$PWD/si_dp/si_dpsavetrans.h
+    $$PWD/si_dp/si_dpsavetrans.h \
+    $$PWD/si_simulate/si_simulatewid.h \
+    $$PWD/si_logs/silogswid.h
 
 	
 SOURCES += \
@@ -68,10 +66,6 @@ SOURCES += \
     $$PWD/si_simulate/si_simulatethread.cpp \
     $$PWD/toolbox/sisetmodbustimedlg.cpp \
     $$PWD/toolbox/silogstoolwid.cpp \
-    $$PWD/si_simulate/si_envtablewid.cpp \
-    $$PWD/si_simulate/si_thresholdtablewid.cpp \
-    $$PWD/si_simulate/si_transtablewid.cpp \
-    $$PWD/si_simulate/si_devtablewid.cpp \
     $$PWD/toolbox/silogstimetooldlg.cpp \
     $$PWD/si_setting/si_setmainwid.cpp \
     $$PWD/si_setting/si_addrsetwid.cpp \
@@ -97,7 +91,9 @@ SOURCES += \
     $$PWD/si_dp/si_dpsaveenv.cpp \
     $$PWD/si_dp/si_dpsaverecord.cpp \
     $$PWD/si_dp/si_dpthread.cpp \
-    $$PWD/si_dp/si_dpsavetrans.cpp
+    $$PWD/si_dp/si_dpsavetrans.cpp \
+    $$PWD/si_simulate/si_simulatewid.cpp \
+    $$PWD/si_logs/silogswid.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
@@ -115,7 +111,9 @@ FORMS += \
     $$PWD/si_setting/si_addrsetwid.ui \
     $$PWD/si_setting/si_unitsetwid.ui \
     $$PWD/si_setting/si_thresholdsetwid.ui \
-    $$PWD/si_setting/si_elesetwid.ui
+    $$PWD/si_setting/si_elesetwid.ui \
+    $$PWD/si_simulate/si_simulatewid.ui \
+    $$PWD/si_logs/silogswid.ui
 
 
 
