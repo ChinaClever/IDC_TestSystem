@@ -26,6 +26,12 @@ protected:
     void clearTable();
     void setItemColor(int id, int column, int alarm);    
 
+protected slots:
+    virtual void timeoutDone(){}
+
+protected:
+    QTimer *timer;
+
 private:
     void initTableWidget(QStringList &header);
     void addItemContent(int row, int column, const QString &content);

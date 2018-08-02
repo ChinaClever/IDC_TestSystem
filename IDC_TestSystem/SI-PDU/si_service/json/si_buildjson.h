@@ -1,6 +1,6 @@
 #ifndef SI_BUILDJSON_H
 #define SI_BUILDJSON_H
-#include "websocket/websocketclient.h"
+#include "websocket/webservicethread.h"
 #include "si_com/sidatapackets.h"
 
 class SI_BuildJson : public BuildJson

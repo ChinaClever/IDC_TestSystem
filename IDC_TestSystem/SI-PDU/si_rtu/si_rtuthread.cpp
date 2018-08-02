@@ -10,7 +10,8 @@ SI_RtuThread::SI_RtuThread(QObject *parent) : QThread(parent)
 {
     mSerial = NULL;
     isRun = false;
-    mBuf = (uchar *)malloc(RTU_BUF_SIZE);
+    mSentBuf = (uchar *)malloc(2*SERIAL_LEN);
+    mRecvBuf = (uchar *)malloc(2*SERIAL_LEN);
     mMutex = new QMutex();
 
     mRtuSent = new SI_RtuSent();
@@ -55,13 +56,14 @@ bool SI_RtuThread::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     bool ret = false;
     static uchar buf[RTU_BUF_SIZE] = {0};
+    uchar *sent = mSentBuf;
     QMutexLocker locker(mMutex);
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
-        int rtn = mSerial->transmit(buf, len, mBuf, msecs);
+        int rtn = mSerial->transmit(buf, len, sent, msecs);
         if(len == rtn) {
-            if(memcmp(buf, mBuf,rtn) == 0)
+            if(memcmp(buf, sent,rtn) == 0)
                 ret = true;
             else
                 qDebug() << "SI sent Set Cmd Err";
@@ -123,16 +125,16 @@ void SI_RtuThread::devData(SI_Rtu_Recv *pkt, sDataPacket *packet)
 int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
 {
     char offLine = 0;
-    uchar *buf = mBuf;
+    uchar *sent = mSentBuf, *recv = mRecvBuf;
 
-    int rtn = mLen = mRtuSent->sentDataBuff(addr,line, buf); // 把数据打包成通讯格式的数据
+    int rtn = mSentLen = mRtuSent->sentDataBuff(addr, line,sent); // 把数据打包成通讯格式的数据
     if(mSerial) {
-        rtn = mSerial->transmit(buf, rtn, buf, msecs); // 传输数据，发送同时接收
+        rtn = mRecvLen = mSerial->transmit(sent, rtn, recv, msecs); // 传输数据，发送同时接收
     } else rtn = 0;
 
     if(rtn > 0)
     {
-        bool ret = mRtuRecv->recvPacket(buf, rtn, mRtuPkt); // 解释数据
+        bool ret = mRtuRecv->recvPacket(recv, rtn, mRtuPkt); // 解释数据
         if(ret) {
             if(addr == mRtuPkt->addr) {
                 devData(mRtuPkt, pkt);
@@ -145,10 +147,22 @@ int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
     return offLine;
 }
 
+
 QByteArray SI_RtuThread::getSentCmd()
 {
     QByteArray array;
-    if((mLen < 0) || (mLen > RTU_BUF_SIZE))  mLen = 2048;
-    array.append((char *)mBuf, mLen);
+    if((mSentLen < 0) || (mSentLen > SERIAL_LEN))  mSentLen = SERIAL_LEN;
+    array.append((char *)mSentBuf, mSentLen);
     return array;
 }
+
+
+
+QByteArray SI_RtuThread::getRecvCmd()
+{
+    QByteArray array;
+    if((mRecvLen < 0) || (mRecvLen > SERIAL_LEN))  mRecvLen = SERIAL_LEN;
+    array.append((char *)mRecvBuf, mRecvLen);
+    return array;
+}
+

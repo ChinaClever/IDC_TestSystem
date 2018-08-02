@@ -1,7 +1,7 @@
 #ifndef SI_SIMULATETHREAD_H
 #define SI_SIMULATETHREAD_H
 
-#include "si_com/sidatapackets.h"
+#include "si_dp/si_dpthread.h"
 
 class SI_SimulateThread : public QThread
 {
@@ -13,9 +13,10 @@ public:
 protected:
     void run();    
     void workDown();
-    void sentOkCmd(int devId);
-    void saveErrCmd(int devId);
+    void sentOkCmd(sRtuCount &count);
+    void saveErrCmd(int id, sRtuCount &count);
     void setOffLine();
+    void clearCount();
 
 signals:
 
@@ -29,7 +30,8 @@ private slots:
 private:
     bool isRun;
 
-    SIDataPackets *mPackets;
+    SI_DpThread *mDpThread;
+    sDevPackets *mPackets;
     SI_RtuThread *mRtu;
 };
 

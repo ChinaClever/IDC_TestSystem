@@ -18,6 +18,7 @@ public:
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     int transData(int addr, int line, sDataPacket *pkt, int msecs);
     QByteArray getSentCmd();
+    QByteArray getRecvCmd();
 
 protected:
     void devData(SI_Rtu_Recv *pkt, sDataPacket *packet);
@@ -30,8 +31,8 @@ signals:
 public slots:
 
 private:
-    uchar *mBuf;
-    int mLen;
+    uchar *mSentBuf, *mRecvBuf;
+    int mSentLen, mRecvLen;
 
     SerialPort *mSerial;
     QMutex *mMutex;

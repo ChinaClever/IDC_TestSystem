@@ -2,32 +2,13 @@
 #define SI_TRANSTABLEWID_H
 
 #include "si_thresholdtablewid.h"
+#include "tablewid/transtablewid.h"
 
-class SI_TransTableWid : public ComTableWid
+class SI_TransTableWid : public TransTableWid
 {
     Q_OBJECT
 public:
     explicit SI_TransTableWid(QWidget *parent = nullptr);
-
-protected:
-    void initWid();
-    void updateData();
-
-    void setDevName(int id, int column);
-    void setDevState(int id, int column);
-
-    sDataPacket *getPacket(int id);
-    void setValue(int id, int column, int value);
-    void setAllValue(int id, int column);
-    void setOK(int id, int column);
-    void setErr(int id, int column);
-signals:
-
-public slots:
-    void timeoutDone();
-
-private:
-    QTimer *timer;
 };
 
 #endif // SI_TRANSTABLEWID_H

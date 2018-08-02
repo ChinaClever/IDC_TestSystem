@@ -9,11 +9,7 @@
 LineTableWid::LineTableWid(QWidget *parent) : ComTableWid(parent)
 {
     mPackets = NULL;
-    initWid();
-
-    timer = new QTimer(this);
-    timer->start(1*1000);
-    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    initWid();    
 }
 
 void LineTableWid::initWid()

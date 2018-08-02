@@ -117,7 +117,7 @@ void IP_SimulateThread::workDown()
     IpConfigItem *item = IP_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
-    for(int k=0; k<=mPackets->devNum; ++k)
+    for(int k=1; k<=mPackets->devNum; ++k)
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);

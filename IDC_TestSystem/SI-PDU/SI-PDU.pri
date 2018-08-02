@@ -48,7 +48,13 @@ HEADERS += \
     $$PWD/si_sql/sidbthresholds.h \
     $$PWD/si_sql/sidbalarm.h \
     $$PWD/si_service/json/si_buildjson.h \
-    $$PWD/si_service/si_servicethread.h
+    $$PWD/si_service/si_servicethread.h \
+    $$PWD/si_dp/si_dpalarmsave.h \
+    $$PWD/si_dp/si_dpsavethreshold.h \
+    $$PWD/si_dp/si_dpsaveenv.h \
+    $$PWD/si_dp/si_dpsaverecord.h \
+    $$PWD/si_dp/si_dpthread.h \
+    $$PWD/si_dp/si_dpsavetrans.h
 
 	
 SOURCES += \
@@ -97,7 +103,13 @@ SOURCES += \
     $$PWD/si_sql/sidbthresholds.cpp \
     $$PWD/si_sql/sidbalarm.cpp \
     $$PWD/si_service/json/si_buildjson.cpp \
-    $$PWD/si_service/si_servicethread.cpp
+    $$PWD/si_service/si_servicethread.cpp \
+    $$PWD/si_dp/si_dpalarmsave.cpp \
+    $$PWD/si_dp/si_dpsavethreshold.cpp \
+    $$PWD/si_dp/si_dpsaveenv.cpp \
+    $$PWD/si_dp/si_dpsaverecord.cpp \
+    $$PWD/si_dp/si_dpthread.cpp \
+    $$PWD/si_dp/si_dpsavetrans.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \

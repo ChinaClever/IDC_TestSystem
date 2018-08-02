@@ -20,7 +20,6 @@ protected:
     virtual void updateData();
 
 protected:
-    QTimer *timer;
     sDevPackets *mPackets;
 };
 

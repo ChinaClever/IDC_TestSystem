@@ -16,6 +16,10 @@ ComTableWid::ComTableWid(QWidget *parent) :
     ui->setupUi(this);
     groupBox_background_icon(this);
 
+    timer = new QTimer(this);
+    timer->start(1*1000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
     //    QGridLayout *gridLayout = new QGridLayout(parent);
     //    gridLayout->setContentsMargins(0, 0, 0, 0);
     //    gridLayout->addWidget(this);
