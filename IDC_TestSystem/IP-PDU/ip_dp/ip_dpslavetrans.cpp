@@ -9,6 +9,6 @@
 
 IP_DpSlaveTrans::IP_DpSlaveTrans(QObject *parent) : DpSaveTrans(parent)
 {
-     mPackets = IpDataPackets::bulid()->packets;
+
 }
 

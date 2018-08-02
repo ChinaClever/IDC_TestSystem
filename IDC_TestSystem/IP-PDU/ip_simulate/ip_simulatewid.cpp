@@ -25,17 +25,23 @@ IP_SimulateWid::~IP_SimulateWid()
 
 void IP_SimulateWid::initFunSLot()
 {
-    mDevTableWid = new IP_DevTableWid(ui->stackedWid);
+    sDevPackets *packets = IpDataPackets::bulid()->packets;
+
+    mDevTableWid = new LineTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mDevTableWid);
+    mDevTableWid->initPackets(packets);
 
-    mEnvTableWid = new IP_EnvTableWid(ui->stackedWid);
+    mEnvTableWid = new EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
+    mEnvTableWid->initPackets(packets);
 
-    mThresholdTableWid = new IP_ThresholdTableWid(ui->stackedWid);
+    mThresholdTableWid = new LineThresholdTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mThresholdTableWid);
+    mThresholdTableWid->initPackets(packets);
 
-    mTransTableWid = new IP_TransTableWid(ui->stackedWid);
+    mTransTableWid = new TransTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTransTableWid);
+    mTransTableWid->initPackets(packets);
 }
 
 void IP_SimulateWid:: simulateSlot(int id)

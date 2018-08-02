@@ -6,7 +6,6 @@
 #include "si_simulate/si_simulatethread.h"
 #include "si_logs/silogalarmwid.h"
 #include "si_simulate/si_devtablewid.h"
-#include "si_logsthread/si_thresholdlogthread.h"
 #include "si_setting/si_setmainwid.h"
 #include "si_service/si_servicethread.h"
 
@@ -47,8 +46,6 @@ private:
     SiLogModbusTransWid *mLogModbusTransWid;
     SiLogRealRecordWid *mLogRealRecordWid;
     SiLogThresholdWid *mLogThresholdWid;
-
-    QList<SI_ComLogThread *> mLogThreads;
     SI_ServiceThread *mServiceThread;
 };
 

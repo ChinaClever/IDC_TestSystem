@@ -8,5 +8,5 @@
 
 SI_DpSaveEnv::SI_DpSaveEnv(QObject *parent) : DpSaveEnv(parent)
 {
-    mPackets = SIDataPackets::bulid()->packets;
+
 }

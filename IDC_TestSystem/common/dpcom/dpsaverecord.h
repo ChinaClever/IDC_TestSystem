@@ -12,6 +12,7 @@ public:
     ~DpSaveRecord();
 
     void run();
+    void initPackets(sDevPackets *packets) { mPackets = packets; }
 protected:
     virtual void saveLogs();
     virtual void saveLogItem(int id)=0;

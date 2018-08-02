@@ -8,5 +8,5 @@
 
 SI_DpSaveThreshold::SI_DpSaveThreshold(QObject *parent) : DpSaveLineThreshold(parent)
 {
-    mPackets = SIDataPackets::bulid()->packets;
+
 }

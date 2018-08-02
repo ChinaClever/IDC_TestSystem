@@ -8,7 +8,7 @@
 
 IP_DpSaveThreshold::IP_DpSaveThreshold(QObject *parent) : DpSaveLineThreshold(parent)
 {
-     mPackets = IpDataPackets::bulid()->packets;
+
 }
 
 

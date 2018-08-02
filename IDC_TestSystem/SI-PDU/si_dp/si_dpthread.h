@@ -2,34 +2,19 @@
 #define SI_DPTHREAD_H
 
 #include "si_dpsavetrans.h"
+#include "dpcom/dpthread.h"
+#include "si_sql/sidbmodbuscmd.h"
 
-class SI_DpThread : public QThread
+class SI_DpThread : public DpThread
 {
     Q_OBJECT
 public:
     explicit SI_DpThread(QObject *parent = nullptr);
-    ~SI_DpThread();
-
-    void saveModbusCmd(QStringList &list);
 
 protected:
-    void run();
-    void workDone();
-
-protected slots:
-    void timeoutDone();
-
-private:
-    int mCount;
-    bool isRun, isSave;
-    QTimer *timer;
-    QReadWriteLock *mRwLock;
-
-    SI_DpAlarmSave *mAlarmSlave;
-    SI_DpSaveEnv *mEnv;
-    SI_DpSaveThreshold *mThreshold;
-    SI_DpSaveRecord *mRecord;
-    SI_DpSaveTrans *mTrans;
+     void insertItem(DbModbusCmdItem &item){SiDbModbusCmd::bulid()->insertItem(item);}
+     int getTimeOut() {return SiConfigFile::bulid()->item->logMins;}
+     bool getStart();
 };
 
 #endif // SI_DPTHREAD_H

@@ -1,8 +1,10 @@
 #ifndef IP_SIMULATEWID_H
 #define IP_SIMULATEWID_H
 
-#include "ip_transtablewid.h"
 #include "ip_simulatethread.h"
+#include "tablewid/linethresholdtablewid.h"
+#include "tablewid/envtablewid.h"
+#include "tablewid/transtablewid.h"
 
 namespace Ui {
 class IP_SimulateWid;
@@ -25,10 +27,11 @@ protected slots:
 private:
     Ui::IP_SimulateWid *ui;
 
-    IP_DevTableWid *mDevTableWid;
-    IP_EnvTableWid *mEnvTableWid;
-    IP_ThresholdTableWid *mThresholdTableWid;
-    IP_TransTableWid *mTransTableWid;
+    LineTableWid *mDevTableWid;
+    EnvTableWid *mEnvTableWid;
+
+    LineThresholdTableWid *mThresholdTableWid;
+    TransTableWid *mTransTableWid;
     IP_SimulateThread *mSimulateThread;
 };
 

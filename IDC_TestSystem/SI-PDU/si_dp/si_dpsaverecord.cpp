@@ -8,5 +8,5 @@
 
 SI_DpSaveRecord::SI_DpSaveRecord(QObject *parent) : DpSaveLine(parent)
 {
-    mPackets = SIDataPackets::bulid()->packets;
+
 }

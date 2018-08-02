@@ -54,25 +54,18 @@ void SIMainWid::initWid()
 
     mLogModbusTransWid = new SiLogModbusTransWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogModbusTransWid);
-    mLogThreads.append(new SI_TransLogThread(this));
 
     mLogEnvWid = new SiLogEnvWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogEnvWid);
-    mLogThreads.append(new SI_EnvLogThread(this));
 
     mLogRealRecordWid = new SiLogRealRecordWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogRealRecordWid);
-    mLogThreads.append(new SI_RecordLogThread(this));
 
     mLogThresholdWid = new SiLogThresholdWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogThresholdWid);
-    mLogThreads.append(new SI_ThresholdLogThread(this));
 
     mLogAlarmWid = new SiLogAlarmWid(ui->stackedWid);
     ui->stackedWid->addWidget(mLogAlarmWid);
-
-    for(int i=0; i<mLogThreads.size(); ++i)
-        connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogThreads.at(i), SLOT(toolBoxSlot(int)));
 }
 
 void SIMainWid::toolBoxSlot(int id)

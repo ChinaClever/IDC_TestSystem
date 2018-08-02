@@ -9,5 +9,5 @@
 
 IP_DpSlaveEnv::IP_DpSlaveEnv(QObject *parent) : DpSaveEnv(parent)
 {
-     mPackets = IpDataPackets::bulid()->packets;
+
 }

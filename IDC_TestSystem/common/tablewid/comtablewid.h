@@ -16,6 +16,7 @@ public:
     explicit ComTableWid(QWidget *parent = 0);
     ~ComTableWid();
 
+    void initPackets(sDevPackets *packets) { mPackets = packets; }
 protected:
     void initTableWid(QStringList &header, int line, const QString &title);
     void setTableItem(int id, int column, const QString &str);
@@ -31,6 +32,7 @@ protected slots:
 
 protected:
     QTimer *timer;
+    sDevPackets *mPackets;
 
 private:
     void initTableWidget(QStringList &header);

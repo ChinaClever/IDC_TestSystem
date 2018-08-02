@@ -2,34 +2,19 @@
 #define IP_DPTHREAD_H
 
 #include "ip_dpalarmslave.h"
+#include "dpcom/dpthread.h"
+#include "ip_sql/ipdbmodbuscmd.h"
 
-class IP_DpThread : public QThread
+class IP_DpThread : public DpThread
 {
     Q_OBJECT
 public:
     explicit IP_DpThread(QObject *parent = nullptr);
-    ~IP_DpThread();
-
-    void saveModbusCmd(QStringList &list);
 
 protected:
-    void run();
-    void workDone();
-
-protected slots:
-    void timeoutDone();
-
-private:
-    int mCount;
-    bool isRun, isSave;
-    QTimer *timer;
-    QReadWriteLock *mRwLock;
-
-    IP_DpAlarmSlave *mAlarmSlave;
-    IP_DpSlaveEnv *mEnv;
-    IP_DpSaveThreshold *mThreshold;
-    IP_DpSlaveRecord *mRecord;
-    IP_DpSlaveTrans *mTrans;
+     void insertItem(DbModbusCmdItem &item){IpDbModbusCmd::bulid()->insertItem(item);}
+     int getTimeOut() {return IP_ConfigFile::bulid()->item->logMins;}
+     bool getStart();
 };
 
 #endif // IP_DPTHREAD_H

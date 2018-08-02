@@ -8,5 +8,5 @@
 
 SI_DpSaveTrans::SI_DpSaveTrans(QObject *parent) : DpSaveTrans(parent)
 {
-    mPackets = SIDataPackets::bulid()->packets;
+
 }

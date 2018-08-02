@@ -9,5 +9,5 @@
 
 IP_DpSlaveRecord::IP_DpSlaveRecord(QObject *parent) : DpSaveLine(parent)
 {
-     mPackets = IpDataPackets::bulid()->packets;
+
 }

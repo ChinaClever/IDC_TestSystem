@@ -6,7 +6,6 @@
  */
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
-#include "si_logsthread/si_alarmlogthread.h"
 
 SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
 {

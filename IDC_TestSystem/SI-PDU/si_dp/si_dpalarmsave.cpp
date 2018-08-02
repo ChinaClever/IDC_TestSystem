@@ -8,5 +8,5 @@
 
 SI_DpAlarmSave::SI_DpAlarmSave(QObject *parent) : DpAlarmSave(parent)
 {
-     mPackets = SIDataPackets::bulid()->packets;
+
 }
