@@ -117,12 +117,7 @@ void SI_RtuThread::devData(SI_Rtu_Recv *pkt, sDataPacket *packet)
     envData(pkt->data, packet->data.env);
 }
 
-/**
- * @brief Modbus数据读取
- * @param addr 设备地址
- * @param line
- */
-int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
+int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
 {
     char offLine = 0;
     uchar *sent = mSentBuf, *recv = mRecvBuf;
@@ -134,10 +129,9 @@ int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
 
     if(rtn > 0)
     {
-        bool ret = mRtuRecv->recvPacket(recv, rtn, mRtuPkt); // 解释数据
+        bool ret = mRtuRecv->recvPacket(recv, rtn, pkt); // 解释数据
         if(ret) {
-            if(addr == mRtuPkt->addr) {
-                devData(mRtuPkt, pkt);
+            if(addr == pkt->addr) {
                 offLine = 1;
             }
         }
@@ -145,6 +139,21 @@ int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
     pkt->offLine = offLine;
 
     return offLine;
+}
+
+/**
+ * @brief Modbus数据读取
+ * @param addr 设备地址
+ * @param line
+ */
+int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
+{
+    int ret = transData(addr, line, mRtuPkt, msecs);
+    if(ret) {
+        devData(mRtuPkt, pkt);
+    }
+
+    return ret;
 }
 
 

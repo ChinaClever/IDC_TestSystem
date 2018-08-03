@@ -40,9 +40,7 @@ void SI_AddrSetWid::updateData(SI_Rtu_Recv *pkt)
     int addr = ui->addrSpinBox->value();
     int line = ui->comboBox->currentIndex() + 1;
 
-    //////////==================
-//    int ret = SI_RtuThread::bulid()->transData(addr, line, pkt, 25);
-    int ret = 0;
+    int ret = SI_RtuThread::bulid()->transData(addr, line, pkt, 25);
     if(ret > 0) {
         emit updateSig(addr);
         InfoMsgBox box(this, tr("与设备连接成功，数据已刷新!!"));

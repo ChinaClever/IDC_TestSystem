@@ -17,6 +17,7 @@ public:
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     int transData(int addr, int line, sDataPacket *pkt, int msecs);
+    int transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
