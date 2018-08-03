@@ -8,8 +8,7 @@
 
 LineTableWid::LineTableWid(QWidget *parent) : ComTableWid(parent)
 {
-    mPackets = NULL;
-    initWid();    
+    initWid();
 }
 
 void LineTableWid::initWid()
@@ -27,7 +26,7 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
     int column=2, swAlarm=0;
 
     int value = unit.sw;
-    if(value == 0) swAlarm = 2;
+    if(value == 1) swAlarm = 2;
     setItemColor(row, column++, swAlarm);
 
     value = unit.vol.alarm;
@@ -41,10 +40,9 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
 
 void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
-    QString  str = "---";
-    switch (unit.sw) {
-    case 0: str = tr("断开"); break;
-    case 1: str = tr("闭合"); break;
+    QString  str = tr("闭合");;
+    if(unit.sw == 1) {
+        str = tr("断开");
     }
     list << str;
 
@@ -74,7 +72,7 @@ int LineTableWid::updateDev(sDataPacket *dev, int row)
             QStringList list;
             list << QString::number(dev->id);
             QString str = dev->data.line[i].name;
-            if(str.isEmpty()) list << ("L"+QString::number(i+1));
+            if(str.isEmpty()) list << ("L "+QString::number(i+1));
 
             setObjUnit(dev->data.line[i],  list);
             setAlarm(dev->data.line[i],  row);
@@ -98,6 +96,8 @@ void LineTableWid::updateData()
             sDataPacket *dev = &(mPackets->dev[i]);
             row = updateDev(dev, row);
         }
+    } else {
+        qDebug() << "mPackets is NULL";
     }
 
     checkTableRow(row);

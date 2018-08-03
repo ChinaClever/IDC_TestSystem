@@ -16,7 +16,8 @@ void EnvTableWid::initWid()
 {
     QString title = tr("设备环境信息");
     QStringList header;
-    header << tr("设备号") << tr("温度") << tr("温度下限") << tr("温度上限")
+    header << tr("设备号") << tr("传感器")
+           << tr("温度") << tr("温度下限") << tr("温度上限")
            << tr("湿度") << tr("湿度下限") << tr("湿度上限");
     initTableWid(header, 1, title);
 }
@@ -65,7 +66,7 @@ int EnvTableWid::updateDev(sDataPacket *dev, int row)
         {
             QStringList list;
             list << QString::number(dev->id);
-            list << ("传感器"+QString::number(i+1));
+            list << tr("传感器 %1").arg(i+1);
             setObjUnit(dev->data.env, i,  list);
             setAlarm(dev->data.env, i,  row);
             setTableRow(row++, list);

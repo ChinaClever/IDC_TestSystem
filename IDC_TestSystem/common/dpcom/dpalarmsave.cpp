@@ -22,7 +22,7 @@ DpAlarmSave::DpAlarmSave(QObject *parent) : DpSaveRecord(parent)
 void DpAlarmSave::saveMsg(int id, int line, const QString &typeStr, const QString &str)
 {
     DbAlarmItem item;
-    item.dev_id = id+1;
+    item.dev_id = id;
     item.line = line+1;
     item.type_str = typeStr;
     item.msg = str;

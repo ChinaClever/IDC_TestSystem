@@ -28,6 +28,7 @@ void DpThread::saveModbusCmd(QStringList &list)
 {
     DbModbusCmdItem item;
     item.dev_id = list.at(0).toInt();
+    item.msg = list.at(1);
 
     QWriteLocker locker(mRwLock); // 正在操作时不允许关闭
     insertItem(item);

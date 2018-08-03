@@ -18,9 +18,6 @@ protected:
     virtual void setObjUnit(sObjData &unit, QStringList &list);
     virtual int updateDev(sDataPacket *dev, int row);
     virtual void updateData();
-
-protected:
-    sDevPackets *mPackets;
 };
 
 #endif // LINETABLEWID_H

@@ -119,7 +119,7 @@ void SI_RtuThread::devData(SI_Rtu_Recv *pkt, sDataPacket *packet)
 
 int SI_RtuThread::transData(int addr, int line, SI_Rtu_Recv *pkt, int msecs)
 {
-    char offLine = 0;
+    uchar offLine = 0;
     uchar *sent = mSentBuf, *recv = mRecvBuf;
 
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, line,sent); // 把数据打包成通讯格式的数据
