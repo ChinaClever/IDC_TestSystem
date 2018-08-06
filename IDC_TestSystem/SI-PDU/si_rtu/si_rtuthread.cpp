@@ -151,6 +151,8 @@ int SI_RtuThread::transData(int addr, int line, sDataPacket *pkt, int msecs)
     int ret = transData(addr, line, mRtuPkt, msecs);
     if(ret) {
         devData(mRtuPkt, pkt);
+    } else {
+        pkt->id = addr;
     }
 
     return ret;

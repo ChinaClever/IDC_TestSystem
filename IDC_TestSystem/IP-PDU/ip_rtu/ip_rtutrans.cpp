@@ -140,6 +140,7 @@ int IP_RtuTrans::transData(int addr, int line, sDataPacket *pkt, int msecs)
         }
     }
     pkt->offLine = offLine;
+    if(!offLine) pkt->id = addr;
 
     return offLine;
 }

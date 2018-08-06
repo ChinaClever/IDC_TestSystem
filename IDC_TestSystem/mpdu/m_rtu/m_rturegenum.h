@@ -24,16 +24,17 @@ enum BUS_SetCmdEnum {
     M_RtuReg_LineSwSize = 289-M_RtuReg_LineSw+1,
 
     M_RtuReg_EnvThresholdData = 323,
-    M_RtuReg_EnvputThresholdSize = 330-M_RtuReg_EnvThresholdData+1,
+    M_RtuReg_EnvThresholdSize = 330-M_RtuReg_EnvThresholdData+1,
 
-    M_RtuReg_OutputSw = 339,
-    M_RtuReg_OutputSwSize = 386-M_RtuReg_OutputSw+1,
-
-    M_RtuReg_DevAddr = 331,
+    M_RtuReg_DevAddr = 332,
     M_RtuReg_DevAddrSize = 338-M_RtuReg_DevAddr+1,
 
-    M_RtuReg_DevVersion = 387,
-    M_RtuReg_DevVerSize = 387-M_RtuReg_DevAddr+1,
+    M_RtuReg_LineNum = 331,
+    M_RtuReg_LineNumSize = 331-M_RtuReg_LineNum+1,
+
+    M_RtuReg_OutputSw = 339,
+    M_RtuReg_OutputSwSize = 387-M_RtuReg_OutputSw+1,
+
 };
 
 #endif // M_RTUREGENUM_H

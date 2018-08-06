@@ -162,7 +162,7 @@
     <number>1</number>
    </property>
    <property name="maximum">
-    <number>18</number>
+    <number>33</number>
    </property>
   </widget>
   <widget class="QComboBox" name="timeBox">

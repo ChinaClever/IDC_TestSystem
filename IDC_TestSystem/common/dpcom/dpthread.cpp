@@ -11,6 +11,7 @@ DpThread::DpThread(QObject *parent) : QThread(parent)
     mTrans = nullptr;
     mAlarmSlave = nullptr;
     mLineThreshold = nullptr;
+    mOutput = nullptr;
 
     timer = new QTimer(this);
     timer->start(60*1000);
@@ -45,6 +46,7 @@ void DpThread::workDone()
         if(mEnv) mEnv->run();
         if(mLine) mLine->run();
         if(mTrans) mTrans->run();
+        if(mOutput) mOutput->run();
         if(mLineThreshold) mLineThreshold->run();
     }
 }
@@ -80,4 +82,5 @@ void DpThread::initPackets(sDevPackets *packets)
     mTrans->initPackets(packets);
     mAlarmSlave->initPackets(packets);
     mLineThreshold->initPackets(packets);
+    if(mOutput) mOutput->initPackets(packets);
 }

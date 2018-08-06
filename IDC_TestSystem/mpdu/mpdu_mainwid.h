@@ -3,6 +3,8 @@
 
 #include "mpdu_toolbox/mpdu_toolboxwid.h"
 #include "mpdu_rtu_test/mpdurtutest_mainwid.h"
+#include "m_logs/m_logswid.h"
+#include "m_simulate/m_simulatewid.h"
 
 namespace Ui {
 class MPDU_MainWid;
@@ -18,12 +20,15 @@ public:
 
 protected slots:
     void initFunSLot();
+    void toolBoxSlot(int);
 
 private:
     Ui::MPDU_MainWid *ui;
     MPDU_ToolBoxWid *mtoolBoxWid;
     MpduRtuTest_MainWid *mTestWid;
 
+    M_SimulateWid *mSimulateWid;
+    M_LogsWid *mLogsWid;
 };
 
 #endif // MPDU_MAINWID_H

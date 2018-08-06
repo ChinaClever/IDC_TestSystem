@@ -33,33 +33,170 @@ int M_RtuRecv::rtuRecvHead(uchar *ptr,  M_sRtuRecv *pkt)
     pkt->len = (*ptr); /*数据长度*/
     if(pkt->len > SERIAL_LEN) pkt->len = 0;
 
-    return 3;
+    return pkt->len;
+}
+
+uchar *M_RtuRecv::rtuRecvData(uchar *ptr, int num, uint *value)
+{
+    for(int i=0; i<num; ++i) {
+        value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
+        value[i] <<= 8; // 左移8位
+        value[i] +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
+    }
+
+    return ptr;
+}
+
+uchar *M_RtuRecv::rtuRecvData(uchar *ptr, int num, ushort *value)
+{
+    for(int i=0; i<num; ++i) {
+        value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return ptr;
 }
 
 
+void M_RtuRecv::rtuLineData(uchar *buf, M_sObjData &pkt)
+{
+    int num = 3;
+    buf = rtuRecvData(buf, num, pkt.vol.value);
+    buf = rtuRecvData(buf, num, pkt.cur.value);
+    buf = rtuRecvData(buf, num, pkt.pow);
+    buf = rtuRecvData(buf, num, pkt.ele);
+    buf = rtuRecvData(buf, num, pkt.pf);
+}
+
+void M_RtuRecv::rtuOutputData(uchar *buf, M_sObjData &pkt)
+{
+    int num = 24;
+    buf = rtuRecvData(buf, num, pkt.cur.value);
+    buf = rtuRecvData(buf, num, pkt.pow);
+}
+
+void M_RtuRecv::rtuOutputEle(uchar *buf, M_sObjData &pkt)
+{
+    int num = 24;
+    buf = rtuRecvData(buf, num, pkt.ele);
+    buf = rtuRecvData(buf, num, pkt.pf);
+}
+
+void M_RtuRecv::rtuEnvData(uchar *buf, M_sRtuPacket &pkt)
+{
+    int num = 2;
+    buf = rtuRecvData(buf, num, pkt.tem.value);
+    buf = rtuRecvData(buf, num, pkt.hum.value);
+}
+
+void M_RtuRecv::rtuLineThreshold(uchar *buf, M_sObjData &pkt)
+{
+    int num = 3;
+    buf = rtuRecvData(buf, num, pkt.vol.min);
+    buf = rtuRecvData(buf, num, pkt.vol.max);
+
+    buf = rtuRecvData(buf, num, pkt.cur.min);
+    buf = rtuRecvData(buf, num, pkt.cur.max);
+}
+
+void M_RtuRecv::rtuOutputThreshold(uchar *buf, M_sObjData &pkt)
+{
+    int num = 24;
+    buf = rtuRecvData(buf, num, pkt.cur.min);
+    buf = rtuRecvData(buf, num, pkt.cur.max);
+}
+
+void M_RtuRecv::rtuLineSw(uchar *buf, M_sObjData &pkt)
+{
+    int num = 3;
+    buf = rtuRecvData(buf, num, pkt.sw);
+}
+
+void M_RtuRecv::rtuOutputSw(uchar *buf, M_sRtuPacket &pkt)
+{
+    int num = 24;
+    buf = rtuRecvData(buf, num, pkt.output.sw);
+    buf = rtuRecvData(buf, num, pkt.output.delay);
+
+    rtuRecvData(buf, 1, &(pkt.version));
+}
+
+void M_RtuRecv::rtuEnvThreshold(uchar *buf, M_sRtuPacket &pkt)
+{
+    int num = 3;
+    buf = rtuRecvData(buf, num, pkt.tem.min);
+    buf = rtuRecvData(buf, num, pkt.tem.max);
+
+    buf = rtuRecvData(buf, num, pkt.hum.min);
+    buf = rtuRecvData(buf, num, pkt.hum.max);
+}
+
+void M_RtuRecv::rtuDevAddr(uchar *buf, M_sRtuPacket &pkt)
+{
+    int num = 1;
+    buf = rtuRecvData(buf, num, &(pkt.id));
+    buf = rtuRecvData(buf, num, &(pkt.devSpec));
+    buf = rtuRecvData(buf, num, &(pkt.br));
+
+    memcpy(pkt.ip, buf, 8);
+}
+
+void M_RtuRecv::rtuLineNum(uchar *buf, M_sObjData &pkt)
+{
+    int num = 1;
+    buf = rtuRecvData(buf, num, &(pkt.num));
+}
 
 bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
 {
-    bool ret = false;
-
-//    int line = rtu_recv_len(buf, len);
-//    if(line > 0) {
-//        uchar *ptr=buf;
-//        ptr += rtu_recv_head(ptr, pkt);
-//        if(line > 1) {
-//            ptr += rtu_recv_dataV3(ptr, &(pkt->data));
-//        } else {
-//            ptr += rtu_recv_data(ptr, &(pkt->data));
-//        }
-
-//        pkt->v = line;
-//        ret = rtu_recv_crc(buf, len, pkt);
-//    }
+    bool ret = true;
+    int rtn = rtuRecvHead(buf,pkt);
+    if(rtn < len)
+    {
+        switch (rtn/2) {
+        case M_RtuReg_LineSize: // 相电压电流参数
+            rtuLineData(buf, pkt->data.line);
+            break;
+        case M_RtuReg_OutputSize:
+            rtuOutputData(buf, pkt->data.output);
+            break;
+        case M_RtuReg_OutputEleSize:
+            rtuOutputEle(buf, pkt->data.output);
+            break;
+        case M_RtuReg_EnvSize:
+            rtuEnvData(buf, pkt->data);
+            break;
+        case M_RtuReg_LineThresholdSize:
+            rtuLineThreshold(buf, pkt->data.line);
+            break;
+        case M_RtuReg_OutputThresholdSize:
+            rtuLineThreshold(buf, pkt->data.output);
+            break;
+        case M_RtuReg_LineSwSize:
+            rtuLineSw(buf, pkt->data.line);
+            break;
+        case M_RtuReg_OutputSwSize:
+            rtuOutputSw(buf, pkt->data);
+            break;
+        case M_RtuReg_EnvThresholdSize:
+            rtuEnvThreshold(buf, pkt->data);
+            break;
+        case M_RtuReg_DevAddrSize:
+            rtuDevAddr(buf, pkt->data);
+            break;
+        case M_RtuReg_LineNumSize:
+            rtuLineNum(buf, pkt->data.line);
+            break;
+        default:
+            ret = false;
+            qDebug() << "M_RtuRecv::rtuRecvPacket err" << rtn;
+            break;
+        }
+    } else {
+        ret = false;
+    }
 
     return ret;
 }
-
-
 
 bool M_RtuRecv::recvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
 {

@@ -20,19 +20,20 @@ struct M_sDataUnit {
  */
 struct M_sObjData
 {
-    int id, num;
+    ushort id, num;
     char name[NAME_SIZE];
 
-    sDataUnit vol; // 电压
-    sDataUnit cur; // 电流
+    M_sDataUnit vol; // 电压
+    M_sDataUnit cur; // 电流
 
     ushort pow[M_UNIT_NUM]; // 功率
     uint ele[M_UNIT_NUM]; // 电能
 
-    uchar pf[M_UNIT_NUM]; // 功率因素
-    uchar sw[M_UNIT_NUM]; // 开关状态 0 表示未启用
+    ushort pf[M_UNIT_NUM]; // 功率因素
+    ushort sw[M_UNIT_NUM]; // 开关状态 0 表示未启用
 
     ushort activePow[M_UNIT_NUM]; // 有功功率值
+    ushort delay[M_UNIT_NUM];
 };
 
 
@@ -45,6 +46,7 @@ struct M_sRtuPacket {
     M_sDataUnit hum; // 湿度
     ushort br;  // 00	表示波特率9600(00默认9600，01为4800，02为9600，03为19200，04为38400)
 
+    ushort id, devSpec;
     ushort version;
     uchar ip[18];
     ushort reserve;
@@ -61,7 +63,6 @@ struct M_sRtuRecv {
 };
 
 
-
 class M_RtuRecv
 {
 public:
@@ -73,6 +74,22 @@ protected:
     bool rtuRecvCrc(uchar *buf, int len, M_sRtuRecv *msg);
     int rtuRecvHead(uchar *ptr,  M_sRtuRecv *pkt);
 
+    uchar *rtuRecvData(uchar *ptr, int num, uint *value);
+    uchar *rtuRecvData(uchar *ptr, int num, ushort *value);
+
+    void rtuLineData(uchar *buf, M_sObjData &pkt);
+    void rtuOutputData(uchar *buf, M_sObjData &pkt);
+    void rtuOutputEle(uchar *buf, M_sObjData &pkt);
+
+    void rtuEnvData(uchar *buf, M_sRtuPacket &pkt);
+    void rtuLineThreshold(uchar *buf, M_sObjData &pkt);
+    void rtuOutputThreshold(uchar *buf, M_sObjData &pkt);
+
+    void rtuLineSw(uchar *buf, M_sObjData &pkt);
+    void rtuOutputSw(uchar *buf, M_sRtuPacket &pkt);
+    void rtuEnvThreshold(uchar *buf, M_sRtuPacket &pkt);
+    void rtuDevAddr(uchar *buf, M_sRtuPacket &pkt);
+    void rtuLineNum(uchar *buf, M_sObjData &pkt);
 };
 
 #endif // M_RTURECV_H
