@@ -31,6 +31,8 @@ private slots:
     void on_alarmBtn_clicked();
     void on_timeBtn_clicked();
 
+    void on_outputBtn_clicked();
+
 private:
     Ui::M_LogsToolWid *ui;
 };

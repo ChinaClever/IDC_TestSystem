@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>370</y>
+     <y>400</y>
      <width>100</width>
      <height>35</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>190</y>
+     <y>200</y>
      <width>100</width>
      <height>35</height>
     </rect>
@@ -43,26 +43,26 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>100</y>
+     <y>80</y>
      <width>100</width>
      <height>35</height>
     </rect>
    </property>
    <property name="text">
-    <string>设备信息</string>
+    <string>相位信息</string>
    </property>
   </widget>
   <widget class="QPushButton" name="thresholdBtn">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>280</y>
+     <y>270</y>
      <width>100</width>
      <height>35</height>
     </rect>
    </property>
    <property name="text">
-    <string>阈值信息</string>
+    <string>相位阈值</string>
    </property>
   </widget>
   <widget class="QPushButton" name="mnTestBtn">
@@ -89,6 +89,32 @@
    </property>
    <property name="text">
     <string>设备设置</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="outputBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>140</y>
+     <width>100</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>单元信息</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="outputThresholdBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>330</y>
+     <width>100</width>
+     <height>35</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>单元阈值</string>
    </property>
   </widget>
  </widget>

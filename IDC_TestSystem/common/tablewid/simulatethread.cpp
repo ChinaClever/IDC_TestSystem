@@ -38,7 +38,7 @@ void SimulateThread::stopThread()
 void SimulateThread::setOffLine()
 {
     if(mPackets) {
-        for(int i=0; i<mPackets->devNum; ++i) {
+        for(int i=0; i<=mPackets->devNum; ++i) {
             mPackets->dev[i].offLine = 0;
         }
     }
@@ -47,7 +47,7 @@ void SimulateThread::setOffLine()
 void SimulateThread::clearCount()
 {
     if(mPackets) {
-        for(int i=0; i<mPackets->devNum; ++i)
+        for(int i=0; i<=mPackets->devNum; ++i)
         {
             sDataPacket *packet = &(mPackets->dev[i]);
             memset(&(packet->rtuCount), 0, sizeof(sRtuCount));

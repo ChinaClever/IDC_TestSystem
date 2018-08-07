@@ -15,7 +15,7 @@ public:
     int sentDataBuff(uchar addr,  ushort reg, ushort len, uchar *buf);
     int sentCmdBuff(uchar addr, ushort reg, ushort value, uchar *buf);
 
-private:
+protected:
     QMutex *mMutex;
     M_Rtu_Sent *mMsg;
 };

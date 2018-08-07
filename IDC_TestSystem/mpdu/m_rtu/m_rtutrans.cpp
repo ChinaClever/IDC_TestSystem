@@ -120,7 +120,7 @@ void M_RtuTrans::devData(M_sRtuPacket &rtuData, sDevData &data)
         devObjData(rtuData.line, i, data.line[i]);
     }
 
-    num = data.lineNum = 24;
+    num = data.outputNum = 24;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.output, i, data.output[i]);
     }

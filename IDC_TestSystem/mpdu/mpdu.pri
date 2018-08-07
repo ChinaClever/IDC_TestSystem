@@ -37,7 +37,8 @@ HEADERS += \
     $$PWD/m_logs/m_loglinethresholdwid.h \
     $$PWD/m_logs/m_logoutputrecordwid.h \
     $$PWD/m_logs/m_logswid.h \
-    $$PWD/m_simulate/m_simulatewid.h
+    $$PWD/m_simulate/m_simulatewid.h \
+    $$PWD/m_simulate/m_simulatethread.h
 
 	
 SOURCES += \
@@ -73,7 +74,8 @@ SOURCES += \
     $$PWD/m_logs/m_loglinethresholdwid.cpp \
     $$PWD/m_logs/m_logoutputrecordwid.cpp \
     $$PWD/m_logs/m_logswid.cpp \
-    $$PWD/m_simulate/m_simulatewid.cpp
+    $$PWD/m_simulate/m_simulatewid.cpp \
+    $$PWD/m_simulate/m_simulatethread.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \

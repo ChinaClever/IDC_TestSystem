@@ -83,6 +83,17 @@ void M_SimulationToolWid::on_envBtn_clicked()
 {
     emit simulateSig(M_Info_Env);
 }
+
+void M_SimulationToolWid::on_outputBtn_clicked()
+{
+    emit simulateSig(M_Info_Output);
+}
+
+void M_SimulationToolWid::on_outputThresholdBtn_clicked()
+{
+    emit simulateSig(M_Info_OutputThreshold);
+}
+
 void M_SimulationToolWid::on_settingBtn_clicked()
 {
 

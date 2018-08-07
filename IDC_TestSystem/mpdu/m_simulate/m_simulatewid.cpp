@@ -6,7 +6,7 @@ M_SimulateWid::M_SimulateWid(QWidget *parent) :
     ui(new Ui::M_SimulateWid)
 {
     ui->setupUi(this);
-
+    mSimulateThread = new M_SimulateThread(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -48,8 +48,8 @@ void M_SimulateWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    //    case M_Test_Stop: mSimulateThread->stopThread(); break;
-    //    case M_Test_Simulate: mSimulateThread->startThread(); break;
+    case M_Test_Stop: mSimulateThread->stopThread(); break;
+    case M_Test_Simulate: mSimulateThread->startThread(); break;
     case M_Info_Dev: wid = mDevTableWid; break;
     case M_Info_Trans: wid = mTransTableWid; break;
     case M_Info_Output: wid = mOutputTableWid; break;

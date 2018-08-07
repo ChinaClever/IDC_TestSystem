@@ -6,6 +6,7 @@
 #include "tablewid/envtablewid.h"
 #include "tablewid/transtablewid.h"
 #include "tablewid/outputthresholdtablewid.h"
+#include "m_simulatethread.h"
 
 namespace Ui {
 class M_SimulateWid;
@@ -34,6 +35,7 @@ private:
     OutputThresholdTableWid *mOutputThresholdTableWid;
     LineThresholdTableWid *mThresholdTableWid;
     TransTableWid *mTransTableWid;
+    M_SimulateThread *mSimulateThread;
 };
 
 #endif // M_SIMULATEWID_H

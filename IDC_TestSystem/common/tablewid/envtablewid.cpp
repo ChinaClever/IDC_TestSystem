@@ -27,11 +27,11 @@ void EnvTableWid::setAlarm(sEnvData &unit, int id, int row)
 {
     int value = unit.tem[id].alarm;
     if(value) value = 2;
-    setItemColor(row, 1, value);
+    setItemColor(row, 2, value);
 
     value = unit.hum[id].alarm;
     if(value) value = 2;
-    setItemColor(row, 4, value);
+    setItemColor(row, 5, value);
 }
 
 

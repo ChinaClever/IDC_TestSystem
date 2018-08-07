@@ -122,12 +122,16 @@ void M_RtuRecv::rtuOutputSw(uchar *buf, M_sRtuPacket &pkt)
 
 void M_RtuRecv::rtuEnvThreshold(uchar *buf, M_sRtuPacket &pkt)
 {
-    int num = 3;
-    buf = rtuRecvData(buf, num, pkt.tem.min);
-    buf = rtuRecvData(buf, num, pkt.tem.max);
+    int num = 2;
+    for(int i=0; i<num; ++i) {
+        buf = rtuRecvData(buf, 1, &(pkt.tem.min[i]));
+        buf = rtuRecvData(buf, 1, &(pkt.hum.min[i]));
+    }
 
-    buf = rtuRecvData(buf, num, pkt.hum.min);
-    buf = rtuRecvData(buf, num, pkt.hum.max);
+    for(int i=0; i<num; ++i) {
+        buf = rtuRecvData(buf, 1, &(pkt.tem.max[i]));
+        buf = rtuRecvData(buf, 1, &(pkt.hum.max[i]));
+    }
 }
 
 void M_RtuRecv::rtuDevAddr(uchar *buf, M_sRtuPacket &pkt)
@@ -152,6 +156,7 @@ bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
     int rtn = rtuRecvHead(buf,pkt);
     if(rtn < len)
     {
+        buf += 3;
         switch (rtn/2) {
         case M_RtuReg_LineSize: // 相电压电流参数
             rtuLineData(buf, pkt->data.line);
@@ -169,7 +174,7 @@ bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
             rtuLineThreshold(buf, pkt->data.line);
             break;
         case M_RtuReg_OutputThresholdSize:
-            rtuLineThreshold(buf, pkt->data.output);
+            rtuOutputThreshold(buf, pkt->data.output);
             break;
         case M_RtuReg_LineSwSize:
             rtuLineSw(buf, pkt->data.line);

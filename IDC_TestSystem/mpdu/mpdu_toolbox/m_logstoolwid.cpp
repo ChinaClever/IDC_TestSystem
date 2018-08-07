@@ -75,4 +75,7 @@ void M_LogsToolWid::on_alarmBtn_clicked()
     emit logsSig(M_Log_Alarm);
 }
 
-
+void M_LogsToolWid::on_outputBtn_clicked()
+{
+    emit logsSig(M_Log_Output);
+}

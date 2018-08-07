@@ -30,6 +30,10 @@ private slots:
     void on_envBtn_clicked();
     void on_settingBtn_clicked();
 
+    void on_outputBtn_clicked();
+
+    void on_outputThresholdBtn_clicked();
+
 private:
     Ui::M_SimulationToolWid *ui;
 };

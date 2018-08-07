@@ -1,7 +1,7 @@
 #ifndef M_RTUREGENUM_H
 #define M_RTUREGENUM_H
 
-enum BUS_SetCmdEnum {
+enum M_SetCmdEnum {
     M_RtuReg_LineData = 0,
     M_RtuReg_LineSize = 17-M_RtuReg_LineData+1,
 
@@ -34,7 +34,6 @@ enum BUS_SetCmdEnum {
 
     M_RtuReg_OutputSw = 339,
     M_RtuReg_OutputSwSize = 387-M_RtuReg_OutputSw+1,
-
 };
 
 #endif // M_RTUREGENUM_H
