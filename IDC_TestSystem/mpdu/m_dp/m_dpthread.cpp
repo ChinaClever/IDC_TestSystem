@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_dpthread.h"
 
 M_DpThread::M_DpThread(QObject *parent) : DpThread(parent)

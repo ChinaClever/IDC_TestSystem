@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_simulatethread.h"
 
 M_SimulateThread::M_SimulateThread(QObject *parent) : SimulateThread(parent)
@@ -25,8 +31,9 @@ void M_SimulateThread::writeErrCmd(int id)
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
 
-    strArray += tr(" (接收数据 %1：").arg(array.size());
+    strArray += tr(" (接收数据");
     array = mRtu->getRecvCmd();
+    strArray += " len=" +QString::number(array.size()) +": ";
     strArray += cm_ByteArrayToHexStr(array);
     strArray += ")";
 
@@ -53,7 +60,7 @@ void M_SimulateThread::workDown()
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);
-        for(int i=0; i<11; ++i)
+        for(int i=0; i<12; ++i)
         {
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);

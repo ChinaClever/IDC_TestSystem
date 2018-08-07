@@ -18,7 +18,10 @@ enum M_SetCmdEnum {
     M_RtuReg_LineThresholdSize = 156-M_RtuReg_LineThresholdData+1,
 
     M_RtuReg_OutputThresholdData = 157,
-    M_RtuReg_OutputThresholdSize = 252-M_RtuReg_OutputThresholdData+1,
+    M_RtuReg_OutputThresholdSize = 180-M_RtuReg_OutputThresholdData+1,
+
+    M_RtuReg_AlarmData = 229,
+    M_RtuReg_AlarmSize = 286-M_RtuReg_AlarmData+1,
 
     M_RtuReg_LineSw = 287,
     M_RtuReg_LineSwSize = 289-M_RtuReg_LineSw+1,

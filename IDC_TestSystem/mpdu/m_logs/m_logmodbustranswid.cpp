@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_logmodbustranswid.h"
 #include "m_sql/m_dbmodbustrans.h"
 

@@ -33,17 +33,19 @@ void MPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    mTestWid = new MpduRtuTest_MainWid(ui->stackedWid);
+    mTestWid = new MTest_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTestWid);
 
-//    mServiceThread = new IP_ServiceThread(this);
+    mServiceThread = new M_ServiceThread(this);
 }
 
 void MPDU_MainWid::toolBoxSlot(int id)
 {
-    if((id >= M_Info_Dev) && (id <= M_Info_Set)) {
+    if((id >= M_Info_Dev) && (id < M_Info_Set)) {
         ui->stackedWid->setCurrentWidget(mSimulateWid);
     } else if((id >= M_Log_Modbus) && (id <= M_Log_Alarm)) {
          ui->stackedWid->setCurrentWidget(mLogsWid);
+    } else if(id == M_Info_Set) {
+        ui->stackedWid->setCurrentWidget(mTestWid);
     }
 }

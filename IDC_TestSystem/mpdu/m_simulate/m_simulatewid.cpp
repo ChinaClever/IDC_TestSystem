@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_simulatewid.h"
 #include "ui_m_simulatewid.h"
 
@@ -19,6 +25,10 @@ void M_SimulateWid::initFunSLot()
 {
     sDevPackets *packets = M_DataPackets::bulid()->packets;
 
+    mOutputTableWid = new OutputTableWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mOutputTableWid);
+    mOutputTableWid->initPackets(packets);
+
     mDevTableWid = new LineTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mDevTableWid);
     mDevTableWid->initPackets(packets);
@@ -34,10 +44,6 @@ void M_SimulateWid::initFunSLot()
     mTransTableWid = new TransTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTransTableWid);
     mTransTableWid->initPackets(packets);
-
-    mOutputTableWid = new OutputTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mOutputTableWid);
-    mOutputTableWid->initPackets(packets);
 
     mOutputThresholdTableWid = new OutputThresholdTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mOutputThresholdTableWid);

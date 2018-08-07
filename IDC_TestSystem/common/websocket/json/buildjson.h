@@ -17,10 +17,12 @@ protected:
 
     void objData(sObjData *ObjData, QJsonObject &obj);
     void lineData(sDevData *ObjData, QJsonObject &json);
+    void outputData(sDevData *ObjData, QJsonObject &json);
 
     void thresholdItem(int index, int id, sDataUnit &unit, double rate, QJsonObject &json);
     void lineVolThreshold(sDevData *ObjData, QJsonArray &jsonArray);
     void lineCurThreshold(sDevData *ObjData, QJsonArray &jsonArray);
+    void outputCurThreshold(sDevData *ObjData, QJsonArray &jsonArray);
     void envThreshold(sDevData *ObjData, QJsonArray &jsonArray);
     void thresholds(sDevData *ObjData, QJsonObject &json);
 

@@ -123,6 +123,25 @@ void BuildJson::lineData(sDevData *ObjData, QJsonObject &json)
     if(num > 0) json.insert(QString("%1_item_list").arg(modeStr), QJsonValue(jsonArray));
 }
 
+void BuildJson::outputData(sDevData *ObjData, QJsonObject &json)
+{
+    QJsonArray jsonArray;
+    QString modeStr = "output";
+
+    int num = ObjData->outputNum;
+    for(int i=0; i<num; ++i)
+    {
+        QJsonObject subObj;
+        subObj.insert("id", i);
+        subObj.insert("name", modeStr +" "+ QString::number(i+1));
+
+        objData(&(ObjData->output[i]), subObj);
+        jsonArray.append(subObj);
+    }
+
+    if(num > 0) json.insert(QString("%1_item_list").arg(modeStr), QJsonValue(jsonArray));
+}
+
 void BuildJson::alarmItem(int index, int id, sDataUnit &unit, double rate, QJsonArray &jsonArray)
 {
     QString item, symbol, str="L";
@@ -212,6 +231,20 @@ void BuildJson::lineCurThreshold(sDevData *ObjData, QJsonArray &jsonArray)
     }
 }
 
+void BuildJson::outputCurThreshold(sDevData *ObjData, QJsonArray &jsonArray)
+{
+    int index = 3;
+
+    int num = ObjData->outputNum;
+    for(int i=0; i<num; ++i)
+    {
+        QJsonObject subObj;
+        thresholdItem(index, i, ObjData->output[i].cur, COM_RATE_CUR, subObj);
+        jsonArray.append(subObj);
+    }
+}
+
+
 void BuildJson::envThreshold(sDevData *ObjData, QJsonArray &jsonArray)
 {
     int index = 5;
@@ -237,6 +270,7 @@ void BuildJson::thresholds(sDevData *ObjData, QJsonObject &json)
 
     lineVolThreshold(ObjData, jsonArray);
     lineCurThreshold(ObjData, jsonArray);
+    outputCurThreshold(ObjData, jsonArray);
     envThreshold(ObjData, jsonArray);
 
     json.insert("threshold_item_list", QJsonValue(jsonArray));
@@ -294,6 +328,7 @@ void BuildJson::devData(sDataPacket *packet, QJsonObject &obj)
 {
     sDevData *devData = &(packet->data);
     lineData(devData, obj);
+    outputData(devData, obj);
     thresholds(devData, obj);
     envs(&(devData->env), obj);
     alarms(obj);

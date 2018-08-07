@@ -102,7 +102,14 @@ void M_RtuRecv::rtuOutputThreshold(uchar *buf, M_sObjData &pkt)
 {
     int num = 24;
     buf = rtuRecvData(buf, num, pkt.cur.min);
+//    buf = rtuRecvData(buf, num, pkt.cur.max);
+}
+
+void M_RtuRecv::rtuOutputMax(uchar *buf, M_sObjData &pkt)
+{
+    int num = 24;
     buf = rtuRecvData(buf, num, pkt.cur.max);
+//    buf = rtuRecvData(buf, num, pkt.cur.max);
 }
 
 void M_RtuRecv::rtuLineSw(uchar *buf, M_sObjData &pkt)
@@ -175,6 +182,9 @@ bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
             break;
         case M_RtuReg_OutputThresholdSize:
             rtuOutputThreshold(buf, pkt->data.output);
+            break;
+        case M_RtuReg_AlarmSize:
+            rtuOutputMax(buf, pkt->data.output);
             break;
         case M_RtuReg_LineSwSize:
             rtuLineSw(buf, pkt->data.line);

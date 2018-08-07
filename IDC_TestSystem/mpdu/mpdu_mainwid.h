@@ -1,10 +1,11 @@
 #ifndef MPDU_MAINWID_H
 #define MPDU_MAINWID_H
 
-#include "mpdu_toolbox/mpdu_toolboxwid.h"
-#include "mpdu_rtu_test/mpdurtutest_mainwid.h"
+#include "m_toolbox/mpdu_toolboxwid.h"
+#include "m_test/mtest_mainwid.h"
 #include "m_logs/m_logswid.h"
 #include "m_simulate/m_simulatewid.h"
+#include "m_service/m_servicethread.h"
 
 namespace Ui {
 class MPDU_MainWid;
@@ -25,10 +26,11 @@ protected slots:
 private:
     Ui::MPDU_MainWid *ui;
     MPDU_ToolBoxWid *mtoolBoxWid;
-    MpduRtuTest_MainWid *mTestWid;
+    MTest_MainWid *mTestWid;
 
     M_SimulateWid *mSimulateWid;
     M_LogsWid *mLogsWid;
+    M_ServiceThread *mServiceThread;
 };
 
 #endif // MPDU_MAINWID_H

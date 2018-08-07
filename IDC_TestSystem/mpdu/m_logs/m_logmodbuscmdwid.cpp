@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_logmodbuscmdwid.h"
 #include "m_sql/m_dbmodbuscmd.h"
 
