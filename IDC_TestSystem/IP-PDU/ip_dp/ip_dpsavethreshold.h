@@ -1,7 +1,7 @@
 #ifndef IP_DPSAVETHRESHOLD_H
 #define IP_DPSAVETHRESHOLD_H
 
-#include "ip_dpslaverecord.h"
+#include "ip_dpsaverecord.h"
 #include "ip_sql/ipdbthresholds.h"
 #include "dpcom/dpsavelinethreshold.h"
 

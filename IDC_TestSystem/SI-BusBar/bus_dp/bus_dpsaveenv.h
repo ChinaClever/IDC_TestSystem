@@ -2,10 +2,10 @@
 #define BUS_DPSLAVEENV_H
 #include "bus_dpsavethreshold.h"
 
-class BUS_DpSlaveEnv : public BUS_DpSlaveRecord
+class BUS_DpSaveEnv : public BUS_DpSaveRecord
 {
 public:
-    BUS_DpSlaveEnv(QObject *parent = nullptr);
+    BUS_DpSaveEnv(QObject *parent = nullptr);
 
 protected:
     void saveLoop(QStringList &list, BUS_sDataUnit &unit);

@@ -5,11 +5,11 @@
 #include "dpcom/dpsaveline.h"
 #include "ip_sql/ipdbrealrecords.h"
 
-class IP_DpSlaveRecord : public DpSaveLine
+class IP_DpSaveRecord : public DpSaveLine
 {
     Q_OBJECT
 public:
-    explicit IP_DpSlaveRecord(QObject *parent = nullptr);
+    explicit IP_DpSaveRecord(QObject *parent = nullptr);
 
 protected:
     void insertItem(DbLineRecordItem &item){IpDbRealRecords::bulid()->insertItem(item);}

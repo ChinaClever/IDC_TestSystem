@@ -1,11 +1,11 @@
 #ifndef BUS_DPSLAVETRANS_H
 #define BUS_DPSLAVETRANS_H
-#include "bus_dpslaveenv.h"
+#include "bus_dpsaveenv.h"
 
-class BUS_DpSlaveTrans : public BUS_DpSlaveRecord
+class BUS_DpSaveTrans : public BUS_DpSaveRecord
 {
 public:
-    BUS_DpSlaveTrans(QObject *parent = nullptr);
+    BUS_DpSaveTrans(QObject *parent = nullptr);
 
 protected:
     void saveItem(QStringList &list, BUS_RtuCount &unit);

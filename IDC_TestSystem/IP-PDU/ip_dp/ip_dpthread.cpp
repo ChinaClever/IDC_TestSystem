@@ -9,10 +9,10 @@
 
 IP_DpThread::IP_DpThread(QObject *parent) : DpThread(parent)
 {
-    mEnv = new IP_DpSlaveEnv(this);
-    mLine = new IP_DpSlaveRecord(this);
-    mTrans = new IP_DpSlaveTrans(this);
-    mAlarmSlave = new IP_DpAlarmSlave(this);
+    mEnv = new IP_DpSaveEnv(this);
+    mLine = new IP_DpSaveRecord(this);
+    mTrans = new IP_DpSaveTrans(this);
+    mAlarmSlave = new IP_DpAlarmSave(this);
     mLineThreshold = new IP_DpSaveThreshold(this);
 
     sDevPackets *packets = IpDataPackets::bulid()->packets;

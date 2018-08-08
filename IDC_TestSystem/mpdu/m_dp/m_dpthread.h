@@ -1,7 +1,7 @@
 #ifndef M_DPTHREAD_H
 #define M_DPTHREAD_H
 
-#include "m_dpslavetrans.h"
+#include "m_dpsavetrans.h"
 #include "dpcom/dpthread.h"
 #include "m_sql/m_dbmodbuscmd.h"
 #include "m_com/m_datapackets.h"

@@ -1,7 +1,7 @@
 #ifndef IP_DPTHREAD_H
 #define IP_DPTHREAD_H
 
-#include "ip_dpalarmslave.h"
+#include "ip_dpalarmsave.h"
 #include "dpcom/dpthread.h"
 #include "ip_sql/ipdbmodbuscmd.h"
 

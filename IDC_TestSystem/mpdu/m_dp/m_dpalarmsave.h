@@ -3,11 +3,11 @@
 #include "dpcom/dpalarmsave.h"
 #include "m_sql/m_dbalarm.h"
 
-class M_DpAlarmSlave : public DpAlarmSave
+class M_DpAlarmSave : public DpAlarmSave
 {
     Q_OBJECT
 public:
-    explicit M_DpAlarmSlave(QObject *parent = nullptr);
+    explicit M_DpAlarmSave(QObject *parent = nullptr);
 
 protected:
     void insertItem(DbAlarmItem &item){M_DbAlarm::bulid()->insertItem(item);}

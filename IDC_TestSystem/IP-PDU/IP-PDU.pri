@@ -27,14 +27,14 @@ HEADERS += \
     $$PWD/ip_logs/iplogrealrecordwid.h \
     $$PWD/ip_logs/iplogthresholdwid.h \
     $$PWD/ip_logs/iplogswid.h \
-    $$PWD/ip_dp/ip_dpslaverecord.h \
     $$PWD/ip_dp/ip_dpsavethreshold.h \
-    $$PWD/ip_dp/ip_dpslaveenv.h \
-    $$PWD/ip_dp/ip_dpslavetrans.h \
+    $$PWD/ip_dp/ip_dpsaveenv.h \
     $$PWD/ip_dp/ip_dpthread.h \
-    $$PWD/ip_dp/ip_dpalarmslave.h \
     $$PWD/ip_service/ip_servicethread.h \
-    $$PWD/ip_service/json/ip_buildjson.h
+    $$PWD/ip_service/json/ip_buildjson.h \
+    $$PWD/ip_dp/ip_dpalarmsave.h \
+    $$PWD/ip_dp/ip_dpsaverecord.h \
+    $$PWD/ip_dp/ip_dpsavetrans.h
 
 	
 SOURCES += \
@@ -63,14 +63,14 @@ SOURCES += \
     $$PWD/ip_logs/iplogrealrecordwid.cpp \
     $$PWD/ip_logs/iplogthresholdwid.cpp \
     $$PWD/ip_logs/iplogswid.cpp \
-    $$PWD/ip_dp/ip_dpslaverecord.cpp \
     $$PWD/ip_dp/ip_dpsavethreshold.cpp \
-    $$PWD/ip_dp/ip_dpslaveenv.cpp \
-    $$PWD/ip_dp/ip_dpslavetrans.cpp \
     $$PWD/ip_dp/ip_dpthread.cpp \
-    $$PWD/ip_dp/ip_dpalarmslave.cpp \
     $$PWD/ip_service/ip_servicethread.cpp \
-    $$PWD/ip_service/json/ip_buildjson.cpp
+    $$PWD/ip_service/json/ip_buildjson.cpp \
+    $$PWD/ip_dp/ip_dpalarmsave.cpp \
+    $$PWD/ip_dp/ip_dpsaveenv.cpp \
+    $$PWD/ip_dp/ip_dpsaverecord.cpp \
+    $$PWD/ip_dp/ip_dpsavetrans.cpp
 
 FORMS += \
     $$PWD/ip_mainwid.ui \

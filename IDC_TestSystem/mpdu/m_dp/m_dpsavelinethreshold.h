@@ -1,6 +1,6 @@
 #ifndef M_DPSAVELINETHRESHOLD_H
 #define M_DPSAVELINETHRESHOLD_H
-#include "m_dpalarmslave.h"
+#include "m_dpalarmsave.h"
 #include "m_sql/m_dblinethresholds.h"
 #include "dpcom/dpsavelinethreshold.h"
 

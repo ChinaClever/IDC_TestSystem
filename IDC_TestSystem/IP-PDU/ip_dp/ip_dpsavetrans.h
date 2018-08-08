@@ -1,15 +1,15 @@
 #ifndef IP_DPSLAVETRANS_H
 #define IP_DPSLAVETRANS_H
 
-#include "ip_dpslaveenv.h"
+#include "ip_dpsaveenv.h"
 #include "dpcom/dpsavetrans.h"
 #include "ip_sql/ipdbmodbustrans.h"
 
-class IP_DpSlaveTrans : public DpSaveTrans
+class IP_DpSaveTrans : public DpSaveTrans
 {
     Q_OBJECT
 public:
-    explicit IP_DpSlaveTrans(QObject *parent = nullptr);
+    explicit IP_DpSaveTrans(QObject *parent = nullptr);
 
 protected:
     void insertItem(DbModbusTransItem &item){IpDbModbusTrans::bulid()->insertItem(item);}

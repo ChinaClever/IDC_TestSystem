@@ -36,12 +36,12 @@ HEADERS += \
     $$PWD/bus_sql/busdbmodbuscmd.h \
     $$PWD/bus_sql/busdbenv.h \
     $$PWD/bus_sql/busdbalarm.h \
-    $$PWD/bus_dp/bus_dpalarmslave.h \
-    $$PWD/bus_dp/bus_dpslaverecord.h \
     $$PWD/bus_dp/bus_dpsavethreshold.h \
-    $$PWD/bus_dp/bus_dpslaveenv.h \
-    $$PWD/bus_dp/bus_dpslavetrans.h \
-    $$PWD/bus_toolbox/bus_toolboxwid.h
+    $$PWD/bus_toolbox/bus_toolboxwid.h \
+    $$PWD/bus_dp/bus_dpalarmsave.h \
+    $$PWD/bus_dp/bus_dpsaveenv.h \
+    $$PWD/bus_dp/bus_dpsaverecord.h \
+    $$PWD/bus_dp/bus_dpsavetrans.h
 	
 SOURCES += \
     $$PWD/bus_rtu/bus_rtusent.cpp \
@@ -78,11 +78,11 @@ SOURCES += \
     $$PWD/bus_sql/busdbmodbuscmd.cpp \
     $$PWD/bus_sql/busdbenv.cpp \
     $$PWD/bus_sql/busdbalarm.cpp \
-    $$PWD/bus_dp/bus_dpalarmslave.cpp \
-    $$PWD/bus_dp/bus_dpslaverecord.cpp \
     $$PWD/bus_dp/bus_dpsavethreshold.cpp \
-    $$PWD/bus_dp/bus_dpslaveenv.cpp \
-    $$PWD/bus_dp/bus_dpslavetrans.cpp
+    $$PWD/bus_dp/bus_dpalarmsave.cpp \
+    $$PWD/bus_dp/bus_dpsaveenv.cpp \
+    $$PWD/bus_dp/bus_dpsaverecord.cpp \
+    $$PWD/bus_dp/bus_dpsavetrans.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \

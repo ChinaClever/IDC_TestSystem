@@ -8,11 +8,11 @@
 
 M_DpThread::M_DpThread(QObject *parent) : DpThread(parent)
 {
-    mEnv = new M_DpSlaveEnv(this);
+    mEnv = new M_DpSaveEnv(this);
     mOutput = new M_DpSaveOutput(this);
-    mLine = new M_DpSlaveLineRecord(this);
-    mTrans = new M_DpSlaveTrans(this);
-    mAlarmSlave = new M_DpAlarmSlave(this);
+    mLine = new M_DpSaveLineRecord(this);
+    mTrans = new M_DpSaveTrans(this);
+    mAlarmSlave = new M_DpAlarmSave(this);
     mLineThreshold = new M_DpSaveLineThreshold(this);
 
     sDevPackets *packets = M_DataPackets::bulid()->packets;

@@ -4,7 +4,7 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "bus_dpalarmslave.h"
+#include "bus_dpalarmsave.h"
 #include "bus_sql/busdbalarm.h"
 
 static QMutex mutex; // 互拆锁
@@ -25,13 +25,13 @@ QStringList get_alarm_str()
 
 
 
-BUS_DpAlarmSlave::BUS_DpAlarmSlave(QObject *parent) : QThread(parent)
+BUS_DpAlarmSave::BUS_DpAlarmSave(QObject *parent) : QThread(parent)
 {
     isRun = false;
 }
 
 
-void BUS_DpAlarmSlave::saveMsg(QStringList &list, const QString &typeStr, const QString &str)
+void BUS_DpAlarmSave::saveMsg(QStringList &list, const QString &typeStr, const QString &str)
 {
     BusDbAlarmItem item;
     item.bus = list.at(0);
@@ -45,7 +45,7 @@ void BUS_DpAlarmSlave::saveMsg(QStringList &list, const QString &typeStr, const 
 }
 
 
-void BUS_DpAlarmSlave::unitAlarm(QStringList &list, QString &typeStr, BUS_sDataUnit &unit,double rate, const QString &sym)
+void BUS_DpAlarmSave::unitAlarm(QStringList &list, QString &typeStr, BUS_sDataUnit &unit,double rate, const QString &sym)
 {
     QString str, tempStr = typeStr;
     if(unit.alarm)
@@ -79,7 +79,7 @@ void BUS_DpAlarmSlave::unitAlarm(QStringList &list, QString &typeStr, BUS_sDataU
 }
 
 
-void BUS_DpAlarmSlave::boxAlarm(int busId, int boxId)
+void BUS_DpAlarmSave::boxAlarm(int busId, int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
     sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);
@@ -102,7 +102,7 @@ void BUS_DpAlarmSlave::boxAlarm(int busId, int boxId)
 }
 
 
-void BUS_DpAlarmSlave::busAlarm(int id)
+void BUS_DpAlarmSave::busAlarm(int id)
 {
     sBusData *bus =  BusPacketSi::bulid()->getBus(id);
     for(int i=0; i<=bus->boxNum; ++i) {
@@ -111,7 +111,7 @@ void BUS_DpAlarmSlave::busAlarm(int id)
 }
 
 
-void BUS_DpAlarmSlave::checkAlarm()
+void BUS_DpAlarmSave::checkAlarm()
 {
     for(int i=0; i<BUS_NUM; ++i)
         busAlarm(i);
@@ -122,7 +122,7 @@ void BUS_DpAlarmSlave::checkAlarm()
 }
 
 
-void BUS_DpAlarmSlave::run()
+void BUS_DpAlarmSave::run()
 {
     if(isRun == false)
     {

@@ -4,11 +4,11 @@
 #include "m_sql/m_dbenv.h"
 #include "dpcom/dpsaveenv.h"
 
-class M_DpSlaveEnv : public DpSaveEnv
+class M_DpSaveEnv : public DpSaveEnv
 {
     Q_OBJECT
 public:
-    explicit M_DpSlaveEnv(QObject *parent = nullptr);
+    explicit M_DpSaveEnv(QObject *parent = nullptr);
 
 protected:
     void insertItem(DbEnvItem &item){M_DbEnv::bulid()->insertItem(item);}

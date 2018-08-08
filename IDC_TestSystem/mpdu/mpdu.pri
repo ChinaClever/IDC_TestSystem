@@ -22,11 +22,7 @@ HEADERS += \
     $$PWD/m_sql/m_dblinerecords.h \
     $$PWD/m_sql/m_dblinethresholds.h \
     $$PWD/m_sql/m_dboutputrecords.h \
-    $$PWD/m_dp/m_dpalarmslave.h \
     $$PWD/m_dp/m_dpsavelinethreshold.h \
-    $$PWD/m_dp/m_dpslaveenv.h \
-    $$PWD/m_dp/m_dpslavelinerecord.h \
-    $$PWD/m_dp/m_dpslavetrans.h \
     $$PWD/m_dp/m_dpsaveoutput.h \
     $$PWD/m_dp/m_dpthread.h \
     $$PWD/m_logs/m_logalarmwid.h \
@@ -54,7 +50,11 @@ HEADERS += \
     $$PWD/m_test/m_testenv/mtest_envwid.h \
     $$PWD/m_test/mtest_mainwid.h \
     $$PWD/m_service/json/m_buildjson.h \
-    $$PWD/m_service/m_servicethread.h
+    $$PWD/m_service/m_servicethread.h \
+    $$PWD/m_dp/m_dpalarmsave.h \
+    $$PWD/m_dp/m_dpsaveenv.h \
+    $$PWD/m_dp/m_dpsavelinerecord.h \
+    $$PWD/m_dp/m_dpsavetrans.h
 
 	
 SOURCES += \
@@ -75,11 +75,7 @@ SOURCES += \
     $$PWD/m_sql/m_dblinerecords.cpp \
     $$PWD/m_sql/m_dblinethresholds.cpp \
     $$PWD/m_sql/m_dboutputrecords.cpp \
-    $$PWD/m_dp/m_dpalarmslave.cpp \
     $$PWD/m_dp/m_dpsavelinethreshold.cpp \
-    $$PWD/m_dp/m_dpslaveenv.cpp \
-    $$PWD/m_dp/m_dpslavelinerecord.cpp \
-    $$PWD/m_dp/m_dpslavetrans.cpp \
     $$PWD/m_dp/m_dpsaveoutput.cpp \
     $$PWD/m_dp/m_dpthread.cpp \
     $$PWD/m_logs/m_logalarmwid.cpp \
@@ -107,7 +103,11 @@ SOURCES += \
     $$PWD/m_test/m_testenv/mtest_envwid.cpp \
     $$PWD/m_test/mtest_mainwid.cpp \
     $$PWD/m_service/json/m_buildjson.cpp \
-    $$PWD/m_service/m_servicethread.cpp
+    $$PWD/m_service/m_servicethread.cpp \
+    $$PWD/m_dp/m_dpalarmsave.cpp \
+    $$PWD/m_dp/m_dpsaveenv.cpp \
+    $$PWD/m_dp/m_dpsavelinerecord.cpp \
+    $$PWD/m_dp/m_dpsavetrans.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \

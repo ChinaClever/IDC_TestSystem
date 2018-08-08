@@ -4,16 +4,16 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "bus_dpslavetrans.h"
+#include "bus_dpsavetrans.h"
 #include "bus_sql/busdbmodbustrans.h"
 
-BUS_DpSlaveTrans::BUS_DpSlaveTrans(QObject *parent)
+BUS_DpSaveTrans::BUS_DpSaveTrans(QObject *parent)
 {
 
 }
 
 
-void BUS_DpSlaveTrans::saveItem(QStringList &list, BUS_RtuCount &unit)
+void BUS_DpSaveTrans::saveItem(QStringList &list, BUS_RtuCount &unit)
 {
     BusDbModbusTransItem item;
 
@@ -30,7 +30,7 @@ void BUS_DpSlaveTrans::saveItem(QStringList &list, BUS_RtuCount &unit)
 }
 
 
-void BUS_DpSlaveTrans::saveBox(int busId,int boxId)
+void BUS_DpSaveTrans::saveBox(int busId,int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
     sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);

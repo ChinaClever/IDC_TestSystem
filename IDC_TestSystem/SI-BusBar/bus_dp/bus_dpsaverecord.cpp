@@ -4,16 +4,16 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "bus_dpslaverecord.h"
+#include "bus_dpsaverecord.h"
 #include "bus_sql/busdbrealrecords.h"
 
-BUS_DpSlaveRecord::BUS_DpSlaveRecord(QObject *parent): QThread(parent)
+BUS_DpSaveRecord::BUS_DpSaveRecord(QObject *parent): QThread(parent)
 {
     isRun  = false;
 }
 
 
-void BUS_DpSlaveRecord::saveLoop(QStringList &list, BUS_sObjUnit &unit)
+void BUS_DpSaveRecord::saveLoop(QStringList &list, BUS_sObjUnit &unit)
 {
     BusDbRealRecordItem item;
 
@@ -40,7 +40,7 @@ void BUS_DpSlaveRecord::saveLoop(QStringList &list, BUS_sObjUnit &unit)
 }
 
 
-void BUS_DpSlaveRecord::saveBox(int busId,int boxId)
+void BUS_DpSaveRecord::saveBox(int busId,int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
     sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);
@@ -55,7 +55,7 @@ void BUS_DpSlaveRecord::saveBox(int busId,int boxId)
 }
 
 
-void BUS_DpSlaveRecord::saveBus(int id)
+void BUS_DpSaveRecord::saveBus(int id)
 {
     sBusData *bus =  BusPacketSi::bulid()->getBus(id);
     for(int i=0; i<=bus->boxNum; ++i) {
@@ -65,7 +65,7 @@ void BUS_DpSlaveRecord::saveBus(int id)
 
 
 
-void BUS_DpSlaveRecord::run()
+void BUS_DpSaveRecord::run()
 {
     if(isRun == false)
     {

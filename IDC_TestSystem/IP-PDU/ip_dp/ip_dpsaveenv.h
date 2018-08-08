@@ -5,11 +5,11 @@
 #include "ip_sql/ipdbenv.h"
 #include "dpcom/dpsaveenv.h"
 
-class IP_DpSlaveEnv : public DpSaveEnv
+class IP_DpSaveEnv : public DpSaveEnv
 {
     Q_OBJECT
 public:
-    explicit IP_DpSlaveEnv(QObject *parent = nullptr);
+    explicit IP_DpSaveEnv(QObject *parent = nullptr);
 
 protected:
     void insertItem(DbEnvItem &item){IpDbEnv::bulid()->insertItem(item);}

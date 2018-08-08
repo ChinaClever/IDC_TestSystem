@@ -1,12 +1,12 @@
 #ifndef BUS_DPSLAVERECORD_H
 #define BUS_DPSLAVERECORD_H
-#include "bus_dpalarmslave.h"
+#include "bus_dpalarmsave.h"
 
 
-class BUS_DpSlaveRecord : public QThread
+class BUS_DpSaveRecord : public QThread
 {
 public:
-    BUS_DpSlaveRecord(QObject *parent = nullptr);
+    BUS_DpSaveRecord(QObject *parent = nullptr);
     void run();
 
 protected:

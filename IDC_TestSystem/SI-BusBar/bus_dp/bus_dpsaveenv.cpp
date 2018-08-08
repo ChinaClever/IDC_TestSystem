@@ -4,15 +4,15 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "bus_dpslaveenv.h"
+#include "bus_dpsaveenv.h"
 #include "bus_sql/busdbenv.h"
 
-BUS_DpSlaveEnv::BUS_DpSlaveEnv(QObject *parent)
+BUS_DpSaveEnv::BUS_DpSaveEnv(QObject *parent)
 {
 
 }
 
-void BUS_DpSlaveEnv::saveLoop(QStringList &list, BUS_sDataUnit &unit)
+void BUS_DpSaveEnv::saveLoop(QStringList &list, BUS_sDataUnit &unit)
 {
     BusDbEnvItem item;
 
@@ -29,7 +29,7 @@ void BUS_DpSlaveEnv::saveLoop(QStringList &list, BUS_sDataUnit &unit)
 }
 
 
-void BUS_DpSlaveEnv::saveBox(int busId,int boxId)
+void BUS_DpSaveEnv::saveBox(int busId,int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
     sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);

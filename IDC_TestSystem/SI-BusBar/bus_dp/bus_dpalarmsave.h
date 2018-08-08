@@ -3,10 +3,10 @@
 #include "bus_dpalarm.h"
 #include "bus_com/buspacketsi.h"
 
-class BUS_DpAlarmSlave : public QThread
+class BUS_DpAlarmSave : public QThread
 {
 public:
-    BUS_DpAlarmSlave(QObject *parent = nullptr);
+    BUS_DpAlarmSave(QObject *parent = nullptr);
     void run();
 
 protected:
