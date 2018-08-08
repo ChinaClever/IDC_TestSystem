@@ -1,36 +1,23 @@
 #ifndef SI_SIMULATETHREAD_H
 #define SI_SIMULATETHREAD_H
 
-#include "si_com/sidatapackets.h"
+#include "si_dp/si_dpthread.h"
+#include "tablewid/simulatethread.h"
 
-class SI_SimulateThread : public QThread
+class SI_SimulateThread : public SimulateThread
 {
     Q_OBJECT
 public:
     explicit SI_SimulateThread(QObject *parent = nullptr);
-    ~SI_SimulateThread();
 
 protected:
-    void run();    
     void workDown();
-    void sentOkCmd(int devId);
-    void saveErrCmd(int devId);
-    void setOffLine();
+    void writeErrCmd(int id);
 
-signals:
-
-public slots:
-    void startThread();
-    void stopThread();
-
-private slots:
+protected slots:
     void initSlot();
 
-
-private:
-    bool isRun;
-
-    SIDataPackets *mPackets;
+protected:
     SI_RtuThread *mRtu;
 };
 

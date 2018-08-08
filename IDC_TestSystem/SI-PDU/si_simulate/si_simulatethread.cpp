@@ -6,22 +6,10 @@
  */
 #include "si_simulatethread.h"
 #include "si_sql/sidbmodbuscmd.h"
-#include "si_logsthread/si_alarmlogthread.h"
-extern QReadWriteLock *get_log_lock();
 
-SI_SimulateThread::SI_SimulateThread(QObject *parent) : QThread(parent)
+SI_SimulateThread::SI_SimulateThread(QObject *parent) : SimulateThread(parent)
 {
-    isRun = false;
 
-    mPackets = SIDataPackets::bulid();
-    mRtu = SI_RtuThread::bulid(this);
-    QTimer::singleShot(400,this,SLOT(initSlot()));
-}
-
-SI_SimulateThread::~SI_SimulateThread()
-{
-    isRun = false;
-    wait();
 }
 
 
@@ -31,52 +19,11 @@ SI_SimulateThread::~SI_SimulateThread()
 void SI_SimulateThread::initSlot()
 {
     SerialPort *serial = SiConfigFile::bulid()->item->serial;
+
+    mDpThread = new SI_DpThread(this);
+    mPackets = SIDataPackets::bulid()->packets;
+    mRtu = SI_RtuThread::bulid(this);
     mRtu->init(serial);
-}
-
-/**
- * @brief 开启线程
- */
-void SI_SimulateThread::startThread()
-{
-    if(!isRun) {
-        QTimer::singleShot(100,this,SLOT(start()));  // 启动线程
-    }
-}
-
-/**
- * @brief 停止线程
- */
-void SI_SimulateThread::stopThread()
-{
-    isRun = false;
-    //    wait();
-}
-
-void SI_SimulateThread::setOffLine()
-{
-    SiConfigItem *item = SiConfigFile::bulid()->item;
-    for(int i=0; i<item->devNum; ++i) {
-        SiDevPacket *dev = mPackets->getDev(i);
-        dev->rtuData.offLine = 0;
-    }
-}
-
-
-/**
- * @brief 命令传送成功
- * @param devId
- */
-void SI_SimulateThread::sentOkCmd(int devId)
-{
-    SiDevPacket *dev = mPackets->getDev(devId);
-    SiDevModubsCount *count = &(dev->count);
-    count->count++;
-    count->okCount ++;
-
-    QReadWriteLock *lock = get_log_lock();
-    QWriteLocker locker(lock); // 正在操作时不允许关闭
-    SI_AlarmLogThread::bulid()->saveAlarm(devId);
 }
 
 
@@ -84,27 +31,21 @@ void SI_SimulateThread::sentOkCmd(int devId)
  * @brief 保存失败命令
  * @param devId
  */
-void SI_SimulateThread::saveErrCmd(int devId)
+void SI_SimulateThread::writeErrCmd(int id)
 {
-    SiDevPacket *dev = mPackets->getDev(devId);
-    SiDevModubsCount *count = &(dev->count);
-    count->count += 1;
-    count->errCount += 1;
-
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
-    strArray += tr(" (十进制数：");
-    strArray += cm_ByteArrayToUcharStr(array);
+
+    strArray += tr(" (接收数据：");
+    array = mRtu->getRecvCmd();
+    strArray += cm_ByteArrayToHexStr(array);
     strArray += ")";
 
-    SiDbModbusCmdItem item;
-    item.dev_id = devId+1;
-    item.msg = strArray;
+    QStringList list;
+    list << QString::number(id);
+    list << strArray;
 
-    QReadWriteLock *lock = get_log_lock();
-    QWriteLocker locker(lock); // 正在操作时不允许关闭
-    SiDbModbusCmd::bulid()->insertItem(item);
-    msleep(30);
+    mDpThread->saveModbusCmd(list);
 }
 
 
@@ -115,30 +56,25 @@ void SI_SimulateThread::workDown()
 {
     int ret = 0;
     SiConfigItem *item = SiConfigFile::bulid()->item;
+    mPackets->devNum = item->devNum;
 
-    for(int i=0; i<item->devNum; ++i)
+    for(int i=1; i<=mPackets->devNum; ++i)
     {
+        sDataPacket *pkt = &(mPackets->dev[i]);
         for(int k=0; k<item->cmdModel; ++k) { // 双命令模式
-            ret = mRtu->transData(i+1, item->lineNum, &(mPackets->getDev(i)->rtuData), item->msecs);
+            ret = mRtu->transData(i, item->lineNum, pkt, item->msecs);
             if(ret) break ;
         }
-        if(isRun) msleep(455);
-        else break;
 
         if(ret) { // 正常收到数据
-            sentOkCmd(i);
+            sentOkCmd(pkt->rtuCount);
         } else { // 数据异常
-            saveErrCmd(i);
+            saveErrCmd(i, pkt->rtuCount);
         }
+
+        if(isRun) msleep(455);
+        else break;
     }
 }
 
 
-void SI_SimulateThread::run()
-{
-    isRun = true;
-    while(isRun) {
-        workDown();
-    }
-    setOffLine();
-}

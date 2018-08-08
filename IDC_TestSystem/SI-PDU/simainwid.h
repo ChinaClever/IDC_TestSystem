@@ -4,10 +4,10 @@
 #include <QWidget>
 #include "toolbox/sitoolboxwid.h"
 #include "si_simulate/si_simulatethread.h"
-#include "si_logs/silogalarmwid.h"
-#include "si_simulate/si_devtablewid.h"
-#include "si_logsthread/si_thresholdlogthread.h"
+#include "si_logs/silogswid.h"
+#include "si_simulate/si_simulatewid.h"
 #include "si_setting/si_setmainwid.h"
+#include "si_service/si_servicethread.h"
 
 namespace Ui {
 class SIMainWid;
@@ -33,22 +33,10 @@ private:
 
     SitoolBoxWid *mtoolBoxWid;
     SI_SimulateThread *mSimulateThread;
-
-    SI_DevTableWid *mDevTableWid;
-    SI_EnvTableWid *mEnvTableWid;
+    SI_SimulateWid *mSimulateWid;
     SI_SetMainWid *mSetMainWid;
-    SI_TransTableWid *mTransTableWid;
-    SI_ThresholdTableWid *mThresholdTableWid;
-
-    SiLogEnvWid *mLogEnvWid;
-    SiLogAlarmWid *mLogAlarmWid;
-    SiLogModbusCmdWid *mLogModbusCmdWid;
-    SiLogModbusTransWid *mLogModbusTransWid;
-    SiLogRealRecordWid *mLogRealRecordWid;
-    SiLogThresholdWid *mLogThresholdWid;
-
-    QList<SI_ComLogThread *> mLogThreads;
-
+    SI_ServiceThread *mServiceThread;
+    SILogsWid *mLogsWid;
 };
 
 #endif // SIMAINWID_H

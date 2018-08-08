@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "buslogswid.h"
 #include "ui_buslogswid.h"
 #include "bus_com/bus_configfile.h"

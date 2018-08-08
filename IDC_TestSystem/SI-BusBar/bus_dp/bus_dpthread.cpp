@@ -16,12 +16,12 @@ BUS_DpThread::BUS_DpThread(QObject *parent) : QThread(parent)
 
     mTg = new BUS_DpTg();
     mAlarm = new BUS_DpAlarm(this);
-    mAlarmSlave = new BUS_DpAlarmSlave(this);
+    mAlarmSlave = new BUS_DpAlarmSave(this);
 
-    mEnv = new BUS_DpSlaveEnv(this);
+    mEnv = new BUS_DpSaveEnv(this);
     mThreshold = new BUS_DpSaveThreshold(this);
-    mRecord = new BUS_DpSlaveRecord(this);
-    mTrans = new BUS_DpSlaveTrans(this);
+    mRecord = new BUS_DpSaveRecord(this);
+    mTrans = new BUS_DpSaveTrans(this);
 
     timer = new QTimer(this);
     timer->start(60*1000);

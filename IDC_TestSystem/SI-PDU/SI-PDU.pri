@@ -19,17 +19,7 @@ HEADERS += \
     $$PWD/si_simulate/si_simulatethread.h \
     $$PWD/toolbox/sisetmodbustimedlg.h \
     $$PWD/toolbox/silogstoolwid.h \
-    $$PWD/si_simulate/si_envtablewid.h \
-    $$PWD/si_simulate/si_thresholdtablewid.h \
-    $$PWD/si_simulate/si_transtablewid.h \
-    $$PWD/si_simulate/si_devtablewid.h \
     $$PWD/toolbox/silogstimetooldlg.h \
-    $$PWD/si_logsthread/si_translogthread.h \
-    $$PWD/si_logsthread/si_comlogthread.h \
-    $$PWD/si_logsthread/si_envlogthread.h \
-    $$PWD/si_logsthread/si_recordlogthread.h \
-    $$PWD/si_logsthread/si_thresholdlogthread.h \
-    $$PWD/si_logsthread/si_alarmlogthread.h \
     $$PWD/si_setting/si_setmainwid.h \
     $$PWD/si_setting/si_addrsetwid.h \
     $$PWD/si_setting/si_unitsetwid.h \
@@ -47,6 +37,16 @@ HEADERS += \
     $$PWD/si_sql/sidbrealrecords.h \
     $$PWD/si_sql/sidbthresholds.h \
     $$PWD/si_sql/sidbalarm.h \
+    $$PWD/si_service/json/si_buildjson.h \
+    $$PWD/si_service/si_servicethread.h \
+    $$PWD/si_dp/si_dpalarmsave.h \
+    $$PWD/si_dp/si_dpsavethreshold.h \
+    $$PWD/si_dp/si_dpsaveenv.h \
+    $$PWD/si_dp/si_dpsaverecord.h \
+    $$PWD/si_dp/si_dpthread.h \
+    $$PWD/si_dp/si_dpsavetrans.h \
+    $$PWD/si_simulate/si_simulatewid.h \
+    $$PWD/si_logs/silogswid.h
 
 	
 SOURCES += \
@@ -66,17 +66,7 @@ SOURCES += \
     $$PWD/si_simulate/si_simulatethread.cpp \
     $$PWD/toolbox/sisetmodbustimedlg.cpp \
     $$PWD/toolbox/silogstoolwid.cpp \
-    $$PWD/si_simulate/si_envtablewid.cpp \
-    $$PWD/si_simulate/si_thresholdtablewid.cpp \
-    $$PWD/si_simulate/si_transtablewid.cpp \
-    $$PWD/si_simulate/si_devtablewid.cpp \
     $$PWD/toolbox/silogstimetooldlg.cpp \
-    $$PWD/si_logsthread/si_translogthread.cpp \
-    $$PWD/si_logsthread/si_comlogthread.cpp \
-    $$PWD/si_logsthread/si_envlogthread.cpp \
-    $$PWD/si_logsthread/si_recordlogthread.cpp \
-    $$PWD/si_logsthread/si_thresholdlogthread.cpp \
-    $$PWD/si_logsthread/si_alarmlogthread.cpp \
     $$PWD/si_setting/si_setmainwid.cpp \
     $$PWD/si_setting/si_addrsetwid.cpp \
     $$PWD/si_setting/si_unitsetwid.cpp \
@@ -94,6 +84,16 @@ SOURCES += \
     $$PWD/si_sql/sidbrealrecords.cpp \
     $$PWD/si_sql/sidbthresholds.cpp \
     $$PWD/si_sql/sidbalarm.cpp \
+    $$PWD/si_service/json/si_buildjson.cpp \
+    $$PWD/si_service/si_servicethread.cpp \
+    $$PWD/si_dp/si_dpalarmsave.cpp \
+    $$PWD/si_dp/si_dpsavethreshold.cpp \
+    $$PWD/si_dp/si_dpsaveenv.cpp \
+    $$PWD/si_dp/si_dpsaverecord.cpp \
+    $$PWD/si_dp/si_dpthread.cpp \
+    $$PWD/si_dp/si_dpsavetrans.cpp \
+    $$PWD/si_simulate/si_simulatewid.cpp \
+    $$PWD/si_logs/silogswid.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
@@ -111,7 +111,9 @@ FORMS += \
     $$PWD/si_setting/si_addrsetwid.ui \
     $$PWD/si_setting/si_unitsetwid.ui \
     $$PWD/si_setting/si_thresholdsetwid.ui \
-    $$PWD/si_setting/si_elesetwid.ui
+    $$PWD/si_setting/si_elesetwid.ui \
+    $$PWD/si_simulate/si_simulatewid.ui \
+    $$PWD/si_logs/silogswid.ui
 
 
 

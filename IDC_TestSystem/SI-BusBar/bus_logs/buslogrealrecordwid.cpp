@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "buslogrealrecordwid.h"
 
 BusLogRealRecordWid::BusLogRealRecordWid(QWidget *parent) : LogComWid(parent)

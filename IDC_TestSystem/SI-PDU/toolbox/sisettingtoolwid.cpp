@@ -63,7 +63,6 @@ void SiSettingToolWid::updateSerialWid()
     QPalette pe;
     SerialPort *serial = mSerialPortDlg->getSerialPort();
     QString str = serial->getSerialName();
-
     if(serial->isOpened()) {
         SiConfigFile::bulid()->setSerialName(str);
         str += tr(" 已打开");

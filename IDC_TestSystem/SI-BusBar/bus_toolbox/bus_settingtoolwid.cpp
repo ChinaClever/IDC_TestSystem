@@ -1,4 +1,14 @@
+<<<<<<< HEAD
 ﻿#include "bus_settingtoolwid.h"
+=======
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
+#include "bus_settingtoolwid.h"
+>>>>>>> master
 #include "ui_bus_settingtoolwid.h"
 
 

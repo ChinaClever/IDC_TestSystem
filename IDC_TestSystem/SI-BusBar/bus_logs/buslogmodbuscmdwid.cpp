@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "buslogmodbuscmdwid.h"
 
 BusLogModbusCmdWid::BusLogModbusCmdWid(QWidget *parent) : LogComWid(parent)

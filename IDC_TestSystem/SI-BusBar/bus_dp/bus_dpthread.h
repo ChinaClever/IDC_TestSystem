@@ -1,7 +1,7 @@
 #ifndef BUS_DPTHREAD_H
 #define BUS_DPTHREAD_H
 
-#include "bus_dpslavetrans.h"
+#include "bus_dpsavetrans.h"
 
 class BUS_DpThread : public QThread
 {
@@ -27,12 +27,12 @@ private:
 
     BUS_DpTg *mTg;
     BUS_DpAlarm *mAlarm;
-    BUS_DpAlarmSlave *mAlarmSlave;
+    BUS_DpAlarmSave *mAlarmSlave;
 
-    BUS_DpSlaveEnv *mEnv;
+    BUS_DpSaveEnv *mEnv;
     BUS_DpSaveThreshold *mThreshold;
-    BUS_DpSlaveRecord *mRecord;
-    BUS_DpSlaveTrans *mTrans;
+    BUS_DpSaveRecord *mRecord;
+    BUS_DpSaveTrans *mTrans;
 };
 
 #endif // BUS_DPTHREAD_H

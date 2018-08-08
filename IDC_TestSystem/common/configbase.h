@@ -25,6 +25,9 @@ public:
     int getLogTime();
     void setLogTime(int num);
 
+    int getOutputNum();
+    void setOutputNum(int num);
+
     virtual QString getPrefix()=0;
 };
 

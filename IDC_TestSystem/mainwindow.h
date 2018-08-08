@@ -5,6 +5,7 @@
 #include "simainwid.h"
 #include "bus_mainwid.h"
 #include "mpdu_mainwid.h"
+#include "ip_mainwid.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,12 +31,15 @@ private slots:
 
     void on_mpduBtn_clicked();
 
+    void on_ippduBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     SIMainWid *mSiWid;
     BUS_MainWid *mBusWid;
     MPDU_MainWid *mMpduWid;
+    IP_MainWid *mIpWid;
 };
 
 #endif // MAINWINDOW_H

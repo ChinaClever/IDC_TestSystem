@@ -1,4 +1,10 @@
-﻿#include "bus_simulatethread.h"
+﻿/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
+#include "bus_simulatethread.h"
 #include "bus_com/bus_configfile.h"
 #include "bus_sql/busdbmodbuscmd.h"
 

@@ -8,7 +8,8 @@
 
 SIDataPackets::SIDataPackets()
 {
-    memset(&dev, 0, sizeof(SiDevPacket)*SI_DEV_NUM);
+    packets = new sDevPackets();
+    memset(packets, 0, sizeof(sDevPackets));
 }
 
 SIDataPackets *SIDataPackets::bulid()
@@ -19,7 +20,7 @@ SIDataPackets *SIDataPackets::bulid()
     return sington;
 }
 
-SiDevPacket *SIDataPackets::getDev(int num)
+sDataPacket *SIDataPackets::getDev(int num)
 {
-    return &(dev[num]);
+    return &(packets->dev[num]);
 }

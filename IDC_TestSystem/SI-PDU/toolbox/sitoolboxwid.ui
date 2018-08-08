@@ -18,7 +18,7 @@
     <number>9</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>9</number>
    </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
@@ -43,7 +43,7 @@
            <x>0</x>
            <y>0</y>
            <width>162</width>
-           <height>410</height>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">
@@ -55,8 +55,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>100</width>
-           <height>30</height>
+           <width>162</width>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">
@@ -68,8 +68,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>100</width>
-           <height>30</height>
+           <width>162</width>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">
@@ -81,8 +81,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>100</width>
-           <height>30</height>
+           <width>162</width>
+           <height>401</height>
           </rect>
          </property>
          <attribute name="label">

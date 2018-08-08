@@ -156,3 +156,25 @@ void ConfigBase::setLogTime(int num)
     QString str = QString("%1_log_time").arg(prefix);
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
+
+
+int ConfigBase::getOutputNum()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_output_num").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret <= 0)  ret = 24;
+    return ret;
+}
+
+/**
+ * @brief 设置相数
+ * @param num
+ */
+void ConfigBase::setOutputNum(int num)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_output_num").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(num), prefix);
+}
+

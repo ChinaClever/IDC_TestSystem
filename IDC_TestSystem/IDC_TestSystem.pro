@@ -10,6 +10,7 @@ QT       += network
 QT       += serialport
 QT       += printsupport
 QT       += charts
+QT       += websockets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,6 +31,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(common/common.pri)
 include(serialport/serialport.pri)
 include(SI-PDU/SI-PDU.pri)
+include(IP-PDU/IP-PDU.pri)
 include(mpdu/mpdu.pri)
 include(SI-BusBar/SI-BusBar.pri)
 include(excel/excel.pri)
