@@ -26,9 +26,8 @@ void DpSaveLine::saveLogItem(int id)
             item.dev_id = id;
             item.line = i+1;
             item.sw = packet->data.line[i].sw;
-            if(item.sw) {
-                item.sw_str = tr("断开");
-            } else  {
+            item.sw_str = tr("断开");
+            if(item.sw == mSwValue) {
                 item.sw_str = tr("闭合");
             }
 

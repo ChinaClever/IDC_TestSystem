@@ -93,11 +93,15 @@ bool LogComWid::refreshTable(const QString &table)
     bool ret = model->refreshTable(table);
     if(ret) {
         ui->tableView->sortByColumn(0, Qt::DescendingOrder); // 降序排列
-        ui->tableView->setColumnHidden(0, true);
+        setColumnHidden(0);
     }
     return  ret;
 }
 
+void LogComWid::setColumnHidden(int column)
+{
+    ui->tableView->setColumnHidden(column, true);
+}
 
 void LogComWid::refreshSlot()
 {

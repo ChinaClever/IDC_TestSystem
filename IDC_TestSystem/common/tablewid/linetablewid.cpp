@@ -40,9 +40,9 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
 
 void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
-    QString  str = tr("闭合");;
-    if(unit.sw == 1) {
-        str = tr("断开");
+    QString  str = tr("断开");;
+    if(unit.sw == mSwValue) {
+        str = tr("闭合");
     }
     list << str;
 

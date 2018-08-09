@@ -33,6 +33,7 @@ protected slots:
 protected:
     QTimer *timer;
     sDevPackets *mPackets;
+    int mSwValue;  // 开关状态，开的值 默认为1
 
 private:
     void initTableWidget(QStringList &header);
