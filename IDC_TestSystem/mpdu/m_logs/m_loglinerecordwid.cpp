@@ -33,5 +33,6 @@ void M_LogLineRecordWid::initTable()
              << tr("电压") << tr("电流") << tr("视在功率")
              << tr("有功功率") << tr("功率因素") << tr("电能");
    model->setHeaders(mHeadList);
+   setColumnHidden(5);
 }
 

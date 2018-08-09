@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-﻿#include "bus_settingtoolwid.h"
-=======
 /*
  *
  *
@@ -8,7 +5,6 @@
  *      Author: Lzy
  */
 #include "bus_settingtoolwid.h"
->>>>>>> master
 #include "ui_bus_settingtoolwid.h"
 
 

@@ -10,6 +10,7 @@ DpSaveRecord::DpSaveRecord(QObject *parent) : QThread(parent)
 {
     mPackets = NULL;
     isRun  = false;
+    mSwValue = 1;
 }
 
 DpSaveRecord::~DpSaveRecord()

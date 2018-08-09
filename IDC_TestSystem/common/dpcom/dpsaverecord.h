@@ -20,6 +20,7 @@ protected:
 protected:
     bool isRun;
     sDevPackets *mPackets;
+    int mSwValue;  // 开关状态，开的值 默认为1
 };
 
 #endif // DPSLAVERECORD_H

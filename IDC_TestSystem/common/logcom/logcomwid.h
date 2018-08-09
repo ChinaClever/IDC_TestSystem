@@ -24,6 +24,7 @@ protected:
     virtual void initTable()=0;
     bool refreshTable(const QString &table);
     void setStretch();
+    void setColumnHidden(int column);
 
 protected slots:
     void initFunSLot();
