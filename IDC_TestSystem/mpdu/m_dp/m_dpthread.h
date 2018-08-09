@@ -11,6 +11,7 @@ class M_DpThread : public DpThread
     Q_OBJECT
 public:
     explicit M_DpThread(QObject *parent = nullptr);
+    ~M_DpThread();
 
 protected:
      void insertItem(DbModbusCmdItem &item){M_DbModbusCmd::bulid()->insertItem(item);}

@@ -10,6 +10,7 @@ class SI_DpThread : public DpThread
     Q_OBJECT
 public:
     explicit SI_DpThread(QObject *parent = nullptr);
+    ~SI_DpThread();
 
 protected:
      void insertItem(DbModbusCmdItem &item){SiDbModbusCmd::bulid()->insertItem(item);}

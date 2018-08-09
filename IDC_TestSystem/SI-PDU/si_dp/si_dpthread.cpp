@@ -18,6 +18,11 @@ SI_DpThread::SI_DpThread(QObject *parent) : DpThread(parent)
     initPackets(packets);
 }
 
+SI_DpThread::~SI_DpThread()
+{
+    isRun = false;
+    wait();
+}
 
 bool SI_DpThread::getStart()
 {
