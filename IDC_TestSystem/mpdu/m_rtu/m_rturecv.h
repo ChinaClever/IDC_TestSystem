@@ -84,10 +84,9 @@ protected:
     void rtuEnvData(uchar *buf, M_sRtuPacket &pkt);
     void rtuLineThreshold(uchar *buf, M_sObjData &pkt);
     void rtuOutputThreshold(uchar *buf, M_sObjData &pkt);
-    void rtuOutputMax(uchar *buf, M_sObjData &pkt);
 
     void rtuLineSw(uchar *buf, M_sObjData &pkt);
-    void rtuOutputSw(uchar *buf, M_sRtuPacket &pkt);
+    void rtuOutputSw(uchar *buf, M_sObjData &pkt);
     void rtuEnvThreshold(uchar *buf, M_sRtuPacket &pkt);
     void rtuDevAddr(uchar *buf, M_sRtuPacket &pkt);
     void rtuLineNum(uchar *buf, M_sObjData &pkt);

@@ -11,6 +11,9 @@ enum M_SetCmdEnum {
     M_RtuReg_OutputEles = 66,
     M_RtuReg_OutputEleSize = 137-M_RtuReg_OutputEles+1,
 
+    M_RtuReg_OutputSw = 138,
+    M_RtuReg_OutputSwSize = 140-M_RtuReg_OutputSw+1,
+
     M_RtuReg_EnvData = 141,
     M_RtuReg_EnvSize = 144-M_RtuReg_EnvData+1,
 
@@ -18,13 +21,10 @@ enum M_SetCmdEnum {
     M_RtuReg_LineThresholdSize = 156-M_RtuReg_LineThresholdData+1,
 
     M_RtuReg_OutputThresholdData = 157,
-    M_RtuReg_OutputThresholdSize = 180-M_RtuReg_OutputThresholdData+1,
-
-    M_RtuReg_AlarmData = 229,
-    M_RtuReg_AlarmSize = 286-M_RtuReg_AlarmData+1,
+    M_RtuReg_OutputThresholdSize = 252-M_RtuReg_OutputThresholdData+1,
 
     M_RtuReg_LineSw = 287,
-    M_RtuReg_LineSwSize = 289-M_RtuReg_LineSw+1,
+    M_RtuReg_LineSwSize = 295-M_RtuReg_LineSw+1,
 
     M_RtuReg_EnvThresholdData = 323,
     M_RtuReg_EnvThresholdSize = 330-M_RtuReg_EnvThresholdData+1,
@@ -35,8 +35,6 @@ enum M_SetCmdEnum {
     M_RtuReg_LineNum = 331,
     M_RtuReg_LineNumSize = 331-M_RtuReg_LineNum+1,
 
-    M_RtuReg_OutputSw = 339,
-    M_RtuReg_OutputSwSize = 387-M_RtuReg_OutputSw+1,
 };
 
 #endif // M_RTUREGENUM_H

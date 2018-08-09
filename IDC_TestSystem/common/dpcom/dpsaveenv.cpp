@@ -23,6 +23,7 @@ void DpSaveEnv::saveLogItem(int id)
             DbEnvItem item;
 
             item.dev_id = id;
+            item.sensor_id = i+1;
             item.tem = packet->data.env.tem[i].value;
             item.tem_min = packet->data.env.tem[i].min;
             item.tem_max = packet->data.env.tem[i].max;

@@ -185,12 +185,11 @@ int M_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
     case 3: reg = M_RtuReg_EnvData; len = M_RtuReg_EnvSize;  break;
     case 4: reg = M_RtuReg_LineThresholdData; len = M_RtuReg_LineThresholdSize; break;
     case 5: reg = M_RtuReg_OutputThresholdData; len = M_RtuReg_OutputThresholdSize;  break;
-    case 6: reg = M_RtuReg_AlarmData; len = M_RtuReg_AlarmSize;  break;
-    case 7: reg = M_RtuReg_LineSw; len = M_RtuReg_LineSwSize; break;
-    case 8: reg = M_RtuReg_EnvThresholdData; len = M_RtuReg_EnvThresholdSize; break;
-    case 9: reg = M_RtuReg_DevAddr; len = M_RtuReg_DevAddrSize; break;
-    case 10: reg = M_RtuReg_LineNum; len = M_RtuReg_LineNumSize; break;
-    case 11: reg = M_RtuReg_OutputSw; len = M_RtuReg_OutputSwSize; break;
+    case 6: reg = M_RtuReg_LineSw; len = M_RtuReg_LineSwSize; break;
+    case 7: reg = M_RtuReg_EnvThresholdData; len = M_RtuReg_EnvThresholdSize; break;
+    case 8: reg = M_RtuReg_DevAddr; len = M_RtuReg_DevAddrSize; break;
+    case 9: reg = M_RtuReg_LineNum; len = M_RtuReg_LineNumSize; break;
+    case 10: reg = M_RtuReg_OutputSw; len = M_RtuReg_OutputSwSize; break;
     default: break;
     }
 

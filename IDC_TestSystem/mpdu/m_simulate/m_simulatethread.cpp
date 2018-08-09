@@ -60,7 +60,7 @@ void M_SimulateThread::workDown()
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);
-        for(int i=0; i<12; ++i)
+        for(int i=0; i<11; ++i)
         {
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);

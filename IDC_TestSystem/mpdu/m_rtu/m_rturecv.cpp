@@ -102,29 +102,37 @@ void M_RtuRecv::rtuOutputThreshold(uchar *buf, M_sObjData &pkt)
 {
     int num = 24;
     buf = rtuRecvData(buf, num, pkt.cur.min);
-//    buf = rtuRecvData(buf, num, pkt.cur.max);
+    buf = rtuRecvData(buf, num, pkt.cur.crMin);
+    buf = rtuRecvData(buf, num, pkt.cur.crMax);
+    buf = rtuRecvData(buf, num, pkt.cur.max);
 }
 
-void M_RtuRecv::rtuOutputMax(uchar *buf, M_sObjData &pkt)
-{
-    int num = 24;
-    buf = rtuRecvData(buf, num, pkt.cur.max);
-//    buf = rtuRecvData(buf, num, pkt.cur.max);
-}
 
 void M_RtuRecv::rtuLineSw(uchar *buf, M_sObjData &pkt)
 {
     int num = 3;
     buf = rtuRecvData(buf, num, pkt.sw);
+    buf = rtuRecvData(buf, num, pkt.cur.crMin);
+    buf = rtuRecvData(buf, num, pkt.cur.crMax);
+
+    for(int i=0; i<num; ++i) pkt.sw[i] -= 1;
 }
 
-void M_RtuRecv::rtuOutputSw(uchar *buf, M_sRtuPacket &pkt)
+void M_RtuRecv::rtuOutputSw(uchar *buf, M_sObjData &pkt)
 {
-    int num = 24;
-    buf = rtuRecvData(buf, num, pkt.output.sw);
-    buf = rtuRecvData(buf, num, pkt.output.delay);
+    int num = 3;
+    ushort array[4] = {0};
+    buf = rtuRecvData(buf, num, array);
 
-    rtuRecvData(buf, 1, &(pkt.version));
+    int k=0;
+    for(int i=0; i<num; ++i)
+    {
+        for(int j=0; k<8; ++j){
+            ushort value = array[i] & (1 << j);
+            if(value) pkt.sw[k++] = 1;
+            else pkt.sw[k++] = 0;
+        }
+    }
 }
 
 void M_RtuRecv::rtuEnvThreshold(uchar *buf, M_sRtuPacket &pkt)
@@ -174,6 +182,9 @@ bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
         case M_RtuReg_OutputEleSize:
             rtuOutputEle(buf, pkt->data.output);
             break;
+        case M_RtuReg_OutputSwSize:
+            rtuOutputSw(buf, pkt->data.output);
+            break;
         case M_RtuReg_EnvSize:
             rtuEnvData(buf, pkt->data);
             break;
@@ -183,14 +194,8 @@ bool M_RtuRecv::rtuRecvPacket(uchar *buf, int len, M_sRtuRecv *pkt)
         case M_RtuReg_OutputThresholdSize:
             rtuOutputThreshold(buf, pkt->data.output);
             break;
-        case M_RtuReg_AlarmSize:
-            rtuOutputMax(buf, pkt->data.output);
-            break;
         case M_RtuReg_LineSwSize:
             rtuLineSw(buf, pkt->data.line);
-            break;
-        case M_RtuReg_OutputSwSize:
-            rtuOutputSw(buf, pkt->data);
             break;
         case M_RtuReg_EnvThresholdSize:
             rtuEnvThreshold(buf, pkt->data);
