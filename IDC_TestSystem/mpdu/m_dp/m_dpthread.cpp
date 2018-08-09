@@ -19,6 +19,11 @@ M_DpThread::M_DpThread(QObject *parent) : DpThread(parent)
     initPackets(packets);
 }
 
+M_DpThread::~M_DpThread()
+{
+    isRun = false;
+    wait();
+}
 
 bool M_DpThread::getStart()
 {
