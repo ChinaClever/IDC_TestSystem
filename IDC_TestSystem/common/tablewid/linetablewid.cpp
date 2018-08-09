@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -26,7 +26,7 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
     int column=2, swAlarm=0;
 
     int value = unit.sw;
-    if(value == 1) swAlarm = 2;
+    if(value != 1) swAlarm = 2;
     setItemColor(row, column++, swAlarm);
 
     value = unit.vol.alarm;

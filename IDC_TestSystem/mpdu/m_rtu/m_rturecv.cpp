@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -122,13 +122,13 @@ void M_RtuRecv::rtuOutputSw(uchar *buf, M_sObjData &pkt)
 {
     int num = 3;
     ushort array[4] = {0};
-    buf = rtuRecvData(buf, num, array);
+    buf = rtuRecvData(buf, num, array);    
 
     int k=0;
     for(int i=0; i<num; ++i)
     {
-        for(int j=0; k<8; ++j){
-            ushort value = array[i] & (1 << j);
+        for(int j=0; j<8; ++j){
+            ushort value = array[i] & (1 << (7-j) );
             if(value) pkt.sw[k++] = 1;
             else pkt.sw[k++] = 0;
         }

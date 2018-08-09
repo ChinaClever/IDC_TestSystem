@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Si 设置窗口
  *
  *  Created on: 2018年1月1日
@@ -47,7 +47,7 @@ bool SiSettingToolWid::initSerialPort()
     {
         ret = serial->isContains(com);
         if(ret) {
-            ret = serial->open(com);
+//            ret = serial->open(com);
             updateSerialWid();
         }
     }

@@ -44,7 +44,7 @@ bool BUS_SettingToolWid::initSerialPort()
     {
         ret = serial->isContains(com);
         if(ret) {
-            ret = serial->open(com);
+//            ret = serial->open(com);
             updateSerialWid();
         }
     }

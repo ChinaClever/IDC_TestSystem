@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -43,7 +43,7 @@ bool IP_SettingToolWid::initSerialPort()
     {
         ret = serial->isContains(com);
         if(ret) {
-            ret = serial->open(com);
+//            ret = serial->open(com);
             updateSerialWid();
         }
     }
