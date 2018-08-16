@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -31,6 +31,7 @@ void LineThresholdTableWid::setAlarm(sObjData &unit, int row)
 
     value = unit.cur.alarm;
     if(value) value = 2;
+    else value = unit.cur.crAlarm;
     setItemColor(row, 5, value);
 }
 

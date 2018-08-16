@@ -1,4 +1,4 @@
-#include "outputthresholdtablewid.h"
+﻿#include "outputthresholdtablewid.h"
 
 OutputThresholdTableWid::OutputThresholdTableWid(QWidget *parent) : OutputTableWid(parent)
 {
@@ -19,12 +19,9 @@ void OutputThresholdTableWid::initWid()
 
 void OutputThresholdTableWid::setAlarm(sObjData &unit, int row)
 {
-   int value = unit.vol.alarm;
+   int value = unit.cur.alarm;
    if(value) value = 2;
-   setItemColor(row, 2, value);
-
-   value = unit.cur.crAlarm;
-   if(value) value = 2;
+   else value = unit.cur.crAlarm;
    setItemColor(row, 2, value);
 }
 

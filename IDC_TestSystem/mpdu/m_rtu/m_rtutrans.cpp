@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -77,7 +77,7 @@ void M_RtuTrans::getAlarm(sDataUnit &data)
     }
 
     if((data.value < data.crMin) || (data.value > data.crMax)) {
-        if(data.crAlarm == 0)
+        if(data.crMax > 0)
             data.crAlarm = 1;
     } else {
         data.crAlarm = 0;

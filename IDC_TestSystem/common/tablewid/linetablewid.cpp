@@ -35,6 +35,7 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
 
     value = unit.cur.alarm;
     if(value) value = 2;
+    else value = unit.cur.crAlarm;
     setItemColor(row, column++, value);
 }
 

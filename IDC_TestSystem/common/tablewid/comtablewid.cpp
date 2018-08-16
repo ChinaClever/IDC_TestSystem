@@ -1,4 +1,4 @@
-/*
+﻿/*
  * tableWidget公共蕨类
  *     提供接口，protect所有方法
  *
@@ -208,7 +208,7 @@ void ComTableWid::setItemColor(int id, int column, int alarm)
         item->setTextColor(QColor(Qt::black));
         break;
     case 1:
-        item->setTextColor(QColor(Qt::yellow));
+        item->setTextColor(QColor(232,157,18));
         break;
     case 2:
         item->setTextColor(QColor(Qt::red));
