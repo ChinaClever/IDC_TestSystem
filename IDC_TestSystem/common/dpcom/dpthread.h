@@ -5,7 +5,7 @@
 #include "dpsavetrans.h"
 #include "dpsavelinethreshold.h"
 #include "dpsaveline.h"
-#include "dpsaveoutput.h"
+#include "dpsaveloop.h"
 
 class DpThread : public QThread
 {
@@ -36,6 +36,7 @@ protected:
     DpSaveEnv *mEnv;
     DpAlarmSave *mAlarmSlave;
     DpSaveLine *mLine;
+    DpSaveLoop *mLoop;
     DpSaveOutput *mOutput;
     DpSaveLineThreshold *mLineThreshold;
     DpSaveTrans *mTrans;

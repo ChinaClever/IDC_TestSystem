@@ -42,7 +42,11 @@ HEADERS += \
     $$PWD/sqlcom/dboutputrecords.h \
     $$PWD/dpcom/dpsaveoutput.h \
     $$PWD/tablewid/outputtablewid.h \
-    $$PWD/tablewid/outputthresholdtablewid.h
+    $$PWD/tablewid/outputthresholdtablewid.h \
+    $$PWD/sqlcom/dblooprecords.h \
+    $$PWD/dpcom/dpsaveloop.h \
+    $$PWD/tablewid/looptablewid.h \
+    $$PWD/tablewid/loopthresholdtablewid.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -84,7 +88,11 @@ SOURCES += \
     $$PWD/sqlcom/dboutputrecords.cpp \
     $$PWD/dpcom/dpsaveoutput.cpp \
     $$PWD/tablewid/outputtablewid.cpp \
-    $$PWD/tablewid/outputthresholdtablewid.cpp
+    $$PWD/tablewid/outputthresholdtablewid.cpp \
+    $$PWD/sqlcom/dblooprecords.cpp \
+    $$PWD/dpcom/dpsaveloop.cpp \
+    $$PWD/tablewid/looptablewid.cpp \
+    $$PWD/tablewid/loopthresholdtablewid.cpp
 
 FORMS += \
     $$PWD/comtablewid.ui \

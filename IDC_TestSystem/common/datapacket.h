@@ -66,9 +66,9 @@ struct sEnvData
     sDataUnit tem[SENOR_NUM]; // 温度
     sDataUnit hum[SENOR_NUM]; // 湿度
 
-    uchar door; // 门禁
-    uchar water; // 水浸
-    uchar smoke; // 烟雾
+    uchar door[SENOR_NUM]; // 门禁
+    uchar water[SENOR_NUM]; // 水浸
+    uchar smoke[SENOR_NUM]; // 烟雾
 };
 
 /**
@@ -116,6 +116,7 @@ struct sDataPacket
     uchar offLine; //离线标志 > 0在线
 
     char ip[NAME_SIZE]; //设备IP
+    char mac[NAME_SIZE]; // MAC地址
     char name[NAME_SIZE]; // 设备名称
 
     sDevData data; //设备数据
