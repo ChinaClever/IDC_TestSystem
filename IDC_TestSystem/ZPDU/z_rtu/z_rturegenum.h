@@ -2,7 +2,7 @@
 #define Z_SETCMDENUM_H
 
 
-enum M_SetCmdEnum {
+enum Z_SetCmdEnum {
     Z_RtuReg_DevType = 0,
     Z_RtuReg_DevTypeSize =1,
 

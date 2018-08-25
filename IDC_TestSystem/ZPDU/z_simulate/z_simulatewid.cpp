@@ -20,13 +20,13 @@ void Z_SimulateWid::initFunSLot()
 {
     sDevPackets *packets = Z_DataPackets::bulid()->packets;
 
-    mOutputTableWid = new OutputTableWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mOutputTableWid);
-    mOutputTableWid->initPackets(packets);
-
     mDevTableWid = new LineTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mDevTableWid);
     mDevTableWid->initPackets(packets);
+
+    mOutputTableWid = new OutputTableWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mOutputTableWid);
+    mOutputTableWid->initPackets(packets);
 
     mEnvTableWid = new EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);

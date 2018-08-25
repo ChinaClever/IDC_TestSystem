@@ -36,7 +36,12 @@ HEADERS += \
     $$PWD/z_service/json/z_buildjson.h \
     $$PWD/z_service/z_servicethread.h \
     $$PWD/z_simulate/z_simulatethread.h \
-    $$PWD/z_simulate/z_simulatewid.h
+    $$PWD/z_simulate/z_simulatewid.h \
+    $$PWD/z_toolbox/z_simulationtoolwid.h \
+    $$PWD/z_toolbox/z_settingtoolwid.h \
+    $$PWD/z_toolbox/z_logstoolwid.h \
+    $$PWD/z_toolbox/z_toolboxwid.h \
+    $$PWD/zpdu_mainwid.h
 
 	
 SOURCES += \
@@ -73,11 +78,21 @@ SOURCES += \
     $$PWD/z_service/json/z_buildjson.cpp \
     $$PWD/z_service/z_servicethread.cpp \
     $$PWD/z_simulate/z_simulatethread.cpp \
-    $$PWD/z_simulate/z_simulatewid.cpp
+    $$PWD/z_simulate/z_simulatewid.cpp \
+    $$PWD/z_toolbox/z_simulationtoolwid.cpp \
+    $$PWD/z_toolbox/z_settingtoolwid.cpp \
+    $$PWD/z_toolbox/z_logstoolwid.cpp \
+    $$PWD/z_toolbox/z_toolboxwid.cpp \
+    $$PWD/zpdu_mainwid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
-    $$PWD/z_simulate/z_simulatewid.ui
+    $$PWD/z_simulate/z_simulatewid.ui \
+    $$PWD/z_toolbox/z_simulationtoolwid.ui \
+    $$PWD/z_toolbox/z_settingtoolwid.ui \
+    $$PWD/z_toolbox/z_logstoolwid.ui \
+    $$PWD/z_toolbox/z_toolboxwid.ui \
+    $$PWD/zpdu_mainwid.ui
 
 
 
