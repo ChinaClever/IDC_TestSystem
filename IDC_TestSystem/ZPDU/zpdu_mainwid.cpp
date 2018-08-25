@@ -34,8 +34,8 @@ void ZPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-//    mTestWid = new MTest_MainWid(ui->stackedWid);
-//    ui->stackedWid->addWidget(mTestWid);
+    mTestWid = new ZTest_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mTestWid);
 
     mServiceThread = new Z_ServiceThread(this);
 }
@@ -47,6 +47,6 @@ void ZPDU_MainWid::toolBoxSlot(int id)
     } else if((id >= Z_Log_Modbus) && (id <= Z_Log_Alarm)) {
          ui->stackedWid->setCurrentWidget(mLogsWid);
     } else if(id == Z_Info_Set) {
-//        ui->stackedWid->setCurrentWidget(mTestWid);
+        ui->stackedWid->setCurrentWidget(mTestWid);
     }
 }

@@ -5,6 +5,7 @@
 #include "z_logs/z_logswid.h"
 #include "z_simulate/z_simulatewid.h"
 #include "z_service/z_servicethread.h"
+#include "z_test/ztest_mainwid.h"
 
 namespace Ui {
 class ZPDU_MainWid;
@@ -29,6 +30,7 @@ private:
     Z_SimulateWid *mSimulateWid;
     Z_LogsWid *mLogsWid;
     Z_ServiceThread *mServiceThread;
+    ZTest_MainWid *mTestWid;
 };
 
 #endif // ZPDU_MAINWID_H

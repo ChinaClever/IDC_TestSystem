@@ -41,7 +41,11 @@ HEADERS += \
     $$PWD/z_toolbox/z_settingtoolwid.h \
     $$PWD/z_toolbox/z_logstoolwid.h \
     $$PWD/z_toolbox/z_toolboxwid.h \
-    $$PWD/zpdu_mainwid.h
+    $$PWD/zpdu_mainwid.h \
+    $$PWD/z_test/z_testrtu/ztest_rtuthread.h \
+    $$PWD/z_test/z_testsw/ztest_switemwid.h \
+    $$PWD/z_test/z_testsw/ztest_swwid.h \
+    $$PWD/z_test/ztest_mainwid.h
 
 	
 SOURCES += \
@@ -83,7 +87,11 @@ SOURCES += \
     $$PWD/z_toolbox/z_settingtoolwid.cpp \
     $$PWD/z_toolbox/z_logstoolwid.cpp \
     $$PWD/z_toolbox/z_toolboxwid.cpp \
-    $$PWD/zpdu_mainwid.cpp
+    $$PWD/zpdu_mainwid.cpp \
+    $$PWD/z_test/z_testrtu/ztest_rtuthread.cpp \
+    $$PWD/z_test/z_testsw/ztest_switemwid.cpp \
+    $$PWD/z_test/z_testsw/ztest_swwid.cpp \
+    $$PWD/z_test/ztest_mainwid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
@@ -92,7 +100,10 @@ FORMS += \
     $$PWD/z_toolbox/z_settingtoolwid.ui \
     $$PWD/z_toolbox/z_logstoolwid.ui \
     $$PWD/z_toolbox/z_toolboxwid.ui \
-    $$PWD/zpdu_mainwid.ui
+    $$PWD/zpdu_mainwid.ui \
+    $$PWD/z_test/z_testsw/ztest_switemwid.ui \
+    $$PWD/z_test/z_testsw/ztest_swwid.ui \
+    $$PWD/z_test/ztest_mainwid.ui
 
 
 
