@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_dbalarm.h"
 
 Z_DbAlarm::Z_DbAlarm()

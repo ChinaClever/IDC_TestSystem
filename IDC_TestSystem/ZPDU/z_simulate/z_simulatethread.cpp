@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_simulatethread.h"
 
 Z_SimulateThread::Z_SimulateThread(QObject *parent) : SimulateThread(parent)

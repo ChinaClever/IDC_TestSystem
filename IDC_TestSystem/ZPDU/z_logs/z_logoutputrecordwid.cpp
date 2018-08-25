@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_logoutputrecordwid.h"
 #include "z_sql/z_dboutputrecords.h"
 

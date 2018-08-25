@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_simulationtoolwid.h"
 #include "ui_z_simulationtoolwid.h"
 

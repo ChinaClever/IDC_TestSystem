@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "loopthresholdtablewid.h"
 
 LoopThresholdTableWid::LoopThresholdTableWid(QWidget *parent) : OutputThresholdTableWid(parent)

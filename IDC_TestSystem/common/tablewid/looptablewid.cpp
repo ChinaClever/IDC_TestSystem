@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "looptablewid.h"
 
 LoopTableWid::LoopTableWid(QWidget *parent) : OutputTableWid(parent)

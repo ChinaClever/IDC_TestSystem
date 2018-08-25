@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_dpthread.h"
 
 Z_DpThread::Z_DpThread(QObject *parent) : DpThread(parent)
