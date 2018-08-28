@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Si 日志窗口
  *
  *  Created on: 2018年1月1日
@@ -14,6 +14,8 @@ SiLogsToolWid::SiLogsToolWid(QWidget *parent) :
     ui(new Ui::SiLogsToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     initLogTime();
 }
 

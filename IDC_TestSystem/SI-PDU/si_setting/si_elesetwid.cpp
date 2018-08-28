@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 电能清除
  *
  *  Created on: 2018年1月1日
@@ -12,6 +12,7 @@ SI_EleSetWid::SI_EleSetWid(QWidget *parent) :
     ui(new Ui::SI_EleSetWid)
 {
     ui->setupUi(this);
+
     mAddr = 1;
 }
 

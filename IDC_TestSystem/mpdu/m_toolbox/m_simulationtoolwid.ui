@@ -6,117 +6,239 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>200</width>
-    <height>600</height>
+    <width>180</width>
+    <height>538</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="envBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>400</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
    </property>
-   <property name="text">
-    <string>环境信息</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="transBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>200</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>传输统计</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="devBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>80</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>相位信息</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="thresholdBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>270</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>相位阈值</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="mnTestBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>20</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>一键模拟</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="settingBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>470</y>
-     <width>101</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>设备设置</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="outputBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>140</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>单元信息</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="outputThresholdBtn">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>330</y>
-     <width>100</width>
-     <height>35</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>单元阈值</string>
-   </property>
-  </widget>
+   <item>
+    <spacer name="verticalSpacer_9">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="mnTestBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>一键模拟</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_8">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="devBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>相位信息</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_7">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="outputBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>单元信息</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_6">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="transBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>传输统计</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="thresholdBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>相位阈值</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="outputThresholdBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>单元阈值</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="envBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>环境信息</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QPushButton" name="settingBtn">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>31</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>设备设置</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

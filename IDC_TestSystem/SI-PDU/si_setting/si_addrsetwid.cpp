@@ -13,6 +13,7 @@ SI_AddrSetWid::SI_AddrSetWid(QWidget *parent) :
     ui(new Ui::SI_AddrSetWid)
 {
     ui->setupUi(this);
+
     QTimer::singleShot(500,this,SLOT(initFunSLot()));
 }
 

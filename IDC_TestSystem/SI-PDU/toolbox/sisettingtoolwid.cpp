@@ -18,6 +18,9 @@ SiSettingToolWid::SiSettingToolWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->addWidget(this);
+
     mSerialPortDlg = new SerialPortDlg(this);
     initSerialPort();
     initLineNum();

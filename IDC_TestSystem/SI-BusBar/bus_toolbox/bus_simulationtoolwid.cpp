@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ BUS_SimulationToolWid::BUS_SimulationToolWid(QWidget *parent) :
     ui(new Ui::BUS_SimulationToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 BUS_SimulationToolWid::~BUS_SimulationToolWid()

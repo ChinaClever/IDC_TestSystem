@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ IP_SimulationToolWid::IP_SimulationToolWid(QWidget *parent) :
     ui(new Ui::IP_SimulationToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 IP_SimulationToolWid::~IP_SimulationToolWid()

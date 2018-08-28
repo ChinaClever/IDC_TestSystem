@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ M_LogsToolWid::M_LogsToolWid(QWidget *parent) :
     ui(new Ui::M_LogsToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 M_LogsToolWid::~M_LogsToolWid()

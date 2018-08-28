@@ -12,6 +12,8 @@ IP_SettingToolWid::IP_SettingToolWid(QWidget *parent) :
     ui(new Ui::IP_SettingToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     mSerialPortDlg = new SerialPortDlg(this);
 
     initSerialPort();

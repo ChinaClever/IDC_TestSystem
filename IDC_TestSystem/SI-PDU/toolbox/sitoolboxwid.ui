@@ -13,14 +13,14 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <property name="topMargin">
     <number>9</number>
    </property>
    <property name="bottomMargin">
     <number>9</number>
    </property>
-   <item row="0" column="0">
+   <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="font">
       <font>
@@ -32,6 +32,9 @@
       <string>功能操作区</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
       <item row="0" column="0">
        <widget class="QToolBox" name="toolBox">
         <property name="currentIndex">
@@ -42,8 +45,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>162</width>
-           <height>401</height>
+           <width>158</width>
+           <height>394</height>
           </rect>
          </property>
          <attribute name="label">
@@ -55,8 +58,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>162</width>
-           <height>401</height>
+           <width>158</width>
+           <height>394</height>
           </rect>
          </property>
          <attribute name="label">
@@ -68,8 +71,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>162</width>
-           <height>401</height>
+           <width>158</width>
+           <height>394</height>
           </rect>
          </property>
          <attribute name="label">
@@ -81,8 +84,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>162</width>
-           <height>401</height>
+           <width>158</width>
+           <height>394</height>
           </rect>
          </property>
          <attribute name="label">

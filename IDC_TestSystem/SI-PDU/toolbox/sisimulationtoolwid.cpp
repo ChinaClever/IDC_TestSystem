@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Si 模拟窗口
  *
  *  Created on: 2018年1月1日
@@ -15,7 +15,7 @@ SiSimulationToolWid::SiSimulationToolWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QGridLayout *gridLayout = new QGridLayout(parent);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
     //    com_setBackColour("",this);
 }
