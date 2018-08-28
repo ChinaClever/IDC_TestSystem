@@ -39,6 +39,9 @@ void MainWindow::initWid()
     mMpduWid = new MPDU_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mMpduWid);
 
+    mZpduWid = new ZPDU_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mZpduWid);
+
     mIpWid = new IP_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mIpWid);
 }
@@ -61,4 +64,9 @@ void MainWindow::on_mpduBtn_clicked()
 void MainWindow::on_ippduBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mIpWid);
+}
+
+void MainWindow::on_zpduBtn_clicked()
+{
+     ui->stackedWid->setCurrentWidget(mZpduWid);
 }

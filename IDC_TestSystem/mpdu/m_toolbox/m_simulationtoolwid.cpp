@@ -104,5 +104,14 @@ void M_SimulationToolWid::on_outputThresholdBtn_clicked()
 
 void M_SimulationToolWid::on_settingBtn_clicked()
 {
+    M_ConfigFile *config = M_ConfigFile::bulid();
+    int mode = config->item->testMode;
+    if(mode == M_Test_Simulate) {
+        QuMsgBox box(this, tr("此操作会停止模拟测试，是否进入单项测试？？"));
+        if(box.Exec())
+            on_mnTestBtn_clicked();
+        else
+            return ;
+    }
     emit simulateSig(M_Info_Set);
 }

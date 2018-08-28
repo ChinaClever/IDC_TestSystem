@@ -16,7 +16,7 @@ void LineTableWid::initWid()
     QString title = tr("设备实时相信息");
     QStringList header;
     header << tr("设备号") << tr("相数")  << tr("开关")
-           << tr("电压") << tr("电流") << tr("有功功率")
+           << tr("电压") << tr("电流") << tr("功率")
            << tr("功率因素") << tr("电能");
     initTableWid(header, 1, title);
 }
@@ -55,8 +55,13 @@ void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
     value = unit.cur.value / COM_RATE_CUR;
     list << QString::number(value) + "A";
 
-    value = unit.pow / COM_RATE_POW;
-    list << QString::number(value) + "KVA";
+    if(unit.pow) {
+        value = unit.pow / COM_RATE_POW;
+        list << QString::number(value) + "KW";
+    } else {
+        value = unit.activePow / COM_RATE_POW;
+        list << QString::number(value) + "KVA";
+    }
 
     value = unit.pf / COM_RATE_PF;
     list << QString::number(value);

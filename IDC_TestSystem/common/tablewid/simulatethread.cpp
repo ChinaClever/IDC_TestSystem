@@ -52,6 +52,7 @@ void SimulateThread::clearCount()
             sDataPacket *packet = &(mPackets->dev[i]);
             memset(&(packet->rtuCount), 0, sizeof(sRtuCount));
         }
+        mPackets->dev[1].offLine = 1;
     }
 }
 
