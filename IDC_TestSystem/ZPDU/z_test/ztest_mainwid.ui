@@ -40,7 +40,7 @@
       </font>
      </property>
      <property name="title">
-      <string>MPDU功能测试测试</string>
+      <string>ZPDU功能测试测试</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <property name="leftMargin">
