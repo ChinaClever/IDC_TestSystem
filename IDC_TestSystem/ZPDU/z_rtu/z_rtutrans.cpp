@@ -85,15 +85,14 @@ void Z_RtuTrans::getAlarm(sDataUnit &data)
     }
 }
 
-void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data)
+void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate)
 {
-    data.value = rtu.value[i];
-    data.min = rtu.min[i];
-    data.max = rtu.max[i];
+    data.value = rtu.value[i] / rate;
+    data.min = rtu.min[i] / rate;
+    data.max = rtu.max[i] / rate;
 
-    data.crMin = rtu.crMin[i];
-    data.crMax = rtu.crMax[i];
-    data.crAlarm = rtu.crAlarm[i];
+    data.crMin = rtu.crMin[i] / rate;
+    data.crMax = rtu.crMax[i] / rate;
 
     getAlarm(data);
 }
@@ -101,12 +100,12 @@ void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data)
 void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data)
 {
     data.id = i;
-    dataUnit(i, rtuData.vol, data.vol);
-    dataUnit(i, rtuData.cur, data.cur);
+    dataUnit(i, rtuData.vol, data.vol, 10);
+    dataUnit(i, rtuData.cur, data.cur, 10);
     data.ele = rtuData.ele[i];
     data.activePow = data.vol.value * data.cur.value;
     data.pf = rtuData.pf[i];
-    data.sw = rtuData.sw[i];
+    data.sw = rtuData.sw[i]+1;
 
     if(rtuData.pow[i] > 0) {
         data.pow = rtuData.pow[i];

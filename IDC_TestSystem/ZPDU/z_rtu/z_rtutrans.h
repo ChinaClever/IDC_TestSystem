@@ -18,7 +18,7 @@ public:
 
 protected:
     void getAlarm(sDataUnit &data);
-    void dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data);
+    void dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate=1);
     void devObjData(Z_sObjData &rtuData, int i, sObjData &data);
     void devData(Z_sRtuPacket &rtuData, sDevData &data);
     void envData(Z_sEnv &rtuData, sEnvData &data);
