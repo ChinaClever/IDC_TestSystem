@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -17,7 +17,7 @@ void OutputTableWid::initWid()
     QString title = tr("设备输出位实时相信息");
     QStringList header;
     header << tr("设备号") << tr("输出位")  << tr("开关")
-           << tr("电压") << tr("电流") << tr("有功功率")
+           << tr("电压") << tr("电流") << tr("功率")
            << tr("功率因素") << tr("电能");
     initTableWid(header, 1, title);
 }

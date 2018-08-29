@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -103,12 +103,17 @@ void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data)
     dataUnit(i, rtuData.vol, data.vol, 10);
     dataUnit(i, rtuData.cur, data.cur, 10);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value;
+    data.activePow = data.vol.value * data.cur.value / 10;
     data.pf = rtuData.pf[i];
-    data.sw = rtuData.sw[i]+1;
+    data.sw = rtuData.sw[i];
+
+    if(data.sw != 1) {
+        if(data.vol.value) data.sw = 1;
+        else  data.sw = 0;
+    }
 
     if(rtuData.pow[i] > 0) {
-        data.pow = rtuData.pow[i];
+        data.pow = rtuData.pow[i] / 100;
     } else {
         data.pow = data.activePow * data.pf / 100.0;
     }
@@ -130,19 +135,25 @@ void Z_RtuTrans::envData(Z_sEnv &rtuData, sEnvData &data)
 
 void Z_RtuTrans::devData(Z_sRtuPacket &rtuData, sDevData &data)
 {
+    int vol =220;
+
     int num = data.lineNum = rtuData.line.num;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.line, i, data.line[i]);
+        vol = rtuData.line.vol.value[0];
     }
 
     num = data.loopNum = rtuData.loop.num;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.loop, i, data.loop[i]);
+         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
     num = data.outputNum = rtuData.output.num;
     for(int i=0; i<num; ++i) {
+        rtuData.output.vol.value[i] = vol;
         devObjData(rtuData.output, i, data.output[i]);
+        data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
     }
 
     envData(rtuData.env, data.env);
