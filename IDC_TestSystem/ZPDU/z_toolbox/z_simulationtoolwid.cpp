@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -13,6 +13,8 @@ Z_SimulationToolWid::Z_SimulationToolWid(QWidget *parent) :
     ui(new Ui::Z_SimulationToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 Z_SimulationToolWid::~Z_SimulationToolWid()

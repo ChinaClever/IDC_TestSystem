@@ -10,6 +10,12 @@
     <height>300</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -30,7 +36,14 @@
     <number>0</number>
    </property>
    <item row="0" column="0">
-    <widget class="QStackedWidget" name="stackedWid"/>
+    <widget class="QStackedWidget" name="stackedWid">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

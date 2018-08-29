@@ -7,8 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>245</width>
-    <height>35</height>
+    <height>45</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>

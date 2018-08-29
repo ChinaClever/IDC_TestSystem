@@ -10,6 +10,12 @@
     <height>718</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -298,6 +304,9 @@
           <family>微软雅黑</family>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="minimum">
          <number>1</number>

@@ -10,6 +10,12 @@
     <height>900</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="focusPolicy">
    <enum>Qt::NoFocus</enum>
   </property>
@@ -173,7 +179,7 @@
      <x>0</x>
      <y>0</y>
      <width>1440</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

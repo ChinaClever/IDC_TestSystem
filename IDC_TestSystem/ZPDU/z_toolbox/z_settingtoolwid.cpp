@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ Z_SettingToolWid::Z_SettingToolWid(QWidget *parent) :
     ui(new Ui::Z_SettingToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     mSerialPortDlg = new SerialPortDlg(this);
 
     initSerialPort();
