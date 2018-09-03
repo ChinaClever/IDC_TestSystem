@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -62,4 +62,35 @@ int rtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr)
     *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
 
     return 8;
+}
+/**
+  * 功　能：发送数据打包
+  * 入口参数：pkt -> 发送结构体
+  * 出口参数：ptr -> 缓冲区
+  * 返回值：打包后的长度
+  */
+int zrtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr)
+{
+    uchar *buf = ptr;
+    *(ptr++) = pkt->addr;  /*地址码*/
+    *(ptr++) = pkt->fn; /*功能码*/
+
+    /*填入寄存器首地址*/
+    *(ptr++) = ((pkt->reg) >> 8); /*高8位*/
+    *(ptr++) = (0xff)&(pkt->reg); /*低8位*/
+
+    *(ptr++) = 0x00;//zpdu数据个数高位
+    *(ptr++) = 0x01;//zpdu数据个数低位
+    *(ptr++) = 0x02;//zpdu字节数
+
+    /*填入数据*/
+    *(ptr++) = ((pkt->len) >> 8); /*长度高8位*/
+    *(ptr++) = (0xff)&(pkt->len); /*低8位*/
+
+     /*填入CRC*/
+    pkt->crc = rtu_crc(buf, 9);
+    *(ptr++) = (0xff)&(pkt->crc); /*低8位*/
+    *(ptr++) = ((pkt->crc) >> 8); /*高8位*/
+
+    return 11;
 }

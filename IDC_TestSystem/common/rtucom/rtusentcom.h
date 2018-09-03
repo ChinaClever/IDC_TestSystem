@@ -1,4 +1,4 @@
-#ifndef RTUSENTCOM_H
+﻿#ifndef RTUSENTCOM_H
 #define RTUSENTCOM_H
 #include <QtCore>
 
@@ -12,5 +12,6 @@ struct Rtu_Sent_Com {
 };
 
 int rtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr);
+int zrtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr);
 ushort rtu_crc(uchar *buf, int len);
 #endif // RTUSENTCOM_H

@@ -1,4 +1,4 @@
-#ifndef ZTEST_MAINWID_H
+﻿#ifndef ZTEST_MAINWID_H
 #define ZTEST_MAINWID_H
 
 #include <QWidget>
@@ -14,7 +14,8 @@ class ZTest_MainWid : public QWidget
 public:
     explicit ZTest_MainWid(QWidget *parent = 0);
     ~ZTest_MainWid();
-
+protected:
+    QString getName(int mode);
 protected slots:
     void initFunSLot();
 

@@ -51,18 +51,34 @@ bool Z_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     bool ret = false;
     static uchar buf[SERIAL_LEN] = {0};
+    static uchar normalbuf[5] = {0x01,0x60,0x01,0xC9,0xC0};
+    static uchar abnormalbuf[5] = {0x01,0x90,0x02,0xCD,0xC1};
     QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf;
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
+
+//    QByteArray debugarray;
+//    QString debugstring;
+
+//    debugarray.append((char*)buf,len);
+//    debugstring = cm_ByteArrayToHexStr(debugarray);
+//    qDebug()<<debugstring;//调试用的代码
+
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs);
-        if(len == rtn) {
-            if(memcmp(buf, sent,rtn) == 0)
+
+
+
+        if(5 == rtn) {
+
+            if(memcmp(sent, normalbuf,rtn) == 0)
                 ret = true;
-            else
+            else if(memcmp(sent, abnormalbuf,rtn) == 0)
                 qDebug() << "Z sent Set Cmd Err";
         }
+        if(0 == rtn)
+            return true;//由于ZPDU不回答，暂时是正确的
     }
 
     return ret;

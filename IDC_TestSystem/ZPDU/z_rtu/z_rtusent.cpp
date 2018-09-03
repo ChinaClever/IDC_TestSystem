@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -40,5 +40,5 @@ int Z_RtuSent::sentCmdBuff(uchar addr, ushort reg, ushort value, uchar *buf)
    mMsg->reg  = reg;
    mMsg->len  = value;
 
-   return rtu_sent_packet(mMsg, buf);
+   return zrtu_sent_packet(mMsg, buf);
 }
