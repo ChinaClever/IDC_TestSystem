@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MTest_LineUnitWid</class>
- <widget class="QWidget" name="MTest_LineUnitWid">
+ <class>ZTest_EnvUnitWid</class>
+ <widget class="QWidget" name="ZTest_EnvUnitWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>876</width>
-    <height>164</height>
+    <width>826</width>
+    <height>383</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>12</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -38,6 +32,20 @@
    </item>
    <item>
     <widget class="QWidget" name="widget_2" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_3" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget_4" native="true">
      <property name="styleSheet">
       <string notr="true"/>
      </property>

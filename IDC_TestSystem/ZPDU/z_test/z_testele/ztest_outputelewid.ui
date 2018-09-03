@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MTest_OutputEleWid</class>
- <widget class="QWidget" name="MTest_OutputEleWid">
+ <class>ZTest_OutputEleWid</class>
+ <widget class="QWidget" name="ZTest_OutputEleWid">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,12 +9,6 @@
     <width>1424</width>
     <height>716</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>12</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -30,9 +24,6 @@
     <number>0</number>
    </property>
    <property name="bottomMargin">
-    <number>20</number>
-   </property>
-   <property name="horizontalSpacing">
     <number>0</number>
    </property>
    <item row="0" column="0">

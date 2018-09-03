@@ -293,6 +293,9 @@
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
         <property name="minimum">
          <number>1</number>
         </property>
@@ -330,6 +333,9 @@
           <family>微软雅黑</family>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
         <property name="maximum">
          <number>999</number>

@@ -1,44 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MTest_EnvWid</class>
- <widget class="QWidget" name="MTest_EnvWid">
+ <class>ZTest_LoopWid</class>
+ <widget class="QWidget" name="ZTest_LoopWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1154</width>
-    <height>721</height>
+    <width>1170</width>
+    <height>597</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>12</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>20</number>
-   </property>
-   <property name="horizontalSpacing">
-    <number>0</number>
-   </property>
    <item row="0" column="0">
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QGroupBox" name="temGroup">
+      <widget class="QGroupBox" name="curGroup">
        <property name="font">
         <font>
          <family>微软雅黑</family>
@@ -46,20 +25,7 @@
         </font>
        </property>
        <property name="title">
-        <string>温度阈值</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="humGroup">
-       <property name="font">
-        <font>
-         <family>微软雅黑</family>
-         <pointsize>12</pointsize>
-        </font>
-       </property>
-       <property name="title">
-        <string>湿度阈值</string>
+        <string>回路电流阈值</string>
        </property>
       </widget>
      </item>

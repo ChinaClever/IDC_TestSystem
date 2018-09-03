@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ZTest_SwItemWid</class>
- <widget class="QWidget" name="ZTest_SwItemWid">
+ <class>ZTest_EleItemWid</class>
+ <widget class="QWidget" name="ZTest_EleItemWid">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -28,7 +28,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="openRadio">
+    <widget class="QRadioButton" name="cleanRadio">
      <property name="font">
       <font>
        <family>微软雅黑</family>
@@ -36,20 +36,7 @@
       </font>
      </property>
      <property name="text">
-      <string>开</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QRadioButton" name="closeRadio">
-     <property name="font">
-      <font>
-       <family>微软雅黑</family>
-       <pointsize>12</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>关</string>
+      <string>清除</string>
      </property>
     </widget>
    </item>

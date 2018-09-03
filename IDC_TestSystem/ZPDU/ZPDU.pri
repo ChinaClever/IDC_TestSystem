@@ -45,7 +45,20 @@ HEADERS += \
     $$PWD/z_test/z_testrtu/ztest_rtuthread.h \
     $$PWD/z_test/z_testsw/ztest_switemwid.h \
     $$PWD/z_test/z_testsw/ztest_swwid.h \
-    $$PWD/z_test/ztest_mainwid.h
+    $$PWD/z_test/ztest_mainwid.h \
+    $$PWD/z_test/z_testthreshold/ztest_thresholditemwid.h \
+    $$PWD/z_test/z_testthreshold/ztest_thresholdoutputwid.h \
+    $$PWD/z_test/z_testele/ztest_eleitemwid.h \
+    $$PWD/z_test/z_testele/ztest_outputelewid.h \
+    $$PWD/z_test/z_testline/ztest_lineitemwid.h \
+    $$PWD/z_test/z_testline/ztest_lineunitwid.h \
+    $$PWD/z_test/z_testline/ztest_linewid.h \
+    $$PWD/z_test/z_testenv/ztest_envitemwid.h \
+    $$PWD/z_test/z_testenv/ztest_envunitwid.h \
+    $$PWD/z_test/z_testenv/ztest_envwid.h \
+    $$PWD/z_test/z_testloop/ztest_loopitemwid.h \
+    $$PWD/z_test/z_testloop/ztest_loopunitwid.h \
+    $$PWD/z_test/z_testloop/ztest_loopwid.h
 
 	
 SOURCES += \
@@ -91,7 +104,20 @@ SOURCES += \
     $$PWD/z_test/z_testrtu/ztest_rtuthread.cpp \
     $$PWD/z_test/z_testsw/ztest_switemwid.cpp \
     $$PWD/z_test/z_testsw/ztest_swwid.cpp \
-    $$PWD/z_test/ztest_mainwid.cpp
+    $$PWD/z_test/ztest_mainwid.cpp \
+    $$PWD/z_test/z_testthreshold/ztest_thresholditemwid.cpp \
+    $$PWD/z_test/z_testthreshold/ztest_thresholdoutputwid.cpp \
+    $$PWD/z_test/z_testele/ztest_eleitemwid.cpp \
+    $$PWD/z_test/z_testele/ztest_outputelewid.cpp \
+    $$PWD/z_test/z_testline/ztest_lineitemwid.cpp \
+    $$PWD/z_test/z_testline/ztest_lineunitwid.cpp \
+    $$PWD/z_test/z_testline/ztest_linewid.cpp \
+    $$PWD/z_test/z_testenv/ztest_envitemwid.cpp \
+    $$PWD/z_test/z_testenv/ztest_envunitwid.cpp \
+    $$PWD/z_test/z_testenv/ztest_envwid.cpp \
+    $$PWD/z_test/z_testloop/ztest_loopitemwid.cpp \
+    $$PWD/z_test/z_testloop/ztest_loopunitwid.cpp \
+    $$PWD/z_test/z_testloop/ztest_loopwid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
@@ -103,7 +129,20 @@ FORMS += \
     $$PWD/zpdu_mainwid.ui \
     $$PWD/z_test/z_testsw/ztest_switemwid.ui \
     $$PWD/z_test/z_testsw/ztest_swwid.ui \
-    $$PWD/z_test/ztest_mainwid.ui
+    $$PWD/z_test/ztest_mainwid.ui \
+    $$PWD/z_test/z_testthreshold/ztest_thresholditemwid.ui \
+    $$PWD/z_test/z_testthreshold/ztest_thresholdoutputwid.ui \
+    $$PWD/z_test/z_testele/ztest_eleitemwid.ui \
+    $$PWD/z_test/z_testele/ztest_outputelewid.ui \
+    $$PWD/z_test/z_testline/ztest_lineitemwid.ui \
+    $$PWD/z_test/z_testline/ztest_lineunitwid.ui \
+    $$PWD/z_test/z_testline/ztest_linewid.ui \
+    $$PWD/z_test/z_testenv/ztest_envitemwid.ui \
+    $$PWD/z_test/z_testenv/ztest_envunitwid.ui \
+    $$PWD/z_test/z_testenv/ztest_envwid.ui \
+    $$PWD/z_test/z_testloop/ztest_loopitemwid.ui \
+    $$PWD/z_test/z_testloop/ztest_loopunitwid.ui \
+    $$PWD/z_test/z_testloop/ztest_loopwid.ui
 
 
 
