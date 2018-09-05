@@ -46,6 +46,33 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QComboBox::drop-down {
+
+subcontrol-origin: padding;
+
+subcontrol-position: top right;
+
+width: 30px;
+
+border-left-width: 0px;
+
+border-left-color: gray;
+
+border-left-style: solid;
+
+border-top-right-radius: 3px;
+
+border-bottom-right-radius: 3px;
+
+}</string>
+       </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
@@ -75,6 +102,15 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <item>
         <property name="text">

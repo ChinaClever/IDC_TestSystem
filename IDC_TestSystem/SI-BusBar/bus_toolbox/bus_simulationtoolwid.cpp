@@ -104,3 +104,17 @@ void BUS_SimulationToolWid::on_envBtn_clicked()
     emit simulateSig(BUS_Info_Env);
 }
 
+void BUS_SimulationToolWid::on_settingBtn_clicked()
+{
+    BUS_ConfigFile *config = BUS_ConfigFile::bulid();
+    int mode = config->item->testMode;
+
+    if(mode == BUS_Test_Simulate) {
+        QuMsgBox box(this, tr("此操作会停止模拟测试，是否进入阈值设置？？"));
+        if(box.Exec())
+            on_mnTestBtn_clicked();
+        else
+            return ;
+    }
+    emit simulateSig(BUS_Info_Set);
+}

@@ -10,6 +10,12 @@
     <height>344</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>串口操作</string>
   </property>
@@ -129,6 +135,14 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>微软雅黑</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
   </widget>
   <widget class="QLabel" name="label_5">
    <property name="geometry">
@@ -168,8 +182,16 @@
      <height>30</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>微软雅黑</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <property name="currentText">
-    <string>9600</string>
+    <string>2400</string>
    </property>
    <item>
     <property name="text">

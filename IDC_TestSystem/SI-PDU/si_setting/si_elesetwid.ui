@@ -69,7 +69,7 @@
        <item>
         <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>电能 2:</string>
+          <string>电能 3:</string>
          </property>
         </widget>
        </item>
@@ -128,6 +128,15 @@
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>微软雅黑</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="currentText">
           <string>4800</string>

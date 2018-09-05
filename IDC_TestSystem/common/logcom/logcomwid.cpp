@@ -1,4 +1,4 @@
-/*
+﻿/*
  * 日志窗口公共基类
  *      只需要实现二个纯虚函数即可
  *       virtual BasicSql *getDb()=0;
@@ -59,6 +59,8 @@ void LogComWid::initFunSLot()
     model = new SqlTableModel(ui->tableView);
     ui->tableView->setModel(model->model);
     ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->tableView->setAlternatingRowColors(true);
+    ui->tableView->setStyleSheet("QTableView{ background-color: rgb(202, 232, 234); alternate-background-color: rgb(245, 245, 245); }");
     connect(ui->tableView,SIGNAL(doubleClicked(QModelIndex)),this,SLOT(doubleSlot(QModelIndex)));
 
     initTable();

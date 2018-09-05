@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -6,7 +6,7 @@
  */
 #include "bus_rtutrans.h"
 
-BUS_RtuTrans::BUS_RtuTrans()
+BUS_RtuTrans::BUS_RtuTrans(QObject *parent) : QThread(parent)
 {
     mSerial = NULL;
     isRun = false;
@@ -17,8 +17,20 @@ BUS_RtuTrans::BUS_RtuTrans()
     mRtuPkt = new BUS_RtuRecv();
     mRtuSent = new BUS_RtuSent();
 }
+BUS_RtuTrans::~BUS_RtuTrans()
+{
+    isRun = false;
+    wait();
+}
 
-
+BUS_RtuTrans *BUS_RtuTrans::bulid(QObject *parent)
+{
+    static BUS_RtuTrans* sington = NULL;
+    if(sington == NULL) {
+        sington = new BUS_RtuTrans(parent);
+    }
+    return sington;
+}
 /**
  * @brief 设置串口并开启线程
  * @param serial

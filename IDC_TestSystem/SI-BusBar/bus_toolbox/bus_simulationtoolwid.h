@@ -1,4 +1,4 @@
-#ifndef BUS_SIMULATIONTOOLWID_H
+﻿#ifndef BUS_SIMULATIONTOOLWID_H
 #define BUS_SIMULATIONTOOLWID_H
 
 #include "bus_settingtoolwid.h"
@@ -30,6 +30,7 @@ private slots:
     void on_thresholdBtn_clicked();
     void on_envBtn_clicked();
     void on_mnTestBtn_clicked();
+    void on_settingBtn_clicked();
 
 private:
     Ui::BUS_SimulationToolWid *ui;

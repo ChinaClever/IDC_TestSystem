@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -56,11 +56,14 @@ void BUS_SimulateWid::initFunSLot()
     mEnvTableWid = new BUS_EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
     connect(this, SIGNAL(updateSig()), mEnvTableWid, SLOT(updateData()));
+
+    mTestMainWid = new BUSTest_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mTestMainWid);
 }
 
 void BUS_SimulateWid:: simulateSlot(int id)
 {
-    BUS_LoopTableWid *wid = nullptr;
+    QWidget *wid = nullptr;
     switch (id) {
     case BUS_Test_Stop: mSimulateThread->stopThread(); break;
     case BUS_Test_Simulate: mSimulateThread->startThread(); break;
@@ -70,6 +73,7 @@ void BUS_SimulateWid:: simulateSlot(int id)
     case BUS_Info_Trans: wid = mTransTableWid; break;
     case BUS_Info_Threshold: wid = mThresholdTableWid; break;
     case BUS_Info_Env: wid = mEnvTableWid; break;
+    case BUS_Info_Set: wid = mTestMainWid; break;
     default:  break;
     }
 

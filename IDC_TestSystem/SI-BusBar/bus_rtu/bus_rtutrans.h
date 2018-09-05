@@ -1,12 +1,14 @@
-#ifndef BUS_RTUTRANS_H
+﻿#ifndef BUS_RTUTRANS_H
 #define BUS_RTUTRANS_H
 #include "bus_rturecv.h"
 #include "bus_com/buspacketsi.h"
 
-class BUS_RtuTrans
+class BUS_RtuTrans: public QThread
 {
 public:
-    BUS_RtuTrans();
+    explicit BUS_RtuTrans(QObject *parent = nullptr);
+    ~BUS_RtuTrans();
+    static BUS_RtuTrans *bulid(QObject *parent = nullptr);
 
     void init(SerialPort *serial);
     int transmit(int addr, sBoxData *box, int msecs); //发送数据并回收

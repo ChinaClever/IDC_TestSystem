@@ -1,4 +1,4 @@
-#ifndef BUS_SIMULATEWID_H
+﻿#ifndef BUS_SIMULATEWID_H
 #define BUS_SIMULATEWID_H
 
 #include "bus_com/bus_configfile.h"
@@ -6,7 +6,7 @@
 #include "bus_bustablewid.h"
 #include "bus_envtablewid.h"
 #include "bus_simulatethread.h"
-
+#include "../bus_test/bustest_mainwid.h"
 namespace Ui {
 class BUS_SimulateWid;
 }
@@ -40,6 +40,7 @@ private:
     BUS_TransTableWid *mTransTableWid;
     BUS_ThresholdTableWid *mThresholdTableWid;
     BUS_EnvTableWid *mEnvTableWid;
+    BUSTest_MainWid* mTestMainWid;
 };
 
 #endif // BUS_SIMULATEWID_H
