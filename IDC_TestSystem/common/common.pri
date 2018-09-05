@@ -95,7 +95,7 @@ SOURCES += \
     $$PWD/tablewid/loopthresholdtablewid.cpp
 
 FORMS += \
-    $$PWD/comtablewid.ui \
+    $$PWD/tablewid//comtablewid.ui \
     $$PWD/logcom/logbtnbar.ui \
     $$PWD/logcom/logcalendardlg.ui \
     $$PWD/logcom/logcomwid.ui \
