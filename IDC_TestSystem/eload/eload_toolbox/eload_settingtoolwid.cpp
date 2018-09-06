@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "eload_settingtoolwid.h"
 #include "ui_eload_settingtoolwid.h"
 #include "eload_com/eload_configfile.h"

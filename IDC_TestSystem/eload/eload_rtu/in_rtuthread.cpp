@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "in_rtuthread.h"
 
 IN_RtuThread::IN_RtuThread(QObject *parent) : SimulateThread(parent)
