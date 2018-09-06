@@ -29,7 +29,7 @@ void ELoad_MainWid::initFunSLot()
 
     mHomeMainWid = new ELoad_HomeMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeMainWid);
-//    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
+    //    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
 
     mInputMainWid = new IN_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mInputMainWid);
@@ -43,7 +43,9 @@ void ELoad_MainWid::toolBoxSlot(int id)
 {
     if((id >= ELoad_Info_Trans) && (id < ELoad_Info_Set)) {
         ui->stackedWid->setCurrentWidget(mInputMainWid);
-    } else {
+    } else if((id >= ELoad_Log_Modbus) && (id <= ELoad_Log_Alarm)) {
+//        ui->stackedWid->setCurrentWidget(mLogsWid);
+    }else {
         ui->stackedWid->setCurrentWidget(mHomeMainWid);
     }
 }

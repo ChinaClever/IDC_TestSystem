@@ -26,7 +26,8 @@ HEADERS += \
     $$PWD/eload_toolbox/eload_inputtoolwid.h \
     $$PWD/eload_toolbox/eload_hometoolwid.h \
     $$PWD/eload_com/eload_configfile.h \
-    $$PWD/eload_toolbox/eload_settingtoolwid.h
+    $$PWD/eload_toolbox/eload_settingtoolwid.h \
+    $$PWD/eload_toolbox/eload_logstoolwid.h
 
 	
 SOURCES += \
@@ -53,7 +54,8 @@ SOURCES += \
     $$PWD/eload_toolbox/eload_inputtoolwid.cpp \
     $$PWD/eload_toolbox/eload_hometoolwid.cpp \
     $$PWD/eload_com/eload_configfile.cpp \
-    $$PWD/eload_toolbox/eload_settingtoolwid.cpp
+    $$PWD/eload_toolbox/eload_settingtoolwid.cpp \
+    $$PWD/eload_toolbox/eload_logstoolwid.cpp
 
 FORMS += \
     $$PWD/eload_mainwid.ui \
@@ -68,7 +70,8 @@ FORMS += \
     $$PWD/eload_home/eload_homemainwid.ui \
     $$PWD/eload_toolbox/eload_inputtoolwid.ui \
     $$PWD/eload_toolbox/eload_hometoolwid.ui \
-    $$PWD/eload_toolbox/eload_settingtoolwid.ui
+    $$PWD/eload_toolbox/eload_settingtoolwid.ui \
+    $$PWD/eload_toolbox/eload_logstoolwid.ui
 
 
 

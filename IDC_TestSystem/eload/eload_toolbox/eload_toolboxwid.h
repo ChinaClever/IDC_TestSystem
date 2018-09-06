@@ -3,6 +3,7 @@
 
 #include "eload_inputtoolwid.h"
 #include "eload_settingtoolwid.h"
+#include "eload_logstoolwid.h"
 
 namespace Ui {
 class ELoad_ToolBoxWid;
@@ -27,6 +28,7 @@ private:
 
     ELoad_HomeToolWid *mHomeToolWid;
     ELoad_InputToolWid *mInputToolWid;
+    ELoad_LogsToolWid *mLogsToolWid;
     ELoad_SettingToolWid *mSettingToolWid;
 };
 

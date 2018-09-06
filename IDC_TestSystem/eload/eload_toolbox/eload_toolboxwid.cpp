@@ -36,5 +36,8 @@ void ELoad_ToolBoxWid::initWid()
     mInputToolWid = new ELoad_InputToolWid(ui->toolBox->widget(page++));
     connect(mInputToolWid, SIGNAL(toolSig(int)), this, SIGNAL(toolBoxSig(int)));
 
+    mLogsToolWid = new ELoad_LogsToolWid(ui->toolBox->widget(page++));
+    connect(mLogsToolWid, SIGNAL(logsSig(int)), this, SIGNAL(toolBoxSig(int)));
+
     mSettingToolWid = new ELoad_SettingToolWid(ui->toolBox->widget(page++));
 }
