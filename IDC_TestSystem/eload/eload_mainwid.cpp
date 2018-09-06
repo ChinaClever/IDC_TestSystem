@@ -2,7 +2,7 @@
  *
  *
  *  Created on: 2018年10月1日
- *      Author: Lzy
+ *      Author: LELoady
  */
 #include "eload_mainwid.h"
 #include "ui_eload_mainwid.h"
@@ -35,6 +35,10 @@ void ELoad_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mInputMainWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mInputMainWid, SLOT(updateWidSlot(int)));
 
+    mLogsWid = new ELoad_LogsWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mLogsWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
+
     IN_RtuThread *rtu = IN_RtuThread::bulid(this);
     rtu->init(ELoad_ConfigFile::bulid()->item->serial);
 }
@@ -44,7 +48,7 @@ void ELoad_MainWid::toolBoxSlot(int id)
     if((id >= ELoad_Info_Trans) && (id < ELoad_Info_Set)) {
         ui->stackedWid->setCurrentWidget(mInputMainWid);
     } else if((id >= ELoad_Log_Modbus) && (id <= ELoad_Log_Alarm)) {
-//        ui->stackedWid->setCurrentWidget(mLogsWid);
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     }else {
         ui->stackedWid->setCurrentWidget(mHomeMainWid);
     }

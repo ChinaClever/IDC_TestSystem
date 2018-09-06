@@ -27,7 +27,20 @@ HEADERS += \
     $$PWD/eload_toolbox/eload_hometoolwid.h \
     $$PWD/eload_com/eload_configfile.h \
     $$PWD/eload_toolbox/eload_settingtoolwid.h \
-    $$PWD/eload_toolbox/eload_logstoolwid.h
+    $$PWD/eload_toolbox/eload_logstoolwid.h \
+    $$PWD/eload_sql/eload_dbalarm.h \
+    $$PWD/eload_sql/eload_dbenv.h \
+    $$PWD/eload_sql/eload_dbmodbuscmd.h \
+    $$PWD/eload_sql/eload_dbmodbustrans.h \
+    $$PWD/eload_sql/eload_dblinerecords.h \
+    $$PWD/eload_sql/eload_dblinethresholds.h \
+    $$PWD/eload_logs/eload_logalarmwid.h \
+    $$PWD/eload_logs/eload_logenvwid.h \
+    $$PWD/eload_logs/eload_loglinerecordwid.h \
+    $$PWD/eload_logs/eload_loglinethresholdwid.h \
+    $$PWD/eload_logs/eload_logmodbuscmdwid.h \
+    $$PWD/eload_logs/eload_logmodbustranswid.h \
+    $$PWD/eload_logs/eload_logswid.h
 
 	
 SOURCES += \
@@ -55,7 +68,20 @@ SOURCES += \
     $$PWD/eload_toolbox/eload_hometoolwid.cpp \
     $$PWD/eload_com/eload_configfile.cpp \
     $$PWD/eload_toolbox/eload_settingtoolwid.cpp \
-    $$PWD/eload_toolbox/eload_logstoolwid.cpp
+    $$PWD/eload_toolbox/eload_logstoolwid.cpp \
+    $$PWD/eload_sql/eload_dbalarm.cpp \
+    $$PWD/eload_sql/eload_dbenv.cpp \
+    $$PWD/eload_sql/eload_dbmodbuscmd.cpp \
+    $$PWD/eload_sql/eload_dbmodbustrans.cpp \
+    $$PWD/eload_sql/eload_dblinerecords.cpp \
+    $$PWD/eload_sql/eload_dblinethresholds.cpp \
+    $$PWD/eload_logs/eload_logalarmwid.cpp \
+    $$PWD/eload_logs/eload_logenvwid.cpp \
+    $$PWD/eload_logs/eload_loglinerecordwid.cpp \
+    $$PWD/eload_logs/eload_loglinethresholdwid.cpp \
+    $$PWD/eload_logs/eload_logmodbuscmdwid.cpp \
+    $$PWD/eload_logs/eload_logmodbustranswid.cpp \
+    $$PWD/eload_logs/eload_logswid.cpp
 
 FORMS += \
     $$PWD/eload_mainwid.ui \
@@ -71,7 +97,8 @@ FORMS += \
     $$PWD/eload_toolbox/eload_inputtoolwid.ui \
     $$PWD/eload_toolbox/eload_hometoolwid.ui \
     $$PWD/eload_toolbox/eload_settingtoolwid.ui \
-    $$PWD/eload_toolbox/eload_logstoolwid.ui
+    $$PWD/eload_toolbox/eload_logstoolwid.ui \
+    $$PWD/eload_logs/eload_logswid.ui
 
 
 

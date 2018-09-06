@@ -4,6 +4,7 @@
 #include "eload_toolbox/eload_toolboxwid.h"
 #include "eload_home/eload_homemainwid.h"
 #include "eload_input/in_mainwid.h"
+#include "eload_logs/eload_logswid.h"
 
 namespace Ui {
 class ELoad_MainWid;
@@ -26,6 +27,7 @@ private:
     ELoad_ToolBoxWid *mtoolBoxWid;
     ELoad_HomeMainWid *mHomeMainWid;
     IN_MainWid *mInputMainWid;
+    ELoad_LogsWid *mLogsWid;
 };
 
 #endif // ELOAD_MAINWID_H

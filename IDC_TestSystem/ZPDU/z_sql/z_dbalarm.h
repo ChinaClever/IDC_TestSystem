@@ -7,7 +7,8 @@
 class Z_DbAlarm : public DbAlarm
 {
     Z_DbAlarm();
-public: static Z_DbAlarm *bulid();
+public:
+    static Z_DbAlarm *bulid();
     virtual QString tableName(){return QString("%1").arg(Z_DB_Alarms);}
 };
 
