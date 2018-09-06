@@ -11,14 +11,14 @@ public:
 
 protected:
     void tgBus(sBusData *bus);
-    void tgBox(sBoxData *box);
-    void tgObj(sBoxData *box);
+    void tgBox(sDataPacket *box);
+    void tgObj(sDevData *box);
     void startBox();
 
-    void lineTgObj(sBoxData *box, int line, int loop);
-    void LineTg(sBoxData *box);
+    void lineTgObj(sDevData *box, int line, int loop);
+    void LineTg(sDataPacket *box);
 
-    void bulidPf(BUS_sObjUnit *unit);
+    void bulidPf(sObjData *unit);
     int averData(int *data, int len);
 
 };

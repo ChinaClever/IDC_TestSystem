@@ -45,7 +45,7 @@ void BUS_DpAlarmSave::saveMsg(QStringList &list, const QString &typeStr, const Q
 }
 
 
-void BUS_DpAlarmSave::unitAlarm(QStringList &list, QString &typeStr, BUS_sDataUnit &unit,double rate, const QString &sym)
+void BUS_DpAlarmSave::unitAlarm(QStringList &list, QString &typeStr, sDataUnit &unit,double rate, const QString &sym)
 {
     QString str, tempStr = typeStr;
     if(unit.alarm)
@@ -82,22 +82,22 @@ void BUS_DpAlarmSave::unitAlarm(QStringList &list, QString &typeStr, BUS_sDataUn
 void BUS_DpAlarmSave::boxAlarm(int busId, int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
-    sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);
+    sDataPacket *box =  BusPacketSi::bulid()->getBox(busId, boxId);
 
-    for(int i=0; i<box->loopNum; ++i)
+    for(int i=0; i<box->data.loopNum; ++i)
     {
         QStringList list;
-        list << busName << box->name << box->loop[i].name;
+        list << busName << box->name << box->data.loop[i].name;
 
         QString typeStr = QObject::tr("电流");
-        unitAlarm(list, typeStr, box->loop[i].cur, COM_RATE_CUR, "A");
+        unitAlarm(list, typeStr, box->data.loop[i].cur, COM_RATE_CUR, "A");
 
         typeStr = QObject::tr("电压");
-        unitAlarm(list, typeStr, box->loop[i].vol, COM_RATE_VOL, "V");
+        unitAlarm(list, typeStr, box->data.loop[i].vol, COM_RATE_VOL, "V");
 
         typeStr = QObject::tr("温度");
         list[2] = QObject::tr("温度").arg(i+1);
-        unitAlarm(list, typeStr, box->env[i].tem, COM_RATE_TEM, "°C");
+        unitAlarm(list, typeStr, box->data.env.tem[i], COM_RATE_TEM, "°C");
     }
 }
 
@@ -105,7 +105,7 @@ void BUS_DpAlarmSave::boxAlarm(int busId, int boxId)
 void BUS_DpAlarmSave::busAlarm(int id)
 {
     sBusData *bus =  BusPacketSi::bulid()->getBus(id);
-    for(int i=0; i<=bus->boxNum; ++i) {
+    for(int i=0; i<=bus->devNum; ++i) {
         boxAlarm(id, i);
     }
 }

@@ -10,7 +10,7 @@ public:
     void run();
 
 protected:
-    void unitAlarm(QStringList &list, QString &typeStr, BUS_sDataUnit &unit, double rate, const QString &sym);
+    void unitAlarm(QStringList &list, QString &typeStr, sDataUnit &unit, double rate, const QString &sym);
 
     void boxAlarm(int busId, int boxId);
     void busAlarm(int id);

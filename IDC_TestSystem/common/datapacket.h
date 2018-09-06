@@ -4,10 +4,12 @@
 
 #define LINE_NUM  3
 #define LOOP_NUM  9
+#define INPUT_NUM 10
 #define OUTPUT_NUM 42
 #define SENOR_NUM 3
 #define NAME_SIZE 32
 #define DEV_NUM 33
+#define ARRAY_SIZE 255 //一包数据最长
 
 // 倍率定义
 #define COM_RATE_VOL	1.0    // 电压
@@ -81,6 +83,9 @@ struct sDevData
 
     uchar loopNum;
     sObjData loop[LOOP_NUM]; // 回路数据
+
+    uchar inputNum;
+    sObjData input[INPUT_NUM]; //输入数据
 
     uchar outputNum;
     sObjData output[OUTPUT_NUM]; //位数据

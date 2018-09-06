@@ -11,9 +11,9 @@ public:
 
 protected:
     void initWid();
-    void setAlarm(BUS_sDataUnit &unit, int row);
-    void setObjUnit(BUS_sDataUnit &unit, QStringList &list);
-    int updateBox(sBoxData &box, const QString &bus, int row);
+    void setAlarm(sDataUnit &unit, int row);
+    void setObjUnit(sDataUnit &unit, QStringList &list);
+    int updateBox(sDataPacket &box, const QString &bus, int row);
 };
 
 #endif // BUS_ENVTABLEWID_H

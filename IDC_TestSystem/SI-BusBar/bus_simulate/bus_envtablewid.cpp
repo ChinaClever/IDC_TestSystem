@@ -21,13 +21,13 @@ void BUS_EnvTableWid::initWid()
 }
 
 
-void BUS_EnvTableWid::setAlarm(BUS_sDataUnit &unit, int row)
+void BUS_EnvTableWid::setAlarm(sDataUnit &unit, int row)
 {
     setItemColor(row, 3, unit.alarm);
 }
 
 
-void BUS_EnvTableWid::setObjUnit(BUS_sDataUnit &unit, QStringList &list)
+void BUS_EnvTableWid::setObjUnit(sDataUnit &unit, QStringList &list)
 {
     list << QString::number(unit.value) + " ℃"
          << QString::number(unit.min) + " ℃"
@@ -35,18 +35,18 @@ void BUS_EnvTableWid::setObjUnit(BUS_sDataUnit &unit, QStringList &list)
 }
 
 
-int BUS_EnvTableWid::updateBox(sBoxData &box, const QString &bus, int row)
+int BUS_EnvTableWid::updateBox(sDataPacket &box, const QString &bus, int row)
 {
     if(box.offLine)
     {
-        for(int i=0; i<box.lineNum; ++i)
+        for(int i=0; i<box.data.lineNum; ++i)
         {
             QStringList list;
             list << bus << box.name;
             list << tr("温度%1").arg(i+1);
 
-            setObjUnit(box.env[i].tem, list);
-            setAlarm(box.env[i].tem, row);
+            setObjUnit(box.data.env.tem[i], list);
+            setAlarm(box.data.env.tem[i], row);
             setTableRow(row++, list);
         }
     }

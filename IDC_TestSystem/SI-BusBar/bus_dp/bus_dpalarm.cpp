@@ -12,7 +12,7 @@ BUS_DpAlarm::BUS_DpAlarm(QObject *parent) : QObject(parent)
 }
 
 
-void BUS_DpAlarm::alarmDataUnit(BUS_sDataUnit &unit, bool cr)
+void BUS_DpAlarm::alarmDataUnit(sDataUnit &unit, bool cr)
 {
     if((unit.value < unit.min) || (unit.value > unit.max))
     {
@@ -33,19 +33,19 @@ void BUS_DpAlarm::alarmDataUnit(BUS_sDataUnit &unit, bool cr)
 }
 
 
-void BUS_DpAlarm::boxAlarm(sBoxData &box)
+void BUS_DpAlarm::boxAlarm(sDataPacket &box)
 {
     if(box.offLine > 0)
     {
-        for(int i=0; i<box.loopNum; ++i) {
-            alarmDataUnit(box.loop[i].cur); // 回路是否有告警
-            alarmDataUnit(box.loop[i].vol); // 回路是否有告警
+        for(int i=0; i<box.data.loopNum; ++i) {
+            alarmDataUnit(box.data.loop[i].cur); // 回路是否有告警
+            alarmDataUnit(box.data.loop[i].vol); // 回路是否有告警
         }
 
         int num = 3;
-        if(!box.dc) num = box.rate;
+        if(!box.dc) num = box.hz;
         for(int i=0; i<num; ++i) {
-            alarmDataUnit(box.env[i].tem);
+            alarmDataUnit(box.data.env.tem[i]);
         }
     }
 }
@@ -53,8 +53,8 @@ void BUS_DpAlarm::boxAlarm(sBoxData &box)
 
 void BUS_DpAlarm::busAlarm(sBusData *bus)
 {
-    for(int i=0; i<=bus->boxNum; ++i) {
-        boxAlarm(bus->box[i]);
+    for(int i=0; i<=bus->devNum; ++i) {
+        boxAlarm(bus->dev[i]);
     }
 }
 

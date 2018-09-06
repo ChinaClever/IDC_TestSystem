@@ -21,12 +21,12 @@ void BUS_BusTableWid::initWid()
     initTableWid(header, 1, title);
 }
 
-void BUS_BusTableWid::setLineName(sBoxData &box)
+void BUS_BusTableWid::setLineName(sDataPacket &box)
 {
     char array [2] = {0,0};
 
-    for(int i=0; i<box.loopNum; ++i) {
-        char *buf = box.loop[i].name;
+    for(int i=0; i<box.data.loopNum; ++i) {
+        char *buf = box.data.loop[i].name;
         array[0] = 'A' + i;
 
         QString name = array;
@@ -41,19 +41,19 @@ void BUS_BusTableWid::setLineName(sBoxData &box)
 }
 
 
-int BUS_BusTableWid::updateBox(sBoxData &box, const QString &bus, int row)
+int BUS_BusTableWid::updateBox(sDataPacket &box, const QString &bus, int row)
 {
     if(box.offLine)
     {
-        for(int i=0; i<box.loopNum; ++i)
+        for(int i=0; i<box.data.loopNum; ++i)
         {
             QStringList list;
             list << box.name;
-            if(box.loop[i].vol.value > 20)
+            if(box.data.loop[i].vol.value > 20)
             {
                 setLineName(box);
-                setObjUnit(box.loop[i], list);
-                setAlarm(box.loop[i], row);
+                setObjUnit(box.data.loop[i], list);
+                setAlarm(box.data.loop[i], row);
                 setTableRow(row++, list);
             } else {
                 clearRow(row++);
@@ -66,5 +66,5 @@ int BUS_BusTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 
 int BUS_BusTableWid::updateBus(sBusData *bus, int row)
 {
-    return updateBox(bus->box[0], "", row);;
+    return updateBox(bus->dev[0], "", row);;
 }

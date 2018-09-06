@@ -21,7 +21,7 @@ void BUS_BoxTableWid::initWid()
     initTableWid(header, 1, title);
 }
 
-void BUS_BoxTableWid::setLineName(sBoxData &box)
+void BUS_BoxTableWid::setLineName(sDevData &box, int dc)
 {
     char array [2] = {0,0};
     for(int i=0; i<box.lineNum; ++i) {
@@ -29,7 +29,7 @@ void BUS_BoxTableWid::setLineName(sBoxData &box)
         array[0] = 'A' + i;
 
         QString name = array;
-        if(box.dc==0) {
+        if(dc==0) {
             name = "D" + QString::number(i+1);
         }
         box.line[i].sw = 2;
@@ -40,17 +40,17 @@ void BUS_BoxTableWid::setLineName(sBoxData &box)
     }
 }
 
-int BUS_BoxTableWid::updateBox(sBoxData &box, const QString &bus, int row)
+int BUS_BoxTableWid::updateBox(sDataPacket &box, const QString &bus, int row)
 {
     if(box.offLine)
     {
-        for(int i=0; i<box.lineNum; ++i)
+        for(int i=0; i<box.data.lineNum; ++i)
         {
             QStringList list;
             list << bus << box.name;
 
-            setLineName(box);
-            setObjUnit(box.line[i], list);
+            setLineName(box.data, box.dc);
+            setObjUnit(box.data.line[i], list);
             setTableRow(row++, list);
         }
     }

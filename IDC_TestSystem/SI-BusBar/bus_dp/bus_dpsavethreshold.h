@@ -8,7 +8,7 @@ public:
     BUS_DpSaveThreshold(QObject *parent = nullptr);
 
 protected:
-    void saveLoop(QStringList &list, BUS_sObjUnit &unit);
+    void saveLoop(QStringList &list, sObjData &unit);
 };
 
 #endif // BUS_DPSAVETHRESHOLD_H

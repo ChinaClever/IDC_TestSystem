@@ -57,7 +57,7 @@ void BUS_SimulateThread::setOffLine()
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        for(int j=0; j<=BUS_BOX_NUM; ++j) {
+        for(int j=0; j<=DEV_NUM; ++j) {
             mPacket->getBox(i,j)->offLine = 0;
         }
     }
@@ -67,9 +67,9 @@ void BUS_SimulateThread::clearCount()
 {
     for(int i=0; i<BUS_NUM; ++i)
     {
-        for(int j=0; j<=BUS_BOX_NUM; ++j) {
-            sBoxData *box = mPacket->getBox(i,j);
-            memset(&(box->count), 0, sizeof(BUS_RtuCount));
+        for(int j=0; j<=DEV_NUM; ++j) {
+            sDataPacket *box = mPacket->getBox(i,j);
+            memset(&(box->rtuCount), 0, sizeof(sRtuCount));
         }
     }
 }
@@ -79,7 +79,7 @@ void BUS_SimulateThread::clearCount()
  * @brief 命令传送成功
  * @param devId
  */
-void BUS_SimulateThread::sentOkCmd(BUS_RtuCount &count)
+void BUS_SimulateThread::sentOkCmd(sRtuCount &count)
 {
     count.count++;
     count.okCount ++;
@@ -93,14 +93,14 @@ void BUS_SimulateThread::sentOkCmd(BUS_RtuCount &count)
  * @brief 保存失败命令
  * @param devId
  */
-void BUS_SimulateThread::saveErrCmd(int busId, sBoxData *box)
+void BUS_SimulateThread::saveErrCmd(int busId, sDataPacket *box)
 {
-    box->count.count += 1;
-    box->count.errCount += 1;
+    box->rtuCount.count += 1;
+    box->rtuCount.errCount += 1;
 
-    box->count.longFlag += 1;
-    if(box->count.longFlag % 2 == 0) {
-        box->count.longCount += 1;
+    box->rtuCount.longFlag += 1;
+    if(box->rtuCount.longFlag % 2 == 0) {
+        box->rtuCount.longCount += 1;
     }
 
 
@@ -135,12 +135,12 @@ void BUS_SimulateThread::workDown()
     for(int i=0; i<1; ++i) // BUS_NUM
     {
         BusConfigItem *item = BUS_ConfigFile::bulid()->item;
-        mPacket->getBus(i)->boxNum = item->devNum; /////========
+        mPacket->getBus(i)->devNum = item->devNum; /////========
 
-        for(int k=0; k<=mPacket->getBus(i)->boxNum; ++k)
+        for(int k=0; k<=mPacket->getBus(i)->devNum; ++k)
         {
             int addr = k;
-            sBoxData *box = mPacket->getBox(i, k);
+            sDataPacket *box = mPacket->getBox(i, k);
 
             for(int j=0; j<item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transmit(addr, box, item->msecs);
@@ -148,7 +148,7 @@ void BUS_SimulateThread::workDown()
             }
 
             if(ret) { // 正常收到数据
-                sentOkCmd(box->count);
+                sentOkCmd(box->rtuCount);
             } else { // 数据异常
                 saveErrCmd(i, box);
             }

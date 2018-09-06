@@ -41,9 +41,9 @@ void BUSTEST_EnvSetWid::initWidget()
     int envid = ui->envBox->currentIndex();
     on_changeEnvBtn_clicked();
 
-    BUS_sEnvData* obj = &(BusPacketSi::bulid()->getBox(mBus , mAddr)->env[envid]);
-    ui->tempMinBox->setValue(obj->tem.min);
-    ui->tempMaxBox->setValue(obj->tem.max);
+    sDataUnit* obj = &(BusPacketSi::bulid()->getBox(mBus , mAddr)->data.env.tem[envid]);
+    ui->tempMinBox->setValue(obj->min);
+    ui->tempMaxBox->setValue(obj->max);
 }
 void BUSTEST_EnvSetWid::sendCmd()
 {

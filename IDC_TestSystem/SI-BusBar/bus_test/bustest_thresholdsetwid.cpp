@@ -25,7 +25,7 @@ void BUSTEST_ThresholdSetWid::initWidget()
     int addr = ui->addrBox->currentIndex() +1;
 
     int id = ui->lineBox->currentIndex();
-    BUS_sObjUnit* obj =&( BusPacketSi::bulid()->getBox(bus , addr)->loop[id]);
+    sObjData* obj =&( BusPacketSi::bulid()->getBox(bus , addr)->data.loop[id]);
 
     ui->volMinBox->setValue(obj->vol.min);
     ui->volMaxBox->setValue(obj->vol.max);

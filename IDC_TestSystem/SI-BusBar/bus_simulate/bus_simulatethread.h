@@ -14,8 +14,8 @@ public:
 protected:
     void run();
     void workDown();
-    void sentOkCmd(BUS_RtuCount &count);
-    void saveErrCmd(int busId, sBoxData *box);
+    void sentOkCmd(sRtuCount &count);
+    void saveErrCmd(int busId, sDataPacket *box);
     void setOffLine();
     void clearCount();
 

@@ -11,16 +11,16 @@ public:
     static BUS_RtuTrans *bulid(QObject *parent = nullptr);
 
     void init(SerialPort *serial);
-    int transmit(int addr, sBoxData *box, int msecs); //发送数据并回收
+    int transmit(int addr, sDataPacket *box, int msecs); //发送数据并回收
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
 protected:
     int transData(int addr, BUS_RtuRecv *pkt, int msecs);
-    void loopObjData(BUS_sObjUnit *loop, BUS_RtuRecvLine *data);
-    void loopData(sBoxData *box, BUS_RtuRecv *pkt);
-    void envData(sBoxData *box, BUS_RtuRecv *pkt);
+    void loopObjData(sObjData *loop, BUS_RtuRecvLine *data);
+    void loopData(sDevData *box, BUS_RtuRecv *pkt);
+    void envData(sDataPacket *box, BUS_RtuRecv *pkt);
 
 private:
     uchar *mSentBuf, *mRecvBuf;

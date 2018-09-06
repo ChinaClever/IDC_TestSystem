@@ -12,8 +12,8 @@ public:
 protected:
     void initWid();
     void setAlarm(int err, int row);
-    void setObjUnit(BUS_RtuCount &unit, QStringList &list);
-    int updateBox(sBoxData &box, const QString &bus, int row);
+    void setObjUnit(sRtuCount &unit, QStringList &list);
+    int updateBox(sDataPacket &box, const QString &bus, int row);
     int updateBus(sBusData *bus, int row);
 };
 

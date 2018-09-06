@@ -10,7 +10,7 @@ public:
     void run();
 
 protected:
-    virtual void saveLoop(QStringList &list, BUS_sObjUnit &unit);
+    virtual void saveLoop(QStringList &list, sObjData &unit);
     virtual void saveBus(int id);
     void saveBox(int busId, int boxId);
 

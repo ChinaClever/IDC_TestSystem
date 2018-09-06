@@ -15,9 +15,9 @@ public slots:
 
 protected:
     virtual void initWid();
-    virtual void setAlarm(BUS_sObjUnit &unit, int row);
-    virtual void setObjUnit(BUS_sObjUnit &unit, QStringList &list);
-    virtual int updateBox(sBoxData &box, const QString &bus, int row);
+    virtual void setAlarm(sObjData &unit, int row);
+    virtual void setObjUnit(sObjData &unit, QStringList &list);
+    virtual int updateBox(sDataPacket &box, const QString &bus, int row);
     virtual int updateBus(sBusData *bus, int row);
 };
 

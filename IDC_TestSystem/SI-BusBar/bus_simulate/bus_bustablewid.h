@@ -11,8 +11,8 @@ public:
 
 protected:
     void initWid();
-    void setLineName(sBoxData &box);
-    int updateBox(sBoxData &box, const QString &bus, int row);
+    void setLineName(sDataPacket &box);
+    int updateBox(sDataPacket &box, const QString &bus, int row);
     int updateBus(sBusData *bus, int row);
 };
 

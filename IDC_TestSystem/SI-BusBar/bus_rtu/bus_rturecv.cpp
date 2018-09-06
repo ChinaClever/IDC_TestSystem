@@ -77,7 +77,7 @@ static int rtu_recv_data(uchar *ptr, BUS_RtuRecvLine *msg)
     msg->pf =  *(ptr++);// 功率因素
     msg->sw =  *(ptr++);// 开关状态
 
-    msg->apPow = msg->vol * msg->cur / 10.0; // 视在功率
+    msg->activePow = msg->vol * msg->cur / 10.0; // 视在功率
 
     return 22;   //功率因素之后，是为22
 }

@@ -27,7 +27,7 @@ void BUS_TransTableWid::setAlarm(int err, int row)
     setItemColor(row, 3, alarm);
 }
 
-void BUS_TransTableWid::setObjUnit(BUS_RtuCount &unit, QStringList &list)
+void BUS_TransTableWid::setObjUnit(sRtuCount &unit, QStringList &list)
 {
     int count = unit.count; if(count<1) count = 1;
     list << QString::number(unit.longCount)
@@ -38,13 +38,13 @@ void BUS_TransTableWid::setObjUnit(BUS_RtuCount &unit, QStringList &list)
 }
 
 
-int BUS_TransTableWid::updateBox(sBoxData &box, const QString &bus, int row)
+int BUS_TransTableWid::updateBox(sDataPacket &box, const QString &bus, int row)
 {
     QStringList list;
     list << bus << box.name;
 
-    setObjUnit(box.count, list);
-    setAlarm(box.count.errCount, row);
+    setObjUnit(box.rtuCount, list);
+    setAlarm(box.rtuCount.errCount, row);
     setTableRow(row++, list);
 
     return row;
@@ -52,9 +52,9 @@ int BUS_TransTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 
 int BUS_TransTableWid::updateBus(sBusData *bus, int row)
 {
-    QString busName = bus->box[0].name;
-    for(int i=0; i<=bus->boxNum; ++i) {
-        row = updateBox(bus->box[i], busName, row);
+    QString busName = bus->dev[0].name;
+    for(int i=0; i<=bus->devNum; ++i) {
+        row = updateBox(bus->dev[i], busName, row);
     }
 
     return row;

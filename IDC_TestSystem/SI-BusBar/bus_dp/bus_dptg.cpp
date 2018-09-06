@@ -36,16 +36,16 @@ int BUS_DpTg::averData(int *data, int len)
     return value;
 }
 
-void BUS_DpTg::bulidPf(BUS_sObjUnit *unit)
+void BUS_DpTg::bulidPf(sObjData *unit)
 {
-    unit->apPow = unit->vol.value * unit->cur.value;
+    unit->activePow = unit->vol.value * unit->cur.value;
 
-    if(unit->pow > unit->apPow) {
-        unit->pow = unit->apPow;
+    if(unit->pow > unit->activePow) {
+        unit->pow = unit->activePow;
     }
 
-    if(unit->apPow > 0) {
-        unit->pf = (unit->pow * 100.0 / unit->apPow);
+    if(unit->activePow > 0) {
+        unit->pf = (unit->pow * 100.0 / unit->activePow);
         if(unit->pf > 99) unit->pf = 99;
     } else {
         unit->pf = 0;
@@ -54,32 +54,32 @@ void BUS_DpTg::bulidPf(BUS_sObjUnit *unit)
     //  tg->pf = averData(obj->pf);
 }
 
-void BUS_DpTg::tgObj(sBoxData *box)
+void BUS_DpTg::tgObj(sDevData *box)
 {
-    BUS_sObjUnit *tg = &(box->tg);
-    memset(tg, 0, sizeof(BUS_sObjUnit));
+    sObjData *tg = &(box->tg);
+    memset(tg, 0, sizeof(sObjData));
     for(int i=0; i<box->loopNum; ++i)
     {
-        BUS_sObjUnit *obj = &(box->loop[i]);
+        sObjData *obj = &(box->loop[i]);
         tg->cur.value += obj->cur.value;
         tg->pow += obj->pow;
         tg->ele += obj->ele;
-        tg->apPow += obj->apPow;
+        tg->activePow += obj->activePow;
     }
     tg->vol.value = box->loop[0].vol.value;
     //    tg->vol = averData(tg->vol.value, box->loopNum);
     bulidPf(tg);
 }
 
-void BUS_DpTg::lineTgObj(sBoxData *box, int line, int loop)
+void BUS_DpTg::lineTgObj(sDevData *box, int line, int loop)
 {
     for(int i=0; i<line; ++i)
     {
-        BUS_sObjUnit *tg = &(box->line[i]);
-        memset(tg, 0, sizeof(BUS_sObjUnit));
+        sObjData *tg = &(box->line[i]);
+        memset(tg, 0, sizeof(sObjData));
 
         for(int j=0; j<loop; ++j) {
-            BUS_sObjUnit *obj = &(box->loop[i+j*3]);
+            sObjData *obj = &(box->loop[i+j*3]);
             tg->cur.value += obj->cur.value;
             tg->pow += obj->pow;
             tg->ele += obj->ele;
@@ -89,40 +89,40 @@ void BUS_DpTg::lineTgObj(sBoxData *box, int line, int loop)
     }
 }
 
-void BUS_DpTg::LineTg(sBoxData *box)
+void BUS_DpTg::LineTg(sDataPacket *box)
 {
     int line=3, loop=3;
     if(box->dc == 0) {
         line = loop = 2;
-        if((box->loopNum == 2) && (box->rate == 2)) {
+        if((box->data.loopNum == 2) && (box->hz == 2)) {
             loop = 1;
         }
     }
-    lineTgObj(box, line, loop);
+    lineTgObj(&(box->data), line, loop);
 }
 
-void BUS_DpTg::tgBox(sBoxData *box)
+void BUS_DpTg::tgBox(sDataPacket *box)
 {
     if(box->offLine) {
-        tgObj(box);
+        tgObj(&(box->data));
         LineTg(box);
     }
 
-    int line = BUS_LINE_NUM;
+    int line = LINE_NUM;
     if(!box->dc) line = 2;
-    box->lineNum = line;
+    box->data.lineNum = line;
 }
 
 
 
 void BUS_DpTg::tgBus(sBusData *bus)
 {
-    int line = BUS_LINE_NUM;
-    if(!bus->box[0].dc) line = 2;
-    bus->box[0].loopNum = line;
+    int line = LINE_NUM;
+    if(!bus->dev[0].dc) line = 2;
+    bus->dev[0].data.loopNum = line;
 
-    for(int i=1; i<=bus->boxNum; ++i) { // 插接箱统计
-        tgBox(&(bus->box[i]));
+    for(int i=1; i<=bus->devNum; ++i) { // 插接箱统计
+        tgBox(&(bus->dev[i]));
     }
 }
 

@@ -24,7 +24,7 @@ void BUS_LoopTableWid::initWid()
     initTableWid(header, 1, title);
 }
 
-void BUS_LoopTableWid::setAlarm(BUS_sObjUnit &unit, int row)
+void BUS_LoopTableWid::setAlarm(sObjData &unit, int row)
 {
     int column=2, swAlarm=0;
 
@@ -34,7 +34,7 @@ void BUS_LoopTableWid::setAlarm(BUS_sObjUnit &unit, int row)
     setItemColor(row, column++, unit.cur.alarm);
 }
 
-void BUS_LoopTableWid::setObjUnit(BUS_sObjUnit &unit, QStringList &list)
+void BUS_LoopTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
     list << unit.name;
 
@@ -54,7 +54,7 @@ void BUS_LoopTableWid::setObjUnit(BUS_sObjUnit &unit, QStringList &list)
     value = unit.pow / COM_RATE_POW;
     list << QString::number(value) + "KVA";
 
-    value = unit.apPow / COM_RATE_POW;
+    value = unit.activePow / COM_RATE_POW;
     list << QString::number(value) + "KW";
 
     value = unit.pf / COM_RATE_PF;
@@ -68,17 +68,17 @@ void BUS_LoopTableWid::setObjUnit(BUS_sObjUnit &unit, QStringList &list)
     list << "---";
 }
 
-int BUS_LoopTableWid::updateBox(sBoxData &box, const QString &bus, int row)
+int BUS_LoopTableWid::updateBox(sDataPacket &box, const QString &bus, int row)
 {
     if(box.offLine)
     {
-        for(int i=0; i<box.loopNum; ++i)
+        for(int i=0; i<box.data.loopNum; ++i)
         {
             QStringList list;
             list << bus << box.name;
 
-            setObjUnit(box.loop[i], list);
-            setAlarm(box.loop[i], row);
+            setObjUnit(box.data.loop[i], list);
+            setAlarm(box.data.loop[i], row);
             setTableRow(row++, list);
         }
     }
@@ -88,9 +88,9 @@ int BUS_LoopTableWid::updateBox(sBoxData &box, const QString &bus, int row)
 
 int BUS_LoopTableWid::updateBus(sBusData *bus, int row)
 {
-    QString busName = bus->box[0].name;
-    for(int i=1; i<=bus->boxNum; ++i) {
-        row = updateBox(bus->box[i], busName, row);
+    QString busName = bus->dev[0].name;
+    for(int i=1; i<=bus->devNum; ++i) {
+        row = updateBox(bus->dev[i], busName, row);
     }
 
     return row;
@@ -106,7 +106,7 @@ void BUS_LoopTableWid::updateData()
     for(int i=0; i<BUS_NUM; ++i)
     {
         sBusData *bus = BusPacketSi::bulid()->getBus(i);
-        if(bus->boxNum) {
+        if(bus->devNum) {
             row = updateBus(bus, row);
         }
     }

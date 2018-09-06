@@ -12,7 +12,7 @@ BUS_DpSaveEnv::BUS_DpSaveEnv(QObject *parent)
 
 }
 
-void BUS_DpSaveEnv::saveLoop(QStringList &list, BUS_sDataUnit &unit)
+void BUS_DpSaveEnv::saveLoop(QStringList &list, sDataUnit &unit)
 {
     BusDbEnvItem item;
 
@@ -32,13 +32,13 @@ void BUS_DpSaveEnv::saveLoop(QStringList &list, BUS_sDataUnit &unit)
 void BUS_DpSaveEnv::saveBox(int busId,int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
-    sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);
+    sDataPacket *box =  BusPacketSi::bulid()->getBox(busId, boxId);
 
     if(box->offLine == 0) return; //不保存
-    for(int i=0; i<box->lineNum; ++i)
+    for(int i=0; i<box->data.lineNum; ++i)
     {
         QStringList list ;
         list << busName << box->name << QObject::tr("温度%1").arg(i+1);
-        saveLoop(list, box->env[i].tem);
+        saveLoop(list, box->data.env.tem[i]);
     }
 }

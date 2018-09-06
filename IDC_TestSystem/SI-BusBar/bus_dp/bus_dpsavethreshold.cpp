@@ -13,7 +13,7 @@ BUS_DpSaveThreshold::BUS_DpSaveThreshold(QObject *parent)
 }
 
 
-void BUS_DpSaveThreshold::saveLoop(QStringList &list, BUS_sObjUnit &unit)
+void BUS_DpSaveThreshold::saveLoop(QStringList &list, sObjData &unit)
 {
     BusDbThresholdItem item;
 

@@ -22,14 +22,14 @@ void BUS_ThresholdTableWid::initWid()
 }
 
 
-void BUS_ThresholdTableWid::setAlarm(BUS_sObjUnit &unit, int row)
+void BUS_ThresholdTableWid::setAlarm(sObjData &unit, int row)
 {
     setItemColor(row, 3, unit.vol.alarm);
     setItemColor(row, 6, unit.cur.alarm);
 }
 
 
-void BUS_ThresholdTableWid::setObjUnit(BUS_sObjUnit &unit, QStringList &list)
+void BUS_ThresholdTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
     list << unit.name;
 

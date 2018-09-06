@@ -23,15 +23,15 @@ BusPacketSi *BusPacketSi::bulid()
 void BusPacketSi::initBox()
 {
     for(int i=0; i<BUS_NUM; ++i) {
-        for(int j=1; j<=BUS_BOX_NUM; ++j) {
+        for(int j=1; j<=DEV_NUM; ++j) {
 
-            sBoxData *box = &(mBus[i].box[j]);
+            sDataPacket *box = &(mBus[i].dev[j]);
 
             box->id = j;
             sprintf(box->name, "iBox-%d", j);
 
-            for(int k=0; k<BUS_LOOP_NUM; ++k) {
-                sprintf(box->loop[k].name, "loop-%d", k+1);
+            for(int k=0; k<LOOP_NUM; ++k) {
+                sprintf(box->data.loop[k].name, "loop-%d", k+1);
             }
         }
     }
@@ -39,9 +39,9 @@ void BusPacketSi::initBox()
 
 void BusPacketSi::initBus()
 {
-     mBus[0].boxNum = 10;
+     mBus[0].devNum = 10;
     for(int i=0; i<BUS_NUM; ++i) {       
-        sBoxData *box = &(mBus[i].box[0]);
+        sDataPacket *box = &(mBus[i].dev[0]);
 
         box->id = 0;
         sprintf(box->name, "0%d BUS", i+1);

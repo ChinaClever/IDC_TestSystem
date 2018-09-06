@@ -8,7 +8,7 @@ public:
     BUS_DpSaveEnv(QObject *parent = nullptr);
 
 protected:
-    void saveLoop(QStringList &list, BUS_sDataUnit &unit);
+    void saveLoop(QStringList &list, sDataUnit &unit);
     void saveBox(int busId,int boxId);
 };
 

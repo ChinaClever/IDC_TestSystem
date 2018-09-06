@@ -10,8 +10,8 @@ BUS_RtuTrans::BUS_RtuTrans(QObject *parent) : QThread(parent)
 {
     mSerial = NULL;
     isRun = false;
-    mSentBuf = (uchar *)malloc(2*BUS_ARRAY_LEN);
-    mRecvBuf = (uchar *)malloc(2*BUS_ARRAY_LEN);
+    mSentBuf = (uchar *)malloc(2*ARRAY_SIZE);
+    mRecvBuf = (uchar *)malloc(2*ARRAY_SIZE);
     mMutex = new QMutex();
 
     mRtuPkt = new BUS_RtuRecv();
@@ -51,7 +51,7 @@ void BUS_RtuTrans::init(SerialPort *serial)
 bool BUS_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     bool ret = false;
-    static uchar buf[BUS_ARRAY_LEN] = {0};
+    static uchar buf[ARRAY_SIZE] = {0};
     QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf;
 
@@ -98,7 +98,7 @@ int BUS_RtuTrans::transData(int addr, BUS_RtuRecv *pkt, int msecs)
     return offLine;
 }
 
-void BUS_RtuTrans::loopObjData(BUS_sObjUnit *loop, BUS_RtuRecvLine *data)
+void BUS_RtuTrans::loopObjData(sObjData *loop, BUS_RtuRecvLine *data)
 {
     loop->vol.value = data->vol;
     loop->vol.min = data->minVol;
@@ -112,42 +112,42 @@ void BUS_RtuTrans::loopObjData(BUS_sObjUnit *loop, BUS_RtuRecvLine *data)
     loop->ele = data->ele;
     loop->pf = data->pf;
     loop->sw = data->sw;
-    loop->apPow = data->apPow;
+    loop->activePow = data->activePow;
     loop->wave = data->wave;
 }
 
-void BUS_RtuTrans::loopData(sBoxData *box, BUS_RtuRecv *pkt)
+void BUS_RtuTrans::loopData(sDevData *box, BUS_RtuRecv *pkt)
 {
     box->loopNum = pkt->lineNum;
 
     for(int i=0; i<box->loopNum; i++)
     {
         BUS_RtuRecvLine *data = &(pkt->data[i]);
-        BUS_sObjUnit *loop = &(box->loop[i]);
+        sObjData *loop = &(box->loop[i]);
         loop->id = i;
         loopObjData(loop, data);
     }
 }
 
-void BUS_RtuTrans::envData(sBoxData *box, BUS_RtuRecv *pkt)
+void BUS_RtuTrans::envData(sDataPacket *box, BUS_RtuRecv *pkt)
 {
-    for(int i=0; i<BUS_SENSOR_NUM; ++i) {
-        BUS_sEnvData *env = &(box->env[i]);
-        env->tem.value = pkt->env[i].tem.value;
-        env->tem.min = pkt->env[i].tem.min;
-        env->tem.max = pkt->env[i].tem.max;
+    for(int i=0; i<SENOR_NUM; ++i) {
+        sDataUnit *env = &(box->data.env.tem[i]);
+        env->value = pkt->env[i].tem.value;
+        env->min = pkt->env[i].tem.min;
+        env->max = pkt->env[i].tem.max;
     }
 }
 
-int BUS_RtuTrans::transmit(int addr, sBoxData *box, int msecs)
+int BUS_RtuTrans::transmit(int addr, sDataPacket *box, int msecs)
 {
     BUS_RtuRecv *pkt = mRtuPkt; //数据包
 
     int ret = transData(addr, pkt, msecs);
     if(ret) {
-        loopData(box, pkt); //更新数据
+        loopData(&(box->data), pkt); //更新数据
         envData(box, pkt);
-        box->rate = pkt->rate;
+        box->hz = pkt->rate;
         box->dc = pkt->dc;
         box->version = pkt->version;
     }
@@ -160,7 +160,7 @@ int BUS_RtuTrans::transmit(int addr, sBoxData *box, int msecs)
 QByteArray BUS_RtuTrans::getSentCmd()
 {
     QByteArray array;
-    if((mSentLen < 0) || (mSentLen > BUS_ARRAY_LEN))  mSentLen = BUS_ARRAY_LEN;
+    if((mSentLen < 0) || (mSentLen > ARRAY_SIZE))  mSentLen = ARRAY_SIZE;
     array.append((char *)mSentBuf, mSentLen);
     return array;
 }
@@ -168,7 +168,7 @@ QByteArray BUS_RtuTrans::getSentCmd()
 QByteArray BUS_RtuTrans::getRecvCmd()
 {
     QByteArray array;
-    if((mRecvLen < 0) || (mRecvLen > BUS_ARRAY_LEN))  mRecvLen = BUS_ARRAY_LEN;
+    if((mRecvLen < 0) || (mRecvLen > ARRAY_SIZE))  mRecvLen = ARRAY_SIZE;
     array.append((char *)mRecvBuf, mRecvLen);
     return array;
 }

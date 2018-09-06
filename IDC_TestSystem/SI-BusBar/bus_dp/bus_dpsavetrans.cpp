@@ -13,7 +13,7 @@ BUS_DpSaveTrans::BUS_DpSaveTrans(QObject *parent)
 }
 
 
-void BUS_DpSaveTrans::saveItem(QStringList &list, BUS_RtuCount &unit)
+void BUS_DpSaveTrans::saveItem(QStringList &list, sRtuCount &unit)
 {
     BusDbModbusTransItem item;
 
@@ -33,16 +33,16 @@ void BUS_DpSaveTrans::saveItem(QStringList &list, BUS_RtuCount &unit)
 void BUS_DpSaveTrans::saveBox(int busId,int boxId)
 {
     QString busName = BusPacketSi::bulid()->getBusName(busId);
-    sBoxData *box =  BusPacketSi::bulid()->getBox(busId, boxId);
+    sDataPacket *box =  BusPacketSi::bulid()->getBox(busId, boxId);
 
     QString str = QObject::tr("离线");
     if(box->offLine) str = QObject::tr("在线");
 
-    for(int i=0; i<box->lineNum; ++i)
+    for(int i=0; i<box->data.lineNum; ++i)
     {
         QStringList list ;
         list << busName << box->name << str;
 
-        saveItem(list, box->count);
+        saveItem(list, box->rtuCount);
     }
 }

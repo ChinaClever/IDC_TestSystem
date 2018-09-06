@@ -11,8 +11,8 @@ public:
     void alarm();
 
 protected:
-    void alarmDataUnit(BUS_sDataUnit &unit, bool cr=false);
-    void boxAlarm(sBoxData &box);
+    void alarmDataUnit(sDataUnit &unit, bool cr=false);
+    void boxAlarm(sDataPacket &box);
     void busAlarm(sBusData *bus);
 };
 

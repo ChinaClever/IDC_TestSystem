@@ -13,8 +13,8 @@ public:
 
 protected:
     void initWid();
-    void setAlarm(BUS_sObjUnit &unit, int row);
-    void setObjUnit(BUS_sObjUnit &unit, QStringList &list);
+    void setAlarm(sObjData &unit, int row);
+    void setObjUnit(sObjData &unit, QStringList &list);
 };
 
 #endif // BUS_THRESHOLDTABLEWID_H
