@@ -1,6 +1,9 @@
 
 INCLUDEPATH += $$PWD
 
+include(excel/excel.pri)
+include(serialport/serialport.pri)
+
 HEADERS += \	
     $$PWD/common.h \
     $$PWD/msgbox.h \

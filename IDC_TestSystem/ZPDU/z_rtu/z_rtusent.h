@@ -3,7 +3,7 @@
 #include "serialportwid.h"
 #include "z_rturegenum.h"
 
-struct Z_Rtu_Sent : public Rtu_Sent_Com{
+struct Z_Rtu_Sent : public sRtuSentCom{
     Z_Rtu_Sent(){len=0;}
 };
 

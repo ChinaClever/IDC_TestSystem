@@ -42,7 +42,7 @@ ushort rtu_crc(uchar *buf, int len)
   * 出口参数：ptr -> 缓冲区
   * 返回值：打包后的长度
   */
-int rtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr)
+int rtu_sent_packet(sRtuSentCom *pkt, uchar *ptr)
 {
     uchar *buf = ptr;
     *(ptr++) = pkt->addr;  /*地址码*/
@@ -69,7 +69,7 @@ int rtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr)
   * 出口参数：ptr -> 缓冲区
   * 返回值：打包后的长度
   */
-int zrtu_sent_packet(Rtu_Sent_Com *pkt, uchar *ptr)
+int zrtu_sent_packet(sRtuSentCom *pkt, uchar *ptr)
 {
     uchar *buf = ptr;
     *(ptr++) = pkt->addr;  /*地址码*/

@@ -1,15 +1,14 @@
 #ifndef ELOAD_RTUSENT_H
 #define ELOAD_RTUSENT_H
-#include <QtCore>
+#include "in_rtutrans.h"
 
 enum {
-    ELoad_FN_Set = 0x10, //	设置数据参数
-    ELoad_FN_Ctr = 0x11, //	电位器单个动态控制
-    ELoad_FN_AllCtr = 0x12, //	电位器全部动态控制
+    ELoad_FN_Set = 0x11, //	设置数据参数
+    ELoad_FN_Ctr = 0x12, //	电位器单个动态控制
+    ELoad_FN_AllCtr = 0x13, //	电位器全部动态控制
     ELoad_FN_SW = 0XA1, //	继电器开关控制
-    ELoad_FN_Init = 0XA5, //	初始化
-    ELoad_FN_Rest = 0XA6, //	重启
-    ELoad_FN_Loop = 0XA7, //	握手命令
+    ELoad_FN_BigCur = 0XA6, //	大电流
+    ELoad_FN_Handshake = 0XB1, //	握手命令
 
     ELoad_DP_1 = 0x0101, //	数字电位器1
     ELoad_DP_2, //	数字电位器2
@@ -29,25 +28,33 @@ enum {
 
 class ELoad_RtuSent
 {
-public:
     ELoad_RtuSent();
+public:
+    static ELoad_RtuSent *bulid();
 
-    int loopBack(uchar addr, uchar *buf);
-    int restCmd(uchar addr, uchar *buf);
-    int initCmd(uchar addr, uchar *buf);
+    int setData(uchar addr, ushort reg, ushort value);
+    int setBaudRate(uchar addr, ushort reg, ushort value);
 
-    int setData(uchar addr, ushort reg, ushort value, uchar *buf);
-    int setBaudRate(uchar addr, ushort reg, uchar value, uchar *buf);
-    int switchCtr(uchar addr,ushort reg, uchar value, uchar *buf);
+    int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t);
+    int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t);
+    int setAllDpAdjust();
 
-    int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t, uchar *buf );
-    int setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t, uchar *buf);
+    int getHandshake(uchar addr);
+    int setBigCur(uchar addr, uchar sw);
+
+    int switchCloseCtr(uchar addr,  uchar bit);
+    int switchOpenCtr(uchar addr,  uchar bit);
+
+    int switchOpenAll();
+    int switchCloseAll();
 
 protected:
-    int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value, uchar *buf);
+    int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value);
 
 private:
-
+    IN_RtuTrans *mSerial;
+    uchar *mSentBuf;
+    int mSentLen;
 };
 
 #endif // ELOAD_RTUSENT_H

@@ -1,20 +1,22 @@
 #ifndef IN_RTUTHREAD_H
 #define IN_RTUTHREAD_H
 
-#include "rtucom/rtuthread.h"
+#include "tablewid/simulatethread.h"
 #include "in_rtutrans.h"
 
-class IN_RtuThread : public RtuThread
+class IN_RtuThread : public SimulateThread
 {
     Q_OBJECT
     explicit IN_RtuThread(QObject *parent = nullptr);
 public:
     static IN_RtuThread *bulid(QObject *parent = nullptr);
     void sentCmd(sRtuSentCom &cmd);
+    void init(SerialPort *serial);
 
 protected:
     void workDown();
     void sentCmdList();
+    void writeErrCmd(int id){}
 
 protected slots:
     void initSlot();

@@ -3,6 +3,7 @@
 
 #include "in_transtablewid.h"
 
+
 class IN_EnvTableWid : public LineTableWid
 {
     Q_OBJECT

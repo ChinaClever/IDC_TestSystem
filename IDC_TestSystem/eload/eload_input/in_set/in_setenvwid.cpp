@@ -7,7 +7,7 @@
 #include "in_setenvwid.h"
 #include "ui_in_setenvwid.h"
 #include "in_rtu/in_rtuthread.h"
-#include "box/msgbox.h"
+#include "msgbox.h"
 
 IN_SetEnvWid::IN_SetEnvWid(QWidget *parent) :
     QWidget(parent),

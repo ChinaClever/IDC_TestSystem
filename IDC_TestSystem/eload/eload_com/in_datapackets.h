@@ -1,6 +1,6 @@
 #ifndef I_DATAPACKETS_H
 #define I_DATAPACKETS_H
-#include "datapacket.h"
+#include "eload_configfile.h"
 
 class IN_DataPackets
 {

@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(5,this,SLOT(initFunSLot())); //延时初始化
     set_background_icon(ui->widget,":/image/title_back.jpg");
 }
 
@@ -30,6 +30,9 @@ void MainWindow::initFunSLot()
 
 void MainWindow::initWid()
 {
+    mELoadWid = new ELoad_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mELoadWid);
+
     mBusWid = new BUS_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mBusWid);
 
@@ -69,4 +72,9 @@ void MainWindow::on_ippduBtn_clicked()
 void MainWindow::on_zpduBtn_clicked()
 {
      ui->stackedWid->setCurrentWidget(mZpduWid);
+}
+
+void MainWindow::on_eloadBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mELoadWid);
 }

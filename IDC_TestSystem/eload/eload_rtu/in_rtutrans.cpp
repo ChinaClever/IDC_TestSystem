@@ -28,18 +28,26 @@ IN_RtuTrans *IN_RtuTrans::bulid()
     return sington;
 }
 
-void IN_RtuTrans::init(SerialTrans *serial)
+void IN_RtuTrans::init(SerialPort *serial)
 {
     mSerial = serial;
 }
 
-void IN_RtuTrans::sleep(unsigned int msec)
+void IN_RtuTrans::msleep(unsigned int msec)
 {
     QTime dieTime = QTime::currentTime().addMSecs(msec);
     while( QTime::currentTime() < dieTime )
         QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
+int IN_RtuTrans::sendData(uchar *pBuff, int nCount, int msec)
+{
+    QMutexLocker locker(mMutex); msleep(msec);
+    int ret = mSerial->write(pBuff, nCount);
+    if(ret>=0) msleep(msec);
+
+    return ret;
+}
 
 /**
  * @brief 发送设置命令
@@ -54,7 +62,7 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     static uchar buf[IN_ARRAY_LEN] = {0};
     QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf;
-    sleep(300);
+    msleep(300);
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
@@ -66,7 +74,7 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
                 qDebug() << "IN si sent Set Cmd Err";
         }
     }
-    sleep(300);
+    msleep(300);
 
     return ret;
 }

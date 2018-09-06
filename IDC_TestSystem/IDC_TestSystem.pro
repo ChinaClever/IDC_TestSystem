@@ -29,13 +29,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 include(common/common.pri)
-include(serialport/serialport.pri)
 include(SI-PDU/SI-PDU.pri)
 include(IP-PDU/IP-PDU.pri)
 include(MPDU/MPDU.pri)
 include(ZPDU/ZPDU.pri)
 include(SI-BusBar/SI-BusBar.pri)
-include(excel/excel.pri)
 include(eload/eload.pri)
 include(test/test.pri)
 

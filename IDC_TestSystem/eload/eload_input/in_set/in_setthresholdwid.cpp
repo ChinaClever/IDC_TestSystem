@@ -7,7 +7,7 @@
 #include "in_setthresholdwid.h"
 #include "ui_in_setthresholdwid.h"
 #include "in_rtu/in_rtuthread.h"
-#include "box/msgbox.h"
+#include "msgbox.h"
 
 IN_SetThresholdWid::IN_SetThresholdWid(QWidget *parent) :
     QWidget(parent),

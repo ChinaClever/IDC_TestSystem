@@ -7,7 +7,7 @@
 #define SI_RTU_ONE_LEN 0x1A  // 单相数据长度
 #define SI_RTU_THREE_LEN 0x4A  // 三相数据长度
 
-struct SI_Rtu_Sent : public Rtu_Sent_Com{
+struct SI_Rtu_Sent : public sRtuSentCom{
     SI_Rtu_Sent(){len=SI_RTU_ONE_LEN;}
 };
 

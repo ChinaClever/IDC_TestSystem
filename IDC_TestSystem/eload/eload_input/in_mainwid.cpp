@@ -6,15 +6,13 @@
  */
 #include "in_mainwid.h"
 #include "ui_in_mainwid.h"
-#include "in_rtu/in_rtuthread.h"
-#include "common.h"
+#include "eload_rtu/in_rtuthread.h"
+
 IN_MainWid::IN_MainWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::IN_MainWid)
 {
     ui->setupUi(this);
-    groupBox_background_icon(ui->groupBox);
-    IN_RtuThread::bulid(this);
     QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -25,17 +23,23 @@ IN_MainWid::~IN_MainWid()
 
 void IN_MainWid::initWidget()
 {
+    sDevPackets *packets = IN_DataPackets::bulid()->packets;
+
     mInputTableWid = new IN_InputTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mInputTableWid);
+    mInputTableWid->initPackets(packets);
 
     mInputThresholdTableWid = new IN_InputThresholdTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mInputThresholdTableWid);
+    mInputThresholdTableWid->initPackets(packets);
 
-    mTransTableWid = new IN_TransTableWid(ui->stackedWid);
+    mTransTableWid = new TransTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTransTableWid);
+    mTransTableWid->initPackets(packets);
 
-    mEnvTableWid = new IN_EnvTableWid(ui->stackedWid);
+    mEnvTableWid = new EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
+    mEnvTableWid->initPackets(packets);
 
     mSetMainWid = new IN_setMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSetMainWid);
@@ -46,27 +50,19 @@ void IN_MainWid::initFunSLot()
     initWidget();
 }
 
-void IN_MainWid::on_realBtn_clicked()
+
+void IN_MainWid:: updateWidSlot(int id)
 {
-    ui->stackedWid->setCurrentWidget(mInputTableWid);
+    ComTableWid *wid = nullptr;
+    switch (id) {
+    case ELoad_Info_Input: wid = mInputTableWid; break;
+    case ELoad_Info_InputThreshold: wid = mInputThresholdTableWid; break;
+    case ELoad_Info_Trans: wid = mTransTableWid; break;
+    case ELoad_Info_Env: wid = mEnvTableWid; break;
+    case ELoad_Info_Set: ui->stackedWid->setCurrentWidget(mSetMainWid); break;
+    default:  break;
+    }
+
+    if(wid) ui->stackedWid->setCurrentWidget(wid);
 }
 
-void IN_MainWid::on_thresholdBtn_clicked()
-{
-    ui->stackedWid->setCurrentWidget(mInputThresholdTableWid);
-}
-
-void IN_MainWid::on_transBtn_clicked()
-{
-     ui->stackedWid->setCurrentWidget(mTransTableWid);
-}
-
-void IN_MainWid::on_envBtn_clicked()
-{
-    ui->stackedWid->setCurrentWidget(mEnvTableWid);
-}
-
-void IN_MainWid::on_setBtn_clicked()
-{
-    ui->stackedWid->setCurrentWidget(mSetMainWid);
-}

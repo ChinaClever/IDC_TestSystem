@@ -3,6 +3,8 @@
 
 #include "in_tablewid/in_inputthresholdtablewid.h"
 #include "in_set/in_setmainwid.h"
+#include "tablewid/envtablewid.h"
+#include "tablewid/transtablewid.h"
 
 namespace Ui {
 class IN_MainWid;
@@ -19,22 +21,19 @@ public:
 protected:
     void initWidget();
 
+public slots:
+    void updateWidSlot(int);
+
 private slots:
     void initFunSLot();
-    void on_realBtn_clicked();
-    void on_thresholdBtn_clicked();
-    void on_transBtn_clicked();
-    void on_envBtn_clicked();
-
-    void on_setBtn_clicked();
 
 private:
     Ui::IN_MainWid *ui;
 
     IN_InputTableWid *mInputTableWid;
     IN_InputThresholdTableWid *mInputThresholdTableWid;
-    IN_TransTableWid *mTransTableWid;
-    IN_EnvTableWid *mEnvTableWid;
+    TransTableWid *mTransTableWid;
+    EnvTableWid *mEnvTableWid;
     IN_setMainWid *mSetMainWid;
 };
 

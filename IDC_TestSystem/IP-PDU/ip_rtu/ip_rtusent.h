@@ -5,7 +5,7 @@
 #define IP_RTU_ONE_LEN 49  // 单相数据长度
 #define IP_RTU_THREE_LEN 58  // 三相数据长度
 
-struct IP_Rtu_Sent : public Rtu_Sent_Com{
+struct IP_Rtu_Sent : public sRtuSentCom{
     IP_Rtu_Sent(){len=IP_RTU_ONE_LEN;}
 };
 
