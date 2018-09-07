@@ -18,7 +18,7 @@ void ELoad_LogLineThresholdWid::initTable()
    QString table = getDb()->tableName();
    this->refreshTable(table);
 
-   mTableTile = "ELoad-PDU " + tr("设备阈值纪录");
+   mTableTile = "ELoad " + tr("设备阈值纪录");
    setGroupBoxTitle(mTableTile);
 
    mHeadList.clear();

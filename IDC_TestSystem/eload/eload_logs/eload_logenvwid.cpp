@@ -23,7 +23,7 @@ void ELoad_LogEnvWid::initTable()
     QString table = getDb()->tableName();
     this->refreshTable(table);
 
-    mTableTile = "ELoad-PDU " + tr("传感器日志");
+    mTableTile = "ELoad " + tr("传感器日志");
     setGroupBoxTitle(mTableTile);
 
     mHeadList.clear();

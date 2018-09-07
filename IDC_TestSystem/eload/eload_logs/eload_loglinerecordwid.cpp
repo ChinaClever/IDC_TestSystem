@@ -18,7 +18,7 @@ void ELoad_LogLineRecordWid::initTable()
    QString table = getDb()->tableName();
    this->refreshTable(table);
 
-   mTableTile = "ELoad-PDU " + tr("历史纪录日志");
+   mTableTile = "ELoad " + tr("历史纪录日志");
    setGroupBoxTitle(mTableTile);
 
    mHeadList.clear();
