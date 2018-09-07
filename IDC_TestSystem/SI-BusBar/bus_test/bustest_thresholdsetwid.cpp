@@ -4,6 +4,7 @@
 #include "bus_rtu/bus_rturecv.h"
 #include "bus_rtu/bus_rtutrans.h"
 #include <QGridLayout>
+
 BUSTEST_ThresholdSetWid::BUSTEST_ThresholdSetWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BUSTEST_ThresholdSetWid)
