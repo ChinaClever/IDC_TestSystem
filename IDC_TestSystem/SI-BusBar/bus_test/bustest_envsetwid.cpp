@@ -16,8 +16,6 @@ BUSTEST_EnvSetWid::BUSTEST_EnvSetWid(QWidget *parent) :
     mAddr = 1;
     mBus = 1;
     QTimer::singleShot(2500,this,SLOT(on_updateBtn_clicked())); //延时初始化
-
-
 }
 
 BUSTEST_EnvSetWid::~BUSTEST_EnvSetWid()
@@ -37,7 +35,6 @@ void BUSTEST_EnvSetWid::updateBus(int Bus)
 
 void BUSTEST_EnvSetWid::initWidget()
 {
-
     int envid = ui->envBox->currentIndex();
     on_changeEnvBtn_clicked();
 
@@ -46,21 +43,21 @@ void BUSTEST_EnvSetWid::initWidget()
     ui->tempMaxBox->setValue(obj->max);
 }
 void BUSTEST_EnvSetWid::sendCmd()
-{
+{    
+    BUS_Rtu_Sent cmd;
+    cmd.addr = mAddr;
 
-    if(ui->changeEnvBtn)
+    if(ui->changeEnvBtn->isChecked())
     {
-        BUS_Rtu_Sent cmd;
-
         if(ui->checkBox->isChecked()) cmd.addr = 0xff;
         int envid = ui->envBox->currentIndex();
         cmd.reg = 0x1032 + envid *2;
         cmd.len = ui->tempMaxBox->value();
-        bool ret1 =BUS_RtuTrans::bulid()->sentSetCmd(mAddr,cmd.reg, cmd.len, 20);
+        bool ret1 = BUS_RtuTrans::bulid()->sentCmd(cmd);
 
         cmd.reg += 1;
         cmd.len = ui->tempMinBox->value();
-        bool ret2 =BUS_RtuTrans::bulid()->sentSetCmd(mAddr,cmd.reg, cmd.len, 20);
+        bool ret2 =BUS_RtuTrans::bulid()->sentCmd(cmd);
 
         if(ret1 && ret2) {
             InfoMsgBox box(this, tr("阈值修改成功，数据已刷新！！"));
@@ -68,18 +65,25 @@ void BUSTEST_EnvSetWid::sendCmd()
             CriticalMsgBox box(this, tr("阈值修改失败！！！"));
         }
     }
-    if(ui->changeAddrBtn)
+
+    if(ui->changeAddrBtn->isChecked())
     {
-        bool ret1 =BUS_RtuTrans::bulid()->sentSetCmd(mAddr,0x1001, ui->addrBox->currentIndex()+1, 20);
+        cmd.reg = 0x1001;
+        cmd.len = ui->addrBox->currentIndex()+1;
+        bool ret1 =BUS_RtuTrans::bulid()->sentCmd(cmd);
         if(ret1 ) {
             InfoMsgBox box(this, tr("地址修改成功，数据已刷新！！"));
         } else {
             CriticalMsgBox box(this, tr("地址修改失败！！！"));
         }
     }
-    if(ui->changeBaudBtn)
+
+    if(ui->changeBaudBtn->isChecked())
     {
-        bool ret1 =BUS_RtuTrans::bulid()->sentSetCmd(mAddr,0x1038, change(ui->baudBox->currentIndex()), 20);
+        cmd.reg = 0x1038;
+        cmd.len = ui->baudBox->currentIndex()+1;
+
+        bool ret1 =BUS_RtuTrans::bulid()->sentCmd(cmd);
         if(ret1 ) {
             InfoMsgBox box(this, tr("波特率修改成功，数据已刷新！！"));
         } else {

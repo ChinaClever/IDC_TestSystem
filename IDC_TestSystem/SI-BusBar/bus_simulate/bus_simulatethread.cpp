@@ -30,7 +30,7 @@ void BUS_SimulateThread::initSlot()
     mDpThread = new BUS_DpThread(this);
 
     mPacket = BusPacketSi::bulid();
-    mRtu = new BUS_RtuTrans();
+    mRtu = BUS_RtuTrans::bulid(this);
     mRtu->init(serial);
 }
 

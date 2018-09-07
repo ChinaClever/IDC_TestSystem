@@ -41,6 +41,24 @@ void BUS_RtuTrans::init(SerialPort *serial)
 }
 
 
+bool BUS_RtuTrans::sentCmd(sRtuSentCom &cmd)
+{
+    bool ret = true;
+    mCmdList.append(cmd);
+
+    if(!mSerial) return ret = false;
+    return ret;
+}
+
+void BUS_RtuTrans::sentCmdList()
+{
+    if(mCmdList.size() > 0) {
+        sRtuSentCom cmd = mCmdList.first();
+        bool ret = sentSetCmd(cmd.addr, cmd.reg, cmd.len, 10);
+        if(ret) mCmdList.removeFirst();
+    }
+}
+
 /**
  * @brief 发送设置命令
  * @param addr 地址
@@ -143,6 +161,7 @@ int BUS_RtuTrans::transmit(int addr, sDataPacket *box, int msecs)
 {
     BUS_RtuRecv *pkt = mRtuPkt; //数据包
 
+    sentCmdList();
     int ret = transData(addr, pkt, msecs);
     if(ret) {
         loopData(&(box->data), pkt); //更新数据

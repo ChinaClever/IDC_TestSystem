@@ -5,10 +5,10 @@
 
 class BUS_RtuTrans: public QThread
 {
-public:
     explicit BUS_RtuTrans(QObject *parent = nullptr);
-    ~BUS_RtuTrans();
+public:
     static BUS_RtuTrans *bulid(QObject *parent = nullptr);
+    ~BUS_RtuTrans();
 
     void init(SerialPort *serial);
     int transmit(int addr, sDataPacket *box, int msecs); //发送数据并回收
@@ -16,11 +16,13 @@ public:
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
+    bool sentCmd(sRtuSentCom &cmd);
 protected:
     int transData(int addr, BUS_RtuRecv *pkt, int msecs);
     void loopObjData(sObjData *loop, BUS_RtuRecvLine *data);
     void loopData(sDevData *box, BUS_RtuRecv *pkt);
     void envData(sDataPacket *box, BUS_RtuRecv *pkt);
+    void sentCmdList();
 
 private:
     uchar *mSentBuf, *mRecvBuf;
@@ -32,6 +34,7 @@ private:
 
     BUS_RtuRecv *mRtuPkt;
     BUS_RtuSent *mRtuSent;
+    QList<sRtuSentCom> mCmdList;
 };
 
 #endif // BUS_RTUTRANS_H

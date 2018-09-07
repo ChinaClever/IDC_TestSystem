@@ -40,7 +40,13 @@ HEADERS += \
     $$PWD/eload_logs/eload_loglinethresholdwid.h \
     $$PWD/eload_logs/eload_logmodbuscmdwid.h \
     $$PWD/eload_logs/eload_logmodbustranswid.h \
-    $$PWD/eload_logs/eload_logswid.h
+    $$PWD/eload_logs/eload_logswid.h \
+    $$PWD/eload_dp/eload_dpalarmsave.h \
+    $$PWD/eload_dp/eload_dpsaveenv.h \
+    $$PWD/eload_dp/eload_dpsavelinerecord.h \
+    $$PWD/eload_dp/eload_dpsavelinethreshold.h \
+    $$PWD/eload_dp/eload_dpsavetrans.h \
+    $$PWD/eload_dp/eload_dpthread.h
 
 	
 SOURCES += \
@@ -81,7 +87,13 @@ SOURCES += \
     $$PWD/eload_logs/eload_loglinethresholdwid.cpp \
     $$PWD/eload_logs/eload_logmodbuscmdwid.cpp \
     $$PWD/eload_logs/eload_logmodbustranswid.cpp \
-    $$PWD/eload_logs/eload_logswid.cpp
+    $$PWD/eload_logs/eload_logswid.cpp \
+    $$PWD/eload_dp/eload_dpalarmsave.cpp \
+    $$PWD/eload_dp/eload_dpsaveenv.cpp \
+    $$PWD/eload_dp/eload_dpsavelinerecord.cpp \
+    $$PWD/eload_dp/eload_dpsavelinethreshold.cpp \
+    $$PWD/eload_dp/eload_dpsavetrans.cpp \
+    $$PWD/eload_dp/eload_dpthread.cpp
 
 FORMS += \
     $$PWD/eload_mainwid.ui \

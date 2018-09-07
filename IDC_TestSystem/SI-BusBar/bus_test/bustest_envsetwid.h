@@ -21,17 +21,13 @@ public:
     void initWidget();
     void sendCmd();
     ushort change(int index);
+
 private slots:
     void on_updateBtn_clicked();
-
     void on_setBtn_clicked();
-
     void on_changeEnvBtn_clicked();
-
     void on_changeAddrBtn_clicked();
-
     void on_changeBaudBtn_clicked();
-
     void on_envBox_currentIndexChanged(int index);
 
 private:

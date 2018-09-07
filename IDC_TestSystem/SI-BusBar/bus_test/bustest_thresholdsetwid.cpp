@@ -36,27 +36,26 @@ void BUSTEST_ThresholdSetWid::initWidget()
 
 void BUSTEST_ThresholdSetWid::sendCmd()
 {
-    BUS_Rtu_Sent cmd;
+    sRtuSentCom cmd;
     mAddr = cmd.addr = ui->addrBox->currentIndex() + 1;
     if(ui->checkBox->isChecked()) cmd.addr = 0xff;
 
     int id = ui->lineBox->currentIndex();
     cmd.reg = 0x1002 + id *2;
     cmd.len = ui->volMaxBox->value();
-    bool ret1 =BUS_RtuTrans::bulid()->sentSetCmd(cmd.addr,cmd.reg, cmd.len, 20);
-
+    bool ret1 = BUS_RtuTrans::bulid()->sentCmd(cmd);
 
     cmd.reg += 1;
     cmd.len = ui->volMinBox->value();
-    bool ret2 =BUS_RtuTrans::bulid()->sentSetCmd(cmd.addr,cmd.reg, cmd.len, 20);
+    bool ret2 = BUS_RtuTrans::bulid()->sentCmd(cmd);
 
     cmd.reg = 0x1020 + id *2;
     cmd.len = ui->curMaxBox->value();
-    bool ret3 =BUS_RtuTrans::bulid()->sentSetCmd(cmd.addr,cmd.reg, cmd.len, 20);
+    bool ret3 = BUS_RtuTrans::bulid()->sentCmd(cmd);
 
     cmd.reg += 1;
     cmd.len = ui->curMinBox->value();
-    bool ret4 =BUS_RtuTrans::bulid()->sentSetCmd(cmd.addr,cmd.reg, cmd.len, 20);
+    bool ret4 = BUS_RtuTrans::bulid()->sentCmd(cmd);
 
     if(ret1 && ret2 && ret3 && ret4) {
         InfoMsgBox box(this, tr("阈值修改成功，数据已刷新！！"));
@@ -74,11 +73,11 @@ void BUSTEST_ThresholdSetWid::on_updateBtn_clicked()
 void BUSTEST_ThresholdSetWid::on_setBtn_clicked()
 {
     QuMsgBox box(this, tr("确定要修改阈值？？"));
-        if(box.Exec())    {
-            sendCmd();
-            QTimer::singleShot(12500,this,SLOT(on_updateBtn_clicked())); //延时初始化
-            InfoMsgBox msg(this, tr("需要十秒数据才能重新刷新!!"));
-        }
+    if(box.Exec())    {
+        sendCmd();
+        QTimer::singleShot(12500,this,SLOT(on_updateBtn_clicked())); //延时初始化
+        InfoMsgBox msg(this, tr("需要十秒数据才能重新刷新!!"));
+    }
 }
 
 void BUSTEST_ThresholdSetWid::on_busBox_currentIndexChanged(int index)

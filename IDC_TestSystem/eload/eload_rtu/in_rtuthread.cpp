@@ -2,9 +2,10 @@
  *
  *
  *  Created on: 2018年10月1日
- *      Author: Lzy
+ *      Author: LELoady
  */
 #include "in_rtuthread.h"
+#include "eload_dp/eload_dpthread.h"
 
 IN_RtuThread::IN_RtuThread(QObject *parent) : SimulateThread(parent)
 {
@@ -29,6 +30,7 @@ void IN_RtuThread::init(SerialPort *serial)
 void IN_RtuThread::initSlot()
 {
     mPackets = IN_DataPackets::bulid()->packets;
+    mDpThread = new ELoad_DpThread(this);
 }
 
 void IN_RtuThread::sentCmd(sRtuSentCom &cmd)
@@ -43,6 +45,24 @@ void IN_RtuThread::sentCmdList()
         bool ret = mRtu->sentSetCmd(cmd, 10);
         if(ret) mCmdList.removeFirst();
     }
+}
+
+void IN_RtuThread::writeErrCmd(int id)
+{
+    QByteArray array = mRtu->getSentCmd();
+    QString strArray = cm_ByteArrayToHexStr(array);
+
+    strArray += tr(" (接收数据");
+    array = mRtu->getRecvCmd();
+    strArray += " len=" +QString::number(array.size()) +": ";
+    strArray += cm_ByteArrayToHexStr(array);
+    strArray += ")";
+
+    QStringList list;
+    list << QString::number(id);
+    list << strArray;
+
+    mDpThread->saveModbusCmd(list);
 }
 
 /**

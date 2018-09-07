@@ -16,7 +16,7 @@ public:
 protected:
     void workDown();
     void sentCmdList();
-    void writeErrCmd(int id){}
+    void writeErrCmd(int id);
 
 protected slots:
     void initSlot();

@@ -133,6 +133,7 @@ void ELoad_StatusHomeWid::startUp()
     setMode();
     ui->groupBox->setEnabled(false);
     ui->startBtn->setText(tr("停止"));
+    ELoad_ConfigFile::bulid()->item->testMode = ELoad_Test_Simulate;
 }
 
 void ELoad_StatusHomeWid::stopFun()
@@ -141,6 +142,7 @@ void ELoad_StatusHomeWid::stopFun()
 
     ui->groupBox->setEnabled(true);
     ui->startBtn->setText(tr("启动"));
+    ELoad_ConfigFile::bulid()->item->testMode = ELoad_Test_Stop;
 }
 
 void ELoad_StatusHomeWid::on_startBtn_clicked()
