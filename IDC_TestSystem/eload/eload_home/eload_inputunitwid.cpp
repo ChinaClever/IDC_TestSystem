@@ -33,7 +33,7 @@ void ELoad_InputUnitWid::initFunSLot()
 void ELoad_InputUnitWid::init(int addr, int bit)
 {
     mObjData = &(IN_DataPackets::bulid()->getDev(addr)->data.input[bit]);
-    QString str = QString::number(addr * 8 + bit+1);
+    QString str = QString::number((addr-1) * 8 + bit+1);
     ui->inputLab->setText(str);
     mAddr = addr;
     mBit = bit;

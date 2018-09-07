@@ -13,8 +13,8 @@ ELoad_HomeMainWid::ELoad_HomeMainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mInputWid = new ELoad_InputHomeWid(ui->widget_1);
-    mStatusWid = new ELoad_StatusHomeWid(ui->widget_2);
+    mStatusWid = new ELoad_StatusHomeWid(ui->widget_1);
+    mInputWid = new ELoad_InputHomeWid(ui->widget_2);
 }
 
 ELoad_HomeMainWid::~ELoad_HomeMainWid()
