@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -6,7 +6,7 @@
  */
 #include "in_setthresholdwid.h"
 #include "ui_in_setthresholdwid.h"
-#include "in_rtu/in_rtuthread.h"
+#include "eload_rtu/in_rtuthread.h"
 #include "msgbox.h"
 
 IN_SetThresholdWid::IN_SetThresholdWid(QWidget *parent) :

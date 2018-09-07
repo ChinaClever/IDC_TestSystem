@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -6,7 +6,7 @@
  */
 #include "in_setenvwid.h"
 #include "ui_in_setenvwid.h"
-#include "in_rtu/in_rtuthread.h"
+#include "eload_rtu/in_rtuthread.h"
 #include "msgbox.h"
 
 IN_SetEnvWid::IN_SetEnvWid(QWidget *parent) :
