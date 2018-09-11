@@ -1,5 +1,6 @@
 #include "serialportdlg.h"
 #include "ui_serialportdlg.h"
+extern void groupBox_background_icon(QWidget *target);
 
 SerialPortDlg::SerialPortDlg(QWidget *parent) :
     QDialog(parent),

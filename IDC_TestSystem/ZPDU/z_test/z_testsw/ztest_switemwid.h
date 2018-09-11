@@ -2,6 +2,7 @@
 #define ZTEST_SWITEMWID_H
 
 #include "../z_testrtu/ztest_rtuthread.h"
+#include "common.h"
 
 namespace Ui {
 class ZTest_SwItemWid;

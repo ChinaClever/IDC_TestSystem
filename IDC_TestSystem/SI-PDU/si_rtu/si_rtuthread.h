@@ -2,6 +2,7 @@
 #define SI_RTUTHREAD_H
 
 #include "si_rtu_recv.h"
+#include "datapacket.h"
 
 #define RTU_BUF_SIZE 2*SERIAL_LEN
 

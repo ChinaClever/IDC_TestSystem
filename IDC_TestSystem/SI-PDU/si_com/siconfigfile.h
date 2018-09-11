@@ -1,6 +1,7 @@
 #ifndef SICONFIGFILE_H
 #define SICONFIGFILE_H
 #include "serialport.h"
+#include "configbase.h"
 
 enum {
     SI_Test_Stop,
@@ -45,7 +46,7 @@ public:
     static SiConfigFile *bulid();
 
      SiConfigItem *item;
-    QString getPrefix(){return "SI";}
+    QString getPrefix(){return "si";}
 
 
 

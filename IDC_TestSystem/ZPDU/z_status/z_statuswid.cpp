@@ -1,28 +1,21 @@
-/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "z_simulatewid.h"
-#include "ui_z_simulatewid.h"
+#include "z_statuswid.h"
+#include "ui_z_statuswid.h"
 
-Z_SimulateWid::Z_SimulateWid(QWidget *parent) :
+Z_StatusWid::Z_StatusWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Z_SimulateWid)
+    ui(new Ui::Z_StatusWid)
 {
     ui->setupUi(this);
-    mSimulateThread = new Z_SimulateThread(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
-Z_SimulateWid::~Z_SimulateWid()
+Z_StatusWid::~Z_StatusWid()
 {
     delete ui;
 }
 
 
-void Z_SimulateWid::initFunSLot()
+void Z_StatusWid::initFunSLot()
 {
     sDevPackets *packets = Z_DataPackets::bulid()->packets;
 
@@ -59,20 +52,18 @@ void Z_SimulateWid::initFunSLot()
     mLoopThresholdTableWid->initPackets(packets);
 }
 
-void Z_SimulateWid:: simulateSlot(int id)
+void Z_StatusWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    case Z_Test_Stop: mSimulateThread->stopThread(); break;
-    case Z_Test_Simulate: mSimulateThread->startThread(); break;
-    case Z_Info_Dev: wid = mDevTableWid; break;
-    case Z_Info_Trans: wid = mTransTableWid; break;
-    case Z_Info_Loop: wid = mLoopTableWid; break;
-    case Z_Info_LoopThreshold: wid = mLoopThresholdTableWid; break;
-    case Z_Info_Output: wid = mOutputTableWid; break;
-    case Z_Info_OutputThreshold: wid = mOutputThresholdTableWid; break;
-    case Z_Info_Threshold: wid = mThresholdTableWid; break;
-    case Z_Info_Env: wid = mEnvTableWid; break;
+    case Info_Line: wid = mDevTableWid; break;
+    case Info_Trans: wid = mTransTableWid; break;
+    case Info_Loop: wid = mLoopTableWid; break;
+    case Info_LoopThreshold: wid = mLoopThresholdTableWid; break;
+    case Info_Output: wid = mOutputTableWid; break;
+    case Info_OutputThreshold: wid = mOutputThresholdTableWid; break;
+    case Info_LineThreshold: wid = mThresholdTableWid; break;
+    case Info_Env: wid = mEnvTableWid; break;
     default:  break;
     }
 

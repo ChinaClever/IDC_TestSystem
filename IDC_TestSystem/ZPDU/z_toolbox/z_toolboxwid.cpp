@@ -31,8 +31,11 @@ void Z_ToolBoxWid::initWid()
 {
     int page = 0;
 
-    mSimulationToolWid = new Z_SimulationToolWid(ui->toolBox->widget(page++));
-    connect(mSimulationToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+    mModeToolWid = new Z_ModeToolWid(ui->toolBox->widget(page++));
+    connect(mModeToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+
+    mStatusToolWid = new Z_StatusToolWid(ui->toolBox->widget(page++));
+    connect(mStatusToolWid, SIGNAL(widSig(int)), this, SIGNAL(toolBoxSig(int)));
 
     mLogsToolWid = new Z_LogsToolWid(ui->toolBox->widget(page++));
     connect(mLogsToolWid, SIGNAL(logsSig(int)), this, SIGNAL(toolBoxSig(int)));

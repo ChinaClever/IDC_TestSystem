@@ -1,6 +1,6 @@
 #ifndef M_CONFIGFILE_H
 #define M_CONFIGFILE_H
-#include "serialportdlg.h"
+#include "configbase.h"
 
 enum {
     M_Test_Stop,

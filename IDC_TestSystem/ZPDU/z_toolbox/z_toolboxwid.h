@@ -1,7 +1,7 @@
 #ifndef Z_TOOLBOXWID_H
 #define Z_TOOLBOXWID_H
 
-#include "z_logstoolwid.h"
+#include "z_modetoolwid.h"
 
 namespace Ui {
 class Z_ToolBoxWid;
@@ -25,8 +25,9 @@ private:
     Ui::Z_ToolBoxWid *ui;
 
     Z_SettingToolWid *mSettingToolWid;
+    Z_StatusToolWid *mStatusToolWid;
     Z_LogsToolWid *mLogsToolWid;
-    Z_SimulationToolWid *mSimulationToolWid;
+    Z_ModeToolWid *mModeToolWid;
 };
 
 #endif // Z_TOOLBOXWID_H

@@ -6,7 +6,8 @@
  */
 #include "serialportwid.h"
 #include "ui_serialportwid.h"
-#include<QMessageBox.h>
+#include "msgbox.h"
+
 SerialPortWid::SerialPortWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SerialPortWid)

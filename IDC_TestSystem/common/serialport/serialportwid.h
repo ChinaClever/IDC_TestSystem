@@ -36,5 +36,6 @@ private:
 
     SerialPort *mSerialPort;
 };
+extern void groupBox_background_icon(QWidget *target);
 
 #endif // SERIALPORTWID_H

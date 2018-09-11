@@ -35,9 +35,6 @@ HEADERS += \
     $$PWD/z_logs/z_logswid.h \
     $$PWD/z_service/json/z_buildjson.h \
     $$PWD/z_service/z_servicethread.h \
-    $$PWD/z_simulate/z_simulatethread.h \
-    $$PWD/z_simulate/z_simulatewid.h \
-    $$PWD/z_toolbox/z_simulationtoolwid.h \
     $$PWD/z_toolbox/z_settingtoolwid.h \
     $$PWD/z_toolbox/z_logstoolwid.h \
     $$PWD/z_toolbox/z_toolboxwid.h \
@@ -62,7 +59,11 @@ HEADERS += \
     $$PWD/z_snmp/z_snmpthread.h \
     $$PWD/z_snmp/z_snmpsend.h \
     $$PWD/z_snmp/z_snmptrans.h \
-    $$PWD/z_snmp/z_snmprecv.h
+    $$PWD/z_snmp/z_snmprecv.h \
+    $$PWD/z_toolbox/z_statustoolwid.h \
+    $$PWD/z_toolbox/z_modetoolwid.h \
+    $$PWD/z_rtu/z_rtuthread.h \
+    $$PWD/z_status/z_statuswid.h
 
 	
 SOURCES += \
@@ -98,9 +99,6 @@ SOURCES += \
     $$PWD/z_logs/z_logswid.cpp \
     $$PWD/z_service/json/z_buildjson.cpp \
     $$PWD/z_service/z_servicethread.cpp \
-    $$PWD/z_simulate/z_simulatethread.cpp \
-    $$PWD/z_simulate/z_simulatewid.cpp \
-    $$PWD/z_toolbox/z_simulationtoolwid.cpp \
     $$PWD/z_toolbox/z_settingtoolwid.cpp \
     $$PWD/z_toolbox/z_logstoolwid.cpp \
     $$PWD/z_toolbox/z_toolboxwid.cpp \
@@ -125,11 +123,14 @@ SOURCES += \
     $$PWD/z_snmp/z_snmpthread.cpp \
     $$PWD/z_snmp/z_snmpsend.cpp \
     $$PWD/z_snmp/z_snmptrans.cpp \
-    $$PWD/z_snmp/z_snmprecv.cpp
+    $$PWD/z_snmp/z_snmprecv.cpp \
+    $$PWD/z_toolbox/z_statustoolwid.cpp \
+    $$PWD/z_toolbox/z_modetoolwid.cpp \
+    $$PWD/z_rtu/z_rtuthread.cpp \
+    $$PWD/z_status/z_statuswid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
-    $$PWD/z_simulate/z_simulatewid.ui \
     $$PWD/z_toolbox/z_simulationtoolwid.ui \
     $$PWD/z_toolbox/z_settingtoolwid.ui \
     $$PWD/z_toolbox/z_logstoolwid.ui \
@@ -150,7 +151,10 @@ FORMS += \
     $$PWD/z_test/z_testenv/ztest_envwid.ui \
     $$PWD/z_test/z_testloop/ztest_loopitemwid.ui \
     $$PWD/z_test/z_testloop/ztest_loopunitwid.ui \
-    $$PWD/z_test/z_testloop/ztest_loopwid.ui
+    $$PWD/z_test/z_testloop/ztest_loopwid.ui \
+    $$PWD/z_toolbox/z_statustoolwid.ui \
+    $$PWD/z_toolbox/z_modetoolwid.ui \
+    $$PWD/z_status/z_statuswid.ui
 
 
 

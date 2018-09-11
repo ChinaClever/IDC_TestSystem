@@ -182,6 +182,7 @@ void Z_SnmpRecv::getMS(const QByteArray &oid)
     int id = getItemByOid(1);
     if(id >= 0) {
         mDataPacket = Z_DataPackets::bulid()->getDev(id);
+        mDataPacket->offLine = 7;
     }
 }
 

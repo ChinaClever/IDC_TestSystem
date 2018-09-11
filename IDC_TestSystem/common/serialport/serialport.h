@@ -1,8 +1,11 @@
 #ifndef SERIALPORT_H
 #define SERIALPORT_H
 
-#include "common.h"
 #include <QSerialPort>
+#include <QtCore>
+#include "datapacket.h"
+#include "msgbox.h"
+#include "rtucom/rtusentcom.h"
 
 #define SERIAL_LEN  2*1024
 

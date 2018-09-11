@@ -1,6 +1,6 @@
 #ifndef ELOAD_CONFIGFILE_H
 #define ELOAD_CONFIGFILE_H
-#include "serialportdlg.h"
+#include "configbase.h"
 
 enum {
     ELoad_Test_Stop,

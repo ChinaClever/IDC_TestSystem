@@ -1,21 +1,13 @@
-/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "z_simulatethread.h"
+#include "z_rtuthread.h"
 
-Z_SimulateThread::Z_SimulateThread(QObject *parent) : SimulateThread(parent)
+Z_RtuThread::Z_RtuThread(QObject *parent) : RtuThread(parent)
 {
 
 }
 
-void Z_SimulateThread::initSlot()
+void Z_RtuThread::initSlot()
 {
     SerialPort *serial = Z_ConfigFile::bulid()->item->serial;
-    mDpThread = new Z_DpThread(this);
-
     mPackets = Z_DataPackets::bulid()->packets;
     mRtu = Z_RtuTrans::bulid();
     mRtu->init(serial);
@@ -26,7 +18,7 @@ void Z_SimulateThread::initSlot()
  * @brief 保存失败命令
  * @param devId
  */
-void Z_SimulateThread::writeErrCmd(int id)
+void Z_RtuThread::writeErrCmd(int id)
 {
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
@@ -49,11 +41,11 @@ void Z_SimulateThread::writeErrCmd(int id)
 /**
  * @brief 处理方法
  */
-void Z_SimulateThread::workDown()
+void Z_RtuThread::workDown()
 {
     int ret = 0;
 
-    sZ_ConfigItem *item = Z_ConfigFile::bulid()->item;
+    sConfigItem *item = Z_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
     for(int k=1; k<=mPackets->devNum; ++k)

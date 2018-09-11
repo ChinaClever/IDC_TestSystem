@@ -8,6 +8,7 @@
 #include "ui_sisimulationtoolwid.h"
 #include "si_com/siconfigfile.h"
 #include <QGridLayout>
+#include "msgbox.h"
 
 SiSimulationToolWid::SiSimulationToolWid(QWidget *parent) :
     QWidget(parent),

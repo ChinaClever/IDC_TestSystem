@@ -3,9 +3,11 @@
 
 #include "z_toolbox/z_toolboxwid.h"
 #include "z_logs/z_logswid.h"
-#include "z_simulate/z_simulatewid.h"
 #include "z_service/z_servicethread.h"
 #include "z_test/ztest_mainwid.h"
+#include "z_rtu/z_rtuthread.h"
+#include "z_status/z_statuswid.h"
+#include "z_status/z_statuswid.h"
 
 namespace Ui {
 class ZPDU_MainWid;
@@ -27,10 +29,13 @@ private:
     Ui::ZPDU_MainWid *ui;
 
     Z_ToolBoxWid *mtoolBoxWid;
-    Z_SimulateWid *mSimulateWid;
+    Z_StatusWid *mStatusWid;
     Z_LogsWid *mLogsWid;
     Z_ServiceThread *mServiceThread;
     ZTest_MainWid *mTestWid;
+
+    Z_DpThread *mDpThread;
+    Z_RtuThread *mRtuThread;
 };
 
 #endif // ZPDU_MAINWID_H

@@ -29,7 +29,7 @@ Z_DpThread::~Z_DpThread()
 bool Z_DpThread::getStart()
 {
     bool ret = false;
-    if(Z_ConfigFile::bulid()->item->testMode == Z_Test_Simulate)
+    if(Z_ConfigFile::bulid()->item->testMode != Test_Stop)
         ret = true;
     return ret;
 }
