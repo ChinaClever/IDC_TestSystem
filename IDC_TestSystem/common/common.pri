@@ -1,6 +1,7 @@
 
 INCLUDEPATH += $$PWD
 
+include(snmp/snmp.pri)
 include(excel/excel.pri)
 include(serialport/serialport.pri)
 
