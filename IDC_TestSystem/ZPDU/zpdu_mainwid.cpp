@@ -6,6 +6,7 @@
  */
 #include "zpdu_mainwid.h"
 #include "ui_zpdu_mainwid.h"
+#include "z_snmp/z_snmptrans.h"
 
 ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -13,6 +14,10 @@ ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+
+    Z_SnmpTrans *snmp = new Z_SnmpTrans(this);
+    snmp->startRun("192.168.1.163");
+
 }
 
 ZPDU_MainWid::~ZPDU_MainWid()

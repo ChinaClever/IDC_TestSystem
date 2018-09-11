@@ -57,6 +57,7 @@ struct sObjData
     uint ratedCur; // 额定电流
     uint wave; // 谐波值
     uint tem;
+    uchar delay;
 };
 
 /**
@@ -123,6 +124,7 @@ struct sDataPacket
     char ip[NAME_SIZE]; //设备IP
     char mac[NAME_SIZE]; // MAC地址
     char name[NAME_SIZE]; // 设备名称
+    char versionStr[NAME_SIZE];
 
     sDevData data; //设备数据
     sRtuCount rtuCount; // 传输情况
