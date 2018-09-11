@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ ELoad_InputUnitWid::ELoad_InputUnitWid(QWidget *parent) :
     ui(new Ui::ELoad_InputUnitWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     QTimer::singleShot(1500,this,SLOT(initFunSLot())); //延时初始化
 }
 

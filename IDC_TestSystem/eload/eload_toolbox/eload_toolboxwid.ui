@@ -10,6 +10,12 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
@@ -36,8 +42,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>154</width>
-           <height>317</height>
+           <width>158</width>
+           <height>359</height>
           </rect>
          </property>
          <attribute name="label">
@@ -45,6 +51,14 @@
          </attribute>
         </widget>
         <widget class="QWidget" name="inputPage">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>98</width>
+           <height>28</height>
+          </rect>
+         </property>
          <attribute name="label">
           <string>输入位</string>
          </attribute>
@@ -54,8 +68,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>154</width>
-           <height>317</height>
+           <width>98</width>
+           <height>28</height>
           </rect>
          </property>
          <attribute name="label">
@@ -67,8 +81,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>154</width>
-           <height>317</height>
+           <width>98</width>
+           <height>28</height>
           </rect>
          </property>
          <attribute name="label">
@@ -80,8 +94,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>154</width>
-           <height>443</height>
+           <width>98</width>
+           <height>28</height>
           </rect>
          </property>
          <attribute name="label">

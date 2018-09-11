@@ -40,12 +40,12 @@ void IN_SetThresholdWid::initWidget()
     ui->curMaxBox->setValue(obj->cur.max);
 }
 
-void IN_SetThresholdWid::on_addrBox_currentIndexChanged(int index)
+void IN_SetThresholdWid::on_addrBox_currentIndexChanged(int /*index*/)
 {
     initWidget();
 }
 
-void IN_SetThresholdWid::on_lineBox_currentIndexChanged(int index)
+void IN_SetThresholdWid::on_lineBox_currentIndexChanged(int /*index*/)
 {
     initWidget();
 }

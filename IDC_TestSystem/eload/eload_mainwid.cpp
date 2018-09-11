@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -13,6 +13,7 @@ ELoad_MainWid::ELoad_MainWid(QWidget *parent) :
     ui(new Ui::ELoad_MainWid)
 {
     ui->setupUi(this);
+
     QTimer::singleShot(5,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -45,7 +46,7 @@ void ELoad_MainWid::initFunSLot()
 
 void ELoad_MainWid::toolBoxSlot(int id)
 {
-    if((id >= ELoad_Info_Trans) && (id < ELoad_Info_Set)) {
+    if((id >= ELoad_Info_Trans) && (id <= ELoad_Info_Set)) {
         ui->stackedWid->setCurrentWidget(mInputMainWid);
     } else if((id >= ELoad_Log_Modbus) && (id <= ELoad_Log_Alarm)) {
         ui->stackedWid->setCurrentWidget(mLogsWid);

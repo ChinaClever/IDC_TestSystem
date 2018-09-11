@@ -1,4 +1,4 @@
-#include "eload_logstoolwid.h"
+﻿#include "eload_logstoolwid.h"
 #include "ui_eload_logstoolwid.h"
 #include "eload_com/eload_configfile.h"
 
@@ -7,6 +7,8 @@ ELoad_LogsToolWid::ELoad_LogsToolWid(QWidget *parent) :
     ui(new Ui::ELoad_LogsToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 ELoad_LogsToolWid::~ELoad_LogsToolWid()

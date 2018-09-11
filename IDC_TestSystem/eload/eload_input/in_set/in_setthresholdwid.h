@@ -1,4 +1,4 @@
-#ifndef IN_SETTHRESHOLDWID_H
+﻿#ifndef IN_SETTHRESHOLDWID_H
 #define IN_SETTHRESHOLDWID_H
 
 #include <QWidget>
@@ -20,8 +20,8 @@ protected:
     void sendCmd();
 
 private slots:
-    void on_addrBox_currentIndexChanged(int index);
-    void on_lineBox_currentIndexChanged(int index);
+    void on_addrBox_currentIndexChanged(int /*index*/);
+    void on_lineBox_currentIndexChanged(int /*index*/);
     void on_updateBtn_clicked();
     void on_setBtn_clicked();
 

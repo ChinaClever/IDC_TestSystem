@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -7,13 +7,16 @@
 #include "eload_inputhomewid.h"
 #include "ui_eload_inputhomewid.h"
 #include "eload_inputunitwid.h"
-
+#include <QGridLayout>
 ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ELoad_InputHomeWid)
 {
     ui->setupUi(this);
+
     initWid();
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 ELoad_InputHomeWid::~ELoad_InputHomeWid()

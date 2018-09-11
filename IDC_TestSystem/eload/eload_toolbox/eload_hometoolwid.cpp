@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,6 +12,8 @@ ELoad_HomeToolWid::ELoad_HomeToolWid(QWidget *parent) :
     ui(new Ui::ELoad_HomeToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 ELoad_HomeToolWid::~ELoad_HomeToolWid()
