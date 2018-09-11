@@ -25,6 +25,7 @@ ELoad_InputUnitWid::~ELoad_InputUnitWid()
 
 void ELoad_InputUnitWid::initFunSLot()
 {
+    isSet = false;
     mRtu = ELoad_RtuSent::bulid();
 
     timer = new QTimer(this);
@@ -93,7 +94,17 @@ void ELoad_InputUnitWid::on_checkBox_clicked(bool checked)
     }
 }
 
+void ELoad_InputUnitWid::setFunSLot()
+{
+    int value = ui->horizontalScrollBar->value();
+    mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
+    isSet = false;
+}
+
 void ELoad_InputUnitWid::on_horizontalScrollBar_valueChanged(int value)
 {
-    mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
+    if(!isSet) {
+        isSet = true;
+        QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
+    }
 }

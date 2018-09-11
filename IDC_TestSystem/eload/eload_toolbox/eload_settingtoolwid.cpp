@@ -13,72 +13,16 @@ ELoad_SettingToolWid::ELoad_SettingToolWid(QWidget *parent) :
     ui(new Ui::ELoad_SettingToolWid)
 {
     ui->setupUi(this);
-    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
-    gridLayout->addWidget(this);
-    mSerialPortDlg = new SerialPortDlg(this);
+//    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+//    gridLayout->addWidget(this);
 
-    initSerialPort();
     initModbusTime();
     initDevCmd();
-    initDevNum();
 }
 
 ELoad_SettingToolWid::~ELoad_SettingToolWid()
 {
     delete ui;
-}
-
-/**
- * @brief 初始化串口
- * @return
- */
-bool ELoad_SettingToolWid::initSerialPort()
-{
-    bool ret = false;
-
-    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-    SerialPort *serial = mSerialPortDlg->getSerialPort();
-    config->item->serial = serial;
-
-    QString com = config->getSerialName();
-    if(!com.isEmpty())
-    {
-        ret = serial->isContains(com);
-        if(ret) {
-//            ret = serial->open(com);
-            updateSerialWid();
-        }
-    }
-
-    return ret;
-}
-
-/**
- * @brief 更新串口窗口
- */
-void ELoad_SettingToolWid::updateSerialWid()
-{
-    QPalette pe;
-    SerialPort *serial = mSerialPortDlg->getSerialPort();
-    QString str = serial->getSerialName();
-
-    if(serial->isOpened()) {
-        ELoad_ConfigFile::bulid()->setSerialName(str);
-        str += tr(" 已打开");
-        pe.setColor(QPalette::WindowText,Qt::black);
-    } else {
-        str += tr(" 串口未打开");
-        pe.setColor(QPalette::WindowText,Qt::red);
-    }
-
-    ui->serialLab->setText(str);
-    ui->serialLab->setPalette(pe);
-}
-
-void ELoad_SettingToolWid::on_serialBtn_clicked()
-{
-    mSerialPortDlg->exec();
-    updateSerialWid();
 }
 
 
@@ -134,28 +78,3 @@ void ELoad_SettingToolWid::on_timeBtn_clicked()
     updateModbusTime(ui->timeBox->currentIndex());
 }
 
-
-/**
- * @brief 更新设备数量
- * @param num
- */
-void ELoad_SettingToolWid::updateDevNum(int num)
-{
-    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-    config->item->devNum = num;
-    config->setDevNum(num);
-}
-
-void ELoad_SettingToolWid::initDevNum()
-{
-    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-    int num = config->getDevNum();;
-    updateDevNum(num);
-    ui->spinBox->setValue(num);
-}
-
-
-void ELoad_SettingToolWid::on_devNumBtn_clicked()
-{
-    updateDevNum(ui->spinBox->value());
-}

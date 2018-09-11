@@ -18,11 +18,20 @@ public:
 signals:
     void toolSig(int);
 
+protected:
+    bool initSerialPort();
+    void updateSerialWid();
+    void initDevNum();
+    void updateDevNum(int num);
+
 private slots:
     void on_homeBtn_clicked();
+    void on_serialBtn_clicked();
+    void on_devNumBtn_clicked();
 
 private:
     Ui::ELoad_HomeToolWid *ui;
+    SerialPortDlg *mSerialPortDlg;
 };
 
 #endif // ELOAD_HOMETOOLWID_H

@@ -23,6 +23,7 @@ protected:
 
 private slots:
     void initFunSLot();
+    void setFunSLot();
     void timeoutDone();
     void on_openBtn_clicked();
     void on_closeBtn_clicked();
@@ -36,6 +37,7 @@ private:
     sObjData *mObjData;
     ELoad_RtuSent *mRtu;
     int mAddr, mBit;
+    bool isSet;
 };
 
 #endif // ELOAD_INPUTUNITWID_H
