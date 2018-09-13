@@ -41,6 +41,7 @@ struct sConfigItem
     QString ip;
     SerialPort *serial; // 串口对象
     int devNum; // 级联数
+    int outputNum;
     int cmdModel; // 命令模式
 };
 
@@ -48,6 +49,7 @@ class ConfigBase
 {
 public:
     ConfigBase();
+    sConfigItem *item;
 
     QString getSerialName();
     void setSerialName(const QString &name);

@@ -8,10 +8,6 @@
 
 M_ConfigFile::M_ConfigFile()
 {
-    item = new sM_ConfigItem();
-    item->cmdModel = 1;
-    item->msecs = 10;
-    item->outputNum = 24;
 }
 
 M_ConfigFile *M_ConfigFile::bulid()

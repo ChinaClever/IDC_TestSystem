@@ -25,10 +25,20 @@ M_DpThread::~M_DpThread()
     wait();
 }
 
+
+M_DpThread *M_DpThread::bulid(QObject *parent)
+{
+    static M_DpThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new M_DpThread(parent);
+    }
+    return sington;
+}
+
 bool M_DpThread::getStart()
 {
     bool ret = false;
-    if(M_ConfigFile::bulid()->item->testMode == M_Test_Simulate)
+    if(M_ConfigFile::bulid()->item->testMode == Test_SNMP)
         ret = true;
     return ret;
 }

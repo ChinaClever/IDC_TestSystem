@@ -1,27 +1,21 @@
-/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "m_simulatewid.h"
-#include "ui_m_simulatewid.h"
+#include "m_statuswid.h"
+#include "ui_m_statuswid.h"
 
-M_SimulateWid::M_SimulateWid(QWidget *parent) :
+M_StatusWid::M_StatusWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::M_SimulateWid)
+    ui(new Ui::M_StatusWid)
 {
     ui->setupUi(this);
-    mSimulateThread = new M_SimulateThread(this);
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(30,this,SLOT(initFunSLot())); //延时初始化
 }
 
-M_SimulateWid::~M_SimulateWid()
+M_StatusWid::~M_StatusWid()
 {
     delete ui;
 }
 
-void M_SimulateWid::initFunSLot()
+
+void M_StatusWid::initFunSLot()
 {
     sDevPackets *packets = M_DataPackets::bulid()->packets;
 
@@ -50,18 +44,16 @@ void M_SimulateWid::initFunSLot()
     mOutputThresholdTableWid->initPackets(packets);
 }
 
-void M_SimulateWid:: simulateSlot(int id)
+void M_StatusWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    case M_Test_Stop: mSimulateThread->stopThread(); break;
-    case M_Test_Simulate: mSimulateThread->startThread(); break;
-    case M_Info_Dev: wid = mDevTableWid; break;
-    case M_Info_Trans: wid = mTransTableWid; break;
-    case M_Info_Output: wid = mOutputTableWid; break;
-    case M_Info_OutputThreshold: wid = mOutputThresholdTableWid; break;
-    case M_Info_Threshold: wid = mThresholdTableWid; break;
-    case M_Info_Env: wid = mEnvTableWid; break;
+    case Info_Line: wid = mDevTableWid; break;
+    case Info_Trans: wid = mTransTableWid; break;
+    case Info_Output: wid = mOutputTableWid; break;
+    case Info_OutputThreshold: wid = mOutputThresholdTableWid; break;
+    case Info_LineThreshold: wid = mThresholdTableWid; break;
+    case Info_Env: wid = mEnvTableWid; break;
     default:  break;
     }
 

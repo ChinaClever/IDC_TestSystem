@@ -36,7 +36,7 @@ private:
     Z_ServiceThread *mServiceThread;
     ZTest_MainWid *mTestWid;
 
-     Z_SnmpTrans *mSnmp;
+    Z_SnmpTrans *mSnmp;
     Z_DpThread *mDpThread;
     Z_RtuThread *mRtuThread;
     QTimer *timer;

@@ -20,7 +20,7 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 
     m_timer =  new QTimer(this);
     connect( m_timer, SIGNAL(timeout()), SLOT(makeRequest()) );
-    connect( m_timer, SIGNAL(timeout()), SLOT(start()));
+//    connect( m_timer, SIGNAL(timeout()), SLOT(start()));
 }
 
 SnmpThread::~SnmpThread()
@@ -37,6 +37,7 @@ void SnmpThread::startRun(const QString &addr, int msec)
     if(msec == 0) msec = 500 + (rand() % 1000);
     m_timer->start( msec );
     clearCount();
+    start();
 }
 
 void SnmpThread::stopRun()
@@ -179,16 +180,16 @@ void SnmpThread::makeRequest()
 
 void SnmpThread::run()
 {
-    if(!isRun)
-    {
-        isRun = true;
+    isRun = true;
+    while(isRun)
+    {        
         msleep(10);
         QMutexLocker locker(mMutex);
         for( const auto& value : mValues ) {
             workDown(m_address, value.address(), value.data());
         }
         mValues.clear();
-        isRun = false;
     }
-    if(!m_timer->isActive()) setAllOffLine();
+    msleep(200);
+    setAllOffLine();
 }

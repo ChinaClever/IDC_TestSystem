@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Z_StatusToolWid</class>
- <widget class="QWidget" name="Z_StatusToolWid">
+ <class>LogsToolWid</class>
+ <widget class="QWidget" name="LogsToolWid">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>200</width>
-    <height>600</height>
+    <height>596</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="devBtn">
+  <widget class="QPushButton" name="thresholdBtn">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>53</y>
+     <y>371</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -29,52 +29,14 @@
     </size>
    </property>
    <property name="text">
-    <string>相位信息</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="loopBtn">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>110</y>
-     <width>140</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>31</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>回路信息</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="outputBtn">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>167</y>
-     <width>140</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>31</height>
-    </size>
-   </property>
-   <property name="text">
-    <string>单元信息</string>
+    <string>阈值纪录</string>
    </property>
   </widget>
   <widget class="QPushButton" name="transBtn">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>223</y>
+     <y>79</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -86,14 +48,14 @@
     </size>
    </property>
    <property name="text">
-    <string>传输统计</string>
+    <string>传输日志</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="thresholdBtn">
+  <widget class="QSpinBox" name="spinBox">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>280</y>
+     <y>488</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -104,15 +66,21 @@
      <height>31</height>
     </size>
    </property>
-   <property name="text">
-    <string>相位阈值</string>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="suffix">
+    <string>分钟</string>
+   </property>
+   <property name="maximum">
+    <number>999</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="loopThresholdBtn">
+  <widget class="QPushButton" name="loopBtn">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>336</y>
+     <y>254</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -124,14 +92,14 @@
     </size>
    </property>
    <property name="text">
-    <string>回路阈值</string>
+    <string>回路纪录</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="outputThresholdBtn">
+  <widget class="QPushButton" name="timeBtn">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>393</y>
+     <y>526</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -143,14 +111,71 @@
     </size>
    </property>
    <property name="text">
-    <string>单元阈值</string>
+    <string>修改</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="alarmBtn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>430</y>
+     <width>140</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>报警日志</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="recordBtn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>196</y>
+     <width>140</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>相位纪录</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="outputBtn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>313</y>
+     <width>140</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>单元纪录</string>
    </property>
   </widget>
   <widget class="QPushButton" name="envBtn">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>450</y>
+     <y>137</y>
      <width>140</width>
      <height>31</height>
     </rect>
@@ -162,7 +187,26 @@
     </size>
    </property>
    <property name="text">
-    <string>环境信息</string>
+    <string>传感器日志</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="modbusBtn">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>140</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>ModBus日志</string>
    </property>
   </widget>
  </widget>

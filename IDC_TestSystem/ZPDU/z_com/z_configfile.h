@@ -8,7 +8,6 @@ class Z_ConfigFile : public ConfigBase
 public:
     static Z_ConfigFile *bulid();
 
-    sConfigItem *item;
     QString getPrefix(){return "z";}
 };
 

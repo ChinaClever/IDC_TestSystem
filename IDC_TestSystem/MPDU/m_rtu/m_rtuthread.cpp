@@ -1,21 +1,14 @@
-﻿/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "m_simulatethread.h"
+#include "m_rtuthread.h"
 
-M_SimulateThread::M_SimulateThread(QObject *parent) : SimulateThread(parent)
+M_RtuThread::M_RtuThread(QObject *parent) : RtuThread(parent)
 {
 
 }
 
-void M_SimulateThread::initSlot()
+
+void M_RtuThread::initSlot()
 {
     SerialPort *serial = M_ConfigFile::bulid()->item->serial;
-    mDpThread = new M_DpThread(this);
-
     mPackets = M_DataPackets::bulid()->packets;
     mRtu = M_RtuTrans::bulid();
     mRtu->init(serial);
@@ -26,7 +19,7 @@ void M_SimulateThread::initSlot()
  * @brief 保存失败命令
  * @param devId
  */
-void M_SimulateThread::writeErrCmd(int id)
+void M_RtuThread::writeErrCmd(int id)
 {
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
@@ -41,7 +34,7 @@ void M_SimulateThread::writeErrCmd(int id)
     list << QString::number(id);
     list << strArray;
 
-    mDpThread->saveModbusCmd(list);
+    M_DpThread::bulid()->saveModbusCmd(list);
 }
 
 
@@ -49,11 +42,11 @@ void M_SimulateThread::writeErrCmd(int id)
 /**
  * @brief 处理方法
  */
-void M_SimulateThread::workDown()
+void M_RtuThread::workDown()
 {
     int ret = 0;
 
-    sM_ConfigItem *item = M_ConfigFile::bulid()->item;
+    sConfigItem *item = M_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
     for(int k=1; k<=mPackets->devNum; ++k)
@@ -78,4 +71,3 @@ void M_SimulateThread::workDown()
         }
     }
 }
-

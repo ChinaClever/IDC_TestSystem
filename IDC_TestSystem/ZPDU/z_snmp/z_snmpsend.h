@@ -1,6 +1,6 @@
 #ifndef Z_SNMPSEND_H
 #define Z_SNMPSEND_H
-#include "snmpthread.h"
+#include "snmp_zmrecv.h"
 
 #define Z_MIB_OID "7"
 
