@@ -37,6 +37,18 @@ ushort rtu_crc(uchar *buf, int len)
     return crc;
 }
 /**
+  * 功　能：XOR和校验
+  * 入口参数：buf -> 缓冲区  len -> 长度
+  * 返回值：XOR
+  */
+uchar rtu_xorsum(uchar *buf, int len)
+{
+    uchar xorsum = 0x00;
+    for(int i=0; i<len; i++)
+        xorsum ^= buf[i];
+    return xorsum;
+}
+/**
   * 功　能：发送数据打包
   * 入口参数：pkt -> 发送结构体
   * 出口参数：ptr -> 缓冲区

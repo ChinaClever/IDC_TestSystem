@@ -14,4 +14,5 @@ struct sRtuSentCom {
 int rtu_sent_packet(sRtuSentCom *pkt, uchar *ptr);
 int zrtu_sent_packet(sRtuSentCom *pkt, uchar *ptr);
 ushort rtu_crc(uchar *buf, int len);
+uchar rtu_xorsum(uchar *buf, int len);
 #endif // RTUSENTCOM_H

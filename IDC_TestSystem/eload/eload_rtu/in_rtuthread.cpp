@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -84,7 +84,6 @@ void IN_RtuThread::workDown()
 
         if(isRun) msleep(455);
         else return;
-        if(!ret) break;
 
         if(ret) { // 正常收到数据
             sentOkCmd(dev->rtuCount);

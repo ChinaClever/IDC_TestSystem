@@ -142,7 +142,7 @@ void btnBlue_style_sheet(QWidget *target)
 {
     target->setStyleSheet("QPushButton{background-color:rgb(12,62,180); color:rgb(255, 255, 255);}"
                           "QPushButton:hover{background-color:rgb(91, 237, 238);color:rgb(0, 0, 0);}"
-                          "QPushButton:pressed{background-color:rgb(143, 185, 181);color:rgb(0, 0, 0);}");
+                          "QPushButton:pressed{background-color:rgb(143, 185, 181);color:rgb(0, 0, 0);}" );
     target->setFont(QFont("微软雅黑",12));
 }
 

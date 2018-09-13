@@ -42,6 +42,7 @@ void ELoad_MainWid::initFunSLot()
 
     IN_RtuThread *rtu = IN_RtuThread::bulid(this);
     rtu->init(ELoad_ConfigFile::bulid()->item->serial);
+    //rtu->startThread();
 }
 
 void ELoad_MainWid::toolBoxSlot(int id)

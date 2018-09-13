@@ -40,7 +40,7 @@ void ELoad_StatusHomeWid::updateWid()
 
     value = packets->getTgValue(mode++) / COM_RATE_CUR;
     str = QString::number(value) + " A";
-    ui->volLab->setText(str);
+    ui->curLab->setText(str);
 
     value = packets->getTgValue(mode++) / COM_RATE_POW;
     str = QString::number(value) + " KW";

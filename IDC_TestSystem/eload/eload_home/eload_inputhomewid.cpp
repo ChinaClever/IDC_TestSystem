@@ -13,10 +13,10 @@ ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     ui(new Ui::ELoad_InputHomeWid)
 {
     ui->setupUi(this);
-
-    initWid();
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
+    initWid();
+
 }
 
 ELoad_InputHomeWid::~ELoad_InputHomeWid()
