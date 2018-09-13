@@ -203,7 +203,7 @@ int ELoad_RtuSent::getHandshake(uchar addr)
     uchar cmd[10] = {0x7B, 0xB1, 0x01, 0x08, 0x11, 0x22};
     cmd[2] = addr;
 
-    int offset = 8;
+    int offset = 6;
     ushort crc =rtu_crc(cmd, offset);
     cmd[offset++] = (crc >> 8);
     cmd[offset++] = (crc & 0xff);
