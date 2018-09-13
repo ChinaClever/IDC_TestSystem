@@ -189,7 +189,7 @@
         </size>
        </property>
        <property name="text">
-        <string>阻值调节</string>
+        <string>电流调节</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -209,6 +209,15 @@
          <width>200</width>
          <height>16777215</height>
         </size>
+       </property>
+       <property name="minimum">
+        <number>40</number>
+       </property>
+       <property name="maximum">
+        <number>20000</number>
+       </property>
+       <property name="pageStep">
+        <number>100</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

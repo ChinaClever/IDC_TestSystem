@@ -48,7 +48,7 @@ void ELoad_StatusHomeWid::updateWid()
 
     value = packets->getTgValue(mode++) / COM_RATE_ELE;
     str = QString::number(value) + " KWh";
-    ui->powLab->setText(str);
+    ui->eleLab->setText(str);
 
     value = packets->getTgValue(mode++);
     str = QString::number(value) + " HZ";
@@ -114,13 +114,16 @@ void ELoad_StatusHomeWid::setMode()
     int mode = ui->modeBox->currentIndex();
     switch(mode) {
     case 0: // 自动调整模块
+        //ELoad_RtuSent::bulid()->setSingleDpAdjust();
+        break;
+    case 1: // 自动调整模块
         ELoad_RtuSent::bulid()->setAllDpAdjust();
         break;
-    case 1: // 大电流模式
+    case 2: // 大电流模式
 
         break;
 
-    case 2: // 手动模式
+    case 3: // 手动模式
 
         break;
     }
@@ -149,7 +152,7 @@ void ELoad_StatusHomeWid::stopFun()
 
 void ELoad_StatusHomeWid::on_startBtn_clicked()
 {
-    on_closeBtn_clicked();
+    //on_closeBtn_clicked();
     if(isRun) {
         stopFun();
     } else {

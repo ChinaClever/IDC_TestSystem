@@ -98,6 +98,7 @@ void ELoad_InputUnitWid::setFunSLot()
 {
     int value = ui->horizontalScrollBar->value();
     mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
+    qDebug()<<"eload_inputunitwid.cpp line 101"<<value;
     isSet = false;
 }
 

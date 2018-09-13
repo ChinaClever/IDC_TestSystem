@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -149,6 +149,7 @@ void IN_RtuTrans::objData(IN_sRtuLine *data, sObjData *obj)
 void IN_RtuTrans::devData(IN_sRtuRecv *pkt, sDevData *dev)
 {
     dev->inputNum = pkt->lineNum;
+
 
     for(int i=0; i<dev->inputNum; i++)
     {

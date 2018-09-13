@@ -25,6 +25,7 @@ ELoad_MainWid::~ELoad_MainWid()
 
 void ELoad_MainWid::initFunSLot()
 {
+    IN_RtuThread *rtu = IN_RtuThread::bulid(this);
     mtoolBoxWid = new ELoad_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
@@ -40,9 +41,8 @@ void ELoad_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    IN_RtuThread *rtu = IN_RtuThread::bulid(this);
     rtu->init(ELoad_ConfigFile::bulid()->item->serial);
-    //rtu->startThread();
+    rtu->startThread();
 }
 
 void ELoad_MainWid::toolBoxSlot(int id)

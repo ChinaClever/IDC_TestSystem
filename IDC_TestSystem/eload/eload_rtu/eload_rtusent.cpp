@@ -66,7 +66,7 @@ int ELoad_RtuSent::switchOpenCtr(uchar addr,  uchar bit)
     uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
     uchar sw = 0x80;
     sw >>= bit;
-    cmd[3+addr] = sw;
+    cmd[3+addr-1] = sw;
 
     int offset = 15;
     ushort xorsum =rtu_xorsum(cmd, offset);
@@ -98,7 +98,7 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
     uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
     uchar sw = 0x80;
     sw >>= bit;
-    cmd[9+addr] = sw;
+    cmd[9+addr-1] = sw;
 
     int offset = 15;
     uchar crc =rtu_xorsum(cmd, offset);
@@ -106,6 +106,8 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
+
+    for(int i=0; i<offset; ++i) qDebug()<<buf[i];
 
     return mSerial->sendData(buf, offset);
 }

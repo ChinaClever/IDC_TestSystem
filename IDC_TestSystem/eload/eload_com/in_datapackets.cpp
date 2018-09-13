@@ -51,7 +51,7 @@ int IN_DataPackets::getTgValue(int mode)
                 break;
 
             case 5:
-                 value = data->input[j].hz;
+                 value = getDev(i)->hz;
                 if(value > ret) ret = value;
                 break;
 
