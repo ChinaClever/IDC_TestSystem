@@ -56,7 +56,6 @@ HEADERS += \
     $$PWD/z_test/z_testloop/ztest_loopitemwid.h \
     $$PWD/z_test/z_testloop/ztest_loopunitwid.h \
     $$PWD/z_test/z_testloop/ztest_loopwid.h \
-    $$PWD/z_snmp/z_snmpthread.h \
     $$PWD/z_snmp/z_snmpsend.h \
     $$PWD/z_snmp/z_snmptrans.h \
     $$PWD/z_snmp/z_snmprecv.h \
@@ -120,7 +119,6 @@ SOURCES += \
     $$PWD/z_test/z_testloop/ztest_loopitemwid.cpp \
     $$PWD/z_test/z_testloop/ztest_loopunitwid.cpp \
     $$PWD/z_test/z_testloop/ztest_loopwid.cpp \
-    $$PWD/z_snmp/z_snmpthread.cpp \
     $$PWD/z_snmp/z_snmpsend.cpp \
     $$PWD/z_snmp/z_snmptrans.cpp \
     $$PWD/z_snmp/z_snmprecv.cpp \

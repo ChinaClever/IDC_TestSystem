@@ -33,7 +33,7 @@ void Z_RtuThread::writeErrCmd(int id)
     list << QString::number(id);
     list << strArray;
 
-    mDpThread->saveModbusCmd(list);
+    Z_DpThread::bulid()->saveModbusCmd(list);
 }
 
 

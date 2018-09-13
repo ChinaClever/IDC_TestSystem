@@ -8,6 +8,7 @@
 #include "z_rtu/z_rtuthread.h"
 #include "z_status/z_statuswid.h"
 #include "z_status/z_statuswid.h"
+#include "z_snmp/z_snmptrans.h"
 
 namespace Ui {
 class ZPDU_MainWid;
@@ -24,6 +25,7 @@ public:
 protected slots:
     void initFunSLot();
     void toolBoxSlot(int);
+    void timeoutDone();
 
 private:
     Ui::ZPDU_MainWid *ui;
@@ -34,8 +36,10 @@ private:
     Z_ServiceThread *mServiceThread;
     ZTest_MainWid *mTestWid;
 
+     Z_SnmpTrans *snmp;
     Z_DpThread *mDpThread;
     Z_RtuThread *mRtuThread;
+    QTimer *timer;
 };
 
 #endif // ZPDU_MAINWID_H

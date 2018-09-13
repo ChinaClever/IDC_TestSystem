@@ -31,7 +31,6 @@ protected slots:
 protected:
     bool isRun;
 
-    DpThread *mDpThread;
     sDevPackets *mPackets;
 };
 

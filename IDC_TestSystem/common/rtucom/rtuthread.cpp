@@ -20,8 +20,6 @@ RtuThread::~RtuThread()
 }
 
 
-
-
 /**
  * @brief 开启线程
  */
@@ -72,7 +70,7 @@ void RtuThread::sentOkCmd(sRtuCount &count)
     count.count++;
     count.okCount ++;
 
-    mDpThread->start();
+//    mDpThread->start();
 }
 
 

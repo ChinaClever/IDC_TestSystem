@@ -6,18 +6,26 @@
  */
 #include "zpdu_mainwid.h"
 #include "ui_zpdu_mainwid.h"
-#include "z_snmp/z_snmptrans.h"
+
 
 ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ZPDU_MainWid)
 {
     ui->setupUi(this);
+
+
+    mDpThread = Z_DpThread::bulid(this);
+    mRtuThread = new Z_RtuThread(this);
+    mServiceThread = new Z_ServiceThread(this);
+
+    timer = new QTimer(this);
+    timer->start(1*1000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 
-    Z_SnmpTrans *snmp = new Z_SnmpTrans(this);
-    snmp->startRun("192.168.1.163");
-
+    snmp = new Z_SnmpTrans(this);
 }
 
 ZPDU_MainWid::~ZPDU_MainWid()
@@ -41,10 +49,6 @@ void ZPDU_MainWid::initFunSLot()
 
     mTestWid = new ZTest_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTestWid);
-
-    mDpThread = new Z_DpThread(this);
-    mRtuThread = new Z_RtuThread(this);
-    mServiceThread = new Z_ServiceThread(this);
 }
 
 void ZPDU_MainWid::toolBoxSlot(int id)
@@ -52,16 +56,27 @@ void ZPDU_MainWid::toolBoxSlot(int id)
     if((id >= Info_Line) && (id < Info_Set)) {
         ui->stackedWid->setCurrentWidget(mStatusWid);
     } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
-         ui->stackedWid->setCurrentWidget(mLogsWid);
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     } else if(id == Info_Set) {
         ui->stackedWid->setCurrentWidget(mTestWid);
+    } else {
+        sConfigItem *item = Z_ConfigFile::bulid()->item;
+        switch (id) {
+        case Test_Rtu: mRtuThread->startThread(); break;
+        case Test_SNMP: snmp->startRun(item->ip, item->msecs * 100); break;
+        case Test_Stop: mRtuThread->stopThread(); snmp->stopRun(); break;
+        default: break;
+        }
     }
+}
 
-    switch (id) {
-    case Test_Rtu: mRtuThread->startThread(); break;
-    case Test_Stop: mRtuThread->stopThread(); break;
+void ZPDU_MainWid::timeoutDone()
+{
+    sConfigItem *item = Z_ConfigFile::bulid()->item;
+    Z_DataPackets::bulid()->packets->devNum = item->devNum;
 
-    default: break;
+    if(item->testMode != Test_Stop)
+    {
+        mDpThread->start();
     }
-
 }

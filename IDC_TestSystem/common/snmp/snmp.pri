@@ -2,7 +2,7 @@
 INCLUDEPATH += $$PWD
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/lib/ -lqtsnmpclient
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lqtsnmpclient
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/lib/ -lqtsnmpclientd
 
 INCLUDEPATH += $$PWD/lib
 DEPENDPATH += $$PWD/lib
@@ -10,11 +10,11 @@ DEPENDPATH += $$PWD/lib
 HEADERS += \
     $$PWD/lib/QtSnmpClient.h \
     $$PWD/lib/QtSnmpData.h \
-    $$PWD/snmp.h
+    $$PWD/snmpthread.h
 
 	
 SOURCES += \
-    $$PWD/snmp.cpp
+    $$PWD/snmpthread.cpp
 
 FORMS += \
 

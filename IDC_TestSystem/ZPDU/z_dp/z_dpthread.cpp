@@ -26,6 +26,16 @@ Z_DpThread::~Z_DpThread()
     wait();
 }
 
+Z_DpThread *Z_DpThread::bulid(QObject *parent)
+{
+    static Z_DpThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new Z_DpThread(parent);
+    }
+    return sington;
+}
+
+
 bool Z_DpThread::getStart()
 {
     bool ret = false;

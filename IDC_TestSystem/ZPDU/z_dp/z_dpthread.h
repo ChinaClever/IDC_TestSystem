@@ -8,8 +8,9 @@
 class Z_DpThread : public DpThread
 {
     Q_OBJECT
-public:
     explicit Z_DpThread(QObject *parent = nullptr);
+public:
+    static Z_DpThread *bulid(QObject *parent = nullptr);
     ~Z_DpThread();
 
 protected:

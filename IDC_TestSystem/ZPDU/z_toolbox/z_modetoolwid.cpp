@@ -145,8 +145,8 @@ void Z_ModeToolWid::on_testBtn_clicked()
 
 void Z_ModeToolWid::on_comboBox_currentIndexChanged(int index)
 {
-    bool en = false;
-    if(index)  en = true;
+    bool en = true;
+    if(index)  en = false;
      ui->serialBtn->setHidden(en);
      ui->serialLab->setHidden(en);
 

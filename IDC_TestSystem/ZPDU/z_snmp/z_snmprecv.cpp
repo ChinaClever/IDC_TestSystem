@@ -178,16 +178,18 @@ void Z_SnmpRecv::devInfo(const QByteArray &data)
 
 void Z_SnmpRecv::getMS(const QByteArray &oid)
 {
-    mOid = QString(oid).remove(MIB_OID_CLEVER);
+    mOid = QString(oid).remove(MIB_OID_CLEVER).simplified();
     int id = getItemByOid(1);
+//    qDebug() << id;
+
     if(id >= 0) {
         mDataPacket = Z_DataPackets::bulid()->getDev(id);
-        mDataPacket->offLine = 7;
+        mDataPacket->offLine = 10;
     }
 }
 
 int Z_SnmpRecv::getItemByOid(int id)
 {
     QStringList list = mOid.split(".");
-    return list.at(id).toInt();
+    return list.at(id+1).toInt();
 }
