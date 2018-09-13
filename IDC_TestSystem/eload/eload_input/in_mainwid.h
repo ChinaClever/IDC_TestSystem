@@ -1,4 +1,4 @@
-#ifndef IN_MAINWID_H
+﻿#ifndef IN_MAINWID_H
 #define IN_MAINWID_H
 
 #include "in_tablewid/in_inputthresholdtablewid.h"
@@ -33,7 +33,7 @@ private:
     IN_InputTableWid *mInputTableWid;
     IN_InputThresholdTableWid *mInputThresholdTableWid;
     TransTableWid *mTransTableWid;
-    EnvTableWid *mEnvTableWid;
+    IN_EnvTableWid *mEnvTableWid;
     IN_setMainWid *mSetMainWid;
 };
 

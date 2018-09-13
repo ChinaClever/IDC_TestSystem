@@ -20,6 +20,12 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="font">
@@ -42,7 +48,7 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>158</width>
+           <width>167</width>
            <height>359</height>
           </rect>
          </property>

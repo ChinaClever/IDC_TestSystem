@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -16,7 +16,7 @@ ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 
     Z_SnmpTrans *snmp = new Z_SnmpTrans(this);
-    snmp->startRun("192.168.1.163");
+//    snmp->startRun("192.168.1.163");
 
 }
 

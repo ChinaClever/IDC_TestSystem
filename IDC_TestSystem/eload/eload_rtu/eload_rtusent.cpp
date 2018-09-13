@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -68,10 +68,9 @@ int ELoad_RtuSent::switchOpenCtr(uchar addr,  uchar bit)
     sw >>= bit;
     cmd[3+addr] = sw;
 
-    int offset = 14;
-    ushort crc =rtu_crc(cmd, offset);
-    cmd[offset++] = (crc >> 8);
-    cmd[offset++] = (crc & 0xff);
+    int offset = 15;
+    ushort xorsum =rtu_xorsum(cmd, offset);
+    cmd[offset++] = xorsum ;
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
@@ -83,10 +82,10 @@ int ELoad_RtuSent::switchOpenAll()
 {
     uchar cmd[16] = {0x7B, 0xA1, 0x10, 0xFF, 0xFF, 0xFF, 0xC7, 0xC8, 0xC9, 0x00, 0x00, 0x00, 0xD7, 0xD8, 0xD9, 0x25};
 
-    int offset = 14;
-    ushort crc =rtu_crc(cmd, offset);
-    cmd[offset++] = (crc >> 8);
-    cmd[offset++] = (crc & 0xff);
+    int offset = 15;
+    uchar crc =rtu_xorsum(cmd, offset);
+
+    cmd[offset++] = crc ;
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
@@ -101,10 +100,9 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
     sw >>= bit;
     cmd[9+addr] = sw;
 
-    int offset = 14;
-    ushort crc =rtu_crc(cmd, offset);
-    cmd[offset++] = (crc >> 8);
-    cmd[offset++] = (crc & 0xff);
+    int offset = 15;
+    uchar crc =rtu_xorsum(cmd, offset);
+    cmd[offset++] = crc;
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
@@ -116,10 +114,9 @@ int ELoad_RtuSent::switchCloseAll()
 {
     uchar cmd[16] = {0x7B, 0xA1, 0x10, 0x00, 0x00, 0x00, 0xC7, 0xC8, 0xC9, 0xFF, 0xFF, 0xFF, 0xD7, 0xD8, 0xD9, 0x25};
 
-    int offset = 14;
-    ushort crc =rtu_crc(cmd, offset);
-    cmd[offset++] = (crc >> 8);
-    cmd[offset++] = (crc & 0xff);
+    int offset = 15;
+    uchar crc =rtu_xorsum(cmd, offset);
+    cmd[offset++] = crc ;
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];

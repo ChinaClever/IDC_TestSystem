@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -39,7 +39,7 @@ int IN_DataPackets::getTgValue(int mode)
                 if(value > ret) ret = value;
                 break;
             case 2:
-                ret += data->input[j].vol.value;
+                ret += data->input[j].cur.value;
                 break;
 
             case 3:

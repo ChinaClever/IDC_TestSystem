@@ -10,15 +10,21 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
-    <number>30</number>
+    <number>18</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>18</number>
    </property>
    <item>
     <spacer name="verticalSpacer">

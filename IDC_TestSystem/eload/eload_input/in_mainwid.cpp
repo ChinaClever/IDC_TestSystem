@@ -37,7 +37,7 @@ void IN_MainWid::initWidget()
     ui->stackedWid->addWidget(mTransTableWid);
     mTransTableWid->initPackets(packets);
 
-    mEnvTableWid = new EnvTableWid(ui->stackedWid);
+    mEnvTableWid = new IN_EnvTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mEnvTableWid);
     mEnvTableWid->initPackets(packets);
 

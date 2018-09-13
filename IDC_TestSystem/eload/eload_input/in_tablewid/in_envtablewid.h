@@ -1,4 +1,4 @@
-#ifndef IN_ENVTABLEWID_H
+﻿#ifndef IN_ENVTABLEWID_H
 #define IN_ENVTABLEWID_H
 
 #include "in_transtablewid.h"

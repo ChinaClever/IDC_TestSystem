@@ -24,10 +24,10 @@
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>30</number>
+    <number>18</number>
    </property>
    <property name="rightMargin">
-    <number>30</number>
+    <number>18</number>
    </property>
    <item>
     <spacer name="verticalSpacer_9">
