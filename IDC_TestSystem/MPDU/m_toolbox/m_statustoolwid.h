@@ -2,7 +2,6 @@
 #define M_STATUSTOOLWID_H
 
 #include "m_settingtoolwid.h"
-#include "toolbox/statustoolwid.h"
 
 namespace Ui {
 class M_StatusToolWid;

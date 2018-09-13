@@ -16,6 +16,7 @@ public:
     ~LogsToolWid();
 
     void mpdu();
+    void sipdu();
 
 signals:
     void logsSig(int);

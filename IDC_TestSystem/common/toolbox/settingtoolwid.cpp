@@ -48,8 +48,6 @@ void SettingToolWid::on_cmdBtn_clicked()
     updateDevCmd(num+1);
 }
 
-
-
 /**
  * @brief 更新间隔时间
  * @param num
@@ -72,7 +70,6 @@ void SettingToolWid::on_timeBtn_clicked()
     updateModbusTime(ui->timeBox->currentIndex());
 }
 
-
 /**
  * @brief 更新设备数量
  * @param num
@@ -89,7 +86,6 @@ void SettingToolWid::initDevNum()
     updateDevNum(num);
     ui->spinBox->setValue(num);
 }
-
 
 void SettingToolWid::on_devNumBtn_clicked()
 {
@@ -113,7 +109,6 @@ void SettingToolWid::on_outputNumBtn_clicked()
 {
     updateOutputNum(ui->outputSpinBox->value());
 }
-
 
 /**
  * @brief 更新相数

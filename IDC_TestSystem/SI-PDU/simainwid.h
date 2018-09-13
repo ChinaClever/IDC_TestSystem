@@ -1,8 +1,7 @@
 #ifndef SIMAINWID_H
 #define SIMAINWID_H
 
-#include <QWidget>
-#include "toolbox/sitoolboxwid.h"
+#include "si_toolbox/si_toolboxwid.h"
 #include "si_simulate/si_simulatethread.h"
 #include "si_logs/silogswid.h"
 #include "si_simulate/si_simulatewid.h"
@@ -31,7 +30,7 @@ private slots:
 private:
     Ui::SIMainWid *ui;
 
-    SitoolBoxWid *mtoolBoxWid;
+    SI_ToolBoxWid *mtoolBoxWid;
     SI_SimulateThread *mSimulateThread;
     SI_SimulateWid *mSimulateWid;
     SI_SetMainWid *mSetMainWid;

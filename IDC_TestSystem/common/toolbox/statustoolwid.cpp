@@ -19,6 +19,13 @@ void StatusToolWid::mpdu()
     ui->loopThresholdBtn->setHidden(true);
 }
 
+void StatusToolWid::sipdu()
+{
+    mpdu();
+    ui->outputBtn->setHidden(true);
+    ui->outputThresholdBtn->setHidden(true);
+}
+
 void StatusToolWid::on_devBtn_clicked()
 {
     emit widSig(Info_Line);

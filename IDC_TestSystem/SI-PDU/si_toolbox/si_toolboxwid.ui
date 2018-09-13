@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SitoolBoxWid</class>
- <widget class="QWidget" name="SitoolBoxWid">
+ <class>SI_ToolBoxWid</class>
+ <widget class="QWidget" name="SI_ToolBoxWid">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,23 +10,11 @@
     <height>600</height>
    </rect>
   </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>12</pointsize>
-   </font>
-  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="topMargin">
-    <number>9</number>
-   </property>
-   <property name="bottomMargin">
-    <number>9</number>
-   </property>
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="font">
       <font>
@@ -38,9 +26,6 @@
       <string>功能操作区</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <property name="horizontalSpacing">
-       <number>0</number>
-      </property>
       <item row="0" column="0">
        <widget class="QToolBox" name="toolBox">
         <property name="currentIndex">
@@ -51,12 +36,25 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>158</width>
-           <height>394</height>
+           <width>154</width>
+           <height>317</height>
           </rect>
          </property>
          <attribute name="label">
           <string>模拟测试</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="statusPage">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>98</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>实时信息</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="logsPage">
@@ -72,19 +70,6 @@
           <string>日志信息</string>
          </attribute>
         </widget>
-        <widget class="QWidget" name="testPage">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>98</width>
-           <height>28</height>
-          </rect>
-         </property>
-         <attribute name="label">
-          <string>功能测试</string>
-         </attribute>
-        </widget>
         <widget class="QWidget" name="settingPage">
          <property name="geometry">
           <rect>
@@ -96,6 +81,19 @@
          </property>
          <attribute name="label">
           <string>配置信息</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="testPage">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>98</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>功能测试</string>
          </attribute>
         </widget>
        </widget>

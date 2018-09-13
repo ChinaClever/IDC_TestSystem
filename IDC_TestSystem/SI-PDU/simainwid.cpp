@@ -30,7 +30,7 @@ void SIMainWid::initFunSLot()
 
 void SIMainWid::initWid()
 {
-    mtoolBoxWid = new SitoolBoxWid(ui->toolBoxWid);
+    mtoolBoxWid = new SI_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
     mSimulateWid = new SI_SimulateWid(ui->stackedWid);

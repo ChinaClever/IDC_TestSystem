@@ -7,19 +7,9 @@ HEADERS += \
     $$PWD/si_rtu/si_rtu_setcmd.h \
     $$PWD/si_rtu/si_rtuthread.h \
     $$PWD/simainwid.h \
-    $$PWD/toolbox/sitoolboxwid.h \
-    $$PWD/toolbox/sisimulationtoolwid.h \
-    $$PWD/toolbox/sitesttoolwid.h \
-    $$PWD/toolbox/sisettingtoolwid.h \
-    $$PWD/toolbox/sisetlinenum.h \
-    $$PWD/toolbox/sisetdevnumdlg.h \
-    $$PWD/toolbox/sisetmodbuscmddlg.h \
     $$PWD/si_com/sidatapackets.h \
     $$PWD/si_com/siconfigfile.h \
     $$PWD/si_simulate/si_simulatethread.h \
-    $$PWD/toolbox/sisetmodbustimedlg.h \
-    $$PWD/toolbox/silogstoolwid.h \
-    $$PWD/toolbox/silogstimetooldlg.h \
     $$PWD/si_setting/si_setmainwid.h \
     $$PWD/si_setting/si_addrsetwid.h \
     $$PWD/si_setting/si_unitsetwid.h \
@@ -46,7 +36,12 @@ HEADERS += \
     $$PWD/si_dp/si_dpthread.h \
     $$PWD/si_dp/si_dpsavetrans.h \
     $$PWD/si_simulate/si_simulatewid.h \
-    $$PWD/si_logs/silogswid.h
+    $$PWD/si_logs/silogswid.h \
+    $$PWD/si_toolbox/si_toolboxwid.h \
+    $$PWD/si_toolbox/si_logstoolwid.h \
+    $$PWD/si_toolbox/si_modetoolwid.h \
+    $$PWD/si_toolbox/si_settingtoolwid.h \
+    $$PWD/si_toolbox/si_statustoolwid.h
 
 	
 SOURCES += \
@@ -54,19 +49,9 @@ SOURCES += \
     $$PWD/si_rtu/si_rtu_recv.cpp \
     $$PWD/si_rtu/si_rtuthread.cpp \
     $$PWD/simainwid.cpp \
-    $$PWD/toolbox/sitoolboxwid.cpp \
-    $$PWD/toolbox/sisimulationtoolwid.cpp \
-    $$PWD/toolbox/sitesttoolwid.cpp \
-    $$PWD/toolbox/sisettingtoolwid.cpp \
-    $$PWD/toolbox/sisetlinenum.cpp \
-    $$PWD/toolbox/sisetdevnumdlg.cpp \
-    $$PWD/toolbox/sisetmodbuscmddlg.cpp \
     $$PWD/si_com/sidatapackets.cpp \
     $$PWD/si_com/siconfigfile.cpp \
     $$PWD/si_simulate/si_simulatethread.cpp \
-    $$PWD/toolbox/sisetmodbustimedlg.cpp \
-    $$PWD/toolbox/silogstoolwid.cpp \
-    $$PWD/toolbox/silogstimetooldlg.cpp \
     $$PWD/si_setting/si_setmainwid.cpp \
     $$PWD/si_setting/si_addrsetwid.cpp \
     $$PWD/si_setting/si_unitsetwid.cpp \
@@ -93,27 +78,23 @@ SOURCES += \
     $$PWD/si_dp/si_dpthread.cpp \
     $$PWD/si_dp/si_dpsavetrans.cpp \
     $$PWD/si_simulate/si_simulatewid.cpp \
-    $$PWD/si_logs/silogswid.cpp
+    $$PWD/si_logs/silogswid.cpp \
+    $$PWD/si_toolbox/si_toolboxwid.cpp \
+    $$PWD/si_toolbox/si_logstoolwid.cpp \
+    $$PWD/si_toolbox/si_modetoolwid.cpp \
+    $$PWD/si_toolbox/si_settingtoolwid.cpp \
+    $$PWD/si_toolbox/si_statustoolwid.cpp
 
 FORMS += \
     $$PWD/simainwid.ui \
-    $$PWD/toolbox/sitoolboxwid.ui \
-    $$PWD/toolbox/sisimulationtoolwid.ui \
-    $$PWD/toolbox/sitesttoolwid.ui \
-    $$PWD/toolbox/sisettingtoolwid.ui \
-    $$PWD/toolbox/sisetlinenum.ui \
-    $$PWD/toolbox/sisetdevnumdlg.ui \
-    $$PWD/toolbox/sisetmodbuscmddlg.ui \
-    $$PWD/toolbox/sisetmodbustimedlg.ui \
-    $$PWD/toolbox/silogstoolwid.ui \
-    $$PWD/toolbox/silogstimetooldlg.ui \
     $$PWD/si_setting/si_setmainwid.ui \
     $$PWD/si_setting/si_addrsetwid.ui \
     $$PWD/si_setting/si_unitsetwid.ui \
     $$PWD/si_setting/si_thresholdsetwid.ui \
     $$PWD/si_setting/si_elesetwid.ui \
     $$PWD/si_simulate/si_simulatewid.ui \
-    $$PWD/si_logs/silogswid.ui
+    $$PWD/si_logs/silogswid.ui \
+    $$PWD/si_toolbox/si_toolboxwid.ui
 
 
 
