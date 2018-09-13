@@ -51,7 +51,11 @@ HEADERS += \
     $$PWD/dpcom/dpsaveloop.h \
     $$PWD/tablewid/looptablewid.h \
     $$PWD/tablewid/loopthresholdtablewid.h \
-    $$PWD/rtucom/rtuthread.h
+    $$PWD/rtucom/rtuthread.h \
+    $$PWD/toolbox/statustoolwid.h \
+    $$PWD/toolbox/settingtoolwid.h \
+    $$PWD/toolbox/modetoolwid.h \
+    $$PWD/toolbox/logstoolwid.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -98,7 +102,11 @@ SOURCES += \
     $$PWD/dpcom/dpsaveloop.cpp \
     $$PWD/tablewid/looptablewid.cpp \
     $$PWD/tablewid/loopthresholdtablewid.cpp \
-    $$PWD/rtucom/rtuthread.cpp
+    $$PWD/rtucom/rtuthread.cpp \
+    $$PWD/toolbox/statustoolwid.cpp \
+    $$PWD/toolbox/settingtoolwid.cpp \
+    $$PWD/toolbox/modetoolwid.cpp \
+    $$PWD/toolbox/logstoolwid.cpp
 
 FORMS += \
     $$PWD/tablewid//comtablewid.ui \
@@ -106,7 +114,11 @@ FORMS += \
     $$PWD/logcom/logcalendardlg.ui \
     $$PWD/logcom/logcomwid.ui \
     $$PWD/logcom/log_exportdlg.ui \
-    $$PWD/logcom/log_datewidget.ui
+    $$PWD/logcom/log_datewidget.ui \
+    $$PWD/toolbox/statustoolwid.ui \
+    $$PWD/toolbox/settingtoolwid.ui \
+    $$PWD/toolbox/modetoolwid.ui \
+    $$PWD/toolbox/logstoolwid.ui
 
 
 

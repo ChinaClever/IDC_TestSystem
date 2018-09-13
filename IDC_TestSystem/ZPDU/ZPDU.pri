@@ -129,9 +129,6 @@ SOURCES += \
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
-    $$PWD/z_toolbox/z_simulationtoolwid.ui \
-    $$PWD/z_toolbox/z_settingtoolwid.ui \
-    $$PWD/z_toolbox/z_logstoolwid.ui \
     $$PWD/z_toolbox/z_toolboxwid.ui \
     $$PWD/zpdu_mainwid.ui \
     $$PWD/z_test/z_testsw/ztest_switemwid.ui \
@@ -150,8 +147,6 @@ FORMS += \
     $$PWD/z_test/z_testloop/ztest_loopitemwid.ui \
     $$PWD/z_test/z_testloop/ztest_loopunitwid.ui \
     $$PWD/z_test/z_testloop/ztest_loopwid.ui \
-    $$PWD/z_toolbox/z_statustoolwid.ui \
-    $$PWD/z_toolbox/z_modetoolwid.ui \
     $$PWD/z_status/z_statuswid.ui
 
 

@@ -9,8 +9,9 @@
 class M_DpThread : public DpThread
 {
     Q_OBJECT
-public:
     explicit M_DpThread(QObject *parent = nullptr);
+public:
+    static M_DpThread *bulid(QObject *parent = nullptr);
     ~M_DpThread();
 
 protected:

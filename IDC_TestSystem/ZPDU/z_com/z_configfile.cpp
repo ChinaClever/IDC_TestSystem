@@ -8,9 +8,7 @@
 
 Z_ConfigFile::Z_ConfigFile()
 {
-    item = new sConfigItem();
-    item->cmdModel = 1;
-    item->msecs = 10;
+
 }
 
 Z_ConfigFile *Z_ConfigFile::bulid()

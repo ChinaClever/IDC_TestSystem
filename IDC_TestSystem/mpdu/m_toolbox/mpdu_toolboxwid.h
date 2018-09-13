@@ -1,7 +1,7 @@
 #ifndef MPDU_TOOLBOXWID_H
 #define MPDU_TOOLBOXWID_H
 
-#include "m_simulationtoolwid.h"
+#include "m_modetoolwid.h"
 
 namespace Ui {
 class MPDU_ToolBoxWid;
@@ -26,7 +26,8 @@ private:
 
     M_SettingToolWid *mSettingToolWid;
     M_LogsToolWid *mLogsToolWid;
-    M_SimulationToolWid *mSimulationToolWid;
+    M_ModeToolWid *mModeToolWid;
+    M_StatusToolWid *mStatusToolWid;
 };
 
 #endif // MPDU_TOOLBOXWID_H

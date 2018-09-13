@@ -31,8 +31,11 @@ void MPDU_ToolBoxWid::initWid()
 {
     int page = 0;
 
-    mSimulationToolWid = new M_SimulationToolWid(ui->toolBox->widget(page++));
-    connect(mSimulationToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+    mModeToolWid = new M_ModeToolWid(ui->toolBox->widget(page++));
+    connect(mModeToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
+
+    mStatusToolWid = new M_StatusToolWid(ui->toolBox->widget(page++));
+    connect(mStatusToolWid, SIGNAL(widSig(int)), this, SIGNAL(toolBoxSig(int)));
 
     mLogsToolWid = new M_LogsToolWid(ui->toolBox->widget(page++));
     connect(mLogsToolWid, SIGNAL(logsSig(int)), this, SIGNAL(toolBoxSig(int)));

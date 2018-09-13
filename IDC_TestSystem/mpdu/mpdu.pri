@@ -14,7 +14,6 @@ HEADERS += \
     $$PWD/m_com/m_configfile.h \
     $$PWD/m_toolbox/m_logstoolwid.h \
     $$PWD/m_toolbox/m_settingtoolwid.h \
-    $$PWD/m_toolbox/m_simulationtoolwid.h \
     $$PWD/m_sql/m_dbalarm.h \
     $$PWD/m_sql/m_dbenv.h \
     $$PWD/m_sql/m_dbmodbuscmd.h \
@@ -33,8 +32,6 @@ HEADERS += \
     $$PWD/m_logs/m_loglinethresholdwid.h \
     $$PWD/m_logs/m_logoutputrecordwid.h \
     $$PWD/m_logs/m_logswid.h \
-    $$PWD/m_simulate/m_simulatewid.h \
-    $$PWD/m_simulate/m_simulatethread.h \
     $$PWD/m_test/m_testrtu/mtest_rtuthread.h \
     $$PWD/m_test/m_testsw/mtest_switemwid.h \
     $$PWD/m_test/m_testsw/mtest_swwid.h \
@@ -54,7 +51,14 @@ HEADERS += \
     $$PWD/m_dp/m_dpalarmsave.h \
     $$PWD/m_dp/m_dpsaveenv.h \
     $$PWD/m_dp/m_dpsavelinerecord.h \
-    $$PWD/m_dp/m_dpsavetrans.h
+    $$PWD/m_dp/m_dpsavetrans.h \
+    $$PWD/m_toolbox/m_statustoolwid.h \
+    $$PWD/m_toolbox/m_modetoolwid.h \
+    $$PWD/m_rtu/m_rtuthread.h \
+    $$PWD/m_status/m_statuswid.h \
+    $$PWD/m_snmp/m_snmpsend.h \
+    $$PWD/m_snmp/m_snmprecv.h \
+    $$PWD/m_snmp/m_snmptrans.h
 
 	
 SOURCES += \
@@ -67,7 +71,6 @@ SOURCES += \
     $$PWD/m_com/m_configfile.cpp \
     $$PWD/m_toolbox/m_logstoolwid.cpp \
     $$PWD/m_toolbox/m_settingtoolwid.cpp \
-    $$PWD/m_toolbox/m_simulationtoolwid.cpp \
     $$PWD/m_sql/m_dbalarm.cpp \
     $$PWD/m_sql/m_dbenv.cpp \
     $$PWD/m_sql/m_dbmodbuscmd.cpp \
@@ -86,8 +89,6 @@ SOURCES += \
     $$PWD/m_logs/m_loglinethresholdwid.cpp \
     $$PWD/m_logs/m_logoutputrecordwid.cpp \
     $$PWD/m_logs/m_logswid.cpp \
-    $$PWD/m_simulate/m_simulatewid.cpp \
-    $$PWD/m_simulate/m_simulatethread.cpp \
     $$PWD/m_test/m_testrtu/mtest_rtuthread.cpp \
     $$PWD/m_test/m_testsw/mtest_switemwid.cpp \
     $$PWD/m_test/m_testsw/mtest_swwid.cpp \
@@ -107,16 +108,19 @@ SOURCES += \
     $$PWD/m_dp/m_dpalarmsave.cpp \
     $$PWD/m_dp/m_dpsaveenv.cpp \
     $$PWD/m_dp/m_dpsavelinerecord.cpp \
-    $$PWD/m_dp/m_dpsavetrans.cpp
+    $$PWD/m_dp/m_dpsavetrans.cpp \
+    $$PWD/m_toolbox/m_statustoolwid.cpp \
+    $$PWD/m_toolbox/m_modetoolwid.cpp \
+    $$PWD/m_rtu/m_rtuthread.cpp \
+    $$PWD/m_status/m_statuswid.cpp \
+    $$PWD/m_snmp/m_snmpsend.cpp \
+    $$PWD/m_snmp/m_snmprecv.cpp \
+    $$PWD/m_snmp/m_snmptrans.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \
     $$PWD/m_toolbox/mpdu_toolboxwid.ui \
-    $$PWD/m_toolbox/m_logstoolwid.ui \
-    $$PWD/m_toolbox/m_settingtoolwid.ui \
-    $$PWD/m_toolbox/m_simulationtoolwid.ui \
     $$PWD/m_logs/m_logswid.ui \
-    $$PWD/m_simulate/m_simulatewid.ui \
     $$PWD/m_test/m_testsw/mtest_switemwid.ui \
     $$PWD/m_test/m_testsw/mtest_swwid.ui \
     $$PWD/m_test/m_testthreshold/mtest_thresholditemwid.ui \
@@ -129,7 +133,8 @@ FORMS += \
     $$PWD/m_test/m_testenv/mtest_envitemwid.ui \
     $$PWD/m_test/m_testenv/mtest_envunitwid.ui \
     $$PWD/m_test/m_testenv/mtest_envwid.ui \
-    $$PWD/m_test/mtest_mainwid.ui
+    $$PWD/m_test/mtest_mainwid.ui \
+    $$PWD/m_status/m_statuswid.ui
 
 
 

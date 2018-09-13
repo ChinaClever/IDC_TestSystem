@@ -51,13 +51,13 @@ void M_LogsWid:: updateWidSlot(int id)
 {
     LogComWid *wid = nullptr;
     switch (id) {
-    case M_Log_Alarm: wid = mLogAlarmWid; break;
-    case M_Log_Env: wid = mLogEnvWid; break;
-    case M_Log_Modbus: wid = mLogModbusCmdWid; break;
-    case M_Log_Trans: wid = mLogModbusTransWid; break;
-    case M_Log_Records: wid = mLogRealRecordWid; break;
-    case M_Log_Threshold: wid = mLogThresholdWid; break;
-    case M_Log_Output: wid = mLogOutputWid; break;
+    case Log_Alarm: wid = mLogAlarmWid; break;
+    case Log_Env: wid = mLogEnvWid; break;
+    case Log_Modbus: wid = mLogModbusCmdWid; break;
+    case Log_Trans: wid = mLogModbusTransWid; break;
+    case Log_Line: wid = mLogRealRecordWid; break;
+    case Log_LineThreshold: wid = mLogThresholdWid; break;
+    case Log_Output: wid = mLogOutputWid; break;
     default:  break;
     }
 
