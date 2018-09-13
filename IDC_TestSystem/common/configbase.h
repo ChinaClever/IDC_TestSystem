@@ -1,6 +1,48 @@
-#ifndef CONFIGBASE_H
-#define CONFIGBASE_H
+#ifndef CONFIGBASH
+#define CONFIGBASH
 #include "sysconfigfile.h"
+#include "serialportdlg.h"
+
+enum {
+    Test_Stop,
+    Test_SNMP,  // 模拟测试
+    Test_Rtu,
+    Test_Function, // 功能测试
+
+    Info_Line, // 相信息信息
+    Info_Trans, // Modbus传输统计实时显示界面
+    Info_LineThreshold, // 设备阈值实时显示界面
+    Info_Env, // 环境信息_
+    Info_Loop,
+    Info_LoopThreshold,
+    Info_Output,
+    Info_OutputThreshold,
+    Info_Set,
+
+    Log_Modbus, // Modbus日志界面
+    Log_Trans, // Modbus 传输日志
+    Log_Env,  //设备环境日志
+    Log_Line, // 设备纪录日志
+    Log_LineThreshold, // 设备阈值日志
+    Log_Loop,
+    Log_Output,
+    Log_Alarm,
+};
+
+
+struct sConfigItem
+{
+    sConfigItem() {testMode=0; msecs = 5; logMins=60;}
+
+    int testMode; // 测试模式
+    int msecs;
+    int logMins; // 日志间隔时间分钟
+
+    QString ip;
+    SerialPort *serial; // 串口对象
+    int devNum; // 级联数
+    int cmdModel; // 命令模式
+};
 
 class ConfigBase
 {
@@ -31,4 +73,4 @@ public:
     virtual QString getPrefix()=0;
 };
 
-#endif // CONFIGBASE_H
+#endif // CONFIGBASH

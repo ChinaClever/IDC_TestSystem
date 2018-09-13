@@ -1,5 +1,5 @@
-#ifndef Z_SIMULATEWID_H
-#define Z_SIMULATEWID_H
+#ifndef Z_STATUSWID_H
+#define Z_STATUSWID_H
 
 #include "z_com/z_datapackets.h"
 #include "tablewid/linethresholdtablewid.h"
@@ -7,19 +7,18 @@
 #include "tablewid/transtablewid.h"
 #include "tablewid/looptablewid.h"
 #include "tablewid/loopthresholdtablewid.h"
-#include "z_simulatethread.h"
 
 namespace Ui {
-class Z_SimulateWid;
+class Z_StatusWid;
 }
 
-class Z_SimulateWid : public QWidget
+class Z_StatusWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit Z_SimulateWid(QWidget *parent = 0);
-    ~Z_SimulateWid();
+    explicit Z_StatusWid(QWidget *parent = 0);
+    ~Z_StatusWid();
 
 public slots:
     void simulateSlot(int);
@@ -28,7 +27,7 @@ protected slots:
      void initFunSLot();
 
 private:
-    Ui::Z_SimulateWid *ui;
+    Ui::Z_StatusWid *ui;
 
     LineTableWid *mDevTableWid;
     EnvTableWid *mEnvTableWid;
@@ -39,7 +38,6 @@ private:
     OutputThresholdTableWid *mOutputThresholdTableWid;
     LineThresholdTableWid *mThresholdTableWid;
     TransTableWid *mTransTableWid;
-    Z_SimulateThread *mSimulateThread;
 };
 
-#endif // Z_SIMULATEWID_H
+#endif // Z_STATUSWID_H

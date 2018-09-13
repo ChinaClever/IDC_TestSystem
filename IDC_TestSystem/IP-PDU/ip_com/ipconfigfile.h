@@ -1,6 +1,6 @@
 #ifndef IPCONFIGITEM_H
 #define IPCONFIGITEM_H
-#include "serialportdlg.h"
+#include "configbase.h"
 
 enum {
     IP_Test_Stop,

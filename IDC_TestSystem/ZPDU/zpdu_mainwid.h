@@ -3,9 +3,12 @@
 
 #include "z_toolbox/z_toolboxwid.h"
 #include "z_logs/z_logswid.h"
-#include "z_simulate/z_simulatewid.h"
 #include "z_service/z_servicethread.h"
 #include "z_test/ztest_mainwid.h"
+#include "z_rtu/z_rtuthread.h"
+#include "z_status/z_statuswid.h"
+#include "z_status/z_statuswid.h"
+#include "z_snmp/z_snmptrans.h"
 
 namespace Ui {
 class ZPDU_MainWid;
@@ -22,15 +25,21 @@ public:
 protected slots:
     void initFunSLot();
     void toolBoxSlot(int);
+    void timeoutDone();
 
 private:
     Ui::ZPDU_MainWid *ui;
 
     Z_ToolBoxWid *mtoolBoxWid;
-    Z_SimulateWid *mSimulateWid;
+    Z_StatusWid *mStatusWid;
     Z_LogsWid *mLogsWid;
     Z_ServiceThread *mServiceThread;
     ZTest_MainWid *mTestWid;
+
+     Z_SnmpTrans *mSnmp;
+    Z_DpThread *mDpThread;
+    Z_RtuThread *mRtuThread;
+    QTimer *timer;
 };
 
 #endif // ZPDU_MAINWID_H

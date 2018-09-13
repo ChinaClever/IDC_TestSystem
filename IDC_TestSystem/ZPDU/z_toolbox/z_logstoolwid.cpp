@@ -53,40 +53,40 @@ void Z_LogsToolWid::on_timeBtn_clicked()
 
 void Z_LogsToolWid::on_modbusBtn_clicked()
 {
-    emit logsSig(Z_Log_Modbus);
+    emit logsSig(Log_Modbus);
 }
 
 void Z_LogsToolWid::on_transBtn_clicked()
 {
-    emit logsSig(Z_Log_Trans);
+    emit logsSig(Log_Trans);
 }
 
 void Z_LogsToolWid::on_envBtn_clicked()
 {
-    emit logsSig(Z_Log_Env);
+    emit logsSig(Log_Env);
 }
 
 void Z_LogsToolWid::on_recordBtn_clicked()
 {
-    emit logsSig(Z_Log_Records);
+    emit logsSig(Log_Line);
 }
 
 void Z_LogsToolWid::on_thresholdBtn_clicked()
 {
-    emit logsSig(Z_Log_Threshold);
+    emit logsSig(Log_LineThreshold);
 }
 
 void Z_LogsToolWid::on_alarmBtn_clicked()
 {
-    emit logsSig(Z_Log_Alarm);
+    emit logsSig(Log_Alarm);
 }
 
 void Z_LogsToolWid::on_outputBtn_clicked()
 {
-    emit logsSig(Z_Log_Output);
+    emit logsSig(Log_Output);
 }
 
 void Z_LogsToolWid::on_loopBtn_clicked()
 {
-    emit logsSig(Z_Log_Loop);
+    emit logsSig(Log_Loop);
 }

@@ -50,7 +50,8 @@ HEADERS += \
     $$PWD/sqlcom/dblooprecords.h \
     $$PWD/dpcom/dpsaveloop.h \
     $$PWD/tablewid/looptablewid.h \
-    $$PWD/tablewid/loopthresholdtablewid.h
+    $$PWD/tablewid/loopthresholdtablewid.h \
+    $$PWD/rtucom/rtuthread.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
@@ -96,7 +97,8 @@ SOURCES += \
     $$PWD/sqlcom/dblooprecords.cpp \
     $$PWD/dpcom/dpsaveloop.cpp \
     $$PWD/tablewid/looptablewid.cpp \
-    $$PWD/tablewid/loopthresholdtablewid.cpp
+    $$PWD/tablewid/loopthresholdtablewid.cpp \
+    $$PWD/rtucom/rtuthread.cpp
 
 FORMS += \
     $$PWD/tablewid//comtablewid.ui \

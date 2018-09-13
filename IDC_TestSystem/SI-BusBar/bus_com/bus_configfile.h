@@ -1,6 +1,6 @@
 #ifndef BUS_CONFIGFILE_H
 #define BUS_CONFIGFILE_H
-#include "serialportdlg.h"
+#include "configbase.h"
 
 enum {
     BUS_Test_Stop,

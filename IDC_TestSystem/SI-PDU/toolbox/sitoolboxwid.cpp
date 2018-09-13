@@ -6,6 +6,7 @@
  */
 #include "sitoolboxwid.h"
 #include "ui_sitoolboxwid.h"
+#include "common.h"
 
 SitoolBoxWid::SitoolBoxWid(QWidget *parent) :
     QWidget(parent),
