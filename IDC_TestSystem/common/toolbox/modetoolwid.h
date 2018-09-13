@@ -15,6 +15,8 @@ public:
     explicit ModeToolWid(QWidget *parent = 0);
     ~ModeToolWid();
 
+    void sipdu();
+
 signals:
     void simulateSig(int);
 

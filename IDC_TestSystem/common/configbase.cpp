@@ -10,6 +10,7 @@ ConfigBase::ConfigBase()
 {
     item = new sConfigItem();
     item->devNum = 1;
+    item->lineNum = 1;
     item->cmdModel = 1;
     item->msecs = 10;
     item->outputNum = 24;

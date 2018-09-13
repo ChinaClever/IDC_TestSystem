@@ -27,7 +27,7 @@ SI_DpThread::~SI_DpThread()
 bool SI_DpThread::getStart()
 {
     bool ret = false;
-    if(SiConfigFile::bulid()->item->testMode == SI_Test_Simulate)
+    if(SiConfigFile::bulid()->item->testMode == Test_Rtu)
         ret = true;
     return ret;
 }

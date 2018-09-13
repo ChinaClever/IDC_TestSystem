@@ -32,8 +32,8 @@ SiSimulationToolWid::~SiSimulationToolWid()
 void SiSimulationToolWid::startSimulateTest()
 {
     SiConfigFile *config = SiConfigFile::bulid();
-    config->item->testMode = SI_Test_Simulate;
-    emit simulateSig(SI_Test_Simulate);
+    config->item->testMode = Test_Rtu;
+    emit simulateSig(Test_Rtu);
 
     ui->mnTestBtn->setText(tr("停止测试"));
 }
@@ -47,8 +47,8 @@ bool SiSimulationToolWid::stopSimulateTest()
     QuMsgBox box(this, tr("是否停止测试？？"));
     if(box.Exec()) {
         SiConfigFile *config = SiConfigFile::bulid();
-        config->item->testMode = SI_Test_Stop;
-        emit simulateSig(SI_Test_Stop);
+        config->item->testMode = Test_Stop;
+        emit simulateSig(Test_Stop);
 
         ret = true;
         ui->mnTestBtn->setText(tr("一键模拟"));
@@ -63,11 +63,11 @@ void SiSimulationToolWid::on_mnTestBtn_clicked()
     int mode = config->item->testMode;
 
     switch (mode) {
-    case SI_Test_Stop:
+    case Test_Stop:
         startSimulateTest();
         break;
 
-    case SI_Test_Simulate:
+    case Test_Rtu:
         stopSimulateTest();
         break;
 
@@ -80,22 +80,22 @@ void SiSimulationToolWid::on_mnTestBtn_clicked()
 
 void SiSimulationToolWid::on_envBtn_clicked()
 {
-    emit simulateSig(SI_Env_Info);
+    emit simulateSig(Info_Env);
 }
 
 void SiSimulationToolWid::on_thresholdBtn_clicked()
 {
-    emit simulateSig(SI_Threshold_Info);
+    emit simulateSig(Info_LineThreshold);
 }
 
 void SiSimulationToolWid::on_transBtn_clicked()
 {
-    emit simulateSig(SI_Trans_Info);
+    emit simulateSig(Info_Trans);
 }
 
 void SiSimulationToolWid::on_realBtn_clicked()
 {
-    emit simulateSig(SI_DevReal_Info);
+    emit simulateSig(Info_Line);
 }
 
 void SiSimulationToolWid::on_settingBtn_clicked()
@@ -103,10 +103,10 @@ void SiSimulationToolWid::on_settingBtn_clicked()
     SiConfigFile *config = SiConfigFile::bulid();
     int mode = config->item->testMode;
 
-    if(mode != SI_Test_Stop) {
+    if(mode != Test_Stop) {
         bool ret = stopSimulateTest();
         if(!ret) return;
     }
 
-    emit simulateSig(SI_DevSet_Info);
+    emit simulateSig(Info_Set);
 }

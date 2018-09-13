@@ -26,7 +26,7 @@ SiLogsToolWid::~SiLogsToolWid()
 
 void SiLogsToolWid::on_modbusBtn_clicked()
 {
-    emit logsSig(SI_Log_Modbus);
+    emit logsSig(Log_Modbus);
 }
 
 
@@ -65,25 +65,25 @@ void SiLogsToolWid::on_timeBtn_clicked()
 
 void SiLogsToolWid::on_transBtn_clicked()
 {
-    emit logsSig(SI_Log_Trans);
+    emit logsSig(Log_Trans);
 }
 
 void SiLogsToolWid::on_envBtn_clicked()
 {
-     emit logsSig(SI_Log_Env);
+     emit logsSig(Log_Env);
 }
 
 void SiLogsToolWid::on_recordBtn_clicked()
 {
-     emit logsSig(SI_Log_Records);
+     emit logsSig(Log_Line);
 }
 
 void SiLogsToolWid::on_thresholdBtn_clicked()
 {
-    emit logsSig(SI_Log_Threshold);
+    emit logsSig(Log_LineThreshold);
 }
 
 void SiLogsToolWid::on_alarmBtn_clicked()
 {
-     emit logsSig(SI_Log_Alarm);
+     emit logsSig(Log_Alarm);
 }

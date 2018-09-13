@@ -22,6 +22,12 @@ void ModeToolWid::initFunSLot()
     initSerialPort();
 }
 
+void ModeToolWid::sipdu()
+{
+    on_comboBox_currentIndexChanged(1);
+    ui->comboBox->setHidden(true);
+}
+
 /**
  * @brief 初始化串口
  * @return

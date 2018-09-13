@@ -27,7 +27,7 @@ SI_AddrSetWid::~SI_AddrSetWid()
  */
 void SI_AddrSetWid::initFunSLot()
 {
-    SiConfigItem *item = SiConfigFile::bulid()->item;
+    sConfigItem *item = SiConfigFile::bulid()->item;
     ui->comboBox->setCurrentIndex(item->lineNum-1);
 }
 

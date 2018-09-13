@@ -47,11 +47,11 @@ void SIMainWid::initWid()
 
 void SIMainWid::toolBoxSlot(int id)
 {
-    if((id >= SI_DevReal_Info) && (id < SI_DevSet_Info)) {
+    if((id >= Info_Line) && (id < Info_Set)) {
         ui->stackedWid->setCurrentWidget(mSimulateWid);
-    } else if((id >= SI_Log_Modbus) && (id <= SI_Log_Alarm)) {
+    } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
          ui->stackedWid->setCurrentWidget(mLogsWid);
-    } else if(id == SI_DevSet_Info) {
+    } else if(id == Info_Set) {
          ui->stackedWid->setCurrentWidget(mSetMainWid);
     }
 }

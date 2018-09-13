@@ -8,7 +8,7 @@
 
 SiConfigFile::SiConfigFile()
 {
-     item = new SiConfigItem();
+
 }
 
 SiConfigFile *SiConfigFile::bulid()

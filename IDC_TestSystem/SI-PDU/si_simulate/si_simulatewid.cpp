@@ -48,12 +48,12 @@ void SI_SimulateWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    case SI_Test_Stop: mSimulateThread->stopThread(); break;
-    case SI_Test_Simulate: mSimulateThread->startThread(); break;
-    case SI_DevReal_Info: wid = mDevTableWid; break;
-    case SI_Trans_Info: wid = mTransTableWid; break;
-    case SI_Threshold_Info: wid = mThresholdTableWid; break;
-    case SI_Env_Info: wid = mEnvTableWid; break;
+    case Test_Stop: mSimulateThread->stopThread(); break;
+    case Test_Rtu: mSimulateThread->startThread(); break;
+    case Info_Line: wid = mDevTableWid; break;
+    case Info_Trans: wid = mTransTableWid; break;
+    case Info_LineThreshold: wid = mThresholdTableWid; break;
+    case Info_Env: wid = mEnvTableWid; break;
     default:  break;
     }
 

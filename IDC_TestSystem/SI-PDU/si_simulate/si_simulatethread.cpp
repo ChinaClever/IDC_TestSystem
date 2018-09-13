@@ -55,7 +55,7 @@ void SI_SimulateThread::writeErrCmd(int id)
 void SI_SimulateThread::workDown()
 {
     int ret = 0;
-    SiConfigItem *item = SiConfigFile::bulid()->item;
+    sConfigItem *item = SiConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
     for(int i=1; i<=mPackets->devNum; ++i)

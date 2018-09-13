@@ -41,6 +41,7 @@ struct sConfigItem
     QString ip;
     SerialPort *serial; // 串口对象
     int devNum; // 级联数
+    int lineNum;
     int outputNum;
     int cmdModel; // 命令模式
 };
