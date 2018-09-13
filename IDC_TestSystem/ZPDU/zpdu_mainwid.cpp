@@ -61,7 +61,7 @@ void ZPDU_MainWid::toolBoxSlot(int id)
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
         case Test_SNMP: mSnmp->startRun(item->ip, item->msecs * 100); break;
-        case Test_Stop: mRtuThread->stopThread(); snmp->stopRun(); break;
+        case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }
     }
