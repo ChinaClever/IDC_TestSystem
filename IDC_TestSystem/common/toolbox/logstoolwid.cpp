@@ -18,6 +18,11 @@ void LogsToolWid::mpdu()
     ui->loopBtn->setHidden(true);
 }
 
+void LogsToolWid::sipdu()
+{
+    mpdu();
+    ui->outputBtn->setHidden(true);
+}
 /**
  * @brief 更新日志时间间隔
  * @param num

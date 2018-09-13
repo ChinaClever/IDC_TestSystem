@@ -28,12 +28,16 @@ protected:
     void initOutputNum();
     void updateOutputNum(int num);
 
+    void initLineNum();
+    void updateLineNum(int num);
+
 protected slots:
     void initFunSLot();
     void on_devNumBtn_clicked();
     void on_outputNumBtn_clicked();
     void on_cmdBtn_clicked();
     void on_timeBtn_clicked();
+    void on_lineBtn_clicked();
 
 protected:
     Ui::SettingToolWid *ui;    

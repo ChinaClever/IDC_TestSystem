@@ -17,6 +17,7 @@ SettingToolWid::~SettingToolWid()
 
 void SettingToolWid::initFunSLot()
 {
+    initLineNum();
     initModbusTime();
     initDevCmd();
     initDevNum();
@@ -111,4 +112,30 @@ void SettingToolWid::initOutputNum()
 void SettingToolWid::on_outputNumBtn_clicked()
 {
     updateOutputNum(ui->outputSpinBox->value());
+}
+
+
+/**
+ * @brief 更新相数
+ * @param num
+ */
+void SettingToolWid::updateLineNum(int num)
+{
+    config->item->lineNum = num;
+    config->setLineNum(num);
+}
+
+/**
+ * @brief 初始化相数
+ */
+void SettingToolWid::initLineNum()
+{
+    int num = config->getLineNum();
+    updateLineNum(num);
+    ui->lineSpinBox->setValue(num-1);
+}
+
+void SettingToolWid::on_lineBtn_clicked()
+{
+    updateOutputNum(ui->lineSpinBox->value()+1);
 }
