@@ -16,8 +16,8 @@
   <widget class="QPushButton" name="timeBtn">
    <property name="geometry">
     <rect>
-     <x>22</x>
-     <y>485</y>
+     <x>40</x>
+     <y>540</y>
      <width>93</width>
      <height>33</height>
     </rect>
@@ -89,8 +89,8 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>11</x>
-     <y>436</y>
+     <x>9</x>
+     <y>501</y>
      <width>72</width>
      <height>24</height>
     </rect>
@@ -165,8 +165,8 @@
   <widget class="QComboBox" name="timeBox">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>436</y>
+     <x>88</x>
+     <y>501</y>
      <width>100</width>
      <height>30</height>
     </rect>
@@ -279,6 +279,61 @@
    </property>
    <property name="text">
     <string>修改</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="vBtn">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>430</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>31</height>
+    </size>
+   </property>
+   <property name="text">
+    <string>修改</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="vBox">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>392</y>
+     <width>89</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>V1版本</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>V3版本</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="vLabel">
+   <property name="geometry">
+    <rect>
+     <x>11</x>
+     <y>392</y>
+     <width>72</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>设备版本</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
  </widget>

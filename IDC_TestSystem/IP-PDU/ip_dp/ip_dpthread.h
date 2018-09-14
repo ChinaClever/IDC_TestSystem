@@ -8,8 +8,9 @@
 class IP_DpThread : public DpThread
 {
     Q_OBJECT
-public:
     explicit IP_DpThread(QObject *parent = nullptr);
+public:
+    static IP_DpThread *bulid(QObject *parent = nullptr);
     ~IP_DpThread();
 
 protected:

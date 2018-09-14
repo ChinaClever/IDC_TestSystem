@@ -1,10 +1,11 @@
 #ifndef IP_MAINWID_H
 #define IP_MAINWID_H
 
-#include "ip_simulate/ip_simulatewid.h"
 #include "ip_toolbox/ip_toolboxwid.h"
 #include "ip_logs/iplogswid.h"
 #include "ip_service/ip_servicethread.h"
+#include "ip_rtu/ip_rtuthread.h"
+#include "ip_status/ip_statuswid.h"
 
 namespace Ui {
 class IP_MainWid;
@@ -27,8 +28,12 @@ private:
     IP_SimulateWid *mSimulateWid;
     IP_ToolBoxWid *mtoolBoxWid;
     IpLogsWid *mLogsWid;
-
     IP_ServiceThread *mServiceThread;
+
+//    IP_SnmpTrans *mSnmp;
+    IP_DpThread *mDpThread;
+    IP_RtuThread *mRtuThread;
+    QTimer *timer;
 };
 
 #endif // IP_MAINWID_H

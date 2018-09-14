@@ -1,26 +1,17 @@
-/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "ip_simulatethread.h"
+#include "ip_rtuthread.h"
 
-IP_SimulateThread::IP_SimulateThread(QObject *parent) : SimulateThread(parent)
+IP_RtuThread::IP_RtuThread(QObject *parent) : RtuThread(parent)
 {
 
 }
 
 
-
 /**
  * @brief 初始化
  */
-void IP_SimulateThread::initSlot()
+void IP_RtuThread::initSlot()
 {
     SerialPort *serial = IP_ConfigFile::bulid()->item->serial;
-    mDpThread = new IP_DpThread(this);
-
     mPackets = IpDataPackets::bulid()->packets;
     mRtu = IP_RtuTrans::bulid();
     mRtu->init(serial);
@@ -32,7 +23,7 @@ void IP_SimulateThread::initSlot()
  * @brief 保存失败命令
  * @param devId
  */
-void IP_SimulateThread::writeErrCmd(int id)
+void IP_RtuThread::writeErrCmd(int id)
 {
     QByteArray array = mRtu->getSentCmd();
     QString strArray = cm_ByteArrayToHexStr(array);
@@ -46,18 +37,18 @@ void IP_SimulateThread::writeErrCmd(int id)
     list << QString::number(id);
     list << strArray;
 
-    mDpThread->saveModbusCmd(list);
+    IP_DpThread::bulid()->saveModbusCmd(list);
 }
 
 
 /**
  * @brief 处理方法
  */
-void IP_SimulateThread::workDown()
+void IP_RtuThread::workDown()
 {
     int ret = 0;
 
-    IpConfigItem *item = IP_ConfigFile::bulid()->item;
+    sConfigItem *item = IP_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
     for(int k=1; k<=mPackets->devNum; ++k)
@@ -82,4 +73,3 @@ void IP_SimulateThread::workDown()
         else return;
     }
 }
-

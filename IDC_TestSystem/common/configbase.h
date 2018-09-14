@@ -44,6 +44,7 @@ struct sConfigItem
     int lineNum;
     int outputNum;
     int cmdModel; // 命令模式
+    int v;
 };
 
 class ConfigBase
@@ -72,6 +73,9 @@ public:
 
     int getOutputNum();
     void setOutputNum(int num);
+
+    int getVersion();
+    void setVersion(int num);
 
     virtual QString getPrefix()=0;
 };
