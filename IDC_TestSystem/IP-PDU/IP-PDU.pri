@@ -35,7 +35,10 @@ HEADERS += \
     $$PWD/ip_toolbox/ip_modetoolwid.h \
     $$PWD/ip_toolbox/ip_statustoolwid.h \
     $$PWD/ip_rtu/ip_rtuthread.h \
-    $$PWD/ip_status/ip_statuswid.h
+    $$PWD/ip_status/ip_statuswid.h \
+    $$PWD/ip_snmp/ip_snmpsend.h \
+    $$PWD/ip_snmp/ip_snmprecv.h \
+    $$PWD/ip_snmp/ip_snmptrans.h
 
 	
 SOURCES += \
@@ -72,7 +75,10 @@ SOURCES += \
     $$PWD/ip_toolbox/ip_modetoolwid.cpp \
     $$PWD/ip_toolbox/ip_statustoolwid.cpp \
     $$PWD/ip_rtu/ip_rtuthread.cpp \
-    $$PWD/ip_status/ip_statuswid.cpp
+    $$PWD/ip_status/ip_statuswid.cpp \
+    $$PWD/ip_snmp/ip_snmpsend.cpp \
+    $$PWD/ip_snmp/ip_snmprecv.cpp \
+    $$PWD/ip_snmp/ip_snmptrans.cpp
 
 FORMS += \
     $$PWD/ip_mainwid.ui \

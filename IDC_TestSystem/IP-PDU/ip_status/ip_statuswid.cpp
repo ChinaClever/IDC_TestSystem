@@ -1,5 +1,6 @@
 #include "ip_statuswid.h"
 #include "ui_ip_statuswid.h"
+#include "ip_com/ipdatapackets.h"
 
 IP_StatusWid::IP_StatusWid(QWidget *parent) :
     QWidget(parent),

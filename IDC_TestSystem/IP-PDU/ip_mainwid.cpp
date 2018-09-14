@@ -12,7 +12,7 @@ IP_MainWid::IP_MainWid(QWidget *parent) :
     ui(new Ui::IP_MainWid)
 {
     ui->setupUi(this);
-//    mSnmp = new M_SnmpTrans(this);
+//    mSnmp = new IP_SnmpTrans(this);
     mDpThread = IP_DpThread::bulid(this);
     mRtuThread = new IP_RtuThread(this);
     mServiceThread = new IP_ServiceThread(this);

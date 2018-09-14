@@ -22,10 +22,11 @@ public:
 protected slots:
     void initFunSLot();
     void toolBoxSlot(int);
+    void timeoutDone();
 
 private:
     Ui::IP_MainWid *ui;
-    IP_SimulateWid *mSimulateWid;
+    IP_StatusWid *mStatusWid;
     IP_ToolBoxWid *mtoolBoxWid;
     IpLogsWid *mLogsWid;
     IP_ServiceThread *mServiceThread;
