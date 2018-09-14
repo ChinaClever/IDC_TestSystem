@@ -4,26 +4,23 @@
  *  Created on: 2018年10月1日
  *      Author: Lzy
  */
-#include "si_simulatewid.h"
-#include "ui_si_simulatewid.h"
+#include "si_statuswid.h"
+#include "ui_si_statuswid.h"
 
-SI_SimulateWid::SI_SimulateWid(QWidget *parent) :
+SI_StatusWid::SI_StatusWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::SI_SimulateWid)
+    ui(new Ui::SI_StatusWid)
 {
     ui->setupUi(this);
-    mSimulateThread = new SI_SimulateThread(this);
-
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
-SI_SimulateWid::~SI_SimulateWid()
+SI_StatusWid::~SI_StatusWid()
 {
     delete ui;
 }
 
-
-void SI_SimulateWid::initFunSLot()
+void SI_StatusWid::initFunSLot()
 {
     sDevPackets *packets = SIDataPackets::bulid()->packets;
 
@@ -44,12 +41,10 @@ void SI_SimulateWid::initFunSLot()
     mTransTableWid->initPackets(packets);
 }
 
-void SI_SimulateWid:: simulateSlot(int id)
+void SI_StatusWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    case Test_Stop: mSimulateThread->stopThread(); break;
-    case Test_Rtu: mSimulateThread->startThread(); break;
     case Info_Line: wid = mDevTableWid; break;
     case Info_Trans: wid = mTransTableWid; break;
     case Info_LineThreshold: wid = mThresholdTableWid; break;

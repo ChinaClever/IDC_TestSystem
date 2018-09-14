@@ -1,7 +1,7 @@
 #ifndef SIDATAPACKETS_H
 #define SIDATAPACKETS_H
 
-#include "si_rtu/si_rtuthread.h"
+#include "si_rtu/si_rtutrans.h"
 #include "siconfigfile.h"
 
 class SIDataPackets

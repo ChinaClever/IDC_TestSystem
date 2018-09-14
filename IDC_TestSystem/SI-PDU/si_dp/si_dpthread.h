@@ -8,8 +8,9 @@
 class SI_DpThread : public DpThread
 {
     Q_OBJECT
-public:
     explicit SI_DpThread(QObject *parent = nullptr);
+public:
+    static SI_DpThread *bulid(QObject *parent = nullptr);
     ~SI_DpThread();
 
 protected:

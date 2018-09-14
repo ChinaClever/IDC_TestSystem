@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SI_SimulateWid</class>
- <widget class="QWidget" name="SI_SimulateWid">
+ <class>SI_StatusWid</class>
+ <widget class="QWidget" name="SI_StatusWid">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -9,12 +9,6 @@
     <width>400</width>
     <height>300</height>
    </rect>
-  </property>
-  <property name="font">
-   <font>
-    <family>微软雅黑</family>
-    <pointsize>12</pointsize>
-   </font>
   </property>
   <property name="windowTitle">
    <string>Form</string>

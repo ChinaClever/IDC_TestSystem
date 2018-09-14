@@ -1,7 +1,7 @@
 #ifndef SI_RTU_SENT_H
 #define SI_RTU_SENT_H
 
-#include "rtucom/rtusentcom.h"
+#include "rtucom/rtuthread.h"
 #include "serialportwid.h"
 #include "si_rtu_setcmd.h"
 
