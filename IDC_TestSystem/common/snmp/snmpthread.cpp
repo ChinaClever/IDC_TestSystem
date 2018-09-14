@@ -95,7 +95,10 @@ bool SnmpThread::requestSubValues(int id)
         mOidSubIndex = 0;
         mOidSubList.clear();
         int rtn = getRequestSubValues(id, mOidSubList);
-        if(rtn) ret = true;
+        if(rtn) {
+            ret = true;
+            if(rtn > 5) m_timer->start(80);
+        }
     }
 
     return ret;
@@ -172,7 +175,7 @@ void SnmpThread::makeRequest()
             mDataPacket = &(mPackets->dev[mId]);
         }
 
-        if(mId > mPackets->devNum) {
+        if(mId >= mPackets->devNum) {
             mId = 0;
         }
     }

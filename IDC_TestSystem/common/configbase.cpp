@@ -15,6 +15,7 @@ ConfigBase::ConfigBase()
     item->msecs = 10;
     item->outputNum = 24;
     item->serial = nullptr;
+    item->v = 0;
 }
 
 

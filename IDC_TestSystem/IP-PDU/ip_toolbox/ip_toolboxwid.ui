@@ -42,12 +42,25 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>158</width>
-           <height>394</height>
+           <width>154</width>
+           <height>317</height>
           </rect>
          </property>
          <attribute name="label">
           <string>模拟测试</string>
+         </attribute>
+        </widget>
+        <widget class="QWidget" name="statusPage">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>98</width>
+           <height>28</height>
+          </rect>
+         </property>
+         <attribute name="label">
+          <string>实时信息</string>
          </attribute>
         </widget>
         <widget class="QWidget" name="logsPage">

@@ -6,6 +6,7 @@
 #include "ip_service/ip_servicethread.h"
 #include "ip_rtu/ip_rtuthread.h"
 #include "ip_status/ip_statuswid.h"
+#include "ip_snmp/ip_snmptrans.h"
 
 namespace Ui {
 class IP_MainWid;
@@ -31,7 +32,7 @@ private:
     IpLogsWid *mLogsWid;
     IP_ServiceThread *mServiceThread;
 
-//    IP_SnmpTrans *mSnmp;
+    IP_SnmpTrans *mSnmp;
     IP_DpThread *mDpThread;
     IP_RtuThread *mRtuThread;
     QTimer *timer;

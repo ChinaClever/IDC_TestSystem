@@ -177,6 +177,7 @@ void SNMP_ZmRecv::getMS(const QByteArray &oid)
     int id = getItemByOid(1);
     if(id >= 0) {
         mDataPacket = &(mPackets->dev[id]);
+        mDataPacket->id = id;
         mDataPacket->offLine = 10;
     }
 }
