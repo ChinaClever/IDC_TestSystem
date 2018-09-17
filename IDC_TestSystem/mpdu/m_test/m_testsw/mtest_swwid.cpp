@@ -34,6 +34,9 @@ void MTest_SwWid::initwid()
         mWid[i]->init(i);
     }
 
+    mSnmp = new MTest_SnmpThread(this);
+    connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
+
     mRtu = new MTest_RtuThread(this);
     mRtu->mReg = mReg;
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
@@ -51,15 +54,38 @@ void MTest_SwWid::on_checkBox_clicked(bool checked)
     }
 }
 
+
+void MTest_SwWid::sendRtu(int i)
+{
+    sMTestRtuSetCmd cmd;
+    cmd.addr = ui->spinBox->value();
+    cmd.reg = mReg + i;
+    cmd.value = mWid[i]->status();
+    mRtu->setCmd(cmd);
+}
+
+void MTest_SwWid::sendSnmp(int i)
+{
+    sSnmpSetCmd cmd;
+    int addr = ui->spinBox->value();
+    QString oid = QString("%1.%2.%3.7.%4").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+
+    cmd.oid = oid;
+    cmd.type = SNMP_INTEGER_TYPE;
+    cmd.value.append( (char) mWid[i]->status());
+    mSnmp->setCmd(cmd);
+}
+
 void MTest_SwWid::on_pushButton_clicked()
 {
+    sConfigItem *item = M_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            sMTestRtuSetCmd cmd;
-            cmd.addr = ui->spinBox->value();
-            cmd.reg = mReg + i;
-            cmd.value = mWid[i]->status();
-            mRtu->setCmd(cmd);
+            if(item->testMode == Test_Rtu) {
+                sendRtu(i);
+            } else if(item->testMode == Test_SNMP) {
+                sendSnmp(i);  // 增加SNMP命令
+            }
         }
     }
 

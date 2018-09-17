@@ -17,22 +17,22 @@ public:
 
 protected:
     void initwid();
+    void sendRtu(int i);
+    void sendSnmp(int i);
 
 protected slots:
    void updateTextSlot(QString str);
 
 private slots:
    void on_checkBox_clicked(bool checked);
-
    void on_openRadio_clicked(bool checked);
-
    void on_closeRadio_clicked(bool checked);
-
    void on_pushButton_clicked();
 
 private:
     Ui::ZTest_SwWid *ui;
 
+    ZTest_SnmpThread *mSnmp;
     ZTest_RtuThread *mRtu;
     ZTest_SwItemWid *mWid[24];
     int mReg;

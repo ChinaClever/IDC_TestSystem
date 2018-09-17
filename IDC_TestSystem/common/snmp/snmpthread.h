@@ -10,6 +10,18 @@
 
 #define MIB_OID_CLEVER  ".1.3.6.1.4.1.30966"
 
+enum{
+    SNMP_INTEGER_TYPE = 0x02,
+    SNMP_STRING_TYPE = 0x04,
+};
+
+struct sSnmpSetCmd
+{
+    QString oid;
+    ushort type;
+    QByteArray value;
+};
+
 class SnmpThread : public QThread
 {
     Q_OBJECT
@@ -19,8 +31,10 @@ public:
 
     qint32 requestValue( const QString& oid) {return m_snmp_client->requestValue(oid);}
     qint32 requestValues( const QStringList& oid_list ) {return m_snmp_client->requestValues(oid_list); }
-    qint32 requestSubValues( const QString& oid ) {return m_snmp_client->requestSubValues(oid);}
+    qint32 requestSubValues( const QString& oid ) {return m_snmp_client->requestSubValues(oid);}   
+
     qint32 setValue(const QString& oid, const int type, const QByteArray& value );
+    qint32 setValue(const sSnmpSetCmd &cmd) {setValue(cmd.oid, cmd.type, cmd.value);}
 
     void startRun(const QString &addr, int msec=0);
     void stopRun();
