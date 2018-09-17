@@ -2,6 +2,7 @@
 #define MTEST_SWITEMWID_H
 
 #include "../m_testrtu/mtest_rtuthread.h"
+#include "../m_testsnmp/mtest_snmpthread.h"
 
 namespace Ui {
 class MTest_SwItemWid;

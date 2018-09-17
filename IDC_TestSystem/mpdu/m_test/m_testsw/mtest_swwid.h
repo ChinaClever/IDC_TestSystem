@@ -17,6 +17,8 @@ public:
 
 protected:
     void initwid();
+    void sendRtu(int i);
+    void sendSnmp(int i);
 
 protected slots:
    void updateTextSlot(QString str);
@@ -30,6 +32,7 @@ private slots:
 private:
     Ui::MTest_SwWid *ui;
 
+    MTest_SnmpThread *mSnmp;
     MTest_RtuThread *mRtu;
     MTest_SwItemWid *mWid[24];
     int mReg;

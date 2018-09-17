@@ -58,7 +58,8 @@ HEADERS += \
     $$PWD/m_status/m_statuswid.h \
     $$PWD/m_snmp/m_snmpsend.h \
     $$PWD/m_snmp/m_snmprecv.h \
-    $$PWD/m_snmp/m_snmptrans.h
+    $$PWD/m_snmp/m_snmptrans.h \
+    $$PWD/m_test/m_testsnmp/mtest_snmpthread.h
 
 	
 SOURCES += \
@@ -115,7 +116,8 @@ SOURCES += \
     $$PWD/m_status/m_statuswid.cpp \
     $$PWD/m_snmp/m_snmpsend.cpp \
     $$PWD/m_snmp/m_snmprecv.cpp \
-    $$PWD/m_snmp/m_snmptrans.cpp
+    $$PWD/m_snmp/m_snmptrans.cpp \
+    $$PWD/m_test/m_testsnmp/mtest_snmpthread.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \

@@ -62,7 +62,8 @@ HEADERS += \
     $$PWD/z_toolbox/z_statustoolwid.h \
     $$PWD/z_toolbox/z_modetoolwid.h \
     $$PWD/z_rtu/z_rtuthread.h \
-    $$PWD/z_status/z_statuswid.h
+    $$PWD/z_status/z_statuswid.h \
+    $$PWD/z_test/z_testsnmp/ztest_snmpthread.h
 
 	
 SOURCES += \
@@ -125,7 +126,8 @@ SOURCES += \
     $$PWD/z_toolbox/z_statustoolwid.cpp \
     $$PWD/z_toolbox/z_modetoolwid.cpp \
     $$PWD/z_rtu/z_rtuthread.cpp \
-    $$PWD/z_status/z_statuswid.cpp
+    $$PWD/z_status/z_statuswid.cpp \
+    $$PWD/z_test/z_testsnmp/ztest_snmpthread.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
