@@ -1,4 +1,4 @@
-#include "si_toolboxwid.h"
+﻿#include "si_toolboxwid.h"
 #include "ui_si_toolboxwid.h"
 
 SI_ToolBoxWid::SI_ToolBoxWid(QWidget *parent) :
@@ -6,7 +6,12 @@ SI_ToolBoxWid::SI_ToolBoxWid(QWidget *parent) :
     ui(new Ui::SI_ToolBoxWid)
 {
     ui->setupUi(this);
+
     initWid();
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->setContentsMargins(0, 0, 0, 10);
+    gridLayout->addWidget(this);
+    groupBox_background_icon(this);
 }
 
 SI_ToolBoxWid::~SI_ToolBoxWid()

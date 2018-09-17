@@ -22,6 +22,9 @@ ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    ui->pushButton_2->setStyleSheet("QPushButton{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
+                                    "QPushButton:hover{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
+                                    "QPushButton:pressed{background-color:rgb(219,241,252);color:rgb(0,0,0);}");
 }
 
 ELoad_StatusHomeWid::~ELoad_StatusHomeWid()

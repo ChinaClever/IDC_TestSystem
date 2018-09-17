@@ -1,4 +1,4 @@
-#include "settingtoolwid.h"
+﻿#include "settingtoolwid.h"
 #include "ui_settingtoolwid.h"
 
 SettingToolWid::SettingToolWid(QWidget *parent) :
@@ -7,6 +7,8 @@ SettingToolWid::SettingToolWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     QTimer::singleShot(500,this,SLOT(initFunSLot())); //延时初始化
 }
 

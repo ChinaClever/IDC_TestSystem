@@ -1,4 +1,4 @@
-#include "logstoolwid.h"
+﻿#include "logstoolwid.h"
 #include "ui_logstoolwid.h"
 
 LogsToolWid::LogsToolWid(QWidget *parent) :
@@ -6,6 +6,8 @@ LogsToolWid::LogsToolWid(QWidget *parent) :
     ui(new Ui::LogsToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 LogsToolWid::~LogsToolWid()

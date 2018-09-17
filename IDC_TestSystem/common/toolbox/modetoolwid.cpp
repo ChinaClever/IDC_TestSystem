@@ -1,4 +1,4 @@
-#include "modetoolwid.h"
+﻿#include "modetoolwid.h"
 #include "ui_modetoolwid.h"
 
 ModeToolWid::ModeToolWid(QWidget *parent) :
@@ -6,6 +6,9 @@ ModeToolWid::ModeToolWid(QWidget *parent) :
     ui(new Ui::ModeToolWid)
 {
     ui->setupUi(this);
+
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
     mSerialPortDlg = new SerialPortDlg(this);
 
     QTimer::singleShot(400,this,SLOT(initFunSLot())); //延时初始化
@@ -20,6 +23,8 @@ ModeToolWid::~ModeToolWid()
 void ModeToolWid::initFunSLot()
 {
     initSerialPort();
+    ui->serialLab->show();
+    ui->serialBtn->show();
 }
 
 void ModeToolWid::sipdu()

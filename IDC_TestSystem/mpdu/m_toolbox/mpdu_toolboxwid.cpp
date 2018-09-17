@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -14,7 +14,7 @@ MPDU_ToolBoxWid::MPDU_ToolBoxWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-     initWid();
+    initWid();
     QGridLayout *gridLayout = new QGridLayout(parent);
     gridLayout->setContentsMargins(0, 0, 0, 10);
     gridLayout->addWidget(this);

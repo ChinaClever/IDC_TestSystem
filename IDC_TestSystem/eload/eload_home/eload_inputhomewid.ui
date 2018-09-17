@@ -59,6 +59,9 @@ border-radius:15px
       <property name="topMargin">
        <number>5</number>
       </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item row="0" column="0">
        <widget class="QWidget" name="widget_1" native="true"/>
       </item>
@@ -113,6 +116,9 @@ border-radius:15px
       <property name="topMargin">
        <number>5</number>
       </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item row="0" column="0">
        <widget class="QWidget" name="widget_9" native="true"/>
       </item>
@@ -166,6 +172,9 @@ border-radius:15px
       </property>
       <property name="topMargin">
        <number>5</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
       </property>
       <item row="0" column="0">
        <widget class="QWidget" name="widget_17" native="true"/>

@@ -1,4 +1,4 @@
-#include "statustoolwid.h"
+﻿#include "statustoolwid.h"
 #include "ui_statustoolwid.h"
 
 StatusToolWid::StatusToolWid(QWidget *parent) :
@@ -6,6 +6,8 @@ StatusToolWid::StatusToolWid(QWidget *parent) :
     ui(new Ui::StatusToolWid)
 {
     ui->setupUi(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 StatusToolWid::~StatusToolWid()

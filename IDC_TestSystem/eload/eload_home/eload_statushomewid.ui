@@ -44,17 +44,23 @@ border-radius:15px
       <string>总状态显示区</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>3</number>
+      </property>
       <property name="topMargin">
        <number>5</number>
       </property>
       <property name="rightMargin">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="bottomMargin">
        <number>10</number>
       </property>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_4">
           <property name="font">
@@ -111,6 +117,9 @@ border-radius:15px
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_10">
           <property name="font">
@@ -167,6 +176,9 @@ border-radius:15px
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,1,1,1">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_9">
           <property name="font">
@@ -196,10 +208,16 @@ border-radius:15px
         <item>
          <widget class="QPushButton" name="pushButton_2">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="sizeIncrement">
+           <size>
+            <width>50</width>
+            <height>30</height>
+           </size>
           </property>
           <property name="font">
            <font>
@@ -263,6 +281,9 @@ border-radius:15px
       <string>功能选择区</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <property name="topMargin">
        <number>5</number>
       </property>
@@ -276,6 +297,9 @@ border-radius:15px
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <property name="topMargin">
          <number>0</number>
+        </property>
+        <property name="rightMargin">
+         <number>5</number>
         </property>
         <property name="bottomMargin">
          <number>0</number>
@@ -327,6 +351,9 @@ border-radius:15px
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_11">
           <property name="font">
@@ -389,6 +416,9 @@ border-radius:15px
       </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
         <item>
          <widget class="QLabel" name="label_5">
           <property name="font">
@@ -499,6 +529,9 @@ border-radius:15px
       <string>功能操作区</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>6</number>
+      </property>
       <property name="topMargin">
        <number>5</number>
       </property>
