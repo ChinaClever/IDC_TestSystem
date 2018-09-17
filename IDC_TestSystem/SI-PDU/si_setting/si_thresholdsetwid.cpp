@@ -121,7 +121,7 @@ int SI_ThresholdSetWid::getLine(int mode, SI_RtuRecvLine &data)
 
 SI_sDataUnit * SI_ThresholdSetWid::getUnit(int mode, SI_RtuRecvLine &data)
 {
-    SI_sDataUnit *unit;
+    SI_sDataUnit *unit = &(data.vol);
     switch (mode) {
     case SI_SetMode_Vol: unit = &(data.vol); break;
     case SI_SetMode_Cur: unit = &(data.cur); break;

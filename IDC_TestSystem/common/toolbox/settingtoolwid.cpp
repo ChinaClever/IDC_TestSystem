@@ -1,6 +1,6 @@
 ﻿#include "settingtoolwid.h"
 #include "ui_settingtoolwid.h"
-
+#include "QGridLayout"
 SettingToolWid::SettingToolWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingToolWid)
