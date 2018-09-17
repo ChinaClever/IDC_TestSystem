@@ -31,7 +31,6 @@ void ELoad_MainWid::initFunSLot()
 
     mHomeMainWid = new ELoad_HomeMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeMainWid);
-    //    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mSimulateWid, SLOT(simulateSlot(int)));
 
     mInputMainWid = new IN_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mInputMainWid);

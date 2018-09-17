@@ -7,12 +7,9 @@ HEADERS += \
     $$PWD/ip_com/ipdatapackets.h \
     $$PWD/ip_rtu/ip_rtutrans.h \
     $$PWD/ip_mainwid.h \
-    $$PWD/ip_simulate/ip_simulatewid.h \
-    $$PWD/ip_simulate/ip_simulatethread.h \
     $$PWD/ip_com/ipconfigfile.h \
     $$PWD/ip_toolbox/ip_toolboxwid.h \
     $$PWD/ip_toolbox/ip_settingtoolwid.h \
-    $$PWD/ip_toolbox/ip_simulationtoolwid.h \
     $$PWD/ip_toolbox/ip_logstoolwid.h \
     $$PWD/ip_sql/ipdbthresholds.h \
     $$PWD/ip_sql/ipdbrealrecords.h \
@@ -34,7 +31,15 @@ HEADERS += \
     $$PWD/ip_service/json/ip_buildjson.h \
     $$PWD/ip_dp/ip_dpalarmsave.h \
     $$PWD/ip_dp/ip_dpsaverecord.h \
-    $$PWD/ip_dp/ip_dpsavetrans.h
+    $$PWD/ip_dp/ip_dpsavetrans.h \
+    $$PWD/ip_toolbox/ip_modetoolwid.h \
+    $$PWD/ip_toolbox/ip_statustoolwid.h \
+    $$PWD/ip_rtu/ip_rtuthread.h \
+    $$PWD/ip_status/ip_statuswid.h \
+    $$PWD/ip_snmp/ip_snmpsend.h \
+    $$PWD/ip_snmp/ip_snmptrans.h \
+    $$PWD/ip_snmp/ip_snmpv1recv.h \
+    $$PWD/ip_snmp/ip_snmpv3recv.h
 
 	
 SOURCES += \
@@ -43,12 +48,9 @@ SOURCES += \
     $$PWD/ip_com/ipdatapackets.cpp \
     $$PWD/ip_rtu/ip_rtutrans.cpp \
     $$PWD/ip_mainwid.cpp \
-    $$PWD/ip_simulate/ip_simulatewid.cpp \
-    $$PWD/ip_simulate/ip_simulatethread.cpp \
     $$PWD/ip_com/ipconfigfile.cpp \
     $$PWD/ip_toolbox/ip_toolboxwid.cpp \
     $$PWD/ip_toolbox/ip_settingtoolwid.cpp \
-    $$PWD/ip_toolbox/ip_simulationtoolwid.cpp \
     $$PWD/ip_toolbox/ip_logstoolwid.cpp \
     $$PWD/ip_sql/ipdbthresholds.cpp \
     $$PWD/ip_sql/ipdbrealrecords.cpp \
@@ -70,16 +72,21 @@ SOURCES += \
     $$PWD/ip_dp/ip_dpalarmsave.cpp \
     $$PWD/ip_dp/ip_dpsaveenv.cpp \
     $$PWD/ip_dp/ip_dpsaverecord.cpp \
-    $$PWD/ip_dp/ip_dpsavetrans.cpp
+    $$PWD/ip_dp/ip_dpsavetrans.cpp \
+    $$PWD/ip_toolbox/ip_modetoolwid.cpp \
+    $$PWD/ip_toolbox/ip_statustoolwid.cpp \
+    $$PWD/ip_rtu/ip_rtuthread.cpp \
+    $$PWD/ip_status/ip_statuswid.cpp \
+    $$PWD/ip_snmp/ip_snmpsend.cpp \
+    $$PWD/ip_snmp/ip_snmptrans.cpp \
+    $$PWD/ip_snmp/ip_snmpv1recv.cpp \
+    $$PWD/ip_snmp/ip_snmpv3recv.cpp
 
 FORMS += \
     $$PWD/ip_mainwid.ui \
-    $$PWD/ip_simulate/ip_simulatewid.ui \
     $$PWD/ip_toolbox/ip_toolboxwid.ui \
-    $$PWD/ip_toolbox/ip_settingtoolwid.ui \
-    $$PWD/ip_toolbox/ip_simulationtoolwid.ui \
-    $$PWD/ip_toolbox/ip_logstoolwid.ui \
-    $$PWD/ip_logs/iplogswid.ui
+    $$PWD/ip_logs/iplogswid.ui \
+    $$PWD/ip_status/ip_statuswid.ui
 
 
 

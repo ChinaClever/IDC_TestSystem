@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_snmpsend.h"
 
 M_SnmpSend::M_SnmpSend()

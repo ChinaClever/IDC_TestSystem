@@ -6,9 +6,9 @@ SettingToolWid::SettingToolWid(QWidget *parent) :
     ui(new Ui::SettingToolWid)
 {
     ui->setupUi(this);
-
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
+    ippdu();
     QTimer::singleShot(500,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -24,6 +24,14 @@ void SettingToolWid::initFunSLot()
     initDevCmd();
     initDevNum();
     initOutputNum();
+    initVersion();
+}
+
+void SettingToolWid::ippdu(bool hide)
+{
+    ui->vBox->setHidden(hide);
+    ui->vBtn->setHidden(hide);
+    ui->vLabel->setHidden(hide);
 }
 
 /**
@@ -136,3 +144,23 @@ void SettingToolWid::on_lineBtn_clicked()
 {
     updateOutputNum(ui->lineSpinBox->value()+1);
 }
+
+
+void SettingToolWid::updateVersion(int num)
+{
+    config->item->v = num;
+    config->setVersion(num);
+}
+
+void SettingToolWid::initVersion()
+{
+    int num = config->getVersion();;
+    updateVersion(num);
+    ui->vBox->setCurrentIndex(num);
+}
+
+void SettingToolWid::on_vBtn_clicked()
+{
+    updateVersion(ui->vBox->currentIndex());
+}
+

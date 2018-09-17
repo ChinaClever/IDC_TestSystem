@@ -1,7 +1,7 @@
 #ifndef IP_TOOLBOXWID_H
 #define IP_TOOLBOXWID_H
 
-#include "ip_logstoolwid.h"
+#include "ip_statustoolwid.h"
 
 namespace Ui {
 class IP_ToolBoxWid;
@@ -26,7 +26,8 @@ private:
 
     IP_SettingToolWid *mSettingToolWid;
     IP_LogsToolWid *mLogsToolWid;
-    IP_SimulationToolWid *mSimulationToolWid;
+    IP_ModeToolWid *mModeToolWid;
+    IP_StatusToolWid *mStatusToolWid;
 };
 
 #endif // IP_TOOLBOXWID_H

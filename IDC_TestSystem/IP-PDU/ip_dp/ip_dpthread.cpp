@@ -25,10 +25,20 @@ IP_DpThread::~IP_DpThread()
     wait();
 }
 
+
+IP_DpThread *IP_DpThread::bulid(QObject *parent)
+{
+    static IP_DpThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new IP_DpThread(parent);
+    }
+    return sington;
+}
+
 bool IP_DpThread::getStart()
 {
     bool ret = false;
-    if(IP_ConfigFile::bulid()->item->testMode == IP_Test_Simulate)
+    if(IP_ConfigFile::bulid()->item->testMode == Test_Rtu)
         ret = true;
     return ret;
 }

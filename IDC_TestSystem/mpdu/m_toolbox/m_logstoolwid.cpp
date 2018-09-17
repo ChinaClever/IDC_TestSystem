@@ -5,7 +5,6 @@
  *      Author: Lzy
  */
 #include "m_logstoolwid.h"
-#include "ui_m_logstoolwid.h"
 
 M_LogsToolWid::M_LogsToolWid(QWidget *parent) : LogsToolWid(parent)
 {

@@ -2,11 +2,11 @@
 #define SIMAINWID_H
 
 #include "si_toolbox/si_toolboxwid.h"
-#include "si_simulate/si_simulatethread.h"
 #include "si_logs/silogswid.h"
-#include "si_simulate/si_simulatewid.h"
 #include "si_setting/si_setmainwid.h"
 #include "si_service/si_servicethread.h"
+#include "si_rtu/si_rtuthread.h"
+#include "si_status/si_statuswid.h"
 
 namespace Ui {
 class SIMainWid;
@@ -20,22 +20,24 @@ public:
     explicit SIMainWid(QWidget *parent = 0);
     ~SIMainWid();
 
-protected:
-    void initWid();
 
 private slots:
     void initFunSLot();
+    void timeoutDone();
     void toolBoxSlot(int);
 
 private:
     Ui::SIMainWid *ui;
 
     SI_ToolBoxWid *mtoolBoxWid;
-    SI_SimulateThread *mSimulateThread;
-    SI_SimulateWid *mSimulateWid;
+    SI_StatusWid *mStatusWid;
     SI_SetMainWid *mSetMainWid;
     SI_ServiceThread *mServiceThread;
     SILogsWid *mLogsWid;
+
+    SI_DpThread *mDpThread;
+    SI_RtuThread *mRtuThread;
+    QTimer *timer;
 };
 
 #endif // SIMAINWID_H

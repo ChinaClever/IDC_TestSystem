@@ -1,10 +1,12 @@
 #ifndef IP_MAINWID_H
 #define IP_MAINWID_H
 
-#include "ip_simulate/ip_simulatewid.h"
 #include "ip_toolbox/ip_toolboxwid.h"
 #include "ip_logs/iplogswid.h"
 #include "ip_service/ip_servicethread.h"
+#include "ip_rtu/ip_rtuthread.h"
+#include "ip_status/ip_statuswid.h"
+#include "ip_snmp/ip_snmptrans.h"
 
 namespace Ui {
 class IP_MainWid;
@@ -21,14 +23,19 @@ public:
 protected slots:
     void initFunSLot();
     void toolBoxSlot(int);
+    void timeoutDone();
 
 private:
     Ui::IP_MainWid *ui;
-    IP_SimulateWid *mSimulateWid;
+    IP_StatusWid *mStatusWid;
     IP_ToolBoxWid *mtoolBoxWid;
     IpLogsWid *mLogsWid;
-
     IP_ServiceThread *mServiceThread;
+
+    IP_SnmpTrans *mSnmp;
+    IP_DpThread *mDpThread;
+    IP_RtuThread *mRtuThread;
+    QTimer *timer;
 };
 
 #endif // IP_MAINWID_H

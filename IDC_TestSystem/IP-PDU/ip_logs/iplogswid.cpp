@@ -47,12 +47,12 @@ void IpLogsWid:: updateWidSlot(int id)
 {
     LogComWid *wid = nullptr;
     switch (id) {
-    case IP_Log_Alarm: wid = mLogAlarmWid; break;
-    case IP_Log_Env: wid = mLogEnvWid; break;
-    case IP_Log_Modbus: wid = mLogModbusCmdWid; break;
-    case IP_Log_Trans: wid = mLogModbusTransWid; break;
-    case IP_Log_Records: wid = mLogRealRecordWid; break;
-    case IP_Log_Threshold: wid = mLogThresholdWid; break;
+    case Log_Alarm: wid = mLogAlarmWid; break;
+    case Log_Env: wid = mLogEnvWid; break;
+    case Log_Modbus: wid = mLogModbusCmdWid; break;
+    case Log_Trans: wid = mLogModbusTransWid; break;
+    case Log_Line: wid = mLogRealRecordWid; break;
+    case Log_LineThreshold: wid = mLogThresholdWid; break;
     default:  break;
     }
 

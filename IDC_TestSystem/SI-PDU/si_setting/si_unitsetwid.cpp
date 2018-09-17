@@ -77,7 +77,7 @@ void SI_UnitSetWid::updateSlot(int addr)
  */
 void SI_UnitSetWid::setData(int addr, int reg, int value)
 {
-    bool ret =SI_RtuThread::bulid()->sentSetCmd(addr,reg, value, 20);
+    bool ret =SI_RtuTrans::bulid()->sentSetCmd(addr,reg, value, 20);
     if(ret) {
         InfoMsgBox box(this, tr("修改成功！！"));
     } else {

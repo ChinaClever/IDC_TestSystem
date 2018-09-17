@@ -24,6 +24,17 @@ SI_DpThread::~SI_DpThread()
     wait();
 }
 
+
+SI_DpThread *SI_DpThread::bulid(QObject *parent)
+{
+    static SI_DpThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new SI_DpThread(parent);
+    }
+    return sington;
+}
+
+
 bool SI_DpThread::getStart()
 {
     bool ret = false;

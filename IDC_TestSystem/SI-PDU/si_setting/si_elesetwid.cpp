@@ -73,7 +73,7 @@ void SI_EleSetWid::on_cleverBtn_clicked()
     bool ret = box.Exec();
     if(ret) {
         int value = 0xffff;
-        ret =SI_RtuThread::bulid()->sentSetCmd(mAddr,SI_ELE_CMD, value, 20);
+        ret =SI_RtuTrans::bulid()->sentSetCmd(mAddr,SI_ELE_CMD, value, 20);
         if(ret) {
             updateData(mAddr, 0, NULL, 0);
             InfoMsgBox box(this, tr("修改成功！！， 请重新刷新数据"));
@@ -92,7 +92,7 @@ void SI_EleSetWid::on_editBtn_clicked()
     bool ret = box.Exec();
     if(ret) {
         int value = ui->comboBox->currentIndex()+1;
-        ret =SI_RtuThread::bulid()->sentSetCmd(mAddr,SI_BR_CMD, value, 20);
+        ret =SI_RtuTrans::bulid()->sentSetCmd(mAddr,SI_BR_CMD, value, 20);
         if(ret) {
             InfoMsgBox box(this, tr("修改成功！！， 请重新设置串口"));
         } else {

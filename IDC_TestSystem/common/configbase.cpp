@@ -15,6 +15,7 @@ ConfigBase::ConfigBase()
     item->msecs = 10;
     item->outputNum = 24;
     item->serial = nullptr;
+    item->v = 0;
 }
 
 
@@ -184,3 +185,23 @@ void ConfigBase::setOutputNum(int num)
     sys_configFile_writeParam(str, QString::number(num), prefix);
 }
 
+
+int ConfigBase::getVersion()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_version_num").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret <= 0)  ret = 0;
+    return ret;
+}
+
+/**
+ * @brief 设置相数
+ * @param num
+ */
+void ConfigBase::setVersion(int num)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_version_num").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(num), prefix);
+}

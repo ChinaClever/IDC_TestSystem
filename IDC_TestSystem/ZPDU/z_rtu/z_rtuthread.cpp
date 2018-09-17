@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "z_rtuthread.h"
 
 Z_RtuThread::Z_RtuThread(QObject *parent) : RtuThread(parent)

@@ -1,29 +1,22 @@
-/*
- *
- *
- *  Created on: 2018年10月1日
- *      Author: Lzy
- */
-#include "ip_simulatewid.h"
-#include "ui_ip_simulatewid.h"
+#include "ip_statuswid.h"
+#include "ui_ip_statuswid.h"
+#include "ip_com/ipdatapackets.h"
 
-IP_SimulateWid::IP_SimulateWid(QWidget *parent) :
+IP_StatusWid::IP_StatusWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::IP_SimulateWid)
+    ui(new Ui::IP_StatusWid)
 {
     ui->setupUi(this);
-    mSimulateThread = new IP_SimulateThread(this);
-
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
 
-IP_SimulateWid::~IP_SimulateWid()
+IP_StatusWid::~IP_StatusWid()
 {
     delete ui;
 }
 
 
-void IP_SimulateWid::initFunSLot()
+void IP_StatusWid::initFunSLot()
 {
     sDevPackets *packets = IpDataPackets::bulid()->packets;
 
@@ -44,16 +37,14 @@ void IP_SimulateWid::initFunSLot()
     mTransTableWid->initPackets(packets);
 }
 
-void IP_SimulateWid:: simulateSlot(int id)
+void IP_StatusWid:: simulateSlot(int id)
 {
     ComTableWid *wid = nullptr;
     switch (id) {
-    case IP_Test_Stop: mSimulateThread->stopThread(); break;
-    case IP_Test_Simulate: mSimulateThread->startThread(); break;
-    case IP_Info_Dev: wid = mDevTableWid; break;
-    case IP_Info_Trans: wid = mTransTableWid; break;
-    case IP_Info_Threshold: wid = mThresholdTableWid; break;
-    case IP_Info_Env: wid = mEnvTableWid; break;
+    case Info_Line: wid = mDevTableWid; break;
+    case Info_Trans: wid = mTransTableWid; break;
+    case Info_LineThreshold: wid = mThresholdTableWid; break;
+    case Info_Env: wid = mEnvTableWid; break;
     default:  break;
     }
 

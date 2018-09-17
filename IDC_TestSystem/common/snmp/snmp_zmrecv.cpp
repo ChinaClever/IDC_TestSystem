@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "snmp_zmrecv.h"
 
 SNMP_ZmRecv::SNMP_ZmRecv()
@@ -171,6 +177,7 @@ void SNMP_ZmRecv::getMS(const QByteArray &oid)
     int id = getItemByOid(1);
     if(id >= 0) {
         mDataPacket = &(mPackets->dev[id]);
+        mDataPacket->id = id;
         mDataPacket->offLine = 10;
     }
 }

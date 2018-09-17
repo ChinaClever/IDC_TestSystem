@@ -15,6 +15,8 @@ public:
     explicit SettingToolWid(QWidget *parent = 0);
     ~SettingToolWid();
 
+    void ippdu(bool hide = true);
+
 protected:
     void initModbusTime();
     void updateModbusTime(int num);
@@ -31,6 +33,9 @@ protected:
     void initLineNum();
     void updateLineNum(int num);
 
+    void updateVersion(int num);
+    void initVersion();
+
 protected slots:
     void initFunSLot();
     void on_devNumBtn_clicked();
@@ -38,6 +43,7 @@ protected slots:
     void on_cmdBtn_clicked();
     void on_timeBtn_clicked();
     void on_lineBtn_clicked();
+    void on_vBtn_clicked();
 
 protected:
     Ui::SettingToolWid *ui;    

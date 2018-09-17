@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "m_snmptrans.h"
 
 M_SnmpTrans::M_SnmpTrans(QObject *parent) : SnmpThread(parent)
