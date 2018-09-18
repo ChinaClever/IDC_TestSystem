@@ -28,8 +28,8 @@ private:
     QSplineSeries *mSeries;
     QChartView *mChartView;
 
-    int mX;
-    QTime mYtime;
+    int mY;
+    QDateTime mYtime;
 };
 
 #endif // LINECHART_H

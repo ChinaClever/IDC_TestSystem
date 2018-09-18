@@ -9,7 +9,7 @@
 LineChart::LineChart(QWidget *parent) : QWidget(parent)
 {
     mSeries = new QSplineSeries(this);
-    mChart = new QChart(this);
+    mChart = new QChart();
     mChart->legend()->hide();
     mChart->addSeries(mSeries);
     mChart->createDefaultAxes();
@@ -30,7 +30,7 @@ void LineChart::initAxisY()
 {
     QAbstractAxis *axis =  mChart->axisY();
     axis->setTitleText(tr("温度"));
-    mX = 0; setAxisX(40);
+    mY = 0; setAxisYRange(40);
 }
 
 void LineChart::initAxisX()
@@ -42,21 +42,25 @@ void LineChart::initAxisX()
     mChart->addAxis(axisX, Qt::AlignBottom);
     mSeries->attachAxis(axisX);
 
-    QTime time = QTime::currentTime();
-    mYtime = QTime::currentTime().addSecs(60);
+    QDateTime time = QDateTime::currentDateTime();
+    mYtime = time.addSecs(60);
     axisX->setRange(time, mYtime);
 }
 
 void LineChart::setAxisYRange(int value)
 {
-    int x = int (mX * 3 / 4.0);
-    if(value > x)  mX = int (value * 3 / 2.0);
-    mChart->axisY()->setRange(0, mX);
+    int x = int (mY * 3 / 4.0);
+    if(value > x)  mY = int (value * 3 / 2.0);
+    mChart->axisY()->setRange(0, mY);
 }
 
 void LineChart::setAxisXRange()
 {
-    if(QTime::currentTime() > mYtime) mYtime = QTime::currentTime().addSecs(60);
+    if(QDateTime::currentDateTime() > mYtime)   {
+        QDateTime time = QDateTime::currentDateTime();
+        mYtime = time.addSecs(60);
+    }
+
     mChart->axisX()->setMax(mYtime);
 }
 
@@ -65,7 +69,7 @@ void LineChart::append(qreal y)
     setAxisXRange();
     setAxisYRange(y);
 
-    int x = QTime::currentTime().toMSecsSinceEpoch();
+    int x = QDateTime::currentDateTime().toMSecsSinceEpoch();
     mSeries->append(x, y);
 }
 
