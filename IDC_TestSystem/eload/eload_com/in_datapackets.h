@@ -12,6 +12,7 @@ public:
     sDataPacket *getDev(int num);
 
     int getTgValue(int mode);
+    int getTemRise(int id);
 };
 
 #endif // I_DATAPACKETS_H
