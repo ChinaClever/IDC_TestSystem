@@ -64,9 +64,11 @@ void LineChart::initAxisXTime()
 
 void LineChart::setAxisYRange(int value)
 {
-    int x = int (mY * 3 / 4.0);
-    if(value > x)  mY = int (value * 3 / 2.0);
-    mChart->axisY()->setRange(0, mY);
+    int y = int (mY * 3 / 4.0);
+    if(value > y)  {
+        mY = int (value * 3 / 2.0);
+        mChart->axisY()->setRange(0, mY);
+    }
 }
 
 void LineChart::setAxisXRange()
@@ -74,9 +76,8 @@ void LineChart::setAxisXRange()
     if(QDateTime::currentDateTime() > mYtime)   {
         QDateTime time = QDateTime::currentDateTime();
         mYtime = time.addSecs(60);
+        mChart->axisX()->setMax(mYtime);
     }
-
-    mChart->axisX()->setMax(mYtime);
 }
 
 void LineChart::append(qreal y)
@@ -84,7 +85,7 @@ void LineChart::append(qreal y)
     setAxisXRange();
     setAxisYRange(y);
 
-    int x = QDateTime::currentDateTime().toMSecsSinceEpoch();
+    qint64 x = QDateTime::currentDateTime().toMSecsSinceEpoch();
     mSeries->append(x, y);
 }
 
