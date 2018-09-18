@@ -5,6 +5,7 @@
  *      Author: Lzy
  */
 #include "linechart.h"
+extern void groupBox_background_icon(QWidget *target);
 
 LineChart::LineChart(QWidget *parent) : QWidget(parent)
 {
@@ -16,6 +17,10 @@ LineChart::LineChart(QWidget *parent) : QWidget(parent)
 
     mChartView = new QChartView(mChart);
     mChartView->setRenderHint(QPainter::Antialiasing);
+
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->setContentsMargins(0, 0, 0, 10);
+    gridLayout->addWidget(mChartView);
 
     initAxisX();
     initAxisY();
@@ -35,6 +40,9 @@ void LineChart::initAxisY()
 
 void LineChart::initAxisX()
 {
+    QAbstractAxis *axis =  mChart->axisX();
+    mChart->removeAxis(axis);
+
     QDateTimeAxis *axisX = new QDateTimeAxis;
     axisX->setTickCount(10);
     axisX->setFormat("hh:mm:ss");
@@ -42,16 +50,25 @@ void LineChart::initAxisX()
     mChart->addAxis(axisX, Qt::AlignBottom);
     mSeries->attachAxis(axisX);
 
+    initAxisXTime();
+}
+
+void LineChart::initAxisXTime()
+{
+    QAbstractAxis *axis =  mChart->axisX();
+
     QDateTime time = QDateTime::currentDateTime();
     mYtime = time.addSecs(60);
-    axisX->setRange(time, mYtime);
+    axis->setRange(time, mYtime);
 }
 
 void LineChart::setAxisYRange(int value)
 {
-    int x = int (mY * 3 / 4.0);
-    if(value > x)  mY = int (value * 3 / 2.0);
-    mChart->axisY()->setRange(0, mY);
+    int y = int (mY * 3 / 4.0);
+    if(value > y)  {
+        mY = int (value * 3 / 2.0);
+        mChart->axisY()->setRange(0, mY);
+    }
 }
 
 void LineChart::setAxisXRange()
@@ -59,9 +76,8 @@ void LineChart::setAxisXRange()
     if(QDateTime::currentDateTime() > mYtime)   {
         QDateTime time = QDateTime::currentDateTime();
         mYtime = time.addSecs(60);
+        mChart->axisX()->setMax(mYtime);
     }
-
-    mChart->axisX()->setMax(mYtime);
 }
 
 void LineChart::append(qreal y)
@@ -69,11 +85,12 @@ void LineChart::append(qreal y)
     setAxisXRange();
     setAxisYRange(y);
 
-    int x = QDateTime::currentDateTime().toMSecsSinceEpoch();
+    qint64 x = QDateTime::currentDateTime().toMSecsSinceEpoch();
     mSeries->append(x, y);
 }
 
 void LineChart::clearChart()
 {
     mSeries->clear();
+    initAxisXTime();
 }

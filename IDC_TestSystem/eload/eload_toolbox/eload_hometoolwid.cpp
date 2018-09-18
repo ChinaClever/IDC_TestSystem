@@ -111,3 +111,9 @@ void ELoad_HomeToolWid::on_devNumBtn_clicked()
 }
 
 
+
+void ELoad_HomeToolWid::on_temriseBtn_clicked()
+{
+    int i = ui->temSpinBox->value() - 1;
+    emit toolSig(ELoad_Tem_RiseOne + i);
+}
