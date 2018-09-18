@@ -32,6 +32,8 @@ private slots:
     void on_openBtn_clicked();
     void on_closeBtn_clicked();
 
+    void on_eleBtn_clicked();
+
 private:
     Ui::ELoad_StatusHomeWid *ui;
     QTimer *timer;
