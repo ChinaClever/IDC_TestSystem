@@ -73,7 +73,7 @@ void IN_RtuThread::workDown()
     int ret = 0;
 
     sentCmdList();
-    sELoad_ConfigItem *item = ELoad_ConfigFile::bulid()->item;
+    sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
     for(int k=1; k<=mPackets->devNum; ++k)

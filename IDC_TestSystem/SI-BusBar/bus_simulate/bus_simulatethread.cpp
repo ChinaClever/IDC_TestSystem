@@ -134,7 +134,7 @@ void BUS_SimulateThread::workDown()
 
     for(int i=0; i<1; ++i) // BUS_NUM
     {
-        BusConfigItem *item = BUS_ConfigFile::bulid()->item;
+        sConfigItem *item = BUS_ConfigFile::bulid()->item;
         mPacket->getBus(i)->devNum = item->devNum; /////========
 
         for(int k=0; k<=mPacket->getBus(i)->devNum; ++k)

@@ -8,9 +8,7 @@
 
 BUS_ConfigFile::BUS_ConfigFile()
 {
-    item = new BusConfigItem();    
-    item->cmdModel = 1;
-    item->msecs = 10;
+
 }
 
 BUS_ConfigFile *BUS_ConfigFile::bulid()

@@ -25,6 +25,16 @@ sDataPacket *IN_DataPackets::getDev(int num)
     return &(packets->dev[num]);
 }
 
+int IN_DataPackets::getTemRise(int id)
+{
+    sDataUnit *data = &(getDev(id)->data).env.tem;
+    int tem = data[1].value - data[2].value;
+    if(tem<0) tem = 0 - tem;
+
+    return tem;
+}
+
+
 int IN_DataPackets::getTgValue(int mode)
 {
     int ret = 0, value;
@@ -56,7 +66,7 @@ int IN_DataPackets::getTgValue(int mode)
                 break;
 
             case 6:
-                if(j>2) break;
+                if(j>0) break;
                 value = data->env.tem[j].value;
                 if(value > ret) ret = value;
                 break;
