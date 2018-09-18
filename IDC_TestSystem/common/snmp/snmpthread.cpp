@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -170,9 +170,9 @@ void SnmpThread::makeRequest()
         if(!ret) {
             ret = requestValues(mId);
         }
-
         if(ret) {
             mDataPacket = &(mPackets->dev[mId]);
+            //qDebug()<<mDataPacket->ip<<(&(&(&(mDataPacket->data))->line[0])->cur)->value;
         }
 
         if(mId >= mPackets->devNum) {

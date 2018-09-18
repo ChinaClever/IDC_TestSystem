@@ -327,11 +327,6 @@ border-radius:15px
           </property>
           <item>
            <property name="text">
-            <string>单个动态模式</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
             <string>多个动态模式</string>
            </property>
           </item>
@@ -390,6 +385,9 @@ border-radius:15px
             <family>微软雅黑</family>
             <pointsize>12</pointsize>
            </font>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
           </property>
           <property name="minimum">
            <number>1</number>

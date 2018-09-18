@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -162,7 +162,7 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
     switch (item) {
     case 1: sprintf(mDataPacket->name, "%s",data.data()); break;
     case 2: devTypeData(data.toInt(), mDataPacket);  break;
-    case 3: mDataPacket->data.outputNum = data.toInt();  break;
+    case 3: mDataPacket->data.outputNum = data.toInt(); break;
     case 4: sprintf(mDataPacket->mac, "%s",data.data()); break;
     case 5: sprintf(mDataPacket->versionStr, "%s",data.data()); break;
     case 6: mDataPacket->hz = data.toInt(); break;

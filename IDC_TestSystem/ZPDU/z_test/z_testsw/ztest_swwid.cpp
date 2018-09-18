@@ -1,4 +1,4 @@
-#include "ztest_swwid.h"
+﻿#include "ztest_swwid.h"
 #include "ui_ztest_swwid.h"
 
 ZTest_SwWid::ZTest_SwWid(QWidget *parent) :
@@ -61,7 +61,6 @@ void ZTest_SwWid::sendSnmp(int i)
     sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
     QString oid = QString("%1.%2.%3.7.%4").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
-
     cmd.oid = oid;
     cmd.type = SNMP_INTEGER_TYPE;
     cmd.value.append( (char) mWid[i]->status());
@@ -73,10 +72,10 @@ void ZTest_SwWid::on_pushButton_clicked()
     sConfigItem *item = Z_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            if(item->testMode == Test_Rtu) {
-                sendRtu(i);
-            } else if(item->testMode == Test_SNMP) {
+            if(item->testMode == Test_SNMP) {
                 sendSnmp(i);  // 增加SNMP命令
+            } else {
+                sendRtu(i);
             }
         }
     }

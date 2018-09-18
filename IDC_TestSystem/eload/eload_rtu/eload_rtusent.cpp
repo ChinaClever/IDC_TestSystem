@@ -107,8 +107,6 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    for(int i=0; i<offset; ++i) qDebug()<<buf[i];
-
     return mSerial->sendData(buf, offset);
 }
 

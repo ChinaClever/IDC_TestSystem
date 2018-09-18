@@ -23,8 +23,6 @@ ModeToolWid::~ModeToolWid()
 void ModeToolWid::initFunSLot()
 {
     initSerialPort();
-    ui->serialLab->show();
-    ui->serialBtn->show();
 }
 
 void ModeToolWid::sipdu()

@@ -116,18 +116,14 @@ void ELoad_StatusHomeWid::setMode()
 {
     int mode = ui->modeBox->currentIndex();
     switch(mode) {
-    case 0: // 单个自动调整模块
-        //ELoad_RtuSent::bulid()->setDpAdjust();
-        //setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t);
-        break;
-    case 1: // 全部自动调整模块
+    case 0: // 全部自动调整模块
         ELoad_RtuSent::bulid()->setAllDpAdjust();
         break;
-    case 2: // 大电流模式
+    case 1: // 大电流模式
 
         break;
 
-    case 3: // 手动模式
+    case 2: // 手动模式
 
         break;
     }

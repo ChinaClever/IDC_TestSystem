@@ -41,7 +41,7 @@ void ELoad_MainWid::initFunSLot()
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
     rtu->init(ELoad_ConfigFile::bulid()->item->serial);
-    rtu->startThread();
+    //rtu->startThread();
 }
 
 void ELoad_MainWid::toolBoxSlot(int id)

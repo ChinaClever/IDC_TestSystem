@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -81,10 +81,10 @@ void MTest_SwWid::on_pushButton_clicked()
     sConfigItem *item = M_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            if(item->testMode == Test_Rtu) {
-                sendRtu(i);
-            } else if(item->testMode == Test_SNMP) {
+            if(item->testMode == Test_SNMP) {
                 sendSnmp(i);  // 增加SNMP命令
+            } else {
+                sendRtu(i);
             }
         }
     }
