@@ -8,6 +8,7 @@
 #include "ui_eload_statushomewid.h"
 #include "eload_com/in_datapackets.h"
 #include "eload_rtu/eload_rtusent.h"
+#include "eload_rtu/in_rtuthread.h"
 
 ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     QWidget(parent),
@@ -22,7 +23,7 @@ ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    ui->pushButton_2->setStyleSheet("QPushButton{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
+    ui->eleBtn->setStyleSheet("QPushButton{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
                                     "QPushButton:hover{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
                                     "QPushButton:pressed{background-color:rgb(219,241,252);color:rgb(0,0,0);}");
 }
@@ -173,3 +174,14 @@ void ELoad_StatusHomeWid::on_closeBtn_clicked()
     ELoad_RtuSent::bulid()->switchCloseAll();
 }
 
+
+void ELoad_StatusHomeWid::on_eleBtn_clicked()
+{
+    sRtuSentCom cmd;
+    cmd.addr = ui->addrBox->currentIndex() + 1;
+    cmd.addr = 0xff;
+
+    cmd.reg = 0x1039;
+    cmd.len = 0;
+    IN_RtuThread::bulid()->sentCmd(cmd);
+}
