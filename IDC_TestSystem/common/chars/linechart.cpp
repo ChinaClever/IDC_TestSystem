@@ -5,6 +5,7 @@
  *      Author: Lzy
  */
 #include "linechart.h"
+extern void groupBox_background_icon(QWidget *target);
 
 LineChart::LineChart(QWidget *parent) : QWidget(parent)
 {
@@ -16,6 +17,10 @@ LineChart::LineChart(QWidget *parent) : QWidget(parent)
 
     mChartView = new QChartView(mChart);
     mChartView->setRenderHint(QPainter::Antialiasing);
+
+    QGridLayout *gridLayout = new QGridLayout(parent);
+    gridLayout->setContentsMargins(0, 0, 0, 10);
+    gridLayout->addWidget(mChartView);
 
     initAxisX();
     initAxisY();
@@ -35,6 +40,9 @@ void LineChart::initAxisY()
 
 void LineChart::initAxisX()
 {
+    QAbstractAxis *axis =  mChart->axisX();
+    mChart->removeAxis(axis);
+
     QDateTimeAxis *axisX = new QDateTimeAxis;
     axisX->setTickCount(10);
     axisX->setFormat("hh:mm:ss");
@@ -42,9 +50,16 @@ void LineChart::initAxisX()
     mChart->addAxis(axisX, Qt::AlignBottom);
     mSeries->attachAxis(axisX);
 
+    initAxisXTime();
+}
+
+void LineChart::initAxisXTime()
+{
+    QAbstractAxis *axis =  mChart->axisX();
+
     QDateTime time = QDateTime::currentDateTime();
     mYtime = time.addSecs(60);
-    axisX->setRange(time, mYtime);
+    axis->setRange(time, mYtime);
 }
 
 void LineChart::setAxisYRange(int value)
@@ -76,4 +91,5 @@ void LineChart::append(qreal y)
 void LineChart::clearChart()
 {
     mSeries->clear();
+    initAxisXTime();
 }

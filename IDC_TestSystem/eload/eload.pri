@@ -46,7 +46,8 @@ HEADERS += \
     $$PWD/eload_dp/eload_dpsavelinerecord.h \
     $$PWD/eload_dp/eload_dpsavelinethreshold.h \
     $$PWD/eload_dp/eload_dpsavetrans.h \
-    $$PWD/eload_dp/eload_dpthread.h
+    $$PWD/eload_dp/eload_dpthread.h \
+    $$PWD/eload_temrise/eload_temrisewid.h
 
 	
 SOURCES += \
@@ -93,7 +94,8 @@ SOURCES += \
     $$PWD/eload_dp/eload_dpsavelinerecord.cpp \
     $$PWD/eload_dp/eload_dpsavelinethreshold.cpp \
     $$PWD/eload_dp/eload_dpsavetrans.cpp \
-    $$PWD/eload_dp/eload_dpthread.cpp
+    $$PWD/eload_dp/eload_dpthread.cpp \
+    $$PWD/eload_temrise/eload_temrisewid.cpp
 
 FORMS += \
     $$PWD/eload_mainwid.ui \
@@ -110,7 +112,8 @@ FORMS += \
     $$PWD/eload_toolbox/eload_hometoolwid.ui \
     $$PWD/eload_toolbox/eload_settingtoolwid.ui \
     $$PWD/eload_toolbox/eload_logstoolwid.ui \
-    $$PWD/eload_logs/eload_logswid.ui
+    $$PWD/eload_logs/eload_logswid.ui \
+    $$PWD/eload_temrise/eload_temrisewid.ui
 
 
 

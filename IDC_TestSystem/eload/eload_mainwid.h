@@ -5,6 +5,7 @@
 #include "eload_home/eload_homemainwid.h"
 #include "eload_input/in_mainwid.h"
 #include "eload_logs/eload_logswid.h"
+#include "eload_temrise/eload_temrisewid.h"
 
 namespace Ui {
 class ELoad_MainWid;
@@ -28,6 +29,8 @@ private:
     ELoad_HomeMainWid *mHomeMainWid;
     IN_MainWid *mInputMainWid;
     ELoad_LogsWid *mLogsWid;
+
+    ELoad_TemRiseWid *mTemRiseWid[3];
 };
 
 #endif // ELOAD_MAINWID_H

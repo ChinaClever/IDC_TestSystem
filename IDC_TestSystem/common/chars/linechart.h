@@ -19,6 +19,7 @@ public:
 protected:
     void initAxisX();
     void initAxisY();
+    void initAxisXTime();
 
     void setAxisXRange();
     void setAxisYRange(int value);

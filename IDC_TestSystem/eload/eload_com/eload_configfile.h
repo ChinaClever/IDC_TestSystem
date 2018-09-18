@@ -25,6 +25,10 @@ enum {
     ELoad_Log_Loop,
     ELoad_Log_Output,
     ELoad_Log_Alarm,
+
+    ELoad_Tem_RiseOne,
+    ELoad_Tem_RiseTwo,
+    ELoad_Tem_RiseThree,
 };
 
 

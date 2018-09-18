@@ -18,6 +18,7 @@ public:
 signals:
     void toolSig(int);
 
+
 protected:
     bool initSerialPort();
     void updateSerialWid();
@@ -28,6 +29,7 @@ private slots:
     void on_homeBtn_clicked();
     void on_serialBtn_clicked();
     void on_devNumBtn_clicked();
+    void on_temriseBtn_clicked();
 
 private:
     Ui::ELoad_HomeToolWid *ui;

@@ -27,7 +27,7 @@ sDataPacket *IN_DataPackets::getDev(int num)
 
 int IN_DataPackets::getTemRise(int id)
 {
-    sDataUnit *data = &(getDev(id)->data).env.tem;
+    sDataUnit *data = getDev(id)->data.env.tem;
     int tem = data[1].value - data[2].value;
     if(tem<0) tem = 0 - tem;
 

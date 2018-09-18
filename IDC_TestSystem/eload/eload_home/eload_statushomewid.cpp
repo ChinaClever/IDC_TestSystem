@@ -175,7 +175,6 @@ void ELoad_StatusHomeWid::on_closeBtn_clicked()
 void ELoad_StatusHomeWid::on_eleBtn_clicked()
 {
     sRtuSentCom cmd;
-    cmd.addr = ui->addrBox->currentIndex() + 1;
     cmd.addr = 0xff;
 
     cmd.reg = 0x1039;
