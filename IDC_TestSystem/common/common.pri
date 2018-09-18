@@ -2,7 +2,15 @@
 INCLUDEPATH += $$PWD
 
 include(snmp/snmp.pri)
+include(chars/chars.pri)
 include(excel/excel.pri)
+include(dpcom/dpcom.pri)
+include(rtucom/rtucom.pri)
+include(logcom/logcom.pri)
+include(sqlcom/sqlcom.pri)
+include(tablewid/tablewid.pri)
+include(toolbox/toolbox.pri)
+include(websocket/websocket.pri)
 include(serialport/serialport.pri)
 
 HEADERS += \	
@@ -10,115 +18,17 @@ HEADERS += \
     $$PWD/msgbox.h \
     $$PWD/sysconfigfile.h \
     $$PWD/configbase.h \
-    $$PWD/tablewid/comtablewid.h \
-    $$PWD/logcom/logbtnbar.h \
-    $$PWD/logcom/logcalendardlg.h \
-    $$PWD/logcom/logcomwid.h \
-    $$PWD/logcom/log_exportdlg.h \
-    $$PWD/logcom/log_datewidget.h \
-    $$PWD/logcom/log_datehash.h \
-    $$PWD/sqlcom/basicsql.h \
-    $$PWD/sqlcom/sqltablemodel.h \
 #    common/qcustomplot.h \
-    $$PWD/rtucom/rtusentcom.h \
-    $$PWD/websocket/websocketclient.h \
     $$PWD/datapacket.h \
-    $$PWD/websocket/json/buildjson.h \
-    $$PWD/tablewid/linetablewid.h \
-    $$PWD/tablewid/linethresholdtablewid.h \
-    $$PWD/tablewid/envtablewid.h \
-    $$PWD/tablewid/transtablewid.h \
-    $$PWD/sqlcom/dbalarm.h \
-    $$PWD/sqlcom/dbenv.h \
-    $$PWD/sqlcom/dbmodbuscmd.h \
-    $$PWD/sqlcom/dbmodbustrans.h \
-    $$PWD/sqlcom/dblinerecords.h \
-    $$PWD/sqlcom/dblinethresholds.h \
-    $$PWD/dpcom/dpalarmsave.h \
-    $$PWD/dpcom/dpsaveenv.h \
-    $$PWD/dpcom/dpsaveline.h \
-    $$PWD/dpcom/dpsavelinethreshold.h \
-    $$PWD/dpcom/dpsaverecord.h \
-    $$PWD/dpcom/dpsavetrans.h \
-    $$PWD/websocket/webservicethread.h \
-    $$PWD/dpcom/dpthread.h \
-    $$PWD/tablewid/simulatethread.h \
-    $$PWD/sqlcom/dboutputrecords.h \
-    $$PWD/dpcom/dpsaveoutput.h \
-    $$PWD/tablewid/outputtablewid.h \
-    $$PWD/tablewid/outputthresholdtablewid.h \
-    $$PWD/sqlcom/dblooprecords.h \
-    $$PWD/dpcom/dpsaveloop.h \
-    $$PWD/tablewid/looptablewid.h \
-    $$PWD/tablewid/loopthresholdtablewid.h \
-    $$PWD/rtucom/rtuthread.h \
-    $$PWD/toolbox/statustoolwid.h \
-    $$PWD/toolbox/settingtoolwid.h \
-    $$PWD/toolbox/modetoolwid.h \
-    $$PWD/toolbox/logstoolwid.h
 	
 SOURCES += \	
     $$PWD/common.cpp \
     $$PWD/msgbox.cpp \
     $$PWD/sysconfigfile.cpp \
     $$PWD/configbase.cpp \
-    $$PWD/tablewid/comtablewid.cpp \
-    $$PWD/logcom/logbtnbar.cpp \
-    $$PWD/logcom/logcalendardlg.cpp \
-    $$PWD/logcom/logcomwid.cpp \
-    $$PWD/logcom/log_exportdlg.cpp \
-    $$PWD/logcom/log_datewidget.cpp \
-    $$PWD/logcom/log_datehash.cpp \
-    $$PWD/sqlcom/basicsql.cpp \
-    $$PWD/sqlcom/sqltablemodel.cpp \
 #    common/qcustomplot.cpp \
-    $$PWD/rtucom/rtusentcom.cpp \
-    $$PWD/websocket/websocketclient.cpp \
-    $$PWD/websocket/json/buildjson.cpp \
-    $$PWD/tablewid/linetablewid.cpp \
-    $$PWD/tablewid/linethresholdtablewid.cpp \
-    $$PWD/tablewid/envtablewid.cpp \
-    $$PWD/tablewid/transtablewid.cpp \
-    $$PWD/sqlcom/dbalarm.cpp \
-    $$PWD/sqlcom/dbenv.cpp \
-    $$PWD/sqlcom/dbmodbuscmd.cpp \
-    $$PWD/sqlcom/dbmodbustrans.cpp \
-    $$PWD/sqlcom/dblinerecords.cpp \
-    $$PWD/sqlcom/dblinethresholds.cpp \
-    $$PWD/dpcom/dpsaveenv.cpp \
-    $$PWD/dpcom/dpsaveline.cpp \
-    $$PWD/dpcom/dpsavelinethreshold.cpp \
-    $$PWD/dpcom/dpsaverecord.cpp \
-    $$PWD/dpcom/dpsavetrans.cpp \
-    $$PWD/dpcom/dpalarmsave.cpp \
-    $$PWD/websocket/webservicethread.cpp \
-    $$PWD/dpcom/dpthread.cpp \
-    $$PWD/tablewid/simulatethread.cpp \
-    $$PWD/sqlcom/dboutputrecords.cpp \
-    $$PWD/dpcom/dpsaveoutput.cpp \
-    $$PWD/tablewid/outputtablewid.cpp \
-    $$PWD/tablewid/outputthresholdtablewid.cpp \
-    $$PWD/sqlcom/dblooprecords.cpp \
-    $$PWD/dpcom/dpsaveloop.cpp \
-    $$PWD/tablewid/looptablewid.cpp \
-    $$PWD/tablewid/loopthresholdtablewid.cpp \
-    $$PWD/rtucom/rtuthread.cpp \
-    $$PWD/toolbox/statustoolwid.cpp \
-    $$PWD/toolbox/settingtoolwid.cpp \
-    $$PWD/toolbox/modetoolwid.cpp \
-    $$PWD/toolbox/logstoolwid.cpp
 
 FORMS += \
-    $$PWD/tablewid//comtablewid.ui \
-    $$PWD/logcom/logbtnbar.ui \
-    $$PWD/logcom/logcalendardlg.ui \
-    $$PWD/logcom/logcomwid.ui \
-    $$PWD/logcom/log_exportdlg.ui \
-    $$PWD/logcom/log_datewidget.ui \
-    $$PWD/toolbox/statustoolwid.ui \
-    $$PWD/toolbox/settingtoolwid.ui \
-    $$PWD/toolbox/modetoolwid.ui \
-    $$PWD/toolbox/logstoolwid.ui
 
 
 

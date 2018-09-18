@@ -24,28 +24,11 @@ enum {
 };
 
 
-struct BusConfigItem
-{
-    BusConfigItem() {testMode=0; msecs = 5; logMins=60;}
-
-    int testMode; // 测试模式
-    int msecs;
-    int logMins; // 日志间隔时间分钟
-
-    SerialPort *serial; // 串口对象
-    int lineNum; // 相数
-    int devNum; // 级联数
-    int cmdModel; // 命令模式
-};
-
-
 class BUS_ConfigFile : public ConfigBase
 {
     BUS_ConfigFile();
 public:
     static BUS_ConfigFile *bulid();
-
-    BusConfigItem *item;
     QString getPrefix(){return "bus";}
 };
 

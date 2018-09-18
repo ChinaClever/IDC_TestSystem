@@ -8,9 +8,6 @@
 
 ELoad_ConfigFile::ELoad_ConfigFile()
 {
-    item = new sELoad_ConfigItem();
-    item->cmdModel = 1;
-    item->msecs = 10;
 }
 
 ELoad_ConfigFile *ELoad_ConfigFile::bulid()

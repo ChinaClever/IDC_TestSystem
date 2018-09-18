@@ -28,27 +28,11 @@ enum {
 };
 
 
-struct sELoad_ConfigItem
-{
-    sELoad_ConfigItem() {testMode=0; msecs = 5; logMins=60;}
-
-    int testMode; // 测试模式
-    int msecs;
-    int logMins; // 日志间隔时间分钟
-
-    SerialPort *serial; // 串口对象
-    int devNum; // 级联数
-    int cmdModel; // 命令模式
-};
-
-
 class ELoad_ConfigFile: public ConfigBase
 {
     ELoad_ConfigFile();
 public:
     static ELoad_ConfigFile *bulid();
-
-    sELoad_ConfigItem *item;
     QString getPrefix(){return "eload";}
 };
 

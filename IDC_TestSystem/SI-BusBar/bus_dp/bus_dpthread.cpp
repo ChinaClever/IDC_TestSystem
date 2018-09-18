@@ -76,7 +76,7 @@ void BUS_DpThread::run()
 
 void BUS_DpThread::timeoutDone()
 {
-     BusConfigItem *item = BUS_ConfigFile::bulid()->item;
+     sConfigItem *item = BUS_ConfigFile::bulid()->item;
     int num = item->logMins;
     if(mCount++ % num == 0) {
         if(item->testMode == BUS_Test_Simulate)
