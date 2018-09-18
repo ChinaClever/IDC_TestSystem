@@ -172,7 +172,6 @@ void SnmpThread::makeRequest()
         }
         if(ret) {
             mDataPacket = &(mPackets->dev[mId]);
-            //qDebug()<<mDataPacket->ip<<(&(&(&(mDataPacket->data))->line[0])->cur)->value;
         }
 
         if(mId >= mPackets->devNum) {
