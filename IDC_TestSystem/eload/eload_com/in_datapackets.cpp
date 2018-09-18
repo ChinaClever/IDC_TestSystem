@@ -7,7 +7,7 @@
 #include "in_datapackets.h"
 
 IN_DataPackets::IN_DataPackets()
-{    
+{
     packets = new sDevPackets();
     memset(packets, 0, sizeof(sDevPackets));
 }
