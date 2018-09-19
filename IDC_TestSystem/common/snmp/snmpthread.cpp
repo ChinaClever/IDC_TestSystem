@@ -5,6 +5,7 @@
  *      Author: Lzy
  */
 #include "snmpthread.h"
+#include <cassert>
 
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
@@ -48,7 +49,14 @@ void SnmpThread::stopRun()
 
 qint32 SnmpThread::setValue(const QString& oid, const int type, const QByteArray& value)
 {
-    return  m_snmp_client->setValue("private", oid, type, value);
+     assert( QThread::currentThread() == thread() );
+
+     qDebug() << "BBBBBBBBBBBBBBBB";
+     QMutexLocker locker(mMutex); //msleep(100);
+    qDebug() << "OID" << oid << value;
+
+    return m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
+//    return  m_snmp_client->setValue("private", oid, type, value);
 }
 
 
@@ -165,6 +173,8 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
+    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
+
     if(mPackets) {
         bool ret = requestSubValues(++mId);
         if(!ret) {
@@ -172,7 +182,6 @@ void SnmpThread::makeRequest()
         }
         if(ret) {
             mDataPacket = &(mPackets->dev[mId]);
-            //qDebug()<<mDataPacket->ip<<(&(&(&(mDataPacket->data))->line[0])->cur)->value;
         }
 
         if(mId >= mPackets->devNum) {

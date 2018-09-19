@@ -1,8 +1,7 @@
-#include "ztest_snmpthread.h"
+﻿#include "ztest_snmpthread.h"
 
 ZTest_SnmpThread::ZTest_SnmpThread(QObject *parent) : QThread(parent)
 {
-    mReg = 0;
     mMutex = new QMutex();
 
     isRun = false;
@@ -15,6 +14,13 @@ ZTest_SnmpThread::~ZTest_SnmpThread()
     wait();
 }
 
+ void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
+ {
+     qDebug() << "AAAAAAAAAAA";
+
+     sentSetCmd(cmd);
+//     mList.append(cmd);
+ }
 
 
 /**

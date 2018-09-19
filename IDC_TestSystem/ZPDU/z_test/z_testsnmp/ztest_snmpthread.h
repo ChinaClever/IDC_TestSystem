@@ -1,4 +1,4 @@
-#ifndef ZTEST_SNMPTHREAD_H
+﻿#ifndef ZTEST_SNMPTHREAD_H
 #define ZTEST_SNMPTHREAD_H
 
 #include "z_snmp/z_snmptrans.h"
@@ -11,8 +11,7 @@ public:
     explicit ZTest_SnmpThread(QObject *parent = nullptr);
     ~ZTest_SnmpThread();
 
-    void setCmd(const sSnmpSetCmd &cmd) {mList.append(cmd);}
-    int mReg;
+    void setCmd(const sSnmpSetCmd &cmd);
 
 protected:
     int sentSetCmd(const sSnmpSetCmd &cmd);

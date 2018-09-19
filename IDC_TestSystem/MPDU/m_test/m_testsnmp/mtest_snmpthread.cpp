@@ -1,8 +1,7 @@
-#include "mtest_snmpthread.h"
+﻿#include "mtest_snmpthread.h"
 
 MTest_SnmpThread::MTest_SnmpThread(QObject *parent) : QThread(parent)
 {
-    mReg = 0;
     mMutex = new QMutex();
 
     isRun = false;

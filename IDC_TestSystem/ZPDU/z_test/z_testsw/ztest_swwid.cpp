@@ -27,6 +27,7 @@ void ZTest_SwWid::initwid()
         mWid[i]->init(i);
     }
 
+
     mSnmp = new ZTest_SnmpThread(this);
     connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 
@@ -58,12 +59,12 @@ void ZTest_SwWid::sendRtu(int i)
 
 void ZTest_SwWid::sendSnmp(int i)
 {
-    sSnmpSetCmd cmd;
+    static sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
-    QString oid = QString("%1.%2.%3.7.%4").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
+    QString oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
     cmd.oid = oid;
-    cmd.type = SNMP_INTEGER_TYPE;
-    cmd.value.append( (char) mWid[i]->status());
+    cmd.type = SNMP_STRING_TYPE;
+    cmd.value.append( mWid[i]->status()==1?"ON":"OFF");
     mSnmp->setCmd(cmd);
 }
 
@@ -72,15 +73,17 @@ void ZTest_SwWid::on_pushButton_clicked()
     sConfigItem *item = Z_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            if(item->testMode == Test_SNMP) {
+//            if(item->testMode == Test_SNMP) {
                 sendSnmp(i);  // 增加SNMP命令
-            } else {
-                sendRtu(i);
-            }
+//            } else {
+//                sendRtu(i);
+//            }
         }
     }
 
+//    mSnmp->start();
     mRtu->start();
+
     ui->textEdit->clear();
 }
 
