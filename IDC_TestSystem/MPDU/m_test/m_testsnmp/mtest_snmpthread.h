@@ -1,4 +1,4 @@
-#ifndef MTEST_SNMPTHREAD_H
+﻿#ifndef MTEST_SNMPTHREAD_H
 #define MTEST_SNMPTHREAD_H
 
 #include "m_snmp/m_snmptrans.h"
@@ -11,7 +11,6 @@ public:
     ~MTest_SnmpThread();
 
     void setCmd(const sSnmpSetCmd &cmd) {mList.append(cmd);}
-    int mReg;
 
 protected:
     int sentSetCmd(const sSnmpSetCmd &cmd);

@@ -33,7 +33,10 @@ int OutputTableWid::updateDev(sDataPacket *dev, int row)
             QStringList list;
             list << QString::number(dev->id);
             QString str = dev->data.output[i].name;
-            if(str.isEmpty()) list << ("Output "+QString::number(i+1));
+            if(str.isEmpty())
+                list << ("Output "+QString::number(i+1));
+            else
+                list << str;
 
             setObjUnit(dev->data.output[i],  list);
             setAlarm(dev->data.output[i],  row);
