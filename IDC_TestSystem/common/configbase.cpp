@@ -9,6 +9,7 @@
 ConfigBase::ConfigBase()
 {
     item = new sConfigItem();
+    item->setMode = Set_Snmp;
     item->devNum = 1;
     item->lineNum = 1;
     item->cmdModel = 1;
@@ -39,6 +40,29 @@ void ConfigBase::setSerialName(const QString &name)
     QString prefix = getPrefix();
     QString str = QString("%1_COM").arg(prefix);
     sys_configFile_writeParam(str, name, prefix);
+}
+
+
+/**
+ * @brief 获取串口名称
+ * @return 串口名
+ */
+QString ConfigBase::getIp()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_ip").arg(prefix);
+    return sys_configFile_readStr(str, prefix);
+}
+
+/**
+ * @brief 设置串口名
+ * @param name
+ */
+void ConfigBase::setIp(const QString &ip)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_ip").arg(prefix);
+    sys_configFile_writeParam(str, ip, prefix);
 }
 
 /**

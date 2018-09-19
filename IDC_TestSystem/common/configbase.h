@@ -9,6 +9,9 @@ enum {
     Test_Rtu,
     Test_Function, // 功能测试
 
+    Set_Snmp,
+    Set_Rtu,
+
     Info_Line, // 相信息信息
     Info_Trans, // Modbus传输统计实时显示界面
     Info_LineThreshold, // 设备阈值实时显示界面
@@ -35,6 +38,7 @@ struct sConfigItem
     sConfigItem() {testMode=0; msecs = 5; logMins=60;}
 
     int testMode; // 测试模式
+    int setMode;
     int msecs;
     int logMins; // 日志间隔时间分钟
 
@@ -55,6 +59,9 @@ public:
 
     QString getSerialName();
     void setSerialName(const QString &name);
+
+    QString getIp();
+    void setIp(const QString &ip);
 
     int getLineNum();
     void setLineNum(int num);

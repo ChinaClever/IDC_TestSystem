@@ -42,9 +42,11 @@ void MTest_SnmpThread::run()
                  str += tr("失败!!");
             }
 
+            msleep(20);
             emit cmdSig(str);
         }
 
+        sleep(1);
         mList.clear();
         isRun = false;
     }

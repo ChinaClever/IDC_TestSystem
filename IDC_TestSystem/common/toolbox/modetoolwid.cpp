@@ -23,6 +23,9 @@ ModeToolWid::~ModeToolWid()
 void ModeToolWid::initFunSLot()
 {
     initSerialPort();
+
+    QString ip = mConfig->getIp();
+    if(!ip.isEmpty())  ui->lineEdit->setText(ip);
 }
 
 void ModeToolWid::sipdu()
@@ -54,6 +57,8 @@ bool ModeToolWid::initSerialPort()
 
     return ret;
 }
+
+
 
 /**
  * @brief 更新串口窗口
@@ -109,7 +114,10 @@ void ModeToolWid::startTest()
     if(index) mode = Test_Rtu;
 
     mConfig->item->testMode = mode;
-    mConfig->item->ip = ui->lineEdit->text();
+    mConfig->item->setMode = mode;
+    QString ip = ui->lineEdit->text();
+    mConfig->item->ip = ip;
+    mConfig->setIp(ip);
     emit simulateSig(mode);
 
     ui->comboBox->setEnabled(false);

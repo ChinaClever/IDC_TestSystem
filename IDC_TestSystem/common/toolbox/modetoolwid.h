@@ -26,6 +26,7 @@ protected:
     void startTest();
     bool stopTest();
 
+
 protected slots:
     void initFunSLot();
     void on_serialBtn_clicked();

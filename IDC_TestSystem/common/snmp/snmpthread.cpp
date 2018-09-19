@@ -21,7 +21,7 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 
     m_timer =  new QTimer(this);
     connect( m_timer, SIGNAL(timeout()), SLOT(makeRequest()) );
-//    connect( m_timer, SIGNAL(timeout()), SLOT(start()));
+    //    connect( m_timer, SIGNAL(timeout()), SLOT(start()));
 }
 
 SnmpThread::~SnmpThread()
@@ -47,16 +47,20 @@ void SnmpThread::stopRun()
     isRun = false;
 }
 
-qint32 SnmpThread::setValue(const QString& oid, const int type, const QByteArray& value)
+
+qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 {
-     assert( QThread::currentThread() == thread() );
+    mSetCmd = cmd;
+    QTimer::singleShot(1,this,SLOT(setSlot()));
 
-     qDebug() << "BBBBBBBBBBBBBBBB";
-     QMutexLocker locker(mMutex); //msleep(100);
-    qDebug() << "OID" << oid << value;
+    return 1;
+}
 
-    return m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
-//    return  m_snmp_client->setValue("private", oid, type, value);
+
+void SnmpThread::setSlot()
+{
+    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
+    m_snmp_client->setValue("private", mSetCmd.oid, mSetCmd.type, mSetCmd.value);
 }
 
 
@@ -66,9 +70,9 @@ void SnmpThread::onResponseReceived(const qint32, const QtSnmpDataList& values )
     mValues << values;
     sentOkCmd();
 
-//    for( const auto& value : values ) {
-//        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
-//    }
+    //    for( const auto& value : values ) {
+    //        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
+    //    }
 }
 
 void SnmpThread::onRequestFailed( const qint32 request_id ) {
@@ -173,7 +177,7 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
-    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
+//    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
 
     if(mPackets) {
         bool ret = requestSubValues(++mId);
@@ -194,7 +198,7 @@ void SnmpThread::run()
 {
     isRun = true;
     while(isRun)
-    {        
+    {
         msleep(10);
         QMutexLocker locker(mMutex);
         for( const auto& value : mValues ) {

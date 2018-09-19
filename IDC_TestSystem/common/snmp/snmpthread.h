@@ -34,8 +34,8 @@ public:
     qint32 requestValues( const QStringList& oid_list ) {return m_snmp_client->requestValues(oid_list); }
     qint32 requestSubValues( const QString& oid ) {return m_snmp_client->requestSubValues(oid);}   
 
-    qint32 setValue(const QString& oid, const int type, const QByteArray& value );
-    qint32 setValue(const sSnmpSetCmd &cmd) {return setValue(cmd.oid, cmd.type, cmd.value);}
+//    qint32 setValue(const QString& oid, const int type, const QByteArray& value );
+    qint32 setValue(const sSnmpSetCmd &cmd); // {return setValue(cmd.oid, cmd.type, cmd.value);}
 
     void startRun(const QString &addr, int msec=0);
     void stopRun();
@@ -57,6 +57,7 @@ private:
     void saveErrCmd();
 
 private slots:
+    void setSlot();
     void onResponseReceived( const qint32 request_id,const QtSnmpDataList& );
     void onRequestFailed( const qint32 request_id );
     void makeRequest();
@@ -72,6 +73,8 @@ private:
     bool isRun;
     int mOidSubIndex, mId;
     sDataPacket *mDataPacket;
+
+    sSnmpSetCmd mSetCmd;
 
 protected:
     sDevPackets *mPackets;
