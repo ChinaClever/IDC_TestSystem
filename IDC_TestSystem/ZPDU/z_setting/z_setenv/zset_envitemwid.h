@@ -1,19 +1,19 @@
-﻿#ifndef ZTEST_ENVITEMWID_H
-#define ZTEST_ENVITEMWID_H
+﻿#ifndef ZSET_ENVITEMWID_H
+#define ZSET_ENVITEMWID_H
 
 #include <QWidget>
 #include "../z_testthreshold/ztest_thresholditemwid.h"
 namespace Ui {
-class ZTest_EnvItemWid;
+class ZSet_EnvItemWid;
 }
 
-class ZTest_EnvItemWid : public QWidget
+class ZSet_EnvItemWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ZTest_EnvItemWid(QWidget *parent = 0);
-    ~ZTest_EnvItemWid();
+    explicit ZSet_EnvItemWid(QWidget *parent = 0);
+    ~ZSet_EnvItemWid();
 
     void initwid(int mode, int type);
 
@@ -25,7 +25,7 @@ protected:
     int getReg(int mode, int type);
 
 private:
-    Ui::ZTest_EnvItemWid *ui;
+    Ui::ZSet_EnvItemWid *ui;
 };
 
-#endif // ZTEST_ENVITEMWID_H
+#endif // ZSET_ENVITEMWID_H

@@ -5,7 +5,7 @@
 #include "z_testthreshold/ztest_thresholdoutputwid.h"
 #include "z_setele/zset_outputelewid.h"
 #include "z_testline/ztest_linewid.h"
-#include "z_testenv/ztest_envwid.h"
+#include "z_setenv/zset_envwid.h"
 #include "z_testloop/ztest_loopwid.h"
 ZTest_MainWid::ZTest_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -51,7 +51,7 @@ void ZTest_MainWid::initFunSLot()
     ZTest_LineWid *lineWid = new ZTest_LineWid(ui->tabWidget);
     ui->tabWidget->addTab(lineWid, tr("相阈值设置"));
 
-    ZTest_EnvWid *envWid = new ZTest_EnvWid(ui->tabWidget);
+    ZSet_EnvWid *envWid = new ZSet_EnvWid(ui->tabWidget);
     ui->tabWidget->addTab(envWid, tr("传感器阈值设置"));
 
     ZTest_LoopWid *loopWid = new ZTest_LoopWid(ui->tabWidget);

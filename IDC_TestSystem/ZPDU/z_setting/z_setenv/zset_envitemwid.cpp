@@ -1,18 +1,18 @@
-﻿#include "ztest_envitemwid.h"
-#include "ui_ztest_envitemwid.h"
+﻿#include "zset_envitemwid.h"
+#include "ui_zset_envitemwid.h"
 
-ZTest_EnvItemWid::ZTest_EnvItemWid(QWidget *parent) :
+ZSet_EnvItemWid::ZSet_EnvItemWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_EnvItemWid)
+    ui(new Ui::ZSet_EnvItemWid)
 {
     ui->setupUi(this);
 }
 
-ZTest_EnvItemWid::~ZTest_EnvItemWid()
+ZSet_EnvItemWid::~ZSet_EnvItemWid()
 {
     delete ui;
 }
-QString ZTest_EnvItemWid::getTypeName(int type)
+QString ZSet_EnvItemWid::getTypeName(int type)
 {
     QString str;
     switch (type) {
@@ -26,7 +26,7 @@ QString ZTest_EnvItemWid::getTypeName(int type)
     return str;
 }
 
-int ZTest_EnvItemWid::getReg(int mode, int type)
+int ZSet_EnvItemWid::getReg(int mode, int type)
 {
     int reg = Z_RtuReg_TemMin;
     if(mode) reg = Z_RtuReg_HumMin;
@@ -43,7 +43,7 @@ int ZTest_EnvItemWid::getReg(int mode, int type)
 }
 
 
-void ZTest_EnvItemWid::initwid(int mode, int type)
+void ZSet_EnvItemWid::initwid(int mode, int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2};
     for(int i=0; i<2; ++i) {

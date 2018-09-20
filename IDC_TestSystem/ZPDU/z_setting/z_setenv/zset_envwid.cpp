@@ -1,25 +1,25 @@
-﻿#include "ztest_envwid.h"
-#include "ui_ztest_envwid.h"
+﻿#include "zset_envwid.h"
+#include "ui_zset_envwid.h"
 
-ZTest_EnvWid::ZTest_EnvWid(QWidget *parent) :
+ZSet_EnvWid::ZSet_EnvWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_EnvWid)
+    ui(new Ui::ZSet_EnvWid)
 {
     ui->setupUi(this);
     initWid();
 }
 
-ZTest_EnvWid::~ZTest_EnvWid()
+ZSet_EnvWid::~ZSet_EnvWid()
 {
     delete ui;
 }
-void ZTest_EnvWid::initWid()
+void ZSet_EnvWid::initWid()
 {
     int id = 0;
-    mWid[id] = new ZTest_EnvUnitWid(ui->temGroup);
+    mWid[id] = new ZSet_EnvUnitWid(ui->temGroup);
     mWid[id++]->initWid(0, Zpdu_Rtu_Test_min);
 
-    mWid[id] = new ZTest_EnvUnitWid(ui->humGroup);
+    mWid[id] = new ZSet_EnvUnitWid(ui->humGroup);
     mWid[id++]->initWid(1, Zpdu_Rtu_Test_min);
 
     mRtu = new ZSet_RtuThread(this);
@@ -27,13 +27,13 @@ void ZTest_EnvWid::initWid()
 }
 
 
-void ZTest_EnvWid::updateTextSlot(QString str)
+void ZSet_EnvWid::updateTextSlot(QString str)
 {
     ui->textEdit->append(str);
 }
 
 
-void ZTest_EnvWid::on_pushButton_clicked()
+void ZSet_EnvWid::on_pushButton_clicked()
 {
     QList<sZTestRtuSetCmd> list;
     int addr = ui->spinBox->value();
