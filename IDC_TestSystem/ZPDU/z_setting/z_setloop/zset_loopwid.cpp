@@ -1,23 +1,23 @@
-﻿#include "ztest_loopwid.h"
-#include "ui_ztest_loopwid.h"
+﻿#include "zset_loopwid.h"
+#include "ui_zset_loopwid.h"
 
-ZTest_LoopWid::ZTest_LoopWid(QWidget *parent) :
+ZSet_LoopWid::ZSet_LoopWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_LoopWid)
+    ui(new Ui::ZSet_LoopWid)
 {
     ui->setupUi(this);
     initWid();
 }
 
-ZTest_LoopWid::~ZTest_LoopWid()
+ZSet_LoopWid::~ZSet_LoopWid()
 {
     delete ui;
 }
-void ZTest_LoopWid::initWid()
+void ZSet_LoopWid::initWid()
 {
 
 
-    mWid = new ZTest_LoopUnitWid(ui->curGroup);
+    mWid = new ZSet_LoopUnitWid(ui->curGroup);
     mWid->initWid(Zpdu_Rtu_Test_min);
 
 
@@ -26,13 +26,13 @@ void ZTest_LoopWid::initWid()
 }
 
 
-void ZTest_LoopWid::updateTextSlot(QString str)
+void ZSet_LoopWid::updateTextSlot(QString str)
 {
     ui->textEdit->append(str);
 }
 
 
-void ZTest_LoopWid::on_pushButton_clicked()
+void ZSet_LoopWid::on_pushButton_clicked()
 {
     QList<sZTestRtuSetCmd> list;
     int addr = ui->spinBox->value();

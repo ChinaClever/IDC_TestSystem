@@ -1,18 +1,18 @@
-﻿#include "ztest_loopitemwid.h"
-#include "ui_ztest_loopitemwid.h"
+﻿#include "zset_loopitemwid.h"
+#include "ui_zset_loopitemwid.h"
 
-ZTest_LoopItemWid::ZTest_LoopItemWid(QWidget *parent) :
+ZSet_LoopItemWid::ZSet_LoopItemWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_LoopItemWid)
+    ui(new Ui::ZSet_LoopItemWid)
 {
     ui->setupUi(this);
 }
 
-ZTest_LoopItemWid::~ZTest_LoopItemWid()
+ZSet_LoopItemWid::~ZSet_LoopItemWid()
 {
     delete ui;
 }
-QString ZTest_LoopItemWid::getTypeName(int type)
+QString ZSet_LoopItemWid::getTypeName(int type)
 {
     QString str;
     switch (type) {
@@ -26,7 +26,7 @@ QString ZTest_LoopItemWid::getTypeName(int type)
     return str;
 }
 
-int ZTest_LoopItemWid::getReg(int type)
+int ZSet_LoopItemWid::getReg(int type)
 {
     int reg = Z_RtuReg_LoopCurMin;
 
@@ -42,7 +42,7 @@ int ZTest_LoopItemWid::getReg(int type)
 }
 
 
-void ZTest_LoopItemWid::initwid(int type)
+void ZSet_LoopItemWid::initwid(int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3,ui->widget_4, ui->widget_5, ui->widget_6};
     for(int i=0; i<6; ++i) {

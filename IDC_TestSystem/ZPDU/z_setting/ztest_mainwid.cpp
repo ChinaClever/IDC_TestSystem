@@ -6,7 +6,7 @@
 #include "z_setele/zset_outputelewid.h"
 #include "z_setline/zset_linewid.h"
 #include "z_setenv/zset_envwid.h"
-#include "z_testloop/ztest_loopwid.h"
+#include "z_setloop/zset_loopwid.h"
 ZTest_MainWid::ZTest_MainWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ZTest_MainWid)
@@ -54,6 +54,6 @@ void ZTest_MainWid::initFunSLot()
     ZSet_EnvWid *envWid = new ZSet_EnvWid(ui->tabWidget);
     ui->tabWidget->addTab(envWid, tr("传感器阈值设置"));
 
-    ZTest_LoopWid *loopWid = new ZTest_LoopWid(ui->tabWidget);
+    ZSet_LoopWid *loopWid = new ZSet_LoopWid(ui->tabWidget);
     ui->tabWidget->addTab(loopWid, tr("回路阈值设置"));
 }
