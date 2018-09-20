@@ -14,12 +14,12 @@ ZTest_SnmpThread::~ZTest_SnmpThread()
     wait();
 }
 
- void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
- {
-     mList.append(cmd);
+void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
+{
+    mList.append(cmd);
 
-//     mSnmp->setValue(cmd);
- }
+    //     mSnmp->setValue(cmd);
+}
 
 
 /**
@@ -46,7 +46,7 @@ void ZTest_SnmpThread::run()
             if(ret) {
                 str += tr("成功!!");
             } else {
-                 str += tr("失败!!");
+                str += tr("失败!!");
             }
 
             msleep(100);
