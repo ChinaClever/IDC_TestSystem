@@ -16,7 +16,7 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 
     m_snmp_client =  new QtSnmpClient(this);
     m_snmp_client->setCommunity( "public" );
-    m_snmp_client->setAgentAddress(QHostAddress("255.255.255.255"));
+    m_snmp_client->setAgentAddress(QHostAddress("192.168.1.255"));
     connect( m_snmp_client,SIGNAL(responseReceived(qint32,QtSnmpDataList)), this, SLOT(onResponseReceived(qint32,QtSnmpDataList)) );
     connect( m_snmp_client, SIGNAL(requestFailed(qint32)), this, SLOT(onRequestFailed(qint32)) );
 
@@ -61,15 +61,12 @@ qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 
 void SnmpThread::setSlot()
 {
-    if(!m_address.isEmpty())
+    if(mSetCmdList.size())
     {
-        if(mSetCmdList.size())
-        {
-            if( ! m_snmp_client->isBusy() ) {
-                sSnmpSetCmd cmd = mSetCmdList.first();
-                m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-                mSetCmdList.removeFirst();
-            }
+        if( ! m_snmp_client->isBusy() ) {
+            sSnmpSetCmd cmd = mSetCmdList.first();
+            m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
+            mSetCmdList.removeFirst();
         }
     }
 }
