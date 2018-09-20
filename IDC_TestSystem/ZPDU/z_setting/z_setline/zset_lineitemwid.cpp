@@ -1,18 +1,18 @@
-﻿#include "ztest_lineitemwid.h"
-#include "ui_ztest_lineitemwid.h"
+﻿#include "zset_lineitemwid.h"
+#include "ui_zset_lineitemwid.h"
 
-ZTest_LineItemWid::ZTest_LineItemWid(QWidget *parent) :
+ZSet_LineItemWid::ZSet_LineItemWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_LineItemWid)
+    ui(new Ui::ZSet_LineItemWid)
 {
     ui->setupUi(this);
 }
 
-ZTest_LineItemWid::~ZTest_LineItemWid()
+ZSet_LineItemWid::~ZSet_LineItemWid()
 {
     delete ui;
 }
-QString ZTest_LineItemWid::getTypeName(int type)
+QString ZSet_LineItemWid::getTypeName(int type)
 {
     QString str;
     switch (type) {
@@ -26,7 +26,7 @@ QString ZTest_LineItemWid::getTypeName(int type)
     return str;
 }
 
-int ZTest_LineItemWid::getReg(int mode, int type)
+int ZSet_LineItemWid::getReg(int mode, int type)
 {
     int reg = Z_RtuReg_LineCurMin;
     if(mode) reg = Z_RtuReg_LineVolMin;
@@ -43,7 +43,7 @@ int ZTest_LineItemWid::getReg(int mode, int type)
 }
 
 
-void ZTest_LineItemWid::initwid(int mode, int type)
+void ZSet_LineItemWid::initwid(int mode, int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3};
     for(int i=0; i<3; ++i) {

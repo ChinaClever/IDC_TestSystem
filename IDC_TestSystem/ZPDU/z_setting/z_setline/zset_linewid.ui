@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ZTest_LineWid</class>
- <widget class="QWidget" name="ZTest_LineWid">
+ <class>ZSet_LineWid</class>
+ <widget class="QWidget" name="ZSet_LineWid">
   <property name="geometry">
    <rect>
     <x>0</x>

@@ -1,25 +1,25 @@
-﻿#include "ztest_linewid.h"
-#include "ui_ztest_linewid.h"
+﻿#include "zset_linewid.h"
+#include "ui_zset_linewid.h"
 
-ZTest_LineWid::ZTest_LineWid(QWidget *parent) :
+ZSet_LineWid::ZSet_LineWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_LineWid)
+    ui(new Ui::ZSet_LineWid)
 {
     ui->setupUi(this);
     initWid();
 }
 
-ZTest_LineWid::~ZTest_LineWid()
+ZSet_LineWid::~ZSet_LineWid()
 {
     delete ui;
 }
-void ZTest_LineWid::initWid()
+void ZSet_LineWid::initWid()
 {
     int id = 0;
-    mWid[id] = new ZTest_LineUnitWid(ui->volGroup);
+    mWid[id] = new ZSet_LineUnitWid(ui->volGroup);
     mWid[id++]->initWid(1, Zpdu_Rtu_Test_min);
 
-    mWid[id] = new ZTest_LineUnitWid(ui->curGroup);
+    mWid[id] = new ZSet_LineUnitWid(ui->curGroup);
     mWid[id++]->initWid(0, Zpdu_Rtu_Test_min);
 
 
@@ -28,13 +28,13 @@ void ZTest_LineWid::initWid()
 }
 
 
-void ZTest_LineWid::updateTextSlot(QString str)
+void ZSet_LineWid::updateTextSlot(QString str)
 {
     ui->textEdit->append(str);
 }
 
 
-void ZTest_LineWid::on_pushButton_clicked()
+void ZSet_LineWid::on_pushButton_clicked()
 {
     QList<sZTestRtuSetCmd> list;
     int addr = ui->spinBox->value();

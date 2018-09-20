@@ -44,9 +44,6 @@ HEADERS += \
     $$PWD/z_setting/ztest_mainwid.h \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.h \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.h \
-    $$PWD/z_setting/z_testline/ztest_lineitemwid.h \
-    $$PWD/z_setting/z_testline/ztest_lineunitwid.h \
-    $$PWD/z_setting/z_testline/ztest_linewid.h \
     $$PWD/z_setting/z_testloop/ztest_loopitemwid.h \
     $$PWD/z_setting/z_testloop/ztest_loopunitwid.h \
     $$PWD/z_setting/z_testloop/ztest_loopwid.h \
@@ -63,7 +60,10 @@ HEADERS += \
     $$PWD/z_setting/z_setele/zset_outputelewid.h \
     $$PWD/z_setting/z_setenv/zset_envitemwid.h \
     $$PWD/z_setting/z_setenv/zset_envunitwid.h \
-    $$PWD/z_setting/z_setenv/zset_envwid.h
+    $$PWD/z_setting/z_setenv/zset_envwid.h \
+    $$PWD/z_setting/z_setline/zset_lineitemwid.h \
+    $$PWD/z_setting/z_setline/zset_lineunitwid.h \
+    $$PWD/z_setting/z_setline/zset_linewid.h
 
 	
 SOURCES += \
@@ -108,9 +108,6 @@ SOURCES += \
     $$PWD/z_setting/ztest_mainwid.cpp \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.cpp \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.cpp \
-    $$PWD/z_setting/z_testline/ztest_lineitemwid.cpp \
-    $$PWD/z_setting/z_testline/ztest_lineunitwid.cpp \
-    $$PWD/z_setting/z_testline/ztest_linewid.cpp \
     $$PWD/z_setting/z_testloop/ztest_loopitemwid.cpp \
     $$PWD/z_setting/z_testloop/ztest_loopunitwid.cpp \
     $$PWD/z_setting/z_testloop/ztest_loopwid.cpp \
@@ -127,7 +124,10 @@ SOURCES += \
     $$PWD/z_setting/z_setele/zset_outputelewid.cpp \
     $$PWD/z_setting/z_setenv/zset_envitemwid.cpp \
     $$PWD/z_setting/z_setenv/zset_envunitwid.cpp \
-    $$PWD/z_setting/z_setenv/zset_envwid.cpp
+    $$PWD/z_setting/z_setenv/zset_envwid.cpp \
+    $$PWD/z_setting/z_setline/zset_lineitemwid.cpp \
+    $$PWD/z_setting/z_setline/zset_lineunitwid.cpp \
+    $$PWD/z_setting/z_setline/zset_linewid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
@@ -138,9 +138,6 @@ FORMS += \
     $$PWD/z_setting/ztest_mainwid.ui \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.ui \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.ui \
-    $$PWD/z_setting/z_testline/ztest_lineitemwid.ui \
-    $$PWD/z_setting/z_testline/ztest_lineunitwid.ui \
-    $$PWD/z_setting/z_testline/ztest_linewid.ui \
     $$PWD/z_setting/z_testloop/ztest_loopitemwid.ui \
     $$PWD/z_setting/z_testloop/ztest_loopunitwid.ui \
     $$PWD/z_setting/z_testloop/ztest_loopwid.ui \
@@ -149,7 +146,10 @@ FORMS += \
     $$PWD/z_setting/z_setele/zset_outputelewid.ui \
     $$PWD/z_setting/z_setenv/zset_envitemwid.ui \
     $$PWD/z_setting/z_setenv/zset_envunitwid.ui \
-    $$PWD/z_setting/z_setenv/zset_envwid.ui
+    $$PWD/z_setting/z_setenv/zset_envwid.ui \
+    $$PWD/z_setting/z_setline/zset_lineitemwid.ui \
+    $$PWD/z_setting/z_setline/zset_lineunitwid.ui \
+    $$PWD/z_setting/z_setline/zset_linewid.ui
 
 
 

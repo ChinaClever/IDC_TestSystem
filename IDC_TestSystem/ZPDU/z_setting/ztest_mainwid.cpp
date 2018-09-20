@@ -4,7 +4,7 @@
 #include "z_testthreshold/ztest_thresholditemwid.h"
 #include "z_testthreshold/ztest_thresholdoutputwid.h"
 #include "z_setele/zset_outputelewid.h"
-#include "z_testline/ztest_linewid.h"
+#include "z_setline/zset_linewid.h"
 #include "z_setenv/zset_envwid.h"
 #include "z_testloop/ztest_loopwid.h"
 ZTest_MainWid::ZTest_MainWid(QWidget *parent) :
@@ -48,7 +48,7 @@ void ZTest_MainWid::initFunSLot()
     ZSet_OutputEleWid *outputEleWid = new ZSet_OutputEleWid(ui->tabWidget);
     ui->tabWidget->addTab(outputEleWid, tr("输出位电能清零"));
 
-    ZTest_LineWid *lineWid = new ZTest_LineWid(ui->tabWidget);
+    ZSet_LineWid *lineWid = new ZSet_LineWid(ui->tabWidget);
     ui->tabWidget->addTab(lineWid, tr("相阈值设置"));
 
     ZSet_EnvWid *envWid = new ZSet_EnvWid(ui->tabWidget);
