@@ -1,6 +1,6 @@
-#include "ztest_rtuthread.h"
+﻿#include "zset_rtuthread.h"
 
-ZTest_RtuThread::ZTest_RtuThread(QObject *parent) : QThread(parent)
+ZSet_RtuThread::ZSet_RtuThread(QObject *parent) : QThread(parent)
 {
     mReg = 0;
     mMutex = new QMutex();
@@ -9,7 +9,7 @@ ZTest_RtuThread::ZTest_RtuThread(QObject *parent) : QThread(parent)
     mRtu = Z_RtuTrans::bulid();
 }
 
-ZTest_RtuThread::~ZTest_RtuThread()
+ZSet_RtuThread::~ZSet_RtuThread()
 {
     isRun = false;
     wait();
@@ -24,12 +24,12 @@ ZTest_RtuThread::~ZTest_RtuThread()
  * @param value 值
  * @return true
  */
-bool ZTest_RtuThread::sentSetCmd(int addr, int reg, ushort value, int msecs)
+bool ZSet_RtuThread::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     return mRtu->sentSetCmd(addr,reg, value, msecs);
 }
 
-void ZTest_RtuThread::run()
+void ZSet_RtuThread::run()
 {
     if(isRun == false) {
         isRun = true;

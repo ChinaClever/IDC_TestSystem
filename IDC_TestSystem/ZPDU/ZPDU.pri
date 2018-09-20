@@ -39,14 +39,11 @@ HEADERS += \
     $$PWD/z_toolbox/z_logstoolwid.h \
     $$PWD/z_toolbox/z_toolboxwid.h \
     $$PWD/zpdu_mainwid.h \
-    $$PWD/z_setting/z_testrtu/ztest_rtuthread.h \
     $$PWD/z_setting/z_testsw/ztest_switemwid.h \
     $$PWD/z_setting/z_testsw/ztest_swwid.h \
     $$PWD/z_setting/ztest_mainwid.h \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.h \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.h \
-    $$PWD/z_setting/z_testele/ztest_eleitemwid.h \
-    $$PWD/z_setting/z_testele/ztest_outputelewid.h \
     $$PWD/z_setting/z_testline/ztest_lineitemwid.h \
     $$PWD/z_setting/z_testline/ztest_lineunitwid.h \
     $$PWD/z_setting/z_testline/ztest_linewid.h \
@@ -63,7 +60,10 @@ HEADERS += \
     $$PWD/z_toolbox/z_modetoolwid.h \
     $$PWD/z_rtu/z_rtuthread.h \
     $$PWD/z_status/z_statuswid.h \
-    $$PWD/z_setting/z_testsnmp/ztest_snmpthread.h
+    $$PWD/z_setting/z_setsnmp/zset_snmpthread.h \
+    $$PWD/z_setting/z_setrtu/zset_rtuthread.h \
+    $$PWD/z_setting/z_setele/zset_eleitemwid.h \
+    $$PWD/z_setting/z_setele/zset_outputelewid.h
 
 	
 SOURCES += \
@@ -103,14 +103,11 @@ SOURCES += \
     $$PWD/z_toolbox/z_logstoolwid.cpp \
     $$PWD/z_toolbox/z_toolboxwid.cpp \
     $$PWD/zpdu_mainwid.cpp \
-    $$PWD/z_setting/z_testrtu/ztest_rtuthread.cpp \
     $$PWD/z_setting/z_testsw/ztest_switemwid.cpp \
     $$PWD/z_setting/z_testsw/ztest_swwid.cpp \
     $$PWD/z_setting/ztest_mainwid.cpp \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.cpp \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.cpp \
-    $$PWD/z_setting/z_testele/ztest_eleitemwid.cpp \
-    $$PWD/z_setting/z_testele/ztest_outputelewid.cpp \
     $$PWD/z_setting/z_testline/ztest_lineitemwid.cpp \
     $$PWD/z_setting/z_testline/ztest_lineunitwid.cpp \
     $$PWD/z_setting/z_testline/ztest_linewid.cpp \
@@ -127,7 +124,10 @@ SOURCES += \
     $$PWD/z_toolbox/z_modetoolwid.cpp \
     $$PWD/z_rtu/z_rtuthread.cpp \
     $$PWD/z_status/z_statuswid.cpp \
-    $$PWD/z_setting/z_testsnmp/ztest_snmpthread.cpp
+    $$PWD/z_setting/z_setsnmp/zset_snmpthread.cpp \
+    $$PWD/z_setting/z_setrtu/zset_rtuthread.cpp \
+    $$PWD/z_setting/z_setele/zset_eleitemwid.cpp \
+    $$PWD/z_setting/z_setele/zset_outputelewid.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
@@ -138,8 +138,6 @@ FORMS += \
     $$PWD/z_setting/ztest_mainwid.ui \
     $$PWD/z_setting/z_testthreshold/ztest_thresholditemwid.ui \
     $$PWD/z_setting/z_testthreshold/ztest_thresholdoutputwid.ui \
-    $$PWD/z_setting/z_testele/ztest_eleitemwid.ui \
-    $$PWD/z_setting/z_testele/ztest_outputelewid.ui \
     $$PWD/z_setting/z_testline/ztest_lineitemwid.ui \
     $$PWD/z_setting/z_testline/ztest_lineunitwid.ui \
     $$PWD/z_setting/z_testline/ztest_linewid.ui \
@@ -149,7 +147,9 @@ FORMS += \
     $$PWD/z_setting/z_testloop/ztest_loopitemwid.ui \
     $$PWD/z_setting/z_testloop/ztest_loopunitwid.ui \
     $$PWD/z_setting/z_testloop/ztest_loopwid.ui \
-    $$PWD/z_status/z_statuswid.ui
+    $$PWD/z_status/z_statuswid.ui \
+    $$PWD/z_setting/z_setele/zset_eleitemwid.ui \
+    $$PWD/z_setting/z_setele/zset_outputelewid.ui
 
 
 

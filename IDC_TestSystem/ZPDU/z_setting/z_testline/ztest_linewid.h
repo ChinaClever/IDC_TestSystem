@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::ZTest_LineWid *ui;
-    ZTest_RtuThread *mRtu;
+    ZSet_RtuThread *mRtu;
     ZTest_LineUnitWid *mWid[2];
 };
 

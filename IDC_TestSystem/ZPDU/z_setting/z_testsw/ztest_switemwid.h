@@ -1,8 +1,8 @@
-#ifndef ZTEST_SWITEMWID_H
+﻿#ifndef ZTEST_SWITEMWID_H
 #define ZTEST_SWITEMWID_H
 
-#include "../z_testrtu/ztest_rtuthread.h"
-#include "../z_testsnmp/ztest_snmpthread.h"
+#include "../z_setrtu/zset_rtuthread.h"
+#include "../z_setsnmp/zset_snmpthread.h"
 #include "common.h"
 
 namespace Ui {

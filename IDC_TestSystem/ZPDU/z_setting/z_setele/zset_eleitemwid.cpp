@@ -1,40 +1,40 @@
-﻿#include "ztest_eleitemwid.h"
-#include "ui_ztest_eleitemwid.h"
+﻿#include "zset_eleitemwid.h"
+#include "ui_zset_eleitemwid.h"
 
-ZTest_EleItemWid::ZTest_EleItemWid(QWidget *parent) :
+ZSet_EleItemWid::ZSet_EleItemWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_EleItemWid)
+    ui(new Ui::ZSet_EleItemWid)
 {
     ui->setupUi(this);
     com_setBackColour("", this);
 }
 
-ZTest_EleItemWid::~ZTest_EleItemWid()
+ZSet_EleItemWid::~ZSet_EleItemWid()
 {
     delete ui;
 }
-void ZTest_EleItemWid::init(int id)
+void ZSet_EleItemWid::init(int id)
 {
     ui->checkBox->setText(tr(" %1 输出位").arg(id+1));
 }
 
-void ZTest_EleItemWid::setSelect(bool checked)
+void ZSet_EleItemWid::setSelect(bool checked)
 {
     ui->checkBox->setChecked(checked);
 }
 
-bool ZTest_EleItemWid::select()
+bool ZSet_EleItemWid::select()
 {
     return ui->checkBox->isChecked();
 }
 
-void ZTest_EleItemWid::setClean(bool checked)
+void ZSet_EleItemWid::setClean(bool checked)
 {
     ui->cleanRadio->setChecked(checked);
 }
 
 
-int ZTest_EleItemWid::status()
+int ZSet_EleItemWid::status()
 {
     int ret = 0;
     if(ui->cleanRadio->isChecked())
@@ -44,7 +44,7 @@ int ZTest_EleItemWid::status()
 
 
 
-void ZTest_EleItemWid::on_cleanRadio_clicked()
+void ZSet_EleItemWid::on_cleanRadio_clicked()
 {
     ui->checkBox->setChecked(true);
 }

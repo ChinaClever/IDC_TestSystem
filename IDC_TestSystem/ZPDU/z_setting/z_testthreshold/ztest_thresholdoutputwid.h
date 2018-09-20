@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::ZTest_ThresholdOutputWid *ui;
-    ZTest_RtuThread *mRtu;
+    ZSet_RtuThread *mRtu;
     int mReg;
 
     ZTest_ThresholdItemWid *mWid[24];

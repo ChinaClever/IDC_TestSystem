@@ -1,5 +1,5 @@
-#ifndef ZTEST_RTUTHREAD_H
-#define ZTEST_RTUTHREAD_H
+﻿#ifndef ZSET_RTUTHREAD_H
+#define ZSET_RTUTHREAD_H
 
 #include "z_rtu/z_rtutrans.h"
 
@@ -10,12 +10,12 @@ struct sZTestRtuSetCmd
     ushort value;
 };
 
-class ZTest_RtuThread : public QThread
+class ZSet_RtuThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ZTest_RtuThread(QObject *parent = nullptr);
-    ~ZTest_RtuThread();
+    explicit ZSet_RtuThread(QObject *parent = nullptr);
+    ~ZSet_RtuThread();
 
     void setCmd(const sZTestRtuSetCmd &cmd) {mList.append(cmd);}
     int mReg;
@@ -37,4 +37,4 @@ private:
     QList<sZTestRtuSetCmd> mList;
 };
 
-#endif // ZTEST_RTUTHREAD_H
+#endif // ZSET_RTUTHREAD_H

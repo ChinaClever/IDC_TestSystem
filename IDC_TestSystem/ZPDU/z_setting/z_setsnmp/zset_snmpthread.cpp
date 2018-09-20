@@ -1,6 +1,6 @@
-﻿#include "ztest_snmpthread.h"
+﻿#include "zset_snmpthread.h"
 
-ZTest_SnmpThread::ZTest_SnmpThread(QObject *parent) : QThread(parent)
+ZSet_SnmpThread::ZSet_SnmpThread(QObject *parent) : QThread(parent)
 {
     mMutex = new QMutex();
 
@@ -8,13 +8,13 @@ ZTest_SnmpThread::ZTest_SnmpThread(QObject *parent) : QThread(parent)
     mSnmp = Z_SnmpTrans::bulid();
 }
 
-ZTest_SnmpThread::~ZTest_SnmpThread()
+ZSet_SnmpThread::~ZSet_SnmpThread()
 {
     isRun = false;
     wait();
 }
 
-void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
+void ZSet_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
 {
     mList.append(cmd);
 
@@ -29,12 +29,12 @@ void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
  * @param value 值
  * @return true
  */
-int ZTest_SnmpThread::sentSetCmd(const sSnmpSetCmd &cmd)
+int ZSet_SnmpThread::sentSetCmd(const sSnmpSetCmd &cmd)
 {
     return mSnmp->setValue(cmd);
 }
 
-void ZTest_SnmpThread::run()
+void ZSet_SnmpThread::run()
 {
     if(isRun == false) {
         isRun = true;

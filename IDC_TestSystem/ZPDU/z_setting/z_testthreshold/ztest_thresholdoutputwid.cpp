@@ -41,7 +41,7 @@ void ZTest_ThresholdOutputWid::initwid(int mode)
     }
 
     mReg = getReg(mode);
-    mRtu = new ZTest_RtuThread(this);
+    mRtu = new ZSet_RtuThread(this);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
     mRtu->mReg = mReg;
 }

@@ -28,10 +28,10 @@ void ZTest_SwWid::initwid()
     }
 
 
-    mSnmp = new ZTest_SnmpThread(this);
+    mSnmp = new ZSet_SnmpThread(this);
     connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 
-    mRtu = new ZTest_RtuThread(this);
+    mRtu = new ZSet_RtuThread(this);
     mRtu->mReg = mReg;
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 }

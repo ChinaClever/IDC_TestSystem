@@ -25,7 +25,7 @@ private slots:
 
 private:
     Ui::ZTest_EnvWid *ui;
-    ZTest_RtuThread *mRtu;
+    ZSet_RtuThread *mRtu;
     ZTest_EnvUnitWid *mWid[2];
 };
 

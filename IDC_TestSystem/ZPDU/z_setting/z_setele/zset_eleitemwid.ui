@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>ZTest_EleItemWid</class>
- <widget class="QWidget" name="ZTest_EleItemWid">
+ <class>ZSet_EleItemWid</class>
+ <widget class="QWidget" name="ZSet_EleItemWid">
   <property name="geometry">
    <rect>
     <x>0</x>

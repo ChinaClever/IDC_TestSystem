@@ -32,8 +32,8 @@ private slots:
 private:
     Ui::ZTest_SwWid *ui;
 
-    ZTest_SnmpThread *mSnmp;
-    ZTest_RtuThread *mRtu;
+    ZSet_SnmpThread *mSnmp;
+    ZSet_RtuThread *mRtu;
     ZTest_SwItemWid *mWid[24];
     int mReg;
 };

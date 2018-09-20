@@ -3,7 +3,7 @@
 #include "z_testsw/ztest_swwid.h"
 #include "z_testthreshold/ztest_thresholditemwid.h"
 #include "z_testthreshold/ztest_thresholdoutputwid.h"
-#include "z_testele/ztest_outputelewid.h"
+#include "z_setele/zset_outputelewid.h"
 #include "z_testline/ztest_linewid.h"
 #include "z_testenv/ztest_envwid.h"
 #include "z_testloop/ztest_loopwid.h"
@@ -45,7 +45,7 @@ void ZTest_MainWid::initFunSLot()
         wid->initwid(i);
         ui->tabWidget->addTab(wid, getName(i));
     }
-    ZTest_OutputEleWid *outputEleWid = new ZTest_OutputEleWid(ui->tabWidget);
+    ZSet_OutputEleWid *outputEleWid = new ZSet_OutputEleWid(ui->tabWidget);
     ui->tabWidget->addTab(outputEleWid, tr("输出位电能清零"));
 
     ZTest_LineWid *lineWid = new ZTest_LineWid(ui->tabWidget);

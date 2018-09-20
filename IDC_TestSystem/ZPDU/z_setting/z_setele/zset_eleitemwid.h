@@ -1,19 +1,19 @@
-﻿#ifndef ZTEST_ELEITEMWID_H
-#define ZTEST_ELEITEMWID_H
+﻿#ifndef ZSET_ELEITEMWID_H
+#define ZSET_ELEITEMWID_H
 
 #include <QWidget>
 #include "common.h"
 namespace Ui {
-class ZTest_EleItemWid;
+class ZSet_EleItemWid;
 }
 
-class ZTest_EleItemWid : public QWidget
+class ZSet_EleItemWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ZTest_EleItemWid(QWidget *parent = 0);
-    ~ZTest_EleItemWid();
+    explicit ZSet_EleItemWid(QWidget *parent = 0);
+    ~ZSet_EleItemWid();
 
     void init(int id);
     void setSelect(bool checked);
@@ -27,7 +27,7 @@ private slots:
     void on_cleanRadio_clicked();
 
 private:
-    Ui::ZTest_EleItemWid *ui;
+    Ui::ZSet_EleItemWid *ui;
 };
 
-#endif // ZTEST_ELEITEMWID_H
+#endif // ZSET_ELEITEMWID_H

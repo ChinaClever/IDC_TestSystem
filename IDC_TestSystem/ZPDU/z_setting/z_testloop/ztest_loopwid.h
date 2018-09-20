@@ -26,7 +26,7 @@ private slots:
 
 private:
     Ui::ZTest_LoopWid *ui;
-    ZTest_RtuThread *mRtu;
+    ZSet_RtuThread *mRtu;
     ZTest_LoopUnitWid *mWid;
 };
 

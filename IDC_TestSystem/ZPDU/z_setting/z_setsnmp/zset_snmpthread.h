@@ -1,15 +1,15 @@
-﻿#ifndef ZTEST_SNMPTHREAD_H
-#define ZTEST_SNMPTHREAD_H
+﻿#ifndef ZSET_SNMPTHREAD_H
+#define ZSET_SNMPTHREAD_H
 
 #include "z_snmp/z_snmptrans.h"
 
 
-class ZTest_SnmpThread : public QThread
+class ZSet_SnmpThread : public QThread
 {
     Q_OBJECT
 public:
-    explicit ZTest_SnmpThread(QObject *parent = nullptr);
-    ~ZTest_SnmpThread();
+    explicit ZSet_SnmpThread(QObject *parent = nullptr);
+    ~ZSet_SnmpThread();
 
     void setCmd(const sSnmpSetCmd &cmd);
 
@@ -30,4 +30,4 @@ private:
     QList<sSnmpSetCmd> mList;
 };
 
-#endif // ZTEST_SNMPTHREAD_H
+#endif // ZSET_SNMPTHREAD_H

@@ -22,7 +22,7 @@ void ZTest_EnvWid::initWid()
     mWid[id] = new ZTest_EnvUnitWid(ui->humGroup);
     mWid[id++]->initWid(1, Zpdu_Rtu_Test_min);
 
-    mRtu = new ZTest_RtuThread(this);
+    mRtu = new ZSet_RtuThread(this);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 }
 
