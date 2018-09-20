@@ -9,9 +9,6 @@ enum {
     Test_Rtu,
     Test_Function, // 功能测试
 
-    Set_Snmp,
-    Set_Rtu,
-
     Info_Line, // 相信息信息
     Info_Trans, // Modbus传输统计实时显示界面
     Info_LineThreshold, // 设备阈值实时显示界面

@@ -16,7 +16,6 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 
     m_snmp_client =  new QtSnmpClient(this);
     m_snmp_client->setCommunity( "public" );
-    m_snmp_client->setAgentAddress(QHostAddress("192.168.1.255"));
     connect( m_snmp_client,SIGNAL(responseReceived(qint32,QtSnmpDataList)), this, SLOT(onResponseReceived(qint32,QtSnmpDataList)) );
     connect( m_snmp_client, SIGNAL(requestFailed(qint32)), this, SLOT(onRequestFailed(qint32)) );
 
@@ -26,6 +25,7 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
     timer =  new QTimer(this);
     timer->start(100);
     connect( timer, SIGNAL(timeout()), SLOT(setSlot()) );
+
 }
 
 SnmpThread::~SnmpThread()
@@ -54,8 +54,11 @@ void SnmpThread::stopRun()
 
 qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 {
-    mSetCmdList.append(cmd);
-    return 1;
+    if(!m_address.isEmpty()) {
+        mSetCmdList.append(cmd);
+    }
+
+    return m_address.size();
 }
 
 

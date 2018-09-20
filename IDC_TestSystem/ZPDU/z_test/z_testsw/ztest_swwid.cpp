@@ -64,7 +64,7 @@ void ZTest_SwWid::sendSnmp(int i)
     QString oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
     cmd.oid = oid;
     cmd.type = SNMP_STRING_TYPE;
-    cmd.value.append( mWid[i]->status()==1?"ON":"OFF");
+    cmd.value.append( mWid[i]->status()==1 ? "ON":"OFF");
     mSnmp->setCmd(cmd);
 }
 

@@ -9,7 +9,7 @@
 ConfigBase::ConfigBase()
 {
     item = new sConfigItem();
-    item->setMode = Set_Snmp;
+    item->setMode = Test_SNMP;
     item->devNum = 1;
     item->lineNum = 1;
     item->cmdModel = 1;
