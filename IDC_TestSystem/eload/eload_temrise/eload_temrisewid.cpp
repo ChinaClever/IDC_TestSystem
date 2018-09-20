@@ -7,8 +7,9 @@ ELoad_TemRiseWid::ELoad_TemRiseWid(QWidget *parent) :
     ui(new Ui::ELoad_TemRiseWid)
 {
     ui->setupUi(this);
-    mChart = new LineChart(this);
-    groupBox_background_icon(mChart);
+    mChart = new LineChart(ui->widget);
+    groupBox_background_icon(this);
+
 
     mId = 1;
     timer = new QTimer(this);

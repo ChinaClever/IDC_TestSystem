@@ -108,7 +108,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>湿升趋势图</string>
+    <string>温升趋势图</string>
    </property>
   </widget>
   <widget class="QSpinBox" name="temSpinBox">

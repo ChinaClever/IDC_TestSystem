@@ -3,7 +3,8 @@
 
 #include <QWidget>
 #include "ztest_eleitemwid.h"
-#include "z_test/z_testrtu/ztest_rtuthread.h"
+#include "z_setting/z_testrtu/ztest_rtuthread.h"
+
 namespace Ui {
 class ZTest_OutputEleWid;
 }
