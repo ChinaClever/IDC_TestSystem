@@ -6,8 +6,8 @@
 class IP_SnmpTrans : public SnmpThread
 {
     Q_OBJECT
-public:
     explicit IP_SnmpTrans(QObject *parent = nullptr);
+public:
     static IP_SnmpTrans *bulid(QObject *parent = nullptr);
 
 signals:

@@ -14,7 +14,7 @@ ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mSnmp = new Z_SnmpTrans(this);
+    mSnmp = Z_SnmpTrans::bulid(this);
     mDpThread = Z_DpThread::bulid(this);
     mRtuThread = new Z_RtuThread(this);
     mServiceThread = new Z_ServiceThread(this);

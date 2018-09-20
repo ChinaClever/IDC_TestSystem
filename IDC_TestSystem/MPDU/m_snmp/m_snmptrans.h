@@ -6,8 +6,8 @@
 class M_SnmpTrans : public SnmpThread
 {
     Q_OBJECT
-public:
     explicit M_SnmpTrans(QObject *parent = nullptr);
+public:
     static M_SnmpTrans *bulid(QObject *parent = nullptr);
 
 signals:

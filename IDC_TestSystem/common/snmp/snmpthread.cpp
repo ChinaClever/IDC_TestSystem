@@ -16,12 +16,16 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 
     m_snmp_client =  new QtSnmpClient(this);
     m_snmp_client->setCommunity( "public" );
+    m_snmp_client->setAgentAddress(QHostAddress("255.255.255.255"));
     connect( m_snmp_client,SIGNAL(responseReceived(qint32,QtSnmpDataList)), this, SLOT(onResponseReceived(qint32,QtSnmpDataList)) );
     connect( m_snmp_client, SIGNAL(requestFailed(qint32)), this, SLOT(onRequestFailed(qint32)) );
 
     m_timer =  new QTimer(this);
     connect( m_timer, SIGNAL(timeout()), SLOT(makeRequest()) );
-    //    connect( m_timer, SIGNAL(timeout()), SLOT(start()));
+
+    timer =  new QTimer(this);
+    timer->start(100);
+    connect( timer, SIGNAL(timeout()), SLOT(setSlot()) );
 }
 
 SnmpThread::~SnmpThread()
@@ -36,7 +40,7 @@ void SnmpThread::startRun(const QString &addr, int msec)
     m_snmp_client->setAgentAddress(QHostAddress(addr));
 
     if(msec == 0) msec = 500 + (rand() % 1000);
-    m_timer->start( msec );
+    m_timer->start(msec);
     clearCount();
     start();
 }
@@ -50,17 +54,24 @@ void SnmpThread::stopRun()
 
 qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 {
-    mSetCmd = cmd;
-    QTimer::singleShot(1,this,SLOT(setSlot()));
-
+    mSetCmdList.append(cmd);
     return 1;
 }
 
 
 void SnmpThread::setSlot()
 {
-    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
-    m_snmp_client->setValue("private", mSetCmd.oid, mSetCmd.type, mSetCmd.value);
+    if(!m_address.isEmpty())
+    {
+        if(mSetCmdList.size())
+        {
+            if( ! m_snmp_client->isBusy() ) {
+                sSnmpSetCmd cmd = mSetCmdList.first();
+                m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
+                mSetCmdList.removeFirst();
+            }
+        }
+    }
 }
 
 
@@ -177,9 +188,7 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
-//    m_snmp_client->setValue("private", ".1.3.6.1.4.1.30966.7.1.7.1.0", 0x04, "ON");
-
-    if(mPackets) {
+    if(mPackets && isRun) {
         bool ret = requestSubValues(++mId);
         if(!ret) {
             ret = requestValues(mId);

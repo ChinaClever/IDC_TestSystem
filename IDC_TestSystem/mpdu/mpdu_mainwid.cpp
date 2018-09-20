@@ -13,7 +13,7 @@ MPDU_MainWid::MPDU_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    mSnmp = new M_SnmpTrans(this);
+    mSnmp = M_SnmpTrans::bulid(this);
     mDpThread = M_DpThread::bulid(this);
     mRtuThread = new M_RtuThread(this);
     mServiceThread = new M_ServiceThread(this);

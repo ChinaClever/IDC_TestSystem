@@ -17,6 +17,8 @@ ZTest_SnmpThread::~ZTest_SnmpThread()
  void ZTest_SnmpThread::setCmd(const sSnmpSetCmd &cmd)
  {
      mList.append(cmd);
+
+//     mSnmp->setValue(cmd);
  }
 
 
@@ -47,11 +49,10 @@ void ZTest_SnmpThread::run()
                  str += tr("失败!!");
             }
 
-            msleep(20);
+            msleep(100);
             emit cmdSig(str);
         }
 
-        sleep(1);
         mList.clear();
         isRun = false;
     }
