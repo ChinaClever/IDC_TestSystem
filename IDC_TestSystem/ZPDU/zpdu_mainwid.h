@@ -4,7 +4,7 @@
 #include "z_toolbox/z_toolboxwid.h"
 #include "z_logs/z_logswid.h"
 #include "z_service/z_servicethread.h"
-#include "z_test/ztest_mainwid.h"
+#include "z_setting/ztest_mainwid.h"
 #include "z_rtu/z_rtuthread.h"
 #include "z_status/z_statuswid.h"
 #include "z_status/z_statuswid.h"
