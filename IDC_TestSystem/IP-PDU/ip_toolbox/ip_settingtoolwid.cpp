@@ -8,6 +8,7 @@
 
 IP_SettingToolWid::IP_SettingToolWid(QWidget *parent) : SettingToolWid(parent)
 {
+    mConfig = IP_ConfigFile::bulid();
     ippdu(false);
     initVersion();
 }
