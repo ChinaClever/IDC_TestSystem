@@ -1,19 +1,19 @@
 ﻿#include "zset_thresholdoutputwid.h"
-#include "ui_ztest_thresholdoutputwid.h"
+#include "ui_zset_thresholdoutputwid.h"
 
-ZTest_ThresholdOutputWid::ZTest_ThresholdOutputWid(QWidget *parent) :
+ZSet_ThresholdOutputWid::ZSet_ThresholdOutputWid(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::ZTest_ThresholdOutputWid)
+    ui(new Ui::ZSet_ThresholdOutputWid)
 {
     ui->setupUi(this);
     mReg = Z_RtuReg_OutputCurMin;
 }
 
-ZTest_ThresholdOutputWid::~ZTest_ThresholdOutputWid()
+ZSet_ThresholdOutputWid::~ZSet_ThresholdOutputWid()
 {
     delete ui;
 }
-int ZTest_ThresholdOutputWid::getReg(int mode)
+int ZSet_ThresholdOutputWid::getReg(int mode)
 {
     int reg=Z_RtuReg_OutputCurMin;
 
@@ -27,8 +27,23 @@ int ZTest_ThresholdOutputWid::getReg(int mode)
 
     return reg;
 }
+QString ZSet_ThresholdOutputWid::getOid(int mode)
+{
+    int addr = ui->spinBox->value() , index = 2;
+    QString oid = QString("%1.%2.%3.8").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr);
 
-void ZTest_ThresholdOutputWid::initwid(int mode)
+    switch (mode) {
+    case Zpdu_Rtu_Test_min: oid += QString(".%1").arg(index); break;
+    case Zpdu_Rtu_Test_crMin: oid += QString(".%1").arg(index + 1); break;
+    case Zpdu_Rtu_Test_crMax: oid += QString(".%1").arg(index + 2); break;
+    case Zpdu_Rtu_Test_max: oid += QString(".%1").arg(index + 3); break;
+    default: oid += QString(".%1").arg(index);break;
+    }
+
+    return oid;
+}
+
+void ZSet_ThresholdOutputWid::initwid(int mode)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3, ui->widget_4, ui->widget_5,ui->widget_6,
                       ui->widget_7, ui->widget_8, ui->widget_9, ui->widget_10, ui->widget_11, ui->widget_12,
@@ -40,18 +55,22 @@ void ZTest_ThresholdOutputWid::initwid(int mode)
         mWid[i]->initOutput(i, mode);
     }
 
+    mOid = getOid(mode);
+    mSnmp = new ZSet_SnmpThread(this);
+    connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
+
     mReg = getReg(mode);
     mRtu = new ZSet_RtuThread(this);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
     mRtu->mReg = mReg;
 }
 
-void ZTest_ThresholdOutputWid::updateTextSlot(QString str)
+void ZSet_ThresholdOutputWid::updateTextSlot(QString str)
 {
     ui->textEdit->append(str);
 }
 
-void ZTest_ThresholdOutputWid::on_checkBox_clicked(bool checked)
+void ZSet_ThresholdOutputWid::on_checkBox_clicked(bool checked)
 {
     for(int i=0; i<24; ++i) {
         mWid[i]->setSelect(checked);
@@ -59,24 +78,46 @@ void ZTest_ThresholdOutputWid::on_checkBox_clicked(bool checked)
     on_curSpinBox_valueChanged(ui->curSpinBox->value());
 }
 
-void ZTest_ThresholdOutputWid::on_pushButton_clicked()
+
+void ZSet_ThresholdOutputWid::sendRtu(int i)
 {
+    sZTestRtuSetCmd cmd;
+    cmd.addr = ui->spinBox->value();
+    cmd.reg = mReg + i;
+    cmd.value = mWid[i]->status();
+    mRtu->setCmd(cmd);
+}
+
+void ZSet_ThresholdOutputWid::sendSnmp(int i)
+{
+    sSnmpSetCmd cmd;
+    cmd.oid = mOid + QString(".%1.0").arg(i);
+    cmd.type = SNMP_STRING_TYPE;
+    cmd.value.append( QString("%1").arg(mWid[i]->status()));
+    mSnmp->setCmd(cmd);
+}
+void ZSet_ThresholdOutputWid::on_pushButton_clicked()
+{
+    sConfigItem *item = Z_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            sZTestRtuSetCmd cmd;
-            cmd.addr = ui->spinBox->value();
-            cmd.reg = mReg + i;
-            cmd.value = mWid[i]->status();
-            mRtu->setCmd(cmd);
+            if(mWid[i]->select()) {
+                if(item->setMode == Test_SNMP) {
+                    sendSnmp(i);  // 增加SNMP命令
+                } else {
+                    sendRtu(i);
+                }
+            }
         }
     }
 
+    mSnmp->start();
     mRtu->start();
     ui->textEdit->clear();
 }
 
 
-void ZTest_ThresholdOutputWid::on_curSpinBox_valueChanged(int arg1)
+void ZSet_ThresholdOutputWid::on_curSpinBox_valueChanged(int arg1)
 {
     if(ui->checkBox->isChecked())
     {

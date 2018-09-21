@@ -41,7 +41,7 @@ void ZSet_MainWid::initFunSLot()
     ui->tabWidget->addTab(swWid, tr("输出位开关"));
 
     for(int i=Zpdu_Rtu_Test_min; i<=Zpdu_Rtu_Test_crMax; ++i) {
-        ZTest_ThresholdOutputWid *wid = new ZTest_ThresholdOutputWid(ui->tabWidget);
+        ZSet_ThresholdOutputWid *wid = new ZSet_ThresholdOutputWid(ui->tabWidget);
         wid->initwid(i);
         ui->tabWidget->addTab(wid, getName(i));
     }

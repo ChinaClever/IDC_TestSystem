@@ -1,23 +1,27 @@
-﻿#ifndef ZTEST_THRESHOLDOUTPUTWID_H
-#define ZTEST_THRESHOLDOUTPUTWID_H
+﻿#ifndef ZSET_THRESHOLDOUTPUTWID_H
+#define ZSET_THRESHOLDOUTPUTWID_H
 
 #include <QWidget>
 #include "zset_thresholditemwid.h"
 namespace Ui {
-class ZTest_ThresholdOutputWid;
+class ZSet_ThresholdOutputWid;
 }
 
-class ZTest_ThresholdOutputWid : public QWidget
+class ZSet_ThresholdOutputWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ZTest_ThresholdOutputWid(QWidget *parent = 0);
-    ~ZTest_ThresholdOutputWid();
+    explicit ZSet_ThresholdOutputWid(QWidget *parent = 0);
+    ~ZSet_ThresholdOutputWid();
     void initwid(int mode);
 
 protected:
     int getReg(int mode);
+    QString getOid(int mode);
+
+    void sendRtu(int i);
+    void sendSnmp(int i);
 
 protected slots:
    void updateTextSlot(QString str);
@@ -28,11 +32,13 @@ private slots:
     void on_curSpinBox_valueChanged(int arg1);
 
 private:
-    Ui::ZTest_ThresholdOutputWid *ui;
+    Ui::ZSet_ThresholdOutputWid *ui;
     ZSet_RtuThread *mRtu;
+    ZSet_SnmpThread *mSnmp;
     int mReg;
+    QString mOid;
 
     ZSet_ThresholdItemWid *mWid[24];
 };
 
-#endif // ZTEST_THRESHOLDOUTPUTWID_H
+#endif // ZSET_THRESHOLDOUTPUTWID_H
