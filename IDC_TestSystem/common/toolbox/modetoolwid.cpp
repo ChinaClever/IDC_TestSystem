@@ -1,5 +1,6 @@
 ﻿#include "modetoolwid.h"
 #include "ui_modetoolwid.h"
+#include "common.h"
 
 ModeToolWid::ModeToolWid(QWidget *parent) :
     QWidget(parent),
@@ -108,7 +109,7 @@ void ModeToolWid::on_settingBtn_clicked()
 
 bool ModeToolWid::checkInput()
 {
-    bool ret = mConfig->item->serial->isOpen();
+    bool ret = mConfig->item->serial->isOpened();
     if(!ret) {
         CriticalMsgBox box(this, tr("串口未打开，请先打开串口!!!"));
     } else {

@@ -64,7 +64,7 @@ void ConfigBase::setTestMode(int mode)
 {
     QString prefix = getPrefix();
     QString str = QString("%1_test_mode").arg(prefix);
-    sys_configFile_writeParam(str, QString::number(num), prefix);
+    sys_configFile_writeParam(str, QString::number(mode), prefix);
 }
 
 
