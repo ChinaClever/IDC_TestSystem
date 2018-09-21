@@ -8,7 +8,6 @@
 
 IP_LogsToolWid::IP_LogsToolWid(QWidget *parent) :  LogsToolWid(parent)
 {
-    config = IP_ConfigFile::bulid();
     sipdu();
 }
 

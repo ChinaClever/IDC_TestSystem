@@ -15,6 +15,7 @@ public:
     explicit SettingToolWid(QWidget *parent = 0);
     ~SettingToolWid();
 
+    void init(ConfigBase *config) {mConfig= config;}
     void ippdu(bool hide = true);
 
 protected:
@@ -47,7 +48,7 @@ protected slots:
 
 protected:
     Ui::SettingToolWid *ui;    
-    ConfigBase *config;
+    ConfigBase *mConfig;
 };
 
 #endif // SETTINGTOOLWID_H

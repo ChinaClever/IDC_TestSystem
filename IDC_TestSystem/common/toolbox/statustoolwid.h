@@ -17,6 +17,7 @@ public:
 
     void mpdu();
     void sipdu();
+
 signals:
     void widSig(int);
 

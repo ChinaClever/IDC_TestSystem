@@ -8,6 +8,5 @@
 
 M_LogsToolWid::M_LogsToolWid(QWidget *parent) : LogsToolWid(parent)
 {
-    config = M_ConfigFile::bulid();
     mpdu();
 }

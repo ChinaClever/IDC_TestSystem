@@ -8,6 +8,6 @@
 
 Z_LogsToolWid::Z_LogsToolWid(QWidget *parent) :  LogsToolWid(parent)
 {
-    config = Z_ConfigFile::bulid();
+
 }
 

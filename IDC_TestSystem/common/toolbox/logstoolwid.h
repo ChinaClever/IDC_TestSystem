@@ -17,6 +17,7 @@ public:
 
     void mpdu();
     void sipdu();
+    void init(ConfigBase *config) {mConfig= config;}
 
 signals:
     void logsSig(int);
@@ -38,7 +39,7 @@ protected slots:
 
 protected:
     Ui::LogsToolWid *ui;
-    ConfigBase *config;
+    ConfigBase *mConfig;
 };
 
 #endif // LOGSTOOLWID_H

@@ -8,6 +8,5 @@
 
 SI_ModeToolWid::SI_ModeToolWid(QWidget *parent) : ModeToolWid(parent)
 {
-    mConfig = SiConfigFile::bulid();
     sipdu();
 }

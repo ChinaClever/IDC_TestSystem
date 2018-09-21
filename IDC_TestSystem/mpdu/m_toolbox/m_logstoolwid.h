@@ -2,7 +2,7 @@
 #define M_LOGSTOOLWID_H
 
 #include "m_com/m_datapackets.h"
-#include "toolbox/logstoolwid.h"
+#include "toolbox/toolboxwid.h"
 
 class M_LogsToolWid : public LogsToolWid
 {

@@ -2,7 +2,7 @@
 #define SI_LOGSTOOLWID_H
 
 #include "si_com/sidatapackets.h"
-#include "toolbox/logstoolwid.h"
+#include "toolbox/toolboxwid.h"
 
 class SI_LogsToolWid : public LogsToolWid
 {

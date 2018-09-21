@@ -31,10 +31,10 @@ void LogsToolWid::sipdu()
  */
 void LogsToolWid::updateLogTime(int num)
 {
-    config->item->logMins = num;
+    mConfig->item->logMins = num;
 
     ui->spinBox->setValue(num);
-    config->setLogTime(num);
+    mConfig->setLogTime(num);
 }
 
 /**
@@ -42,7 +42,7 @@ void LogsToolWid::updateLogTime(int num)
  */
 void LogsToolWid::initLogTime()
 {
-    int num = config->getLogTime();
+    int num = mConfig->getLogTime();
     updateLogTime(num);
 }
 
