@@ -16,10 +16,12 @@ public:
     ~ZSet_EnvUnitWid();
     void initWid(int mode, int type);
     void getCmdList(int addr, QList<sRtuSetCmd> &list);
+    void getCmdList(int index ,int addr, QList<sSnmpSetCmd> &list);
 
 private:
     Ui::ZSet_EnvUnitWid *ui;
     ZSet_EnvItemWid *mWid[4];
+    int getIndex(int index ,int i, int j);
 };
 
 #endif // ZSET_ENVUNITWID_H

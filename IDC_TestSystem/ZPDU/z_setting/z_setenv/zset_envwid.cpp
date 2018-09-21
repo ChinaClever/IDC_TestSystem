@@ -22,6 +22,9 @@ void ZSet_EnvWid::initWid()
     mWid[id] = new ZSet_EnvUnitWid(ui->humGroup);
     mWid[id++]->initWid(1, Zpdu_Rtu_Test_min);
 
+    mSnmp = new ZSet_SnmpThread(this);
+    connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
+
     mRtu = new ZSet_RtuThread(this);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 }
@@ -35,17 +38,31 @@ void ZSet_EnvWid::updateTextSlot(QString str)
 
 void ZSet_EnvWid::on_pushButton_clicked()
 {
-    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
+    sConfigItem *item = Z_ConfigFile::bulid()->item;
+    if(item->setMode == Test_SNMP)
+    {
+        QList<sSnmpSetCmd> list;
+        for(int i=0; i<2; ++i) {
+            mWid[i]->getCmdList(i , addr, list);
+        }
 
-    for(int i=0; i<2; ++i) {
-       mWid[i]->getCmdList(addr, list);
+        for(int i=0; i<list.size(); ++i) {
+            mSnmp->setCmd(list.at(i));
+        }
     }
+    else
+    {
+        QList<sRtuSetCmd> list;
+        for(int i=0; i<2; ++i) {
+            mWid[i]->getCmdList(addr, list);
+        }
 
-    for(int i=0; i<list.size(); ++i) {
-         mRtu->setCmd(list.at(i));
+        for(int i=0; i<list.size(); ++i) {
+            mRtu->setCmd(list.at(i));
+        }
     }
-
+    mSnmp->start();
     mRtu->start();
     ui->textEdit->clear();
 }
