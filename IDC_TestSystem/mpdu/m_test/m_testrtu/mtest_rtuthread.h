@@ -3,13 +3,6 @@
 
 #include "m_rtu/m_rtutrans.h"
 
-struct sMTestRtuSetCmd
-{
-    int addr;
-    int reg;
-    ushort value;
-};
-
 
 class MTest_RtuThread : public QThread
 {
@@ -18,7 +11,7 @@ public:
     explicit MTest_RtuThread(QObject *parent = nullptr);
     ~MTest_RtuThread();
 
-    void setCmd(const sMTestRtuSetCmd &cmd) {mList.append(cmd);}
+    void setCmd(const sRtuSetCmd &cmd) {mList.append(cmd);}
     int mReg;
 
 protected:
@@ -35,7 +28,7 @@ private:
     QMutex *mMutex;
     M_RtuTrans *mRtu;
 
-    QList<sMTestRtuSetCmd> mList;
+    QList<sRtuSetCmd> mList;
 };
 
 #endif // MTEST_RTUTHREAD_H

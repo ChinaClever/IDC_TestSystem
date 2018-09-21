@@ -35,7 +35,7 @@ void ZTest_EnvWid::updateTextSlot(QString str)
 
 void ZTest_EnvWid::on_pushButton_clicked()
 {
-    QList<sZTestRtuSetCmd> list;
+    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
 
     for(int i=0; i<2; ++i) {

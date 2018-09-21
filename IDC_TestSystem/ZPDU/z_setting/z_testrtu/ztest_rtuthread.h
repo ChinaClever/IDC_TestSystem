@@ -3,12 +3,6 @@
 
 #include "z_rtu/z_rtutrans.h"
 
-struct sZTestRtuSetCmd
-{
-    ushort addr;
-    ushort reg;
-    ushort value;
-};
 
 class ZTest_RtuThread : public QThread
 {
@@ -17,7 +11,7 @@ public:
     explicit ZTest_RtuThread(QObject *parent = nullptr);
     ~ZTest_RtuThread();
 
-    void setCmd(const sZTestRtuSetCmd &cmd) {mList.append(cmd);}
+    void setCmd(const sRtuSetCmd &cmd) {mList.append(cmd);}
     int mReg;
 
 protected:
@@ -34,7 +28,7 @@ private:
     QMutex *mMutex;
     Z_RtuTrans *mRtu;
 
-    QList<sZTestRtuSetCmd> mList;
+    QList<sRtuSetCmd> mList;
 };
 
 #endif // ZTEST_RTUTHREAD_H

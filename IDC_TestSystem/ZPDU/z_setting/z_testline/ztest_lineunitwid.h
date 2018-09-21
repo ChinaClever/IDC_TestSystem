@@ -16,7 +16,7 @@ public:
     ~ZTest_LineUnitWid();
 
     void initWid(int mode, int type);
-    void getCmdList(int addr, QList<sZTestRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sRtuSetCmd> &list);
 private:
     Ui::ZTest_LineUnitWid *ui;
     ZTest_LineItemWid *mWid[4];

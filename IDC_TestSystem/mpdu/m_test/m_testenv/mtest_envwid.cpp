@@ -43,7 +43,7 @@ void MTest_EnvWid::updateTextSlot(QString str)
 
 void MTest_EnvWid::on_pushButton_clicked()
 {
-    QList<sMTestRtuSetCmd> list;
+    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
 
     for(int i=0; i<2; ++i) {

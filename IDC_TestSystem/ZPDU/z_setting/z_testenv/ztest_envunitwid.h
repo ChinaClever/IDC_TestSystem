@@ -15,7 +15,7 @@ public:
     explicit ZTest_EnvUnitWid(QWidget *parent = 0);
     ~ZTest_EnvUnitWid();
     void initWid(int mode, int type);
-    void getCmdList(int addr, QList<sZTestRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sRtuSetCmd> &list);
 
 private:
     Ui::ZTest_EnvUnitWid *ui;

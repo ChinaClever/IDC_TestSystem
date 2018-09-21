@@ -22,13 +22,13 @@ void ZTest_LineUnitWid::initWid(int mode, int type)
         mWid[i]->initwid(mode, type+i);
     }
 }
-void ZTest_LineUnitWid::getCmdList(int addr, QList<sZTestRtuSetCmd> &list)
+void ZTest_LineUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
 {
     for(int i=0; i<4; ++i) {
         for(int j=0; j<3; j++) {
             ZTest_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                 sZTestRtuSetCmd cmd;
+                 sRtuSetCmd cmd;
                  cmd.addr = addr;
                  cmd.reg =  mWid[i]->mReg + j;
                  cmd.value = item->status();

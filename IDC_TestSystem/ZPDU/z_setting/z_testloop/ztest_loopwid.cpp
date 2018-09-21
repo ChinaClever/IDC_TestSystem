@@ -34,7 +34,7 @@ void ZTest_LoopWid::updateTextSlot(QString str)
 
 void ZTest_LoopWid::on_pushButton_clicked()
 {
-    QList<sZTestRtuSetCmd> list;
+    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
 
 

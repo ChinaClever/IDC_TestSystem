@@ -63,7 +63,7 @@ void ZTest_ThresholdOutputWid::on_pushButton_clicked()
 {
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            sZTestRtuSetCmd cmd;
+            sRtuSetCmd cmd;
             cmd.addr = ui->spinBox->value();
             cmd.reg = mReg + i;
             cmd.value = mWid[i]->status();

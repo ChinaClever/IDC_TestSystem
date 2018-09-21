@@ -30,13 +30,13 @@ void MTest_LineUnitWid::initWid(int mode, int type)
 }
 
 
-void MTest_LineUnitWid::getCmdList(int addr, QList<sMTestRtuSetCmd> &list)
+void MTest_LineUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
 {
     for(int i=0; i<2; ++i) {
         for(int j=0; j<3; j++) {
             MTest_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                 sMTestRtuSetCmd cmd;
+                 sRtuSetCmd cmd;
                  cmd.addr = addr;
                  cmd.reg =  mWid[i]->mReg + j;
                  cmd.value = item->status();

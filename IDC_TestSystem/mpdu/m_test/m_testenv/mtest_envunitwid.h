@@ -16,7 +16,7 @@ public:
     ~MTest_EnvUnitWid();
 
     void initWid(int mode, int type);
-    void getCmdList(int addr, QList<sMTestRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sRtuSetCmd> &list);
 
 private:
     Ui::MTest_EnvUnitWid *ui;
