@@ -121,7 +121,6 @@ SOURCES += \
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \
-    $$PWD/m_toolbox/mpdu_toolboxwid.ui \
     $$PWD/m_logs/m_logswid.ui \
     $$PWD/m_setting/mset_mainwid.ui \
     $$PWD/m_status/m_statuswid.ui \

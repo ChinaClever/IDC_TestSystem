@@ -8,5 +8,4 @@
 
 M_SettingToolWid::M_SettingToolWid(QWidget *parent) : SettingToolWid(parent)
 {
-    config = M_ConfigFile::bulid();
 }

@@ -2,7 +2,7 @@
 #define IP_LOGSTOOLWID_H
 
 #include "ip_com/ipdatapackets.h"
-#include "toolbox/logstoolwid.h"
+#include "toolbox/toolboxwid.h"
 
 class IP_LogsToolWid : public LogsToolWid
 {

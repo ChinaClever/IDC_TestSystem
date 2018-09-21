@@ -5,7 +5,6 @@
  *      Author: Lzy
  */
 #include "linechart.h"
-extern void groupBox_background_icon(QWidget *target);
 
 LineChart::LineChart(QWidget *parent) : QWidget(parent)
 {

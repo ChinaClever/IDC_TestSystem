@@ -93,7 +93,6 @@ FORMS += \
     $$PWD/si_setting/si_thresholdsetwid.ui \
     $$PWD/si_setting/si_elesetwid.ui \
     $$PWD/si_logs/silogswid.ui \
-    $$PWD/si_toolbox/si_toolboxwid.ui \
     $$PWD/si_status/si_statuswid.ui
 
 

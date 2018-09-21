@@ -131,7 +131,6 @@ SOURCES += \
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
-    $$PWD/z_toolbox/z_toolboxwid.ui \
     $$PWD/zpdu_mainwid.ui \
     $$PWD/z_setting/zset_mainwid.ui \
     $$PWD/z_status/z_statuswid.ui \

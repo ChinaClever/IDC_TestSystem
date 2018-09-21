@@ -8,6 +8,6 @@
 
 Z_SettingToolWid::Z_SettingToolWid(QWidget *parent) : SettingToolWid(parent)
 {
-    config = Z_ConfigFile::bulid();
+
 }
 

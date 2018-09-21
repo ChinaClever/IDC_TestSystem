@@ -1,6 +1,7 @@
 ﻿#include "settingtoolwid.h"
 #include "ui_settingtoolwid.h"
 #include "QGridLayout"
+
 SettingToolWid::SettingToolWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingToolWid)
@@ -40,13 +41,13 @@ void SettingToolWid::ippdu(bool hide)
  */
 void SettingToolWid::updateDevCmd(int num)
 {
-    config->item->cmdModel = num;
-    config->setModbusCmd(num);
+    mConfig->item->cmdModel = num;
+    mConfig->setModbusCmd(num);
 }
 
 void SettingToolWid::initDevCmd()
 {
-    int num = config->getModbusCmd();
+    int num = mConfig->getModbusCmd();
     updateDevCmd(num);
 
     ui->cmdBox->setCurrentIndex(num-1);
@@ -64,13 +65,13 @@ void SettingToolWid::on_cmdBtn_clicked()
  */
 void SettingToolWid::updateModbusTime(int num)
 {
-    config->item->msecs = 5*(num+1);
-    config->setModbusTime(num);
+    mConfig->item->msecs = 5*(num+1);
+    mConfig->setModbusTime(num);
 }
 
 void SettingToolWid::initModbusTime()
 {
-    int num = config->getModbusTime();
+    int num = mConfig->getModbusTime();
     updateModbusTime(num);
     ui->timeBox->setCurrentIndex(num);
 }
@@ -86,13 +87,13 @@ void SettingToolWid::on_timeBtn_clicked()
  */
 void SettingToolWid::updateDevNum(int num)
 {
-    config->item->devNum = num;
-    config->setDevNum(num);
+    mConfig->item->devNum = num;
+    mConfig->setDevNum(num);
 }
 
 void SettingToolWid::initDevNum()
 {
-    int num = config->getDevNum();;
+    int num = mConfig->getDevNum();;
     updateDevNum(num);
     ui->spinBox->setValue(num);
 }
@@ -104,13 +105,13 @@ void SettingToolWid::on_devNumBtn_clicked()
 
 void SettingToolWid::updateOutputNum(int num)
 {
-    config->item->outputNum = num;
-    config->setOutputNum(num);
+    mConfig->item->outputNum = num;
+    mConfig->setOutputNum(num);
 }
 
 void SettingToolWid::initOutputNum()
 {
-    int num = config->getOutputNum();;
+    int num = mConfig->getOutputNum();;
     updateOutputNum(num);
     ui->outputSpinBox->setValue(num);
 }
@@ -126,8 +127,8 @@ void SettingToolWid::on_outputNumBtn_clicked()
  */
 void SettingToolWid::updateLineNum(int num)
 {
-    config->item->lineNum = num;
-    config->setLineNum(num);
+    mConfig->item->lineNum = num;
+    mConfig->setLineNum(num);
 }
 
 /**
@@ -135,7 +136,7 @@ void SettingToolWid::updateLineNum(int num)
  */
 void SettingToolWid::initLineNum()
 {
-    int num = config->getLineNum();
+    int num = mConfig->getLineNum();
     updateLineNum(num);
     ui->lineSpinBox->setValue(num-1);
 }
@@ -148,13 +149,13 @@ void SettingToolWid::on_lineBtn_clicked()
 
 void SettingToolWid::updateVersion(int num)
 {
-    config->item->v = num;
-    config->setVersion(num);
+    mConfig->item->v = num;
+    mConfig->setVersion(num);
 }
 
 void SettingToolWid::initVersion()
 {
-    int num = config->getVersion();;
+    int num = mConfig->getVersion();;
     updateVersion(num);
     ui->vBox->setCurrentIndex(num);
 }

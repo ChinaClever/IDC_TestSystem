@@ -84,7 +84,6 @@ SOURCES += \
 
 FORMS += \
     $$PWD/ip_mainwid.ui \
-    $$PWD/ip_toolbox/ip_toolboxwid.ui \
     $$PWD/ip_logs/iplogswid.ui \
     $$PWD/ip_status/ip_statuswid.ui
 

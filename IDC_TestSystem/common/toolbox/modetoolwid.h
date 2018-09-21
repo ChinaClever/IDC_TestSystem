@@ -16,6 +16,7 @@ public:
     ~ModeToolWid();
 
     void sipdu();
+    void init(ConfigBase *config) {mConfig= config;}
 
 signals:
     void simulateSig(int);
