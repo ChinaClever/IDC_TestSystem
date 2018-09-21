@@ -17,6 +17,7 @@ public:
 
     void initWid(int mode, int type);
     void getCmdList(int addr, QList<sRtuSetCmd> &list);
+    void getCmdList(int index , int addr, QList<sSnmpSetCmd> &list);
 private:
     Ui::ZSet_LineUnitWid *ui;
     ZSet_LineItemWid *mWid[4];

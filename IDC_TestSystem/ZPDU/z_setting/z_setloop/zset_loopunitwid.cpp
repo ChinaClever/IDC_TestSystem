@@ -38,3 +38,18 @@ void ZSet_LoopUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
         }
     }
 }
+void ZSet_LoopUnitWid::getCmdList(int addr, QList<sSnmpSetCmd> &list)
+{
+    for(int i=0; i<4; ++i) {
+        for(int j=0; j<6; j++) {
+            ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
+            if(item->select()) {
+                 sSnmpSetCmd cmd;
+                 cmd.oid  = QString("%1.%2.%3.3.%4.%5.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(j+1).arg(i+7);
+                 cmd.type = SNMP_STRING_TYPE;
+                 cmd.value.append(QString("%1.00").arg(item->status()*LOOPCURRATE));
+                 list.append(cmd);
+            }
+        }
+    }
+}

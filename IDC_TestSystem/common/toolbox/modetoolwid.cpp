@@ -167,7 +167,8 @@ void ModeToolWid::on_testBtn_clicked()
 {
     int mode = mConfig->item->testMode;
     if(mode == Test_Stop) {
-        if(checkInput())  startTest();
+        if(ui->comboBox->currentIndex()==1&&checkInput())  startTest();
+        else if(ui->comboBox->currentIndex()==0)startTest();
     } else {
         stopTest();
     }

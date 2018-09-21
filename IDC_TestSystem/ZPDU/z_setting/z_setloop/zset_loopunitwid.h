@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "zset_loopitemwid.h"
+#define LOOPCURRATE 100
 namespace Ui {
 class ZSet_LoopUnitWid;
 }
@@ -17,6 +18,7 @@ public:
 
     void initWid(int type);
     void getCmdList(int addr, QList<sRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sSnmpSetCmd> &list);
 private:
     Ui::ZSet_LoopUnitWid *ui;
     ZSet_LoopItemWid *mWid[4];

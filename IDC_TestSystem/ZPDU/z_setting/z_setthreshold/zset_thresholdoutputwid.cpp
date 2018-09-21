@@ -93,8 +93,7 @@ void ZSet_ThresholdOutputWid::sendSnmp(int i)
     sSnmpSetCmd cmd;
     cmd.oid = mOid + QString(".%1.0").arg(i+1);
     cmd.type = SNMP_STRING_TYPE;
-    cmd.value.append( QString("%1.0").arg(mWid[i]->status()));
-    qDebug()<<cmd.oid<<cmd.value;
+    cmd.value.append( QString("%1.00").arg(mWid[i]->status()));
     mSnmp->setCmd(cmd);
 }
 void ZSet_ThresholdOutputWid::on_pushButton_clicked()
@@ -102,12 +101,10 @@ void ZSet_ThresholdOutputWid::on_pushButton_clicked()
     sConfigItem *item = Z_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            if(mWid[i]->select()) {
-                if(item->setMode == Test_SNMP) {
-                    sendSnmp(i);  // 增加SNMP命令
-                } else {
-                    sendRtu(i);
-                }
+            if(item->setMode == Test_SNMP) {
+                sendSnmp(i);  // 增加SNMP命令
+            } else {
+                sendRtu(i);
             }
         }
     }

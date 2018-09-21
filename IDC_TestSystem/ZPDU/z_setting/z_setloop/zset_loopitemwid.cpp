@@ -41,7 +41,6 @@ int ZSet_LoopItemWid::getReg(int type)
     return reg;
 }
 
-
 void ZSet_LoopItemWid::initwid(int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3,ui->widget_4, ui->widget_5, ui->widget_6};
@@ -49,7 +48,7 @@ void ZSet_LoopItemWid::initwid(int type)
         mWid[i] = new ZSet_ThresholdItemWid(wid[i]);
         mWid[i]->initLoop(i);
     }
-    mReg  = getReg(type);
+    mReg = getReg(type);
 
     QString str = tr("回路电流");
     str += getTypeName(type);

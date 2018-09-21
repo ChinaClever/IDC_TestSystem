@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::ZSet_LoopWid *ui;
     ZSet_RtuThread *mRtu;
+    ZSet_SnmpThread *mSnmp;
     ZSet_LoopUnitWid *mWid;
 };
 
