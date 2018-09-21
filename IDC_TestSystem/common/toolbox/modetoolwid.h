@@ -25,6 +25,7 @@ protected:
     void updateSerialWid();
     void startTest();
     bool stopTest();
+    bool checkInput();
 
 
 protected slots:

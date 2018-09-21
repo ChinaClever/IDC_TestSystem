@@ -12,7 +12,6 @@ ModeToolWid::ModeToolWid(QWidget *parent) :
     mSerialPortDlg = new SerialPortDlg(this);
 
     QTimer::singleShot(400,this,SLOT(initFunSLot())); //延时初始化
-    on_comboBox_currentIndexChanged(0);
 }
 
 ModeToolWid::~ModeToolWid()
@@ -25,7 +24,11 @@ void ModeToolWid::initFunSLot()
     initSerialPort();
 
     QString ip = mConfig->getIp();
-    if(!ip.isEmpty())  ui->lineEdit->setText(ip);
+    if(ip.isEmpty()) ip = "192.168.1.163";
+    ui->ipLineEdit->setText(ip);
+
+    int mode = mConfig->getTestMode();
+    ui->comboBox->setCurrentIndex(mode);
 }
 
 void ModeToolWid::sipdu()
@@ -50,7 +53,7 @@ bool ModeToolWid::initSerialPort()
     {
         ret = serial->isContains(com);
         if(ret) {
-            //            ret = serial->open(com);
+            // ret = serial->open(com);
             updateSerialWid();
         }
     }
@@ -103,25 +106,38 @@ void ModeToolWid::on_settingBtn_clicked()
 }
 
 
+bool ModeToolWid::checkInput()
+{
+    bool ret = mConfig->item->serial->isOpen();
+    if(!ret) {
+        CriticalMsgBox box(this, tr("串口未打开，请先打开串口!!!"));
+    } else {
+        QString ip = ui->ipLineEdit->text();
+        ret = cm_isIPaddress(ip);
+        if(!ret) {
+            CriticalMsgBox box(this, tr("IP地址输入有误，请重新输入!!!"));
+        }
+    }
+
+    return ret;
+}
 
 /**
  * @brief 开始模拟测试
  */
 void ModeToolWid::startTest()
 {
-    int mode = Test_SNMP;
-    int index = ui->comboBox->currentIndex();
-    if(index) mode = Test_Rtu;
+    int mode = ui->comboBox->currentIndex() + 1;
+    QString ip = ui->ipLineEdit->text();
+    mConfig->item->ip = ip;
+    mConfig->setIp(ip);
 
     mConfig->item->testMode = mode;
     mConfig->item->setMode = mode;
-    QString ip = ui->lineEdit->text();
-    mConfig->item->ip = ip;
-    mConfig->setIp(ip);
     emit simulateSig(mode);
 
     ui->comboBox->setEnabled(false);
-    ui->lineEdit->setEnabled(false);
+    ui->ipLineEdit->setEnabled(false);
     ui->testBtn->setText(tr("停止测试"));
 }
 
@@ -139,33 +155,37 @@ bool ModeToolWid::stopTest()
         ret = true;
         ui->testBtn->setText(tr("启动测试"));
         ui->comboBox->setEnabled(true);
-        ui->lineEdit->setEnabled(true);
+        ui->ipLineEdit->setEnabled(true);
     }
 
     return ret;
 }
 
 
-
-
 void ModeToolWid::on_testBtn_clicked()
 {
     int mode = mConfig->item->testMode;
     if(mode == Test_Stop) {
-        startTest();
+        if(checkInput())  startTest();
     } else {
         stopTest();
     }
 }
 
-
 void ModeToolWid::on_comboBox_currentIndexChanged(int index)
 {
-    bool en = true;
-    if(index)  en = false;
-    ui->serialBtn->setHidden(en);
-    ui->serialLab->setHidden(en);
+    bool serialEn = true, ipEn = true;
+    switch (index) {
+    case 0: ipEn = false; break;
+    case 1: serialEn = false; break;
+    case 2:   break;
 
-    ui->lineEdit->setHidden(!en);
+    default:  break;
+    }
+
+    ui->serialBtn->setHidden(serialEn);
+    ui->serialLab->setHidden(serialEn);
+    ui->ipLineEdit->setHidden(ipEn);
+    mConfig->setTestMode(index);
 }
 

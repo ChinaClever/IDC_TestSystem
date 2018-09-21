@@ -44,6 +44,31 @@ void ConfigBase::setSerialName(const QString &name)
 
 
 /**
+ * @brief 获取相数
+ * @return
+ */
+int ConfigBase::getTestMode()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_test_mode").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret < 0)  ret = 0;
+    return ret;
+}
+
+/**
+ * @brief 设置相数
+ * @param num
+ */
+void ConfigBase::setTestMode(int mode)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_test_mode").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(num), prefix);
+}
+
+
+/**
  * @brief 获取串口名称
  * @return 串口名
  */

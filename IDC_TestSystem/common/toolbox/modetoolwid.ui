@@ -85,7 +85,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="ipLineEdit">
      <property name="text">
       <string>192.168.1.163</string>
      </property>
@@ -108,12 +108,17 @@
     <widget class="QComboBox" name="comboBox">
      <item>
       <property name="text">
-       <string>SNMP测试</string>
+       <string>SNMP 测试</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>RTU 测试</string>
+       <string>Modbus 测试</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>自动化功能测试</string>
       </property>
      </item>
     </widget>
