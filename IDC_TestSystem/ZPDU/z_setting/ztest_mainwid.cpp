@@ -1,8 +1,8 @@
 ﻿#include "ztest_mainwid.h"
 #include "ui_ztest_mainwid.h"
-#include "z_testsw/ztest_swwid.h"
-#include "z_testthreshold/ztest_thresholditemwid.h"
-#include "z_testthreshold/ztest_thresholdoutputwid.h"
+#include "z_setsw/zset_swwid.h"
+#include "z_setthreshold/zset_thresholditemwid.h"
+#include "z_setthreshold/zset_thresholdoutputwid.h"
 #include "z_setele/zset_outputelewid.h"
 #include "z_setline/zset_linewid.h"
 #include "z_setenv/zset_envwid.h"
@@ -37,7 +37,7 @@ QString ZTest_MainWid::getName(int mode)
 }
 void ZTest_MainWid::initFunSLot()
 {
-    ZTest_SwWid *swWid = new ZTest_SwWid(ui->tabWidget);
+    ZSet_SwWid *swWid = new ZSet_SwWid(ui->tabWidget);
     ui->tabWidget->addTab(swWid, tr("输出位开关"));
 
     for(int i=Zpdu_Rtu_Test_min; i<=Zpdu_Rtu_Test_crMax; ++i) {

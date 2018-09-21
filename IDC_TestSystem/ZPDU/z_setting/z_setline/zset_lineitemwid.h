@@ -2,7 +2,7 @@
 #define ZSET_LINEITEMWID_H
 
 #include <QWidget>
-#include "../z_testthreshold/ztest_thresholdoutputwid.h"
+#include "../z_setthreshold/zset_thresholdoutputwid.h"
 namespace Ui {
 class ZSet_LineItemWid;
 }
@@ -18,7 +18,7 @@ public:
     void initwid(int mode, int type);
 
     int mReg;
-    ZTest_ThresholdItemWid *mWid[3];
+    ZSet_ThresholdItemWid *mWid[3];
 
 protected:
     QString getTypeName(int type);

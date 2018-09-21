@@ -32,20 +32,7 @@ HEADERS += \
     $$PWD/m_logs/m_loglinethresholdwid.h \
     $$PWD/m_logs/m_logoutputrecordwid.h \
     $$PWD/m_logs/m_logswid.h \
-    $$PWD/m_test/m_testrtu/mtest_rtuthread.h \
-    $$PWD/m_test/m_testsw/mtest_switemwid.h \
-    $$PWD/m_test/m_testsw/mtest_swwid.h \
-    $$PWD/m_test/m_testthreshold/mtest_thresholditemwid.h \
-    $$PWD/m_test/m_testthreshold/mtest_thresholdoutputwid.h \
-    $$PWD/m_test/m_testline/mtest_lineitemwid.h \
-    $$PWD/m_test/m_testline/mtest_lineunitwid.h \
-    $$PWD/m_test/m_testline/mtest_linewid.h \
-    $$PWD/m_test/m_testele/mtest_eleitemwid.h \
-    $$PWD/m_test/m_testele/mtest_outputelewid.h \
-    $$PWD/m_test/m_testenv/mtest_envitemwid.h \
-    $$PWD/m_test/m_testenv/mtest_envunitwid.h \
-    $$PWD/m_test/m_testenv/mtest_envwid.h \
-    $$PWD/m_test/mtest_mainwid.h \
+    $$PWD/m_setting/mset_mainwid.h \
     $$PWD/m_service/json/m_buildjson.h \
     $$PWD/m_service/m_servicethread.h \
     $$PWD/m_dp/m_dpalarmsave.h \
@@ -59,7 +46,20 @@ HEADERS += \
     $$PWD/m_snmp/m_snmpsend.h \
     $$PWD/m_snmp/m_snmprecv.h \
     $$PWD/m_snmp/m_snmptrans.h \
-    $$PWD/m_test/m_testsnmp/mtest_snmpthread.h
+    $$PWD/m_setting/m_setsnmp/mset_snmpthread.h \
+    $$PWD/m_setting/m_setrtu/mset_rtuthread.h \
+    $$PWD/m_setting/m_setele/mset_eleitemwid.h \
+    $$PWD/m_setting/m_setele/mset_outputelewid.h \
+    $$PWD/m_setting/m_setenv/mset_envitemwid.h \
+    $$PWD/m_setting/m_setenv/mset_envunitwid.h \
+    $$PWD/m_setting/m_setenv/mset_envwid.h \
+    $$PWD/m_setting/m_setline/mset_lineitemwid.h \
+    $$PWD/m_setting/m_setline/mset_lineunitwid.h \
+    $$PWD/m_setting/m_setline/mset_linewid.h \
+    $$PWD/m_setting/m_setsw/mset_switemwid.h \
+    $$PWD/m_setting/m_setsw/mset_swwid.h \
+    $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.h \
+    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.h
 
 	
 SOURCES += \
@@ -90,20 +90,7 @@ SOURCES += \
     $$PWD/m_logs/m_loglinethresholdwid.cpp \
     $$PWD/m_logs/m_logoutputrecordwid.cpp \
     $$PWD/m_logs/m_logswid.cpp \
-    $$PWD/m_test/m_testrtu/mtest_rtuthread.cpp \
-    $$PWD/m_test/m_testsw/mtest_switemwid.cpp \
-    $$PWD/m_test/m_testsw/mtest_swwid.cpp \
-    $$PWD/m_test/m_testthreshold/mtest_thresholditemwid.cpp \
-    $$PWD/m_test/m_testthreshold/mtest_thresholdoutputwid.cpp \
-    $$PWD/m_test/m_testline/mtest_lineitemwid.cpp \
-    $$PWD/m_test/m_testline/mtest_lineunitwid.cpp \
-    $$PWD/m_test/m_testline/mtest_linewid.cpp \
-    $$PWD/m_test/m_testele/mtest_eleitemwid.cpp \
-    $$PWD/m_test/m_testele/mtest_outputelewid.cpp \
-    $$PWD/m_test/m_testenv/mtest_envitemwid.cpp \
-    $$PWD/m_test/m_testenv/mtest_envunitwid.cpp \
-    $$PWD/m_test/m_testenv/mtest_envwid.cpp \
-    $$PWD/m_test/mtest_mainwid.cpp \
+    $$PWD/m_setting/mset_mainwid.cpp \
     $$PWD/m_service/json/m_buildjson.cpp \
     $$PWD/m_service/m_servicethread.cpp \
     $$PWD/m_dp/m_dpalarmsave.cpp \
@@ -117,26 +104,39 @@ SOURCES += \
     $$PWD/m_snmp/m_snmpsend.cpp \
     $$PWD/m_snmp/m_snmprecv.cpp \
     $$PWD/m_snmp/m_snmptrans.cpp \
-    $$PWD/m_test/m_testsnmp/mtest_snmpthread.cpp
+    $$PWD/m_setting/m_setsnmp/mset_snmpthread.cpp \
+    $$PWD/m_setting/m_setrtu/mset_rtuthread.cpp \
+    $$PWD/m_setting/m_setele/mset_eleitemwid.cpp \
+    $$PWD/m_setting/m_setele/mset_outputelewid.cpp \
+    $$PWD/m_setting/m_setenv/mset_envitemwid.cpp \
+    $$PWD/m_setting/m_setenv/mset_envunitwid.cpp \
+    $$PWD/m_setting/m_setenv/mset_envwid.cpp \
+    $$PWD/m_setting/m_setline/mset_lineitemwid.cpp \
+    $$PWD/m_setting/m_setline/mset_lineunitwid.cpp \
+    $$PWD/m_setting/m_setline/mset_linewid.cpp \
+    $$PWD/m_setting/m_setsw/mset_switemwid.cpp \
+    $$PWD/m_setting/m_setsw/mset_swwid.cpp \
+    $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.cpp \
+    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \
     $$PWD/m_toolbox/mpdu_toolboxwid.ui \
     $$PWD/m_logs/m_logswid.ui \
-    $$PWD/m_test/m_testsw/mtest_switemwid.ui \
-    $$PWD/m_test/m_testsw/mtest_swwid.ui \
-    $$PWD/m_test/m_testthreshold/mtest_thresholditemwid.ui \
-    $$PWD/m_test/m_testthreshold/mtest_thresholdoutputwid.ui \
-    $$PWD/m_test/m_testline/mtest_lineitemwid.ui \
-    $$PWD/m_test/m_testline/mtest_lineunitwid.ui \
-    $$PWD/m_test/m_testline/mtest_linewid.ui \
-    $$PWD/m_test/m_testele/mtest_eleitemwid.ui \
-    $$PWD/m_test/m_testele/mtest_outputelewid.ui \
-    $$PWD/m_test/m_testenv/mtest_envitemwid.ui \
-    $$PWD/m_test/m_testenv/mtest_envunitwid.ui \
-    $$PWD/m_test/m_testenv/mtest_envwid.ui \
-    $$PWD/m_test/mtest_mainwid.ui \
-    $$PWD/m_status/m_statuswid.ui
+    $$PWD/m_setting/mset_mainwid.ui \
+    $$PWD/m_status/m_statuswid.ui \
+    $$PWD/m_setting/m_setele/mset_eleitemwid.ui \
+    $$PWD/m_setting/m_setele/mset_outputelewid.ui \
+    $$PWD/m_setting/m_setenv/mset_envitemwid.ui \
+    $$PWD/m_setting/m_setenv/mset_envunitwid.ui \
+    $$PWD/m_setting/m_setenv/mset_envwid.ui \
+    $$PWD/m_setting/m_setline/mset_lineitemwid.ui \
+    $$PWD/m_setting/m_setline/mset_lineunitwid.ui \
+    $$PWD/m_setting/m_setline/mset_linewid.ui \
+    $$PWD/m_setting/m_setsw/mset_switemwid.ui \
+    $$PWD/m_setting/m_setsw/mset_swwid.ui \
+    $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.ui \
+    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.ui
 
 
 

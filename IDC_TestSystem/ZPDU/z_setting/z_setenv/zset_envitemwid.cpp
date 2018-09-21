@@ -47,7 +47,7 @@ void ZSet_EnvItemWid::initwid(int mode, int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2};
     for(int i=0; i<2; ++i) {
-        mWid[i] = new ZTest_ThresholdItemWid(wid[i]);
+        mWid[i] = new ZSet_ThresholdItemWid(wid[i]);
         mWid[i]->initEnv(i, mode);
     }
     mReg  = getReg(mode, type);

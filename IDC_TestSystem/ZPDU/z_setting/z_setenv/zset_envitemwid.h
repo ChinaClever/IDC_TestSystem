@@ -2,7 +2,7 @@
 #define ZSET_ENVITEMWID_H
 
 #include <QWidget>
-#include "../z_testthreshold/ztest_thresholditemwid.h"
+#include "../z_setthreshold/zset_thresholditemwid.h"
 namespace Ui {
 class ZSet_EnvItemWid;
 }
@@ -18,7 +18,7 @@ public:
     void initwid(int mode, int type);
 
     int mReg;
-    ZTest_ThresholdItemWid *mWid[3];
+    ZSet_ThresholdItemWid *mWid[3];
 
 protected:
     QString getTypeName(int type);

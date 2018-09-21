@@ -2,7 +2,7 @@
 #define ZSET_LOOPITEMWID_H
 
 #include <QWidget>
-#include "../z_testthreshold/ztest_thresholdoutputwid.h"
+#include "../z_setthreshold/zset_thresholdoutputwid.h"
 namespace Ui {
 class ZSet_LoopItemWid;
 }
@@ -18,7 +18,7 @@ public:
     void initwid(int type);
 
     int mReg;
-    ZTest_ThresholdItemWid *mWid[6];
+    ZSet_ThresholdItemWid *mWid[6];
 
 protected:
     QString getTypeName(int type);

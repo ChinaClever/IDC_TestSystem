@@ -26,7 +26,7 @@ void ZSet_LineUnitWid::getCmdList(int addr, QList<sZTestRtuSetCmd> &list)
 {
     for(int i=0; i<4; ++i) {
         for(int j=0; j<3; j++) {
-            ZTest_ThresholdItemWid *item = mWid[i]->mWid[j];
+            ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
                  sZTestRtuSetCmd cmd;
                  cmd.addr = addr;

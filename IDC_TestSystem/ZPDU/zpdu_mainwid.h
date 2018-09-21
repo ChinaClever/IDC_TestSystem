@@ -1,10 +1,10 @@
-#ifndef ZPDU_MAINWID_H
+﻿#ifndef ZPDU_MAINWID_H
 #define ZPDU_MAINWID_H
 
 #include "z_toolbox/z_toolboxwid.h"
 #include "z_logs/z_logswid.h"
 #include "z_service/z_servicethread.h"
-#include "z_test/ztest_mainwid.h"
+#include "z_setting/zset_mainwid.h"
 #include "z_rtu/z_rtuthread.h"
 #include "z_status/z_statuswid.h"
 #include "z_status/z_statuswid.h"
@@ -34,7 +34,7 @@ private:
     Z_StatusWid *mStatusWid;
     Z_LogsWid *mLogsWid;
     Z_ServiceThread *mServiceThread;
-    ZTest_MainWid *mTestWid;
+    ZSet_MainWid *mTestWid;
 
     Z_SnmpTrans *mSnmp;
     Z_DpThread *mDpThread;

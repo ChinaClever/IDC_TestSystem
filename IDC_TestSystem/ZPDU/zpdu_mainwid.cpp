@@ -44,7 +44,7 @@ void ZPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    mTestWid = new ZTest_MainWid(ui->stackedWid);
+    mTestWid = new ZSet_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTestWid);
 }
 

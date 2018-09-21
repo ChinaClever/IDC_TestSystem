@@ -46,7 +46,7 @@ void ZSet_LoopItemWid::initwid(int type)
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3,ui->widget_4, ui->widget_5, ui->widget_6};
     for(int i=0; i<6; ++i) {
-        mWid[i] = new ZTest_ThresholdItemWid(wid[i]);
+        mWid[i] = new ZSet_ThresholdItemWid(wid[i]);
         mWid[i]->initLoop(i);
     }
     mReg  = getReg(type);
