@@ -91,9 +91,10 @@ void ZSet_ThresholdOutputWid::sendRtu(int i)
 void ZSet_ThresholdOutputWid::sendSnmp(int i)
 {
     sSnmpSetCmd cmd;
-    cmd.oid = mOid + QString(".%1.0").arg(i);
+    cmd.oid = mOid + QString(".%1.0").arg(i+1);
     cmd.type = SNMP_STRING_TYPE;
-    cmd.value.append( QString("%1").arg(mWid[i]->status()));
+    cmd.value.append( QString("%1.0").arg(mWid[i]->status()));
+    qDebug()<<cmd.oid<<cmd.value;
     mSnmp->setCmd(cmd);
 }
 void ZSet_ThresholdOutputWid::on_pushButton_clicked()
