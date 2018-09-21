@@ -16,7 +16,7 @@ public:
     ~ZSet_LineUnitWid();
 
     void initWid(int mode, int type);
-    void getCmdList(int addr, QList<sZTestRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sRtuSetCmd> &list);
 private:
     Ui::ZSet_LineUnitWid *ui;
     ZSet_LineItemWid *mWid[4];

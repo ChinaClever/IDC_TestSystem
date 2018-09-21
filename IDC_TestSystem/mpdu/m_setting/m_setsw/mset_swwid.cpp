@@ -57,7 +57,7 @@ void MSet_SwWid::on_checkBox_clicked(bool checked)
 
 void MSet_SwWid::sendRtu(int i)
 {
-    sMTestRtuSetCmd cmd;
+    sRtuSetCmd cmd;
     cmd.addr = ui->spinBox->value();
     cmd.reg = mReg + i;
     cmd.value = mWid[i]->status();

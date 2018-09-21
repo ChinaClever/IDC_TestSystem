@@ -46,7 +46,7 @@ void MSet_LineWid::updateTextSlot(QString str)
 
 void MSet_LineWid::on_pushButton_clicked()
 {
-    QList<sMTestRtuSetCmd> list;
+    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
 
     for(int i=0; i<3; ++i) {

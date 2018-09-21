@@ -16,7 +16,7 @@ public:
     ~ZSet_LoopUnitWid();
 
     void initWid(int type);
-    void getCmdList(int addr, QList<sZTestRtuSetCmd> &list);
+    void getCmdList(int addr, QList<sRtuSetCmd> &list);
 private:
     Ui::ZSet_LoopUnitWid *ui;
     ZSet_LoopItemWid *mWid[4];

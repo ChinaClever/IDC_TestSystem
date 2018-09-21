@@ -22,13 +22,14 @@ void ZSet_LoopUnitWid::initWid(int type)
         mWid[i]->initwid(type+i);
     }
 }
-void ZSet_LoopUnitWid::getCmdList(int addr, QList<sZTestRtuSetCmd> &list)
+
+void ZSet_LoopUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
 {
     for(int i=0; i<4; ++i) {
         for(int j=0; j<6; j++) {
             ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                 sZTestRtuSetCmd cmd;
+                 sRtuSetCmd cmd;
                  cmd.addr = addr;
                  cmd.reg =  mWid[i]->mReg + j;
                  cmd.value = item->status();

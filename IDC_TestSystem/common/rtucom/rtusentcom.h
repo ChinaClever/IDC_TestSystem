@@ -11,6 +11,14 @@ struct sRtuSentCom {
     ushort crc; // 表示CRC校验
 };
 
+struct sRtuSetCmd
+{
+    int addr;
+    int reg;
+    ushort value;
+};
+
+
 int rtu_sent_packet(sRtuSentCom *pkt, uchar *ptr);
 int zrtu_sent_packet(sRtuSentCom *pkt, uchar *ptr);
 ushort rtu_crc(uchar *buf, int len);

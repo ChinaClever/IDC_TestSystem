@@ -29,14 +29,13 @@ void MSet_LineUnitWid::initWid(int mode, int type)
     }
 }
 
-
-void MSet_LineUnitWid::getCmdList(int addr, QList<sMTestRtuSetCmd> &list)
+void MSet_LineUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
 {
     for(int i=0; i<2; ++i) {
         for(int j=0; j<3; j++) {
             MSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                 sMTestRtuSetCmd cmd;
+                 sRtuSetCmd cmd;
                  cmd.addr = addr;
                  cmd.reg =  mWid[i]->mReg + j;
                  cmd.value = item->status();

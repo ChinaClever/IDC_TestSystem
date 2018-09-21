@@ -4,7 +4,7 @@
 #include "serialportdlg.h"
 
 enum {
-    Test_Stop,
+    Test_Stop = 0,
     Test_SNMP,  // 模拟测试
     Test_Rtu,
     Test_Function, // 功能测试
@@ -56,6 +56,9 @@ public:
 
     QString getSerialName();
     void setSerialName(const QString &name);
+
+    int getTestMode();
+    void setTestMode(int mode);
 
     QString getIp();
     void setIp(const QString &ip);

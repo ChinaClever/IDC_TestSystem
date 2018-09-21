@@ -50,7 +50,7 @@ void ZSet_SwWid::on_checkBox_clicked(bool checked)
 
 void ZSet_SwWid::sendRtu(int i)
 {
-    sZTestRtuSetCmd cmd;
+    sRtuSetCmd cmd;
     cmd.addr = ui->spinBox->value();
     cmd.reg = mReg + i;
     cmd.value = mWid[i]->status();

@@ -36,7 +36,7 @@ void ZSet_LineWid::updateTextSlot(QString str)
 
 void ZSet_LineWid::on_pushButton_clicked()
 {
-    QList<sZTestRtuSetCmd> list;
+    QList<sRtuSetCmd> list;
     int addr = ui->spinBox->value();
 
     for(int i=0; i<2; ++i) {
