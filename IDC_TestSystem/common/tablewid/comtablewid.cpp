@@ -140,6 +140,13 @@ void ComTableWid::setTableRow(int id, QStringList &listStr)
         setTableItem(id, i, listStr.at(i));
 }
 
+void ComTableWid::appendTableRow(QStringList &listStr)
+{
+    int row = ui->tableWidget->rowCount();
+    setTableRow(row, listStr);
+}
+
+
 void ComTableWid::addTableRows(int line)
 {
     int row = ui->tableWidget->rowCount();
