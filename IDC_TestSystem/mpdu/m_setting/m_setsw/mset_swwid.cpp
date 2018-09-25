@@ -68,11 +68,11 @@ void MSet_SwWid::sendSnmp(int i)
 {
     sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
-    QString oid = QString("%1.%2.%3.7.%4").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+    QString oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
 
     cmd.oid = oid;
-    cmd.type = SNMP_INTEGER_TYPE;
-    cmd.value.append( (char) mWid[i]->status());
+    cmd.type = SNMP_STRING_TYPE;
+    cmd.value.append( mWid[i]->status()==1 ? "ON":"OFF");
     mSnmp->setCmd(cmd);
 }
 
@@ -81,7 +81,7 @@ void MSet_SwWid::on_pushButton_clicked()
     sConfigItem *item = M_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            if(item->testMode == Test_SNMP) {
+            if(item->setMode == Test_SNMP) {
                 sendSnmp(i);  // 增加SNMP命令
             } else {
                 sendRtu(i);
@@ -89,6 +89,7 @@ void MSet_SwWid::on_pushButton_clicked()
         }
     }
 
+    mSnmp->start();
     mRtu->start();
     ui->textEdit->clear();
 }

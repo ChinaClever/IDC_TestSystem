@@ -1,4 +1,4 @@
-#ifndef M_SNMPRECV_H
+﻿#ifndef M_SNMPRECV_H
 #define M_SNMPRECV_H
 #include "m_snmpsend.h"
 #include "m_com/m_datapackets.h"

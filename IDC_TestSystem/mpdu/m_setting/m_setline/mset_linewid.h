@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::MSet_LineWid *ui;
     MSet_RtuThread *mRtu;
+    MSet_SnmpThread *mSnmp;
     MSet_LineUnitWid *mWid[3];
 };
 

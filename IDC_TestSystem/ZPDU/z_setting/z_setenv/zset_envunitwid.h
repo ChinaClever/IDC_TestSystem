@@ -21,7 +21,7 @@ public:
 private:
     Ui::ZSet_EnvUnitWid *ui;
     ZSet_EnvItemWid *mWid[4];
-    int getIndex(int index ,int i, int j);
+    int getIndex(int index ,int sensorThresholdNumber, int sensorIndex);
 };
 
 #endif // ZSET_ENVUNITWID_H

@@ -54,11 +54,19 @@ void ZSet_EnvUnitWid::getCmdList(int index ,int addr, QList<sSnmpSetCmd> &list)
         }
     }
 }
-int ZSet_EnvUnitWid::getIndex(int index ,int i, int j)
+/**
+ * @brief getIndex
+ * @param [in]  index [0,1]  温度0，湿度1
+ * @param [in]  sensorThresholdNumber[0,3]最小值0，最大值1，下限值2，上限值3
+ * @param [in]  sensorIndex[0,1]第一个传感器0，第二个1
+ * @return code
+ */
+int ZSet_EnvUnitWid::getIndex(int index ,int sensorThresholdNumber, int sensorIndex)
 {
+    int i = sensorThresholdNumber;
     int code = 0;
     code += (index == 0)? 9 : 17;
     i  += (i==0) ? i : (i >=2) ? -1 : 2 ;
-    code += (j == 0)? i : i+4;
+    code += (sensorIndex == 0)? i : i+4;
     return code;
 }

@@ -36,6 +36,21 @@ int MSet_ThresholdOutputWid::getReg(int mode)
 
     return reg;
 }
+QString MSet_ThresholdOutputWid::getOid(int mode)
+{
+    int addr = ui->spinBox->value() , index = 2;
+    QString oid = QString("%1.%2.%3.8").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr);
+
+    switch (mode) {
+    case Mpdu_Rtu_Test_min: oid += QString(".%1").arg(index); break;
+    case Mpdu_Rtu_Test_crMin: oid += QString(".%1").arg(index + 1); break;
+    case Mpdu_Rtu_Test_crMax: oid += QString(".%1").arg(index + 2); break;
+    case Mpdu_Rtu_Test_max: oid += QString(".%1").arg(index + 3); break;
+    default: oid += QString(".%1").arg(index);break;
+    }
+
+    return oid;
+}
 
 void MSet_ThresholdOutputWid::initwid(int mode)
 {
@@ -48,6 +63,10 @@ void MSet_ThresholdOutputWid::initwid(int mode)
         mWid[i] = new MSet_ThresholdItemWid(wid[i]);
         mWid[i]->initOutput(i, mode);
     }
+
+    mOid = getOid(mode);
+    mSnmp = new MSet_SnmpThread(this);
+    connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 
     mReg = getReg(mode);
     mRtu = new MSet_RtuThread(this);
@@ -68,18 +87,37 @@ void MSet_ThresholdOutputWid::on_checkBox_clicked(bool checked)
     on_curSpinBox_valueChanged(ui->curSpinBox->value());
 }
 
+void MSet_ThresholdOutputWid::sendRtu(int i)
+{
+    sRtuSetCmd cmd;
+    cmd.addr = ui->spinBox->value();
+    cmd.reg = mReg + i;
+    cmd.value = mWid[i]->status();
+    mRtu->setCmd(cmd);
+}
+
+void MSet_ThresholdOutputWid::sendSnmp(int i)
+{
+    sSnmpSetCmd cmd;
+    cmd.oid = mOid + QString(".%1.0").arg(i+1);
+    cmd.type = SNMP_STRING_TYPE;
+    cmd.value.append( QString("%1.00").arg(mWid[i]->status()));
+    mSnmp->setCmd(cmd);
+}
 void MSet_ThresholdOutputWid::on_pushButton_clicked()
 {
+    sConfigItem *item = M_ConfigFile::bulid()->item;
     for(int i=0; i<24; ++i) {
         if(mWid[i]->select()) {
-            sRtuSetCmd cmd;
-            cmd.addr = ui->spinBox->value();
-            cmd.reg = mReg + i;
-            cmd.value = mWid[i]->status();
-            mRtu->setCmd(cmd);
+            if(item->setMode == Test_SNMP) {
+                sendSnmp(i);  // 增加SNMP命令
+            } else {
+                sendRtu(i);
+            }
         }
     }
 
+    mSnmp->start();
     mRtu->start();
     ui->textEdit->clear();
 }

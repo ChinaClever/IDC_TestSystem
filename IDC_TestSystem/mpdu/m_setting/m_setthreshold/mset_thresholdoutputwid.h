@@ -19,6 +19,9 @@ public:
 
 protected:
     int getReg(int mode);
+    QString getOid(int mode);
+    void sendSnmp(int i);
+    void sendRtu(int i);
 
 protected slots:
    void updateTextSlot(QString str);
@@ -31,7 +34,9 @@ private slots:
 private:
     Ui::MSet_ThresholdOutputWid *ui;
     MSet_RtuThread *mRtu;
+    MSet_SnmpThread *mSnmp;
     int mReg;
+    QString mOid;
 
     MSet_ThresholdItemWid *mWid[24];
 };

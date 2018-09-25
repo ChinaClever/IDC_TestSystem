@@ -1,4 +1,4 @@
-#ifndef M_SNMPSEND_H
+﻿#ifndef M_SNMPSEND_H
 #define M_SNMPSEND_H
 #include "snmp_zmrecv.h"
 

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include "zset_eleitemwid.h"
 #include "z_setting/z_setrtu/zset_rtuthread.h"
+#include "z_setting/z_setsnmp/zset_snmpthread.h"
 namespace Ui {
 class ZSet_OutputEleWid;
 }
@@ -30,6 +31,7 @@ private slots:
 private:
     Ui::ZSet_OutputEleWid *ui;
     ZSet_RtuThread *mRtu;
+    ZSet_SnmpThread *mSnmp;
     ZSet_EleItemWid *mWid[24];
     int mReg;
 };

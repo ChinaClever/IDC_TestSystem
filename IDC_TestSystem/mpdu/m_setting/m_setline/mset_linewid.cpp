@@ -33,6 +33,9 @@ void MSet_LineWid::initWid()
     mWid[id] = new MSet_LineUnitWid(ui->groupBox);
     mWid[id++]->initWid(0, Mpdu_Rtu_Test_crMin);
 
+    mSnmp = new MSet_SnmpThread(this);
+    connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
+
     mRtu = new MSet_RtuThread(this);
     connect(mRtu, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
 }
@@ -46,17 +49,32 @@ void MSet_LineWid::updateTextSlot(QString str)
 
 void MSet_LineWid::on_pushButton_clicked()
 {
-    QList<sRtuSetCmd> list;
+
     int addr = ui->spinBox->value();
+    sConfigItem *item = M_ConfigFile::bulid()->item;
+    if(item->setMode == Test_SNMP)
+    {
+        QList<sSnmpSetCmd> list;
+        for(int i=0; i<3; ++i) {
+            mWid[i]->getCmdList(i , addr, list);
+        }
 
-    for(int i=0; i<3; ++i) {
-       mWid[i]->getCmdList(addr, list);
+        for(int i=0; i<list.size(); ++i) {
+            mSnmp->setCmd(list.at(i));
+        }
     }
+    else
+    {
+        QList<sRtuSetCmd> list;
+        for(int i=0; i<3; ++i) {
+            mWid[i]->getCmdList(addr, list);
+        }
 
-    for(int i=0; i<list.size(); ++i) {
-         mRtu->setCmd(list.at(i));
+        for(int i=0; i<list.size(); ++i) {
+            mRtu->setCmd(list.at(i));
+        }
     }
-
+    mSnmp->start();
     mRtu->start();
     ui->textEdit->clear();
 }

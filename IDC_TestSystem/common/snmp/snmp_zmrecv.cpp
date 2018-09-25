@@ -41,7 +41,7 @@ void SNMP_ZmRecv::outputData(const QByteArray &data)
     switch (item) {
     case 5:  sprintf(obj->name, "%s", data.data()); break;
     case 6:  obj->delay = data.toDouble() ; break;
-    case 7:  obj->sw = data.toStdString()=="ON"?1:0;break;
+    case 7:  obj->sw = data.toStdString()=="OFF"?0:1;break;
     case 9:  obj->pf = data.toDouble()*100 ; break;
     case 10:  obj->ele = data.toDouble()*10 ; break;
      default: qDebug() << "SNMP_ZmRecv::outputData" << item; break;
