@@ -19,7 +19,6 @@ protected:
 
 private:
     TestItems *mTestItems;
-
 };
 
 #endif // TESTITEMTABLEWID_H

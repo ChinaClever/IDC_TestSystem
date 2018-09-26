@@ -14,7 +14,7 @@ OutputTableWid::OutputTableWid(QWidget *parent) : LineTableWid(parent)
 
 void OutputTableWid::initWid()
 {
-    QString title = tr("设备输出位实时相信息");
+    QString title = tr("输出位实时相信息");
     QStringList header;
     header << tr("设备号") << tr("输出位")  << tr("开关")
            << tr("电压") << tr("电流") << tr("功率")
