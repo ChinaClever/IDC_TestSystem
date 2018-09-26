@@ -91,19 +91,6 @@
     <string>结束</string>
    </property>
   </widget>
-  <widget class="QRadioButton" name="radioButton">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>115</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>归档数据库</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>
