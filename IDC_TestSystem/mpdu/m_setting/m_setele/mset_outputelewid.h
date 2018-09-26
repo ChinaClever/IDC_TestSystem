@@ -29,8 +29,11 @@ private slots:
 private:
     Ui::MSet_OutputEleWid *ui;
     MSet_RtuThread *mRtu;
+    MSet_SnmpThread* mSnmp;
     MSet_EleItemWid *mWid[24];
     int mReg;
+    void sendSnmp(int i);
+    void sendRtu(int i);
 };
 
 #endif // MSET_OUTPUTELEWID_H

@@ -46,7 +46,30 @@ void ZSet_OutputEleWid::on_checkBox_clicked(bool checked)
         mWid[i]->setSelect(checked);
     }
 }
+void ZSet_OutputEleWid::sendSnmp(int i)
+{
+    if(mWid[i]->status())
+    {
+        sSnmpSetCmd cmd;
+        int addr = ui->spinBox->value();
+        QString oid = QString("%1.%2.%3.10.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
+        cmd.oid = oid;
+        cmd.type = SNMP_STRING_TYPE;
 
+        cmd.value.append("0.0");
+        //qDebug()<< cmd.oid  << cmd.value;
+        mSnmp->setCmd(cmd);
+    }
+}
+
+void ZSet_OutputEleWid::sendRtu(int i)
+{
+    sRtuSetCmd cmd;
+    cmd.addr = ui->spinBox->value();
+    cmd.reg = mReg + i;
+    cmd.value = mWid[i]->status();
+    mRtu->setCmd(cmd);
+}
 
 void ZSet_OutputEleWid::on_pushButton_clicked()
 {
@@ -56,27 +79,11 @@ void ZSet_OutputEleWid::on_pushButton_clicked()
         if(mWid[i]->select()) {
             if(item->setMode == Test_SNMP)
             {
-                if(mWid[i]->status())
-                {
-                    sSnmpSetCmd cmd;
-                    int addr = ui->spinBox->value();
-                    QString oid = QString("%1.%2.%3.10.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
-                    cmd.oid = oid;
-                    cmd.type = SNMP_STRING_TYPE;
-
-                    cmd.value.append("0.0");
-                    qDebug()<< cmd.oid  << cmd.value;
-                    mSnmp->setCmd(cmd);
-                }
-
+                sendSnmp(i);
             }
             else
             {
-                sRtuSetCmd cmd;
-                cmd.addr = ui->spinBox->value();
-                cmd.reg = mReg + i;
-                cmd.value = mWid[i]->status();
-                mRtu->setCmd(cmd);
+                sendRtu(i);
             }
         }
     }

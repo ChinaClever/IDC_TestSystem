@@ -28,6 +28,8 @@ private:
     ZSet_RtuThread *mRtu;
     ZSet_SnmpThread *mSnmp;
     ZSet_EnvUnitWid *mWid[2];
+    void sendSnmp(int addr);
+    void sendRtu(int addr);
 };
 
 #endif // ZSET_ENVWID_H

@@ -46,7 +46,29 @@ void MSet_LineWid::updateTextSlot(QString str)
     ui->textEdit->append(str);
 }
 
+void MSet_LineWid::sendSnmp(int addr)
+{
+    QList<sSnmpSetCmd> list;
+    for(int i=0; i<3; ++i) {
+        mWid[i]->getCmdList(i , addr, list);
+    }
 
+    for(int i=0; i<list.size(); ++i) {
+        mSnmp->setCmd(list.at(i));
+    }
+}
+
+void MSet_LineWid::sendRtu(int addr)
+{
+    QList<sRtuSetCmd> list;
+    for(int i=0; i<3; ++i) {
+        mWid[i]->getCmdList(addr, list);
+    }
+
+    for(int i=0; i<list.size(); ++i) {
+        mRtu->setCmd(list.at(i));
+    }
+}
 void MSet_LineWid::on_pushButton_clicked()
 {
 
@@ -54,25 +76,11 @@ void MSet_LineWid::on_pushButton_clicked()
     sConfigItem *item = M_ConfigFile::bulid()->item;
     if(item->setMode == Test_SNMP)
     {
-        QList<sSnmpSetCmd> list;
-        for(int i=0; i<3; ++i) {
-            mWid[i]->getCmdList(i , addr, list);
-        }
-
-        for(int i=0; i<list.size(); ++i) {
-            mSnmp->setCmd(list.at(i));
-        }
+        sendSnmp(addr);
     }
     else
     {
-        QList<sRtuSetCmd> list;
-        for(int i=0; i<3; ++i) {
-            mWid[i]->getCmdList(addr, list);
-        }
-
-        for(int i=0; i<list.size(); ++i) {
-            mRtu->setCmd(list.at(i));
-        }
+        sendRtu(addr);
     }
     mSnmp->start();
     mRtu->start();

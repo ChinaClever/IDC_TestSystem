@@ -29,6 +29,8 @@ private:
     ZSet_RtuThread *mRtu;
     ZSet_SnmpThread *mSnmp;
     ZSet_LoopUnitWid *mWid;
+    void sendSnmp(int addr);
+    void sendRtu(int addr);
 };
 
 #endif // ZSET_LOOPWID_H

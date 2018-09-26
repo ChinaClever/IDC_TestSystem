@@ -33,6 +33,25 @@ void ZSet_LoopWid::updateTextSlot(QString str)
     ui->textEdit->append(str);
 }
 
+void ZSet_LoopWid::sendSnmp(int addr)
+{
+    QList<sSnmpSetCmd> list;
+    mWid->getCmdList(addr, list);
+
+    for(int i=0; i<list.size(); ++i) {
+         mSnmp->setCmd(list.at(i));
+    }
+}
+
+void ZSet_LoopWid::sendRtu(int addr)
+{
+    QList<sRtuSetCmd> list;
+    mWid->getCmdList(addr, list);
+
+    for(int i=0; i<list.size(); ++i) {
+         mRtu->setCmd(list.at(i));
+    }
+}
 
 void ZSet_LoopWid::on_pushButton_clicked()
 {
@@ -40,19 +59,9 @@ void ZSet_LoopWid::on_pushButton_clicked()
     int addr = ui->spinBox->value();
     sConfigItem *item = Z_ConfigFile::bulid()->item;
     if(item->setMode == Test_SNMP) {
-        QList<sSnmpSetCmd> list;
-        mWid->getCmdList(addr, list);
-
-        for(int i=0; i<list.size(); ++i) {
-             mSnmp->setCmd(list.at(i));
-        }
+        sendSnmp(addr);
     } else {
-        QList<sRtuSetCmd> list;
-        mWid->getCmdList(addr, list);
-
-        for(int i=0; i<list.size(); ++i) {
-             mRtu->setCmd(list.at(i));
-        }
+        sendRtu(addr);
     }
 
     mSnmp->start();

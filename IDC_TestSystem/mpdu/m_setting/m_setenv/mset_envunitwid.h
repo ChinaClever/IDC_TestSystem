@@ -17,10 +17,12 @@ public:
 
     void initWid(int mode, int type);
     void getCmdList(int addr, QList<sRtuSetCmd> &list);
+    void getCmdList(int index ,int addr, QList<sSnmpSetCmd> &list);
 
 private:
     Ui::MSet_EnvUnitWid *ui;
-    MSet_EnvItemWid *mWid[3];
+    MSet_EnvItemWid *mWid[2];
+    int getIndex(int index ,int sensorThresholdNumber, int sensorIndex);
 };
 
 #endif // MSET_ENVUNITWID_H

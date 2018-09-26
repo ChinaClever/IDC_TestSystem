@@ -34,6 +34,8 @@ private:
     ZSet_SnmpThread *mSnmp;
     ZSet_EleItemWid *mWid[24];
     int mReg;
+    void sendSnmp(int i);
+    void sendRtu(int i);
 };
 
 #endif // ZSET_OUTPUTELEWID_H

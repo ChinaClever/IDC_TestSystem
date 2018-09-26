@@ -27,7 +27,10 @@ private slots:
 private:
     Ui::MSet_EnvWid *ui;
     MSet_RtuThread *mRtu;
+    MSet_SnmpThread* mSnmp;
     MSet_EnvUnitWid *mWid[2];
+    void sendSnmp(int addr);
+    void sendRtu(int addr);
 };
 
 #endif // MSET_ENVWID_H

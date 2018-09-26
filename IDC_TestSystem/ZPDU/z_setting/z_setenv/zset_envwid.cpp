@@ -35,6 +35,29 @@ void ZSet_EnvWid::updateTextSlot(QString str)
     ui->textEdit->append(str);
 }
 
+void ZSet_EnvWid::sendSnmp(int addr)
+{
+    QList<sSnmpSetCmd> list;
+    for(int i=0; i<2; ++i) {
+        mWid[i]->getCmdList(i , addr, list);
+    }
+
+    for(int i=0; i<list.size(); ++i) {
+        mSnmp->setCmd(list.at(i));
+    }
+}
+
+void ZSet_EnvWid::sendRtu(int addr)
+{
+    QList<sRtuSetCmd> list;
+    for(int i=0; i<2; ++i) {
+        mWid[i]->getCmdList(addr, list);
+    }
+
+    for(int i=0; i<list.size(); ++i) {
+        mRtu->setCmd(list.at(i));
+    }
+}
 
 void ZSet_EnvWid::on_pushButton_clicked()
 {
@@ -42,25 +65,11 @@ void ZSet_EnvWid::on_pushButton_clicked()
     sConfigItem *item = Z_ConfigFile::bulid()->item;
     if(item->setMode == Test_SNMP)
     {
-        QList<sSnmpSetCmd> list;
-        for(int i=0; i<2; ++i) {
-            mWid[i]->getCmdList(i , addr, list);
-        }
-
-        for(int i=0; i<list.size(); ++i) {
-            mSnmp->setCmd(list.at(i));
-        }
+       sendSnmp(addr);
     }
     else
     {
-        QList<sRtuSetCmd> list;
-        for(int i=0; i<2; ++i) {
-            mWid[i]->getCmdList(addr, list);
-        }
-
-        for(int i=0; i<list.size(); ++i) {
-            mRtu->setCmd(list.at(i));
-        }
+       sendRtu(addr);
     }
     mSnmp->start();
     mRtu->start();

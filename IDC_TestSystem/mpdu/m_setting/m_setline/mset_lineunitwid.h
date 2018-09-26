@@ -22,6 +22,7 @@ public:
 private:
     Ui::MSet_LineUnitWid *ui;
     MSet_LineItemWid *mWid[3];
+    int getIndex(int index ,int ThresholdNumber);
 };
 
 #endif // MSET_LINEUNITWID_H

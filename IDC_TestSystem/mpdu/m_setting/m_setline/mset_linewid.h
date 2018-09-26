@@ -29,6 +29,8 @@ private:
     MSet_RtuThread *mRtu;
     MSet_SnmpThread *mSnmp;
     MSet_LineUnitWid *mWid[3];
+    void sendSnmp(int addr);
+    void sendRtu(int addr);
 };
 
 #endif // MSET_LINEWID_H

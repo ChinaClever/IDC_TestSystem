@@ -29,6 +29,8 @@ private:
     ZSet_RtuThread *mRtu;
     ZSet_SnmpThread *mSnmp;
     ZSet_LineUnitWid *mWid[2];
+    void sendSnmp(int addr);
+    void sendRtu(int addr);
 };
 
 #endif // ZSET_LINEWID_H
