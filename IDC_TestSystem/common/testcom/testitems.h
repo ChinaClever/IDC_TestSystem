@@ -30,19 +30,15 @@ class TestItems : public QObject
 public:
     TestItems();
 
-    void bulidItems(sDutSpec &spec);
+    void bulidItems(sDutSpec *spec, QList<sTestItem> &items);
 
 protected:
     void communication(QList<sTestItem> &items);
-    void unitItem(QString &itemStr, int num, QList<sTestItem> &items);
-    void objData(QString &itemStr, QList<sTestItem> &items, bool v, int num);
-
-    void lineVol(QList<sTestItem> &items);
-    void lineCur(QList<sTestItem> &items);
-
+    void unitItem(const QString &itemStr, int num, QList<sTestItem> &items);
+    void objData(const QString &itemStr, QList<sTestItem> &items, int num);
+    void outputObjData(const QString &itemStr, QList<sTestItem> &items, int num);
 
 private:
-    QList<sTestItem> mItems;
     sDutSpec *mSpec;
 
     bool isSnmp;

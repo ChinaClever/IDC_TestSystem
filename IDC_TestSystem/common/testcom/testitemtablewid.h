@@ -8,10 +8,17 @@ class TestItemTableWid : public ComTableWid
     Q_OBJECT
 public:
     explicit TestItemTableWid(QWidget *parent = nullptr);
-    void appendItem(sTestItem &item);
+
+public slots:
+    void startSlot(int devId);
 
 protected:
     void initWid();
+    void updateWid(sDataPacket &packet);
+    void appendItem(const sTestItem &item);
+
+private:
+    TestItems *mTestItems;
 
 };
 

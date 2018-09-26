@@ -2,6 +2,7 @@
 
 TestItemTableWid::TestItemTableWid(QWidget *parent) : ComTableWid(parent)
 {
+    mTestItems = new TestItems;
     initWid();
 }
 
@@ -15,7 +16,7 @@ void TestItemTableWid::initWid()
 }
 
 
-void TestItemTableWid::appendItem(sTestItem &item)
+void TestItemTableWid::appendItem(const sTestItem &item)
 {
     QStringList listStr;
 
@@ -27,4 +28,27 @@ void TestItemTableWid::appendItem(sTestItem &item)
     if(item.isModubs) listStr << "√"; else listStr << "";
     if(item.isSnmp) listStr << "√"; else listStr << "";
     appendTableRow(listStr);
+}
+
+void TestItemTableWid::updateWid(sDataPacket &packet)
+{
+    QList<sTestItem> items;
+
+    sDutSpec spdc;
+    spdc.spec = packet.devSpec;
+    spdc.lineNum = packet.data.lineNum;
+    spdc.loopNum = packet.data.loopNum;
+    spdc.outputNum = packet.data.outputNum;
+
+    mTestItems->bulidItems(&spdc, items);
+    for( const auto& value : items ) {
+        appendItem(value);
+    }
+}
+
+void TestItemTableWid::startSlot(int devId)
+{
+    if(mPackets) {
+        updateWid(mPackets->dev[devId]);
+    }
 }
