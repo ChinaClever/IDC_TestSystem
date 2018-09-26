@@ -140,10 +140,11 @@ void ComTableWid::setTableRow(int id, QStringList &listStr)
         setTableItem(id, i, listStr.at(i));
 }
 
-void ComTableWid::appendTableRow(QStringList &listStr)
+void ComTableWid::appendTableRow(QStringList &listStr, bool c)
 {
     int row = ui->tableWidget->rowCount();
     setTableRow(row, listStr);
+    if(c) setBackgroundColor(row);
 }
 
 
@@ -197,6 +198,20 @@ void ComTableWid::clearTable()
     int row = ui->tableWidget->rowCount();
     for(int i=0; i<row; ++i)
         clearRow(i);
+}
+
+void ComTableWid::delTable()
+{
+    ui->tableWidget->setRowCount(0);        //设置行数/
+}
+
+void ComTableWid::setBackgroundColor(int id)
+{
+    int column = ui->tableWidget->columnCount();
+    for(int i=0; i<column; ++i) {
+        QTableWidgetItem *item = ui->tableWidget->item(id, i);
+        item->setBackgroundColor(QColor(Qt::red));
+    }
 }
 
 /**

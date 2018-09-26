@@ -48,6 +48,7 @@ void TestItemTableWid::updateWid(sDataPacket &packet)
 
 void TestItemTableWid::startSlot(int devId)
 {
+    delTable();
     if(mPackets) {
         updateWid(mPackets->dev[devId]);
     }
