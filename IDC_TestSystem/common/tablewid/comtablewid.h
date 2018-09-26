@@ -21,12 +21,14 @@ protected:
     void initTableWid(QStringList &header, int line, const QString &title);
     void setTableItem(int id, int column, const QString &str);
     void setTableRow(int id, QStringList &listStr);
-    void appendTableRow(QStringList &listStr);
+    void appendTableRow(QStringList &listStr, bool c=false);
     void checkTableRow(int line);
 
     void clearRow(int row);
     void clearTable();
-    void setItemColor(int id, int column, int alarm);    
+    void delTable();
+    void setBackgroundColor(int id);
+    void setItemColor(int id, int column, int alarm);
 
 protected slots:
     virtual void timeoutDone(){}
