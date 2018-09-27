@@ -17,7 +17,7 @@ public:
     explicit TestSerialNumDlg(QWidget *parent = 0);
     ~TestSerialNumDlg();
 
-    sSerialNumItem getSerialNum();
+    sSerialNumItem *getSerialNum();
 
 protected:
     void initWid();

@@ -29,7 +29,7 @@ void TestSerialNumDlg::initWid()
     ui->clearRadioButton->setChecked(mItem->snClear);
 }
 
-sSerialNumItem TestSerialNumDlg::getSerialNum()
+sSerialNumItem *TestSerialNumDlg::getSerialNum()
 {
     bool ret = inputCheck();
     if(ret) {
@@ -43,7 +43,7 @@ sSerialNumItem TestSerialNumDlg::getSerialNum()
         }
     }
 
-    return mSerialNum;
+    return mItem;
 }
 
 void TestSerialNumDlg::on_batchComboBox_currentTextChanged(const QString &arg1)
