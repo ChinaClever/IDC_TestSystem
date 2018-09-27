@@ -18,7 +18,7 @@ void TestConfig::initConfig(sSerialNumItem *item)
     item->snClear = getSnClear();
 }
 
-void TestConfig::saveConfig(sSerialNumItem *item=nullptr)
+void TestConfig::saveConfig(sSerialNumItem *item)
 {
     if(!item) item = serialNumitem;
 
