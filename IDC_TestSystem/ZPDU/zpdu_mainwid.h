@@ -9,6 +9,7 @@
 #include "z_status/z_statuswid.h"
 #include "z_status/z_statuswid.h"
 #include "z_snmp/z_snmptrans.h"
+#include "z_test/ztest_mainwid.h"
 
 namespace Ui {
 class ZPDU_MainWid;
@@ -34,7 +35,8 @@ private:
     Z_StatusWid *mStatusWid;
     Z_LogsWid *mLogsWid;
     Z_ServiceThread *mServiceThread;
-    ZSet_MainWid *mTestWid;
+    ZSet_MainWid *mSetWid;
+    ZTest_MainWid *mTestWid;
 
     Z_SnmpTrans *mSnmp;
     Z_DpThread *mDpThread;

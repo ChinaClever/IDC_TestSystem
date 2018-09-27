@@ -56,7 +56,7 @@
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>90</y>
+     <y>40</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -66,10 +66,13 @@
    </property>
   </widget>
   <widget class="QPushButton" name="pauseBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>140</y>
+     <y>100</y>
      <width>93</width>
      <height>28</height>
     </rect>
@@ -79,16 +82,35 @@
    </property>
   </widget>
   <widget class="QPushButton" name="overBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>40</x>
-     <y>200</y>
+     <y>220</y>
      <width>93</width>
      <height>28</height>
     </rect>
    </property>
    <property name="text">
     <string>结束</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="continueBtn">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>160</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>继续</string>
    </property>
   </widget>
  </widget>

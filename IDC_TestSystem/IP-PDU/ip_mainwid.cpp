@@ -45,11 +45,8 @@ void IP_MainWid::initFunSLot()
 
 void IP_MainWid::toolBoxSlot(int id)
 {
-    if((id >= Info_Line) && (id <= Info_Set)) {
-        ui->stackedWid->setCurrentWidget(mStatusWid);
-    } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
-         ui->stackedWid->setCurrentWidget(mLogsWid);
-    } else {
+    if(id < Test_Function)
+    {
         sConfigItem *item = IP_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
@@ -57,6 +54,14 @@ void IP_MainWid::toolBoxSlot(int id)
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }
+    } else if(id <= Test_Data) {
+
+    } else if(id < Info_Set) {
+         ui->stackedWid->setCurrentWidget(mStatusWid);
+    } else if(id == Info_Set) {
+
+    } else if(id <= Log_Alarm) {
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     }
 }
 

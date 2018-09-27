@@ -15,11 +15,13 @@ DEPENDPATH += $$PWD
 HEADERS += \
     $$PWD/basicExcel/qexcel.h \
     $$PWD/basicExcel/BasicExcel.hpp \
-    $$PWD/excel_exportlogthread.h
+    $$PWD/excel_exportlogthread.h \
+    $$PWD/excel_savethread.h
 
 SOURCES += \
     $$PWD/basicExcel/qexcel.cpp \
     $$PWD/basicExcel/BasicExcel.cpp \
     $$PWD/execl_demo.cpp \
-    $$PWD/excel_exportlogthread.cpp
+    $$PWD/excel_exportlogthread.cpp \
+    $$PWD/excel_savethread.cpp
 

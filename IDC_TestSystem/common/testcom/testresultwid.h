@@ -10,6 +10,7 @@ class TestResultWid;
 struct sTestProgress
 {
     int allNum;
+    int okNum;
     int errNum;
     int finishNum;
     QString status;

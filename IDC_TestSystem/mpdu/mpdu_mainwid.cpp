@@ -42,20 +42,15 @@ void MPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    mTestWid = new MSet_MainWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mTestWid);
+    mSetWid = new MSet_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSetWid);
 
 }
 
 void MPDU_MainWid::toolBoxSlot(int id)
 {
-    if((id >= Info_Line) && (id < Info_Set)) {
-        ui->stackedWid->setCurrentWidget(mStatusWid);
-    } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
-        ui->stackedWid->setCurrentWidget(mLogsWid);
-    } else if(id == Info_Set) {
-        ui->stackedWid->setCurrentWidget(mTestWid);
-    } else {
+    if(id < Test_Function)
+    {
         sConfigItem *item = M_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
@@ -63,6 +58,14 @@ void MPDU_MainWid::toolBoxSlot(int id)
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }
+    } else if(id <= Test_Data) {
+
+    } else if(id < Info_Set) {
+         ui->stackedWid->setCurrentWidget(mStatusWid);
+    } else if(id == Info_Set) {
+        ui->stackedWid->setCurrentWidget(mSetWid);
+    } else if(id <= Log_Alarm) {
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     }
 }
 

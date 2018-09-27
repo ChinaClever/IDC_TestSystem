@@ -1,17 +1,20 @@
 #ifndef TESTDATATABLEWID_H
 #define TESTDATATABLEWID_H
+#include "testdatasave.h"
 
-#include "testitemtablewid.h"
-
+/**
+ * @brief 测试数据结构体
+ */
 struct sTestDataItem
 {
-    sTestItem test;
+    sTestItem test; // 测试项目
+    sTestDataItem(){id=0;}
 
     int id;
-    bool status;
-    QString expect;
-    QString measured;
-    QString result;
+    bool status; // 状态
+    QString expect; // 期望值
+    QString measured; // 实测值
+    QString result; // 结果
 };
 
 class TestDataTableWid : public ComTableWid
@@ -20,15 +23,17 @@ class TestDataTableWid : public ComTableWid
 public:
     explicit TestDataTableWid(QWidget *parent = nullptr);
 
-    int getItems(QList<sTestDataItem> &items);
+    int getList(QList<QStringList> &list);
 public slots:
     void startSLot();
+    void overSLot();
     void appendItem(const sTestDataItem &item);
 
 protected:
     void initWid();
+
 private:
-    QList<sTestDataItem>  mTestDataItem;
+    QList<QStringList>  mList;
 };
 
 #endif // TESTDATATABLEWID_H

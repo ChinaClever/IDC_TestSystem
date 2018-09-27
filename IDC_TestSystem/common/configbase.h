@@ -7,7 +7,16 @@ enum {
     Test_Stop = 0,
     Test_SNMP,  // 模拟测试
     Test_Rtu,
+
     Test_Function, // 功能测试
+    Test_Start,
+    Test_Pause,
+    Test_Continue,
+    Test_Over,
+
+    Test_Result_Wid,
+    Test_Items_Wid,
+    Test_Datas_Wid,
 
     Info_Line, // 相信息信息
     Info_Trans, // Modbus传输统计实时显示界面

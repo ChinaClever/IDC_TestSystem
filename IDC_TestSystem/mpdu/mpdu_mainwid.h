@@ -29,7 +29,7 @@ protected slots:
 private:
     Ui::MPDU_MainWid *ui;
     MPDU_ToolBoxWid *mtoolBoxWid;
-    MSet_MainWid *mTestWid;
+    MSet_MainWid *mSetWid;
 
     M_StatusWid *mStatusWid;
     M_LogsWid *mLogsWid;

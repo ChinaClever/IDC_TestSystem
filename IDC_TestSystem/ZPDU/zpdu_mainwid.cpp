@@ -44,19 +44,18 @@ void ZPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    mTestWid = new ZSet_MainWid(ui->stackedWid);
+    mTestWid = new ZTest_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mTestWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mTestWid, SLOT(updateWidSlot(int)));
+
+    mSetWid = new ZSet_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mSetWid);
 }
 
 void ZPDU_MainWid::toolBoxSlot(int id)
 {
-    if((id >= Info_Line) && (id < Info_Set)) {
-        ui->stackedWid->setCurrentWidget(mStatusWid);
-    } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
-        ui->stackedWid->setCurrentWidget(mLogsWid);
-    } else if(id == Info_Set) {
-        ui->stackedWid->setCurrentWidget(mTestWid);
-    } else {
+    if(id < Test_Function)
+    {
         sConfigItem *item = Z_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
@@ -64,7 +63,16 @@ void ZPDU_MainWid::toolBoxSlot(int id)
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }
+    } else if(id <= Test_Data) {
+        ui->stackedWid->setCurrentWidget(mTestWid);
+    } else if(id < Info_Set) {
+        ui->stackedWid->setCurrentWidget(mStatusWid);
+    } else if(id == Info_Set) {
+        ui->stackedWid->setCurrentWidget(mSetWid);
+    } else if(id <= Log_Alarm) {
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     }
+
 }
 
 void ZPDU_MainWid::timeoutDone()

@@ -48,18 +48,21 @@ void SIMainWid::initFunSLot()
 
 void SIMainWid::toolBoxSlot(int id)
 {
-    if((id >= Info_Line) && (id < Info_Set)) {
-        ui->stackedWid->setCurrentWidget(mStatusWid);
-    } else if((id >= Log_Modbus) && (id <= Log_Alarm)) {
-         ui->stackedWid->setCurrentWidget(mLogsWid);
-    } else if(id == Info_Set) {
-         ui->stackedWid->setCurrentWidget(mSetMainWid);
-    }else {
+    if(id < Test_Function)
+    {
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
         case Test_Stop: mRtuThread->stopThread(); break;
         default: break;
         }
+    } else if(id <= Test_Data) {
+
+    } else if(id < Info_Set) {
+         ui->stackedWid->setCurrentWidget(mStatusWid);
+    } else if(id == Info_Set) {
+        ui->stackedWid->setCurrentWidget(mSetMainWid);
+    } else if(id <= Log_Alarm) {
+        ui->stackedWid->setCurrentWidget(mLogsWid);
     }
 }
 
