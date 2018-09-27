@@ -20,7 +20,17 @@ public slots:
     void updateWidSlot(int id);
 
 protected:
+    void startTest();
+    void pauseTest();
+    void continueTest();
+    void overTest();
+
+protected:
     Ui::TestMainWid *ui;
+
+    int mDevId;
+    TestConfig *mTestConfig;
+    TestSerialNumDlg *mSerialNumDlg;
 
     TestResultWid *mResultWid;
     TestItemTableWid *mItemTableWid;

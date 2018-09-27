@@ -21,18 +21,20 @@ TestSerialNumDlg::~TestSerialNumDlg()
     delete ui;
 }
 
-void TestSerialNumDlg::initWid()
+void TestSerialNumDlg::init(TestConfig *con, int devId)
 {
-    mTestConfig = new TestConfig();
+    mTestConfig = con;
     mItem = mTestConfig->serialNumitem;
     ui->dateEdit->setDate(QDate::currentDate());
+    ui->typeComboBox->setCurrentIndex(devId);
 
     ui->opLineEdit->setText(mItem->op);
     ui->cnLineEdit->setText(mItem->cn);
     ui->barCodeLineEdit->setText(mItem->barCode);
-    ui->batchComboBox->setCurrentText(mItem->batch);
-    ui->purposeComboBox->setCurrentText(mItem->purpose);
+
     ui->clearRadioButton->setChecked(mItem->snClear);
+    if(!mItem->batch.isEmpty()) ui->batchComboBox->setCurrentText(mItem->batch);
+    if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }
 
 sSerialNumItem *TestSerialNumDlg::getSerialNum()
@@ -113,6 +115,7 @@ bool TestSerialNumDlg::inputCheck()
     mItem->snClear = ui->clearRadioButton->isChecked();
     mItem->errStop = ui->errStopCheckBox->isChecked();
     mItem->isSave = ui->saveCheckBox->isChecked();
+    mTestConfig->saveConfig(mItem);
 
     return true;
 }
@@ -121,7 +124,7 @@ void TestSerialNumDlg::on_okBtn_clicked()
 {
     bool ret = inputCheck();
     if(ret) {
-        this->accepted();
+        this->accept();
     }
 }
 
@@ -129,3 +132,4 @@ void TestSerialNumDlg::on_cancelBtn_clicked()
 {
     this->close();
 }
+

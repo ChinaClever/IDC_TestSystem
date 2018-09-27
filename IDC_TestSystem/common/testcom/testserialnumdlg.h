@@ -17,10 +17,9 @@ public:
     explicit TestSerialNumDlg(QWidget *parent = 0);
     ~TestSerialNumDlg();
 
-    sSerialNumItem *getSerialNum();
+    void init(TestConfig *con, int devId=Test_Dev_Zpdu);
 
 protected:
-    void initWid();
     bool inputCheck();
 
 private slots:

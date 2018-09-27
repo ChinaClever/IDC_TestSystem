@@ -8,5 +8,5 @@
 
 ZTest_MainWid::ZTest_MainWid(QWidget *parent) : TestMainWid(parent)
 {
-
+    mDevId = Test_Dev_Zpdu;
 }
