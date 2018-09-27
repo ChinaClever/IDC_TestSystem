@@ -1,21 +1,35 @@
-#include "serialnumtestdlg.h"
-#include "ui_serialnumtestdlg.h"
+#include "testserialnumdlg.h"
+#include "ui_testserialnumdlg.h"
 
-SerialNumTestDlg::SerialNumTestDlg(QWidget *parent) :
+TestSerialNumDlg::TestSerialNumDlg(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::SerialNumTestDlg)
+    ui(new Ui::TestSerialNumDlg)
 {
     ui->setupUi(this);
     com_setBackColour(tr("请输入被测模块序列号"), this);
-    ui->dateEdit->setDate(QDate::currentDate());
+    initWid();
 }
 
-SerialNumTestDlg::~SerialNumTestDlg()
+TestSerialNumDlg::~TestSerialNumDlg()
 {
     delete ui;
 }
 
-sSerialNum SerialNumTestDlg::getSerialNum()
+void TestSerialNumDlg::initWid()
+{
+    mTestConfig = new TestConfig();
+    mItem = mTestConfig->serialNumitem;
+    ui->dateEdit->setDate(QDate::currentDate());
+
+    ui->opLineEdit->setText(mItem->op);
+    ui->cnLineEdit->setText(mItem->cn);
+    ui->barCodeLineEdit->setText(mItem->barCode);
+    ui->batchComboBox->setCurrentText(mItem->batch);
+    ui->purposeComboBox->setCurrentText(mItem->purpose);
+    ui->clearRadioButton->setChecked(mItem->snClear);
+}
+
+sSerialNumItem TestSerialNumDlg::getSerialNum()
 {
     bool ret = inputCheck();
     if(ret) {
@@ -32,19 +46,20 @@ sSerialNum SerialNumTestDlg::getSerialNum()
     return mSerialNum;
 }
 
-void SerialNumTestDlg::on_batchComboBox_currentTextChanged(const QString &arg1)
+void TestSerialNumDlg::on_batchComboBox_currentTextChanged(const QString &arg1)
 {
     QString str = ui->purposeComboBox->currentText() +"_" + arg1;
     ui->statusLab->setText(str);
 }
 
-void SerialNumTestDlg::on_purposeComboBox_currentTextChanged(const QString &arg1)
+void TestSerialNumDlg::on_purposeComboBox_currentTextChanged(const QString &arg1)
 {
     QString str = arg1 + "_" + ui->batchComboBox->currentText();
     ui->statusLab->setText(str);
 }
 
-bool SerialNumTestDlg::inputCheck()
+
+bool TestSerialNumDlg::inputCheck()
 {
     bool ret = false;
     QString str = ui->snLineEdit->text();
@@ -54,10 +69,10 @@ bool SerialNumTestDlg::inputCheck()
     } else {
         ret = cm_isDigitStr(str);
         if(!ret) {
-             CriticalMsgBox box(this, tr("产品条码应是纯数字，请重新输入!!"));
-             return false;
+            CriticalMsgBox box(this, tr("产品条码应是纯数字，请重新输入!!"));
+            return false;
         } else {
-            mSerialNum.sn = str;
+            mItem->sn = str;
         }
     }
 
@@ -66,7 +81,7 @@ bool SerialNumTestDlg::inputCheck()
         CriticalMsgBox box(this, tr("请输入操作员!!!"));
         return false;
     } else {
-        mSerialNum.op = str;
+        mItem->op = str;
     }
 
     str = ui->cnLineEdit->text();
@@ -74,7 +89,7 @@ bool SerialNumTestDlg::inputCheck()
         CriticalMsgBox box(this, tr("请输入电脑号!!!"));
         return false;
     } else {
-        mSerialNum.cn = str;
+        mItem->cn = str;
     }
 
     str = ui->barCodeLineEdit->text();
@@ -82,21 +97,21 @@ bool SerialNumTestDlg::inputCheck()
         CriticalMsgBox box(this, tr("请输入工装条码!!!"));
         return false;
     } else {
-        mSerialNum.barCode = str;
+        mItem->barCode = str;
     }
 
-    mSerialNum.date = ui->dateEdit->date();
-    mSerialNum.batch = ui->batchComboBox->currentText();
-    mSerialNum.name = ui->typeComboBox->currentText();
-    mSerialNum.purpose = ui->purposeComboBox->currentText();
-    mSerialNum.snClear = ui->clearRadioButton->isChecked();
-    mSerialNum.errStop = ui->errStopCheckBox->isChecked();
-    mSerialNum.isSave = ui->saveCheckBox->isChecked();
+    mItem->date = ui->dateEdit->date();
+    mItem->batch = ui->batchComboBox->currentText();
+    mItem->name = ui->typeComboBox->currentText();
+    mItem->purpose = ui->purposeComboBox->currentText();
+    mItem->snClear = ui->clearRadioButton->isChecked();
+    mItem->errStop = ui->errStopCheckBox->isChecked();
+    mItem->isSave = ui->saveCheckBox->isChecked();
 
     return true;
 }
 
-void SerialNumTestDlg::on_okBtn_clicked()
+void TestSerialNumDlg::on_okBtn_clicked()
 {
     bool ret = inputCheck();
     if(ret) {
@@ -104,7 +119,7 @@ void SerialNumTestDlg::on_okBtn_clicked()
     }
 }
 
-void SerialNumTestDlg::on_cancelBtn_clicked()
+void TestSerialNumDlg::on_cancelBtn_clicked()
 {
     this->close();
 }

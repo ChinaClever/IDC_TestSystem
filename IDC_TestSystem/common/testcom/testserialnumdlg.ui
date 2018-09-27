@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SerialNumTestDlg</class>
- <widget class="QDialog" name="SerialNumTestDlg">
+ <class>TestSerialNumDlg</class>
+ <widget class="QDialog" name="TestSerialNumDlg">
   <property name="geometry">
    <rect>
     <x>0</x>

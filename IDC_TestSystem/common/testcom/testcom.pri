@@ -2,23 +2,25 @@
 INCLUDEPATH += $$PWD
 
 HEADERS += \
-    $$PWD/serialnumtestdlg.h \
     $$PWD/testresultwid.h \
     $$PWD/testitemtablewid.h \
     $$PWD/testitems.h \
-    $$PWD/testdatatablewid.h
+    $$PWD/testdatatablewid.h \
+    $$PWD/testserialnumdlg.h \
+    $$PWD/testconfig.h
 
 	
 SOURCES += \
-    $$PWD/serialnumtestdlg.cpp \
     $$PWD/testresultwid.cpp \
     $$PWD/testitemtablewid.cpp \
     $$PWD/testitems.cpp \
-    $$PWD/testdatatablewid.cpp
+    $$PWD/testdatatablewid.cpp \
+    $$PWD/testserialnumdlg.cpp \
+    $$PWD/testconfig.cpp
 
 FORMS += \
-    $$PWD/serialnumtestdlg.ui \
-    $$PWD/testresultwid.ui
+    $$PWD/testresultwid.ui \
+    $$PWD/testserialnumdlg.ui
 
 
 
