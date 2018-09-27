@@ -63,7 +63,7 @@ void ZPDU_MainWid::toolBoxSlot(int id)
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }
-    } else if(id <= Test_Data) {
+    } else if(id <= Test_Datas_Wid) {
         ui->stackedWid->setCurrentWidget(mTestWid);
     } else if(id < Info_Set) {
         ui->stackedWid->setCurrentWidget(mStatusWid);

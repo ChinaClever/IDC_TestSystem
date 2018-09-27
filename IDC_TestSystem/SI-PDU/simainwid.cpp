@@ -55,7 +55,7 @@ void SIMainWid::toolBoxSlot(int id)
         case Test_Stop: mRtuThread->stopThread(); break;
         default: break;
         }
-    } else if(id <= Test_Data) {
+    } else if(id <= Test_Datas_Wid) {
 
     } else if(id < Info_Set) {
          ui->stackedWid->setCurrentWidget(mStatusWid);

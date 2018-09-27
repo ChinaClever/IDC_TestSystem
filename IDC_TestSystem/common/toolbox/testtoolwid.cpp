@@ -47,15 +47,15 @@ void TestToolWid::on_overBtn_clicked()
 
 void TestToolWid::on_resultBtn_clicked()
 {
-    emit simulateSig(Test_Result);
+    emit simulateSig(Test_Result_Wid);
 }
 
 void TestToolWid::on_testItemBtn_clicked()
 {
-    emit simulateSig(Test_Item);
+    emit simulateSig(Test_Items_Wid);
 }
 
 void TestToolWid::on_testDataBtn_clicked()
 {
-    emit simulateSig(Test_Data);
+    emit simulateSig(Test_Datas_Wid);
 }
