@@ -13,7 +13,6 @@ TestSerialNumDlg::TestSerialNumDlg(QWidget *parent) :
 {
     ui->setupUi(this);
     com_setBackColour(tr("请输入被测模块序列号"), this);
-    initWid();
 }
 
 TestSerialNumDlg::~TestSerialNumDlg()

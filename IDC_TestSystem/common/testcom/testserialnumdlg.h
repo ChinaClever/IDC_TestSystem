@@ -18,6 +18,7 @@ public:
     ~TestSerialNumDlg();
 
     void init(TestConfig *con, int devId=Test_Dev_Zpdu);
+    sSerialNumItem *getSerialNum();
 
 protected:
     bool inputCheck();
