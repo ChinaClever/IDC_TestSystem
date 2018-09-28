@@ -68,7 +68,8 @@ HEADERS += \
     $$PWD/z_setting/z_setswcycle/zset_swcyclewid.h \
     $$PWD/z_test/ztest_mainwid.h \
     $$PWD/z_test/ztest_transthread.h \
-    $$PWD/z_test/ztest_config.h
+    $$PWD/z_test/ztest_config.h \
+    $$PWD/z_test/ztest_corethread.h
 
 	
 SOURCES += \
@@ -137,7 +138,8 @@ SOURCES += \
     $$PWD/z_setting/z_setswcycle/zset_swcyclewid.cpp \
     $$PWD/z_test/ztest_mainwid.cpp \
     $$PWD/z_test/ztest_transthread.cpp \
-    $$PWD/z_test/ztest_config.cpp
+    $$PWD/z_test/ztest_config.cpp \
+    $$PWD/z_test/ztest_corethread.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
