@@ -49,3 +49,4 @@ FORMS += \
 
 RESOURCES += \
     images/image.qrc
+

@@ -1,6 +1,7 @@
 ﻿#include "zset_mainwid.h"
 #include "ui_zset_mainwid.h"
 #include "z_setsw/zset_swwid.h"
+#include "z_setswcycle/zset_swcyclewid.h"
 #include "z_setthreshold/zset_thresholditemwid.h"
 #include "z_setthreshold/zset_thresholdoutputwid.h"
 #include "z_setele/zset_outputelewid.h"
@@ -37,6 +38,9 @@ QString ZSet_MainWid::getName(int mode)
 }
 void ZSet_MainWid::initFunSLot()
 {
+    ZSet_SwCycleWid *swCycleWid = new ZSet_SwCycleWid(ui->tabWidget);
+    ui->tabWidget->addTab(swCycleWid, tr("输出位开关循环"));
+
     ZSet_SwWid *swWid = new ZSet_SwWid(ui->tabWidget);
     ui->tabWidget->addTab(swWid, tr("输出位开关"));
 
