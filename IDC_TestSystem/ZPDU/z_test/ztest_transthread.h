@@ -1,13 +1,13 @@
 #ifndef ZTEST_TRANSTHREAD_H
 #define ZTEST_TRANSTHREAD_H
-
-#include "testtransthread.h"
+#include "testcorethread.h"
 
 class ZTest_TransThread : public TestTransThread
 {
     Q_OBJECT
-public:
     explicit ZTest_TransThread(QObject *parent = nullptr);
+public:
+    static ZTest_TransThread *bulid(QObject *parent = nullptr);
 
 signals:
 

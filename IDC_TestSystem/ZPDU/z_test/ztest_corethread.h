@@ -1,7 +1,7 @@
 #ifndef ZTEST_CORETHREAD_H
 #define ZTEST_CORETHREAD_H
 
-#include "testcorethread.h"
+#include "ztest_transthread.h"
 
 class ZTest_CoreThread : public TestCoreThread
 {
