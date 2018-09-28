@@ -2,7 +2,7 @@
 
 ZTest_Config::ZTest_Config()
 {
-
+    item->serialNum.name = "Z-PDU";
 }
 
 

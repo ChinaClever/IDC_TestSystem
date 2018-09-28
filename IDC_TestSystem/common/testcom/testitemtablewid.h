@@ -9,6 +9,8 @@ class TestItemTableWid : public ComTableWid
 public:
     explicit TestItemTableWid(QWidget *parent = nullptr);
 
+     void init(sTestConfigItem *item) { mItem = item;}
+
 public slots:
     void startSlot();
 
@@ -20,6 +22,7 @@ protected:
 private:
     int mCount;
     TestItems *mTestItems;
+    sTestConfigItem  *mItem;
 };
 
 #endif // TESTITEMTABLEWID_H

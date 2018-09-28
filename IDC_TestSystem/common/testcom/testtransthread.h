@@ -9,24 +9,32 @@ class TestTransThread : public QThread
     Q_OBJECT
 public:
     explicit TestTransThread(QObject *parent = nullptr);
+    ~TestTransThread();
 
-    void rtuUpdateData(int s=10);
+    bool rtuUpdateData(int s=10);
     void snmpUpdateData(int s=5);
 
     void setRtuValue(sRtuSetCmd &cmd);
     void setSnmpValue(sSnmpSetCmd &cmd);
 
+protected:
+    void run();
+
 signals:
 
 public slots:
-    void snmpStop() {mSnmp->stopRun();}
-    void rtuStop() {mRtu->stopThread();}
+    void rtuStop();
     virtual void initFunSLot()=0;
+    void snmpStop() {mSnmp->stopRun();}
 
 protected:
     RtuThread *mRtu;
     SnmpThread *mSnmp;
     RtuTrans *mRtuTrans;
+
+private:
+    bool mRtuLock;
+    QList<sRtuSetCmd> mRtuCmdList;
 };
 
 #endif // TESTTRANSTHREAD_H

@@ -29,7 +29,6 @@ protected:
 protected:
     Ui::TestMainWid *ui;
 
-    int mDevType;
     sDevPackets *mPackets;
     TestConfig *mConfig;
     TestSerialNumDlg *mSerialNumDlg;

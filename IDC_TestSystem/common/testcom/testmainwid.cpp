@@ -12,7 +12,6 @@ TestMainWid::TestMainWid(QWidget *parent) :
     ui(new Ui::TestMainWid)
 {
     ui->setupUi(this);
-    mDevType = 0;
     QTimer::singleShot(400,this,SLOT(initFunSLot()));
 }
 
@@ -25,7 +24,7 @@ TestMainWid::~TestMainWid()
 void TestMainWid::initFunSLot()
 {
     mSerialNumDlg = new TestSerialNumDlg(this);
-    mSerialNumDlg->init(mConfig, mDevType);
+    mSerialNumDlg->init(mConfig);
 
     mResultWid = new TestResultWid(ui->stackedWid);
     ui->stackedWid->addWidget(mResultWid);
@@ -34,6 +33,7 @@ void TestMainWid::initFunSLot()
     mItemTableWid = new TestItemTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mItemTableWid);
     mItemTableWid->initPackets(mPackets);
+    mItemTableWid->init(mConfig->item);
 
     mDataTableWid = new TestDataTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mDataTableWid);

@@ -20,18 +20,18 @@ TestSerialNumDlg::~TestSerialNumDlg()
     delete ui;
 }
 
-void TestSerialNumDlg::init(TestConfig *con, int devId)
+void TestSerialNumDlg::init(TestConfig *con)
 {
     mTestConfig = con;
     mItem = &(mTestConfig->item->serialNum);
     ui->dateEdit->setDate(QDate::currentDate());
-    ui->typeComboBox->setCurrentIndex(devId);
 
     ui->opLineEdit->setText(mItem->op);
     ui->cnLineEdit->setText(mItem->cn);
     ui->barCodeLineEdit->setText(mItem->barCode);
 
     ui->clearRadioButton->setChecked(mItem->snClear);
+    ui->typeComboBox->setCurrentText(mItem->name);
     if(!mItem->batch.isEmpty()) ui->batchComboBox->setCurrentText(mItem->batch);
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }

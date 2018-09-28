@@ -51,14 +51,16 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
     for( const auto& value : items ) {
         appendItem(value);
     }
+
+    return packet.offLine;
 }
 
 void TestItemTableWid::startSlot()
 {
     delTable();
     if(mPackets) {
-       int ret = updateWid(mPackets->dev[1]);
-       if(ret == 0) {
+       int ret = updateWid(mPackets->dev[mItem->devId]);
+       if(!ret) {
            if(mCount++ % 4)
                QTimer::singleShot(3*1000,this,SLOT(startSlot()));
        }

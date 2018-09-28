@@ -30,7 +30,7 @@ class TestItems : public QObject
 public:
     TestItems();
 
-    void bulidItems(sDutSpec *spec, QList<sTestItem> &items);
+    bool bulidItems(sDutSpec *spec, QList<sTestItem> &items);
 
 protected:
     void communication(QList<sTestItem> &items);

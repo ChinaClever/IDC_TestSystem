@@ -12,7 +12,7 @@ TestItems::TestItems()
     isSnmp = false;
 }
 
-void TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
+bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
 {
     mId = 1;
     mSpec = spec;
@@ -24,6 +24,8 @@ void TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
     if(mSpec->spec !=1) {
         outputObjData(tr("输出位"), items, mSpec->outputNum);
     }
+
+    return isSnmp;
 }
 
 void TestItems::communication(QList<sTestItem> &items)

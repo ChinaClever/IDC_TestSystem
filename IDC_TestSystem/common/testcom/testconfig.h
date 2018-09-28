@@ -2,15 +2,6 @@
 #define TESTCONFIGFILE_H
 #include "common.h"
 
-enum {
-    Test_Dev_Zpdu,
-    Test_Dev_Mpdu,
-    Test_Dev_IPpdu,
-    Test_Dev_SIpdu,
-    Test_Dev_SIBusBar,
-    Test_Dev_IPBusBar,
-};
-
 struct sSerialNumItem
 {
     QString name;
@@ -61,8 +52,9 @@ struct sTestDataItem
 
 struct sTestConfigItem
 {
-    sTestConfigItem() {mode=0;}
+    sTestConfigItem() {mode=0; devId=1;}
 
+    int devId;
     int mode;
     sSerialNumItem serialNum;
     sTestProgress progress;

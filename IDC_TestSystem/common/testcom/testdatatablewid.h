@@ -22,7 +22,7 @@ protected:
 
 private:
      QTimer *timer;
-    sTestConfigItem  *mItem;
+     sTestConfigItem  *mItem;
 };
 
 #endif // TESTDATATABLEWID_H

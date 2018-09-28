@@ -17,7 +17,7 @@ public:
     explicit TestSerialNumDlg(QWidget *parent = 0);
     ~TestSerialNumDlg();
 
-    void init(TestConfig *con, int devId=Test_Dev_Zpdu);
+    void init(TestConfig *con);
     sSerialNumItem *getSerialNum();
 
 protected:
