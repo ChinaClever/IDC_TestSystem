@@ -63,7 +63,11 @@ HEADERS += \
     $$PWD/z_setting/z_setsw/zset_switemwid.h \
     $$PWD/z_setting/z_setsw/zset_swwid.h \
     $$PWD/z_setting/z_setthreshold/zset_thresholditemwid.h \
-    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.h
+    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.h \
+    $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.h \
+    $$PWD/z_setting/z_setswcycle/zset_swcyclewid.h
+
+
 
 	
 SOURCES += \
@@ -127,7 +131,10 @@ SOURCES += \
     $$PWD/z_setting/z_setsw/zset_switemwid.cpp \
     $$PWD/z_setting/z_setsw/zset_swwid.cpp \
     $$PWD/z_setting/z_setthreshold/zset_thresholditemwid.cpp \
-    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.cpp
+    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.cpp \
+    $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.cpp \
+    $$PWD/z_setting/z_setswcycle/zset_swcyclewid.cpp
+
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \
@@ -148,8 +155,9 @@ FORMS += \
     $$PWD/z_setting/z_setsw/zset_switemwid.ui \
     $$PWD/z_setting/z_setsw/zset_swwid.ui \
     $$PWD/z_setting/z_setthreshold/zset_thresholditemwid.ui \
-    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.ui
-
+    $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.ui \
+    $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.ui \
+    $$PWD/z_setting/z_setswcycle/zset_swcyclewid.ui
 
 
 
