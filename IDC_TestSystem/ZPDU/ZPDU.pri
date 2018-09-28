@@ -67,8 +67,6 @@ HEADERS += \
     $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.h \
     $$PWD/z_setting/z_setswcycle/zset_swcyclewid.h
 
-
-
 	
 SOURCES += \
     $$PWD/z_rtu/z_rtusent.cpp \
@@ -134,7 +132,6 @@ SOURCES += \
     $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.cpp \
     $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.cpp \
     $$PWD/z_setting/z_setswcycle/zset_swcyclewid.cpp
-
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \

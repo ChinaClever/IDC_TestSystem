@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "testresultwid.h"
 #include "ui_testresultwid.h"
 
@@ -46,15 +52,16 @@ void TestResultWid::progressSlot(sTestProgress &arg)
 
     QPalette pe;
     pe.setColor(QPalette::WindowText,Qt::black);
-    int err = (arg.errNum * 100.0) / arg.allNum;
-    if(err)  pe.setColor(QPalette::WindowText,Qt::red);
-    QString str = tr("测试项目数:%1  失败项目数：%2  项目测试通过率：%3/%").arg(arg.allNum).arg(arg.errNum).arg(err);
+    int ok = (arg.okNum * 100.0) / arg.allNum;
+    if(arg.errNum)  pe.setColor(QPalette::WindowText,Qt::red);
+    QString str = tr("测试项目数:%1  失败项目数：%2  项目测试通过率：%3%").arg(arg.allNum).arg(arg.errNum).arg(ok);
     ui->itemNumLab->setText(str);
     ui->itemNumLab->setPalette(pe);
 
     if(progress >= 100) {
         bool p = true;
-        if(err) p = false;
+        if(arg.errNum) p = false;
         resultSlot(p);
     }
 }
+

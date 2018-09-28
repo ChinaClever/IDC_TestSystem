@@ -1,7 +1,7 @@
 #ifndef TESTRESULTWID_H
 #define TESTRESULTWID_H
 
-#include "serialnumtestdlg.h"
+#include "testserialnumdlg.h"
 
 namespace Ui {
 class TestResultWid;
@@ -10,6 +10,7 @@ class TestResultWid;
 struct sTestProgress
 {
     int allNum;
+    int okNum;
     int errNum;
     int finishNum;
     QString status;
