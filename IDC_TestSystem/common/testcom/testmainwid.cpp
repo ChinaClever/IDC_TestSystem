@@ -69,10 +69,11 @@ void TestMainWid::continueTest()
 
 void TestMainWid::overTest()
 {
-
-
-    mResultWid->resultSlot();
-    mDataSave->saveTestData();
+    QuMsgBox box(this, tr("是否停止??"));
+    if(box.Exec()){
+        mResultWid->resultSlot();
+        mDataSave->saveTestData();
+    }
 }
 
 
