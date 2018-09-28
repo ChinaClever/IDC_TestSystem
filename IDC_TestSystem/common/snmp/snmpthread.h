@@ -7,6 +7,7 @@
 #include <QtSnmpClient.h>
 #include <QtCore>
 #include "datapacket.h"
+#include "configbase.h"
 
 #define MIB_OID_CLEVER  ".1.3.6.1.4.1.30966"
 
@@ -36,7 +37,7 @@ public:
 
     qint32 setValue(const sSnmpSetCmd &cmd);
 
-    void startRun(const QString &addr, int msec=0);
+    void startRun();
     void stopRun();
 signals:
 
@@ -76,6 +77,7 @@ private:
 
 protected:
     sDevPackets *mPackets;
+    sConfigItem *mItem;
 };
 
 #endif // SNMP_H

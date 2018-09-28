@@ -64,7 +64,9 @@ HEADERS += \
     $$PWD/z_setting/z_setsw/zset_swwid.h \
     $$PWD/z_setting/z_setthreshold/zset_thresholditemwid.h \
     $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.h \
-    $$PWD/z_test/ztest_mainwid.h
+    $$PWD/z_test/ztest_mainwid.h \
+    $$PWD/z_test/ztest_transthread.h \
+    $$PWD/z_test/ztest_config.h
 
 	
 SOURCES += \
@@ -129,7 +131,9 @@ SOURCES += \
     $$PWD/z_setting/z_setsw/zset_swwid.cpp \
     $$PWD/z_setting/z_setthreshold/zset_thresholditemwid.cpp \
     $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.cpp \
-    $$PWD/z_test/ztest_mainwid.cpp
+    $$PWD/z_test/ztest_mainwid.cpp \
+    $$PWD/z_test/ztest_transthread.cpp \
+    $$PWD/z_test/ztest_config.cpp
 
 FORMS += \
     $$PWD/z_logs/z_logswid.ui \

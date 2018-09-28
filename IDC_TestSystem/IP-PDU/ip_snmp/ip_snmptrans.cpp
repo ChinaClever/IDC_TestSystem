@@ -6,6 +6,7 @@ IP_SnmpTrans::IP_SnmpTrans(QObject *parent) : SnmpThread(parent)
     mSnmpV1Recv = new IP_SnmpV1Recv ;
     mSnmpV3Recv = new IP_SnmpV3Recv ;
     mPackets = IpDataPackets::bulid()->packets;
+    mItem = IP_ConfigFile::bulid()->item;
 }
 
 IP_SnmpTrans *IP_SnmpTrans::bulid(QObject *parent)

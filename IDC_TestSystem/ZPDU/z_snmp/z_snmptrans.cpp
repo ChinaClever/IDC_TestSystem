@@ -5,6 +5,7 @@ Z_SnmpTrans::Z_SnmpTrans(QObject *parent) : SnmpThread(parent)
     mSnmpSend = new Z_SnmpSend;
     mSnmpRecv = new Z_SnmpRecv;
     mPackets = Z_DataPackets::bulid()->packets;
+    mItem = Z_ConfigFile::bulid()->item;
 }
 
 Z_SnmpTrans *Z_SnmpTrans::bulid(QObject *parent)

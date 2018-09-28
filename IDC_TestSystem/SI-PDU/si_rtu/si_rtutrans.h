@@ -6,11 +6,10 @@
 
 #define RTU_BUF_SIZE 2*SERIAL_LEN
 
-class SI_RtuTrans : public QThread
+class SI_RtuTrans : public RtuTrans
 {
     Q_OBJECT
     explicit SI_RtuTrans(QObject *parent = nullptr);
-
 public:
     static SI_RtuTrans *bulid(QObject *parent = nullptr);
     ~SI_RtuTrans();

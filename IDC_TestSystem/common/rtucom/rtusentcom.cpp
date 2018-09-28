@@ -36,6 +36,7 @@ ushort rtu_crc(uchar *buf, int len)
         crc = calccrc(crc, buf[i]);
     return crc;
 }
+
 /**
   * 功　能：XOR和校验
   * 入口参数：buf -> 缓冲区  len -> 长度

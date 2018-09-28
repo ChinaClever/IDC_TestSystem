@@ -1,13 +1,13 @@
 #ifndef Z_RTUTRANS_H
 #define Z_RTUTRANS_H
 #include "z_rturecv.h"
+#include "rtucom/rtutrans.h"
 
-class Z_RtuTrans
+class Z_RtuTrans : public RtuTrans
 {
     Z_RtuTrans();
 public:
     static Z_RtuTrans *bulid();
-    ~Z_RtuTrans();
 
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);

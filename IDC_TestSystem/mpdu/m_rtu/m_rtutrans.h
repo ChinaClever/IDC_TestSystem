@@ -1,13 +1,13 @@
 #ifndef M_RTUTRANS_H
 #define M_RTUTRANS_H
 #include "m_rturecv.h"
+#include "rtutrans.h"
 
-class M_RtuTrans
+class M_RtuTrans : public RtuTrans
 {
     M_RtuTrans();
 public:
     static M_RtuTrans *bulid();
-    ~M_RtuTrans();
 
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);

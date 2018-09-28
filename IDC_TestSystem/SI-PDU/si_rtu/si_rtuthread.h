@@ -8,8 +8,9 @@
 class SI_RtuThread : public RtuThread
 {
     Q_OBJECT
-public:
     explicit SI_RtuThread(QObject *parent = nullptr);
+public:
+    static SI_RtuThread *bulid(QObject *parent = nullptr);
 
 protected:
     void workDown();

@@ -2,6 +2,7 @@
 #define TESTMAINWID_H
 
 #include "testdatatablewid.h"
+#include "testdatasave.h"
 
 namespace Ui {
 class TestMainWid;
@@ -28,10 +29,12 @@ protected:
 protected:
     Ui::TestMainWid *ui;
 
-    int mDevId;
-    TestConfig *mTestConfig;
+    int mDevType;
+    sDevPackets *mPackets;
+    TestConfig *mConfig;
     TestSerialNumDlg *mSerialNumDlg;
 
+    TestDataSave *mDataSave;
     TestResultWid *mResultWid;
     TestItemTableWid *mItemTableWid;
     TestDataTableWid *mDataTableWid;

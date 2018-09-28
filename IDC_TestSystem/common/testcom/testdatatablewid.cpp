@@ -9,6 +9,9 @@
 TestDataTableWid::TestDataTableWid(QWidget *parent) : ComTableWid(parent)
 {
     initWid();
+    timer = new QTimer(this);
+    timer->start(4*100);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
 }
 
 
@@ -23,13 +26,7 @@ void TestDataTableWid::initWid()
 void TestDataTableWid::startSLot()
 {
     delTable();
-    mList.clear();
-}
-
-int TestDataTableWid::getList(QList<QStringList> &list)
-{
-    list = mList;
-    return list.size();
+    mItem->dataList.clear();
 }
 
 void TestDataTableWid::appendItem(const sTestDataItem &item)
@@ -37,18 +34,21 @@ void TestDataTableWid::appendItem(const sTestDataItem &item)
     QStringList listStr;
 
     if(item.status) listStr << "√"; else listStr << "×";
-    listStr << item.test.item;
-    listStr << item.test.subItem;
+    listStr << item.item;
+    listStr << item.subItem;
     listStr << item.expect;
     listStr << item.measured;
     listStr << item.result;
     appendTableRow(listStr, item.status);
 
     listStr.insert(0, QString::number(item.id));
-    mList.append(listStr);
+    mItem->dataList.append(listStr);
 }
 
-void TestDataTableWid::overSLot()
+void TestDataTableWid::timeoutDone()
 {
-
+    if(mItem->dataItem.size()) {
+        appendItem(mItem->dataItem.first());
+        mItem->dataItem.removeFirst();
+    }
 }

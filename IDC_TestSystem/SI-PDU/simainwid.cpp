@@ -14,13 +14,13 @@ SIMainWid::SIMainWid(QWidget *parent) :
 {
     ui->setupUi(this);
     mDpThread = SI_DpThread::bulid(this);
-    mRtuThread = new SI_RtuThread(this);
+    mRtuThread = SI_RtuThread::bulid(this);
     mServiceThread = new SI_ServiceThread(this);
 
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(40,this,SLOT(initFunSLot())); //延时初始化
 }
 
 SIMainWid::~SIMainWid()

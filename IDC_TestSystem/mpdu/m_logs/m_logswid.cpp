@@ -13,7 +13,7 @@ M_LogsWid::M_LogsWid(QWidget *parent) :
     ui(new Ui::M_LogsWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(40,this,SLOT(initFunSLot())); //延时初始化
 }
 
 M_LogsWid::~M_LogsWid()

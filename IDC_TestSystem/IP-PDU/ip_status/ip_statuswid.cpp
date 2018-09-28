@@ -7,7 +7,7 @@ IP_StatusWid::IP_StatusWid(QWidget *parent) :
     ui(new Ui::IP_StatusWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(30,this,SLOT(initFunSLot())); //延时初始化
 }
 
 IP_StatusWid::~IP_StatusWid()

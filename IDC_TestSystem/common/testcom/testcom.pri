@@ -9,7 +9,8 @@ HEADERS += \
     $$PWD/testserialnumdlg.h \
     $$PWD/testconfig.h \
     $$PWD/testdatasave.h \
-    $$PWD/testmainwid.h
+    $$PWD/testmainwid.h \
+    $$PWD/testtransthread.h
 
 	
 SOURCES += \
@@ -20,7 +21,8 @@ SOURCES += \
     $$PWD/testserialnumdlg.cpp \
     $$PWD/testconfig.cpp \
     $$PWD/testdatasave.cpp \
-    $$PWD/testmainwid.cpp
+    $$PWD/testmainwid.cpp \
+    $$PWD/testtransthread.cpp
 
 FORMS += \
     $$PWD/testresultwid.ui \

@@ -14,7 +14,7 @@ BusLogsWid::BusLogsWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(55,this,SLOT(initFunSLot())); //延时初始化
 }
 
 BusLogsWid::~BusLogsWid()

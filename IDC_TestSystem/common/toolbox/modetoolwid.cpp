@@ -1,6 +1,7 @@
 ﻿#include "modetoolwid.h"
 #include "ui_modetoolwid.h"
 #include "common.h"
+#include <QGridLayout>
 
 ModeToolWid::ModeToolWid(QWidget *parent) :
     QWidget(parent),
@@ -23,6 +24,7 @@ ModeToolWid::~ModeToolWid()
 void ModeToolWid::initFunSLot()
 {
     initSerialPort();
+    initDevNum();
 
     QString ip = mConfig->getIp();
     if(ip.isEmpty()) ip = "192.168.1.163";
@@ -189,5 +191,29 @@ void ModeToolWid::on_comboBox_currentIndexChanged(int index)
     ui->serialLab->setHidden(serialEn);
     ui->ipLineEdit->setHidden(ipEn);
     mConfig->setTestMode(index);
+}
+
+
+
+/**
+ * @brief 更新设备数量
+ * @param num
+ */
+void ModeToolWid::updateDevNum(int num)
+{
+    mConfig->item->devNum = num;
+    mConfig->setDevNum(num);
+}
+
+void ModeToolWid::initDevNum()
+{
+    int num = mConfig->getDevNum();;
+    updateDevNum(num);
+    ui->spinBox->setValue(num);
+}
+
+void ModeToolWid::on_devNumBtn_clicked()
+{
+    updateDevNum(ui->spinBox->value());
 }
 

@@ -8,32 +8,32 @@
 
 TestConfig::TestConfig()
 {
-    serialNumitem = new sSerialNumItem;
+    item = new sTestConfigItem();
     initConfig();
 }
 
-void TestConfig::initConfig(sSerialNumItem *item)
+void TestConfig::initConfig(sSerialNumItem *it)
 {
-    if(!item) item = serialNumitem;
+    if(!it) it = &(item->serialNum);
 
-    item->op = getOp();
-    item->cn = getCn();
-    item->barCode = getBarCode();
-    item->batch = getBatch();
-    item->purpose = getPurpose();
-    item->snClear = getSnClear();
+    it->op = getOp();
+    it->cn = getCn();
+    it->barCode = getBarCode();
+    it->batch = getBatch();
+    it->purpose = getPurpose();
+    it->snClear = getSnClear();
 }
 
-void TestConfig::saveConfig(sSerialNumItem *item)
+void TestConfig::saveConfig(sSerialNumItem *it)
 {
-    if(!item) item = serialNumitem;
+    if(!it) it = &(item->serialNum);
 
-    setOp(item->op);
-    setCn(item->cn );
-    setBarCode(item->barCode);
-    setBatch(item->batch);
-    setPurpose(item->purpose);
-    setSnClear(item->snClear);
+    setOp(it->op);
+    setCn(it->cn );
+    setBarCode(it->barCode);
+    setBatch(it->batch);
+    setPurpose(it->purpose);
+    setSnClear(it->snClear);
 }
 
 QString TestConfig::getOp()

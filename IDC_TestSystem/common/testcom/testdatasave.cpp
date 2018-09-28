@@ -12,14 +12,18 @@ TestDataSave::TestDataSave(QObject *parent) : QObject(parent)
     mSaveThread = new Excel_SaveThread(this);
 }
 
-void TestDataSave::saveTestData(sSerialNumItem *item, sTestProgress &arg, QList<QStringList> &list)
+void TestDataSave::saveTestData()
 {
-    mList.clear();
-    bulidHead(item);
-    bulidProgressLog(arg);
-    bulidTestData(list);
+    sTestConfigItem  *item = mItem;
+    if(item->serialNum.isSave)
+    {
+        mList.clear();
+        bulidHead(&(item->serialNum));
+        bulidProgressLog(item->progress);
+        bulidTestData(item->dataList);
 
-    mSaveThread->saveData(mFileName, mList);
+        mSaveThread->saveData(mFileName, mList);
+    }
 }
 
 QString TestDataSave::bulidFileName(sSerialNumItem *item)

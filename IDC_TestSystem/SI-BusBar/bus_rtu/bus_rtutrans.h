@@ -2,8 +2,9 @@
 #define BUS_RTUTRANS_H
 #include "bus_rturecv.h"
 #include "bus_com/buspacketsi.h"
+#include "rtutrans.h"
 
-class BUS_RtuTrans: public QThread
+class BUS_RtuTrans : public RtuTrans
 {
     explicit BUS_RtuTrans(QObject *parent = nullptr);
 public:

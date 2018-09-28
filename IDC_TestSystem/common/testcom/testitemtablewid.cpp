@@ -8,6 +8,7 @@
 
 TestItemTableWid::TestItemTableWid(QWidget *parent) : ComTableWid(parent)
 {
+    mCount = 1;
     mTestItems = new TestItems;
     initWid();
 }
@@ -36,7 +37,7 @@ void TestItemTableWid::appendItem(const sTestItem &item)
     appendTableRow(listStr);
 }
 
-void TestItemTableWid::updateWid(sDataPacket &packet)
+int TestItemTableWid::updateWid(sDataPacket &packet)
 {
     QList<sTestItem> items;
 
@@ -52,10 +53,14 @@ void TestItemTableWid::updateWid(sDataPacket &packet)
     }
 }
 
-void TestItemTableWid::startSlot(int devId)
+void TestItemTableWid::startSlot()
 {
     delTable();
     if(mPackets) {
-        updateWid(mPackets->dev[devId]);
+       int ret = updateWid(mPackets->dev[1]);
+       if(ret == 0) {
+           if(mCount++ % 4)
+               QTimer::singleShot(3*1000,this,SLOT(initFunSLot()));
+       }
     }
 }

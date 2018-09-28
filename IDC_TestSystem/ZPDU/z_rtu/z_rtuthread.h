@@ -9,8 +9,9 @@
 class Z_RtuThread : public RtuThread
 {
     Q_OBJECT
-public:
     explicit Z_RtuThread(QObject *parent = nullptr);
+public:
+    static Z_RtuThread *bulid(QObject *parent = nullptr);
 
 protected:
     void workDown();

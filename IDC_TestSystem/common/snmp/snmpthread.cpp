@@ -10,6 +10,7 @@
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
+    mItem = false;
     mPackets = nullptr;
     mOidSubIndex = mId = 0;
     mMutex = new QMutex();
@@ -34,8 +35,15 @@ SnmpThread::~SnmpThread()
     wait();
 }
 
-void SnmpThread::startRun(const QString &addr, int msec)
+void SnmpThread::startRun()
 {
+    int msec = 0;
+    QString addr = "192.168.1.163";
+    if(mItem) {
+      addr = mItem->ip;
+      msec = mItem->msecs * 100;
+    }
+
     m_address = addr;
     m_snmp_client->setAgentAddress(QHostAddress(addr));
 
@@ -200,6 +208,7 @@ void SnmpThread::makeRequest()
         if(mId >= mPackets->devNum) {
             mId = 0;
         }
+        setOffLine();
     }
 }
 
