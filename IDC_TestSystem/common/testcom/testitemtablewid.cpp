@@ -60,7 +60,7 @@ void TestItemTableWid::startSlot()
        int ret = updateWid(mPackets->dev[1]);
        if(ret == 0) {
            if(mCount++ % 4)
-               QTimer::singleShot(3*1000,this,SLOT(initFunSLot()));
+               QTimer::singleShot(3*1000,this,SLOT(startSlot()));
        }
     }
 }
