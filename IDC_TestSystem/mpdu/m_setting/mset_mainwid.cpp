@@ -7,6 +7,7 @@
 #include "mset_mainwid.h"
 #include "ui_mset_mainwid.h"
 #include "m_setenv/mset_envwid.h"
+#include "m_setting/m_setswcycle/mset_swcyclewid.h"
 
 MSet_MainWid::MSet_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -42,6 +43,9 @@ QString MSet_MainWid::getName(int mode)
 
 void MSet_MainWid::initFunSLot()
 {
+    MSet_SwCycleWid *swcycleWid = new MSet_SwCycleWid(ui->tabWidget);
+    ui->tabWidget->addTab(swcycleWid, tr("输出位开关循环"));
+
     MSet_SwWid *swWid = new MSet_SwWid(ui->tabWidget);
     ui->tabWidget->addTab(swWid, tr("输出位开关"));
 

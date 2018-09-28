@@ -32,7 +32,6 @@ HEADERS += \
     $$PWD/m_logs/m_loglinethresholdwid.h \
     $$PWD/m_logs/m_logoutputrecordwid.h \
     $$PWD/m_logs/m_logswid.h \
-    $$PWD/m_setting/mset_mainwid.h \
     $$PWD/m_service/json/m_buildjson.h \
     $$PWD/m_service/m_servicethread.h \
     $$PWD/m_dp/m_dpalarmsave.h \
@@ -58,8 +57,11 @@ HEADERS += \
     $$PWD/m_setting/m_setline/mset_linewid.h \
     $$PWD/m_setting/m_setsw/mset_switemwid.h \
     $$PWD/m_setting/m_setsw/mset_swwid.h \
+    $$PWD/m_setting/m_setswcycle/mset_swcycleitemwid.h \
+    $$PWD/m_setting/m_setswcycle/mset_swcyclewid.h \
     $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.h \
-    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.h
+    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.h \
+    $$PWD/m_setting/mset_mainwid.h
 
 	
 SOURCES += \
@@ -90,7 +92,6 @@ SOURCES += \
     $$PWD/m_logs/m_loglinethresholdwid.cpp \
     $$PWD/m_logs/m_logoutputrecordwid.cpp \
     $$PWD/m_logs/m_logswid.cpp \
-    $$PWD/m_setting/mset_mainwid.cpp \
     $$PWD/m_service/json/m_buildjson.cpp \
     $$PWD/m_service/m_servicethread.cpp \
     $$PWD/m_dp/m_dpalarmsave.cpp \
@@ -116,8 +117,11 @@ SOURCES += \
     $$PWD/m_setting/m_setline/mset_linewid.cpp \
     $$PWD/m_setting/m_setsw/mset_switemwid.cpp \
     $$PWD/m_setting/m_setsw/mset_swwid.cpp \
+    $$PWD/m_setting/m_setswcycle/mset_swcycleitemwid.cpp \
+    $$PWD/m_setting/m_setswcycle/mset_swcyclewid.cpp \
     $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.cpp \
-    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.cpp
+    $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.cpp \
+    $$PWD/m_setting/mset_mainwid.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \
@@ -134,6 +138,8 @@ FORMS += \
     $$PWD/m_setting/m_setline/mset_linewid.ui \
     $$PWD/m_setting/m_setsw/mset_switemwid.ui \
     $$PWD/m_setting/m_setsw/mset_swwid.ui \
+    $$PWD/m_setting/m_setswcycle/mset_swcycleitemwid.ui \
+    $$PWD/m_setting/m_setswcycle/mset_swcyclewid.ui \
     $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.ui \
     $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.ui
 

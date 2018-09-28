@@ -16,7 +16,6 @@ class ZSet_SwCycleItemWid : public QWidget
 public:
     explicit ZSet_SwCycleItemWid(QWidget *parent = 0);
     ~ZSet_SwCycleItemWid();
-
     void init(int id);
     void setSelect(bool checked);
     bool select();

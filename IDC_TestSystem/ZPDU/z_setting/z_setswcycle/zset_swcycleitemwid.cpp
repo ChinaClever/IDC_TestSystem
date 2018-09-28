@@ -13,6 +13,7 @@ ZSet_SwCycleItemWid::~ZSet_SwCycleItemWid()
 {
     delete ui;
 }
+
 void ZSet_SwCycleItemWid::init(int id)
 {
     ui->checkBox->setText(tr(" %1 输出位").arg(id+1));

@@ -39,13 +39,13 @@ include(test/test.pri)
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \  
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \   
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
 
 RESOURCES += \
     images/image.qrc
