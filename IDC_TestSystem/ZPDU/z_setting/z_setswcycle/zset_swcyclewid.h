@@ -43,7 +43,7 @@ private:
     ZSet_RtuThread *mRtu;
     ZSet_SwCycleItemWid *mWid[24];
     int mReg;
-    int mCaseCount;//snmp情况计数
+    int mCaseCount;//情况计数
     int mCycleCount;//循环计数
     QList<int> mSelect;
     QTimer* mTimer;
