@@ -218,7 +218,7 @@ void TestCoreThread::lineVolAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电压告警检查");
-    setLineVolAlarm(true);
+    setLineVolCmd(true);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -235,7 +235,7 @@ void TestCoreThread::lineVolAlarm()
         volAccuracy(expectValue, measuredValue, item);
         sleep(1);
     }
-    setLineVolAlarm(false);
+    setLineVolCmd(false);
 }
 
 void TestCoreThread::loopVolAlarm()
@@ -339,7 +339,7 @@ void TestCoreThread::lineCur()
 {
     sTestDataItem item;
     item.item = tr("相电流检查");
-    item.subItem = tr(" 相总电流").arg(i+1);
+    item.subItem = tr(" 相总电流");
 
     int expect = IN_DataPackets::bulid()->getTgValue(2) ;
     int num = mDevPacket->data.lineNum;
@@ -354,7 +354,7 @@ void TestCoreThread::loopCur()
 {
     sTestDataItem item;
     item.item = tr("回路电流检查");
-    item.subItem = tr(" 回路总电流").arg(i+1);
+    item.subItem = tr(" 回路总电流");
 
     int expect = IN_DataPackets::bulid()->getTgValue(2) ;
     int num = mDevPacket->data.loopNum;
