@@ -56,6 +56,7 @@ struct sTestConfigItem
 
     int devId;
     int mode;
+    bool isSnmp;
     sSerialNumItem serialNum;
     sTestProgress progress;
 

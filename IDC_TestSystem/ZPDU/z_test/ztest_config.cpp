@@ -2,6 +2,7 @@
 
 ZTest_Config::ZTest_Config()
 {
+    item->isSnmp = true;
     item->serialNum.name = "Z-PDU";
 }
 

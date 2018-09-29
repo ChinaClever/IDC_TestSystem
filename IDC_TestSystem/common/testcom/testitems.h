@@ -17,11 +17,12 @@ struct sTestItem
 
 struct sDutSpec
 {
-    int dev;
+    sDutSpec() {isSnmp = true;}
     int spec;
     int lineNum;
     int loopNum;
     int outputNum;
+    bool isSnmp;
 };
 
 
@@ -40,8 +41,6 @@ protected:
 
 private:
     sDutSpec *mSpec;
-
-    bool isSnmp;
     int mId;
 };
 

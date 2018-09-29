@@ -42,6 +42,7 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
     QList<sTestItem> items;
 
     sDutSpec spdc;
+    spdc.isSnmp = mItem->isSnmp;
     spdc.spec = packet.devSpec;
     spdc.lineNum = packet.data.lineNum;
     spdc.loopNum = packet.data.loopNum;

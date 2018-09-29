@@ -2,7 +2,7 @@
 #define TESTMAINWID_H
 
 #include "testdatatablewid.h"
-#include "testdatasave.h"
+#include "testcorethread.h"
 
 namespace Ui {
 class TestMainWid;
