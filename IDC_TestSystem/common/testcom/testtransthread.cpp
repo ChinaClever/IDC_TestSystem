@@ -34,18 +34,32 @@ bool TestTransThread::rtuUpdateData(int s)
     return ret;
 }
 
-void TestTransThread::setSnmpValue(sSnmpSetCmd &cmd)
+void TestTransThread::setSnmpValue(const sSnmpSetCmd &cmd)
 {
     mSnmp->setValue(cmd);
 }
 
-void TestTransThread::setRtuValue(sRtuSetCmd &cmd)
+void TestTransThread::setSnmpValue(QList<sSnmpSetCmd> &cmd)
+{
+    for( const auto& value : cmd ) {
+        setSnmpValue(value);
+    }
+}
+
+void TestTransThread::setRtuValue(const sRtuSetCmd &cmd)
 {
     if(mRtuCmdList.isEmpty()) {
         if(mRtuLock)  mRtu->stopThread();
         QTimer::singleShot(1000,this,SLOT(start()));
     }
     mRtuCmdList.append(cmd);
+}
+
+void TestTransThread::setRtuValue(QList<sRtuSetCmd> &cmd)
+{
+    for( const auto& value : cmd ) {
+        setRtuValue(value);
+    }
 }
 
 void TestTransThread::rtuStop()

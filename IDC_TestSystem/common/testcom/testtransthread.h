@@ -11,11 +11,14 @@ public:
     explicit TestTransThread(QObject *parent = nullptr);
     ~TestTransThread();
 
-    bool rtuUpdateData(int s=10);
+    bool rtuUpdateData(int s=7);
     void snmpUpdateData(int s=5);
 
-    void setRtuValue(sRtuSetCmd &cmd);
-    void setSnmpValue(sSnmpSetCmd &cmd);
+    void setRtuValue(const sRtuSetCmd &cmd);
+    void setRtuValue(QList<sRtuSetCmd> &cmd);
+
+    void setSnmpValue(const sSnmpSetCmd &cmd);
+    void setSnmpValue(QList<sSnmpSetCmd> &cmd);
 
 protected:
     void run();

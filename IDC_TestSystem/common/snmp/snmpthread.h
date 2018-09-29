@@ -22,6 +22,7 @@ struct sSnmpSetCmd
     ushort type;
     QByteArray value;
 };
+
 Q_DECLARE_METATYPE(sSnmpSetCmd)
 
 class SnmpThread : public QThread
