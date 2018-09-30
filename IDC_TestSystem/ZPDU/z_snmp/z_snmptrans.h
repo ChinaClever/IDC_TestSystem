@@ -1,4 +1,4 @@
-#ifndef Z_SNMPTRANS_H
+﻿#ifndef Z_SNMPTRANS_H
 #define Z_SNMPTRANS_H
 
 #include "z_snmprecv.h"

@@ -6,9 +6,9 @@
  */
 #include "snmp_zmrecv.h"
 
-SNMP_ZmRecv::SNMP_ZmRecv()
+SNMP_ZmRecv::SNMP_ZmRecv( )
 {
-
+    mRate =1;
 }
 
 
@@ -114,7 +114,8 @@ void SNMP_ZmRecv::lineData(const QByteArray &data)
     int item = getItemByOid(4);
     switch (item) {
     case 1: obj->cur.value = data.toDouble() * 10;break;
-    case 2: obj->vol.value = data.toDouble(); if(obj->vol.value) obj->sw=1; else obj->sw=0; break;
+    case 2: obj->vol.value = data.toDouble() ;
+            if(obj->vol.value) obj->sw=1; else obj->sw=0; break;
     case 3: obj->pow = data.toDouble(); break;
     case 4: obj->pf = data.toDouble()*100 ; break;
     case 5: obj->ele = data.toDouble() ; break;

@@ -1,4 +1,4 @@
-#include "z_snmptrans.h"
+﻿#include "z_snmptrans.h"
 
 Z_SnmpTrans::Z_SnmpTrans(QObject *parent) : SnmpThread(parent)
 {

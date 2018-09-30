@@ -71,6 +71,7 @@ HEADERS += \
     $$PWD/z_test/ztest_config.h \
     $$PWD/z_test/ztest_corethread.h
 
+
 	
 SOURCES += \
     $$PWD/z_rtu/z_rtusent.cpp \
@@ -163,6 +164,7 @@ FORMS += \
     $$PWD/z_setting/z_setthreshold/zset_thresholdoutputwid.ui \
     $$PWD/z_setting/z_setswcycle/zset_swcycleitemwid.ui \
     $$PWD/z_setting/z_setswcycle/zset_swcyclewid.ui
+
 
 
 

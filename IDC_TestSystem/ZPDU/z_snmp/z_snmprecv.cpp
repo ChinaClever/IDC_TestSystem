@@ -2,6 +2,7 @@
 
 Z_SnmpRecv::Z_SnmpRecv()
 {
+    mRate = 10;
     mPackets = Z_DataPackets::bulid()->packets;
 }
 

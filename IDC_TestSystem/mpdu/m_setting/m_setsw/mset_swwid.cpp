@@ -21,7 +21,6 @@ MSet_SwWid::~MSet_SwWid()
     delete ui;
 }
 
-
 void MSet_SwWid::initwid()
 {
     QWidget *wid[] = {ui->widget_1, ui->widget_2, ui->widget_3, ui->widget_4, ui->widget_5,ui->widget_6,
@@ -53,7 +52,6 @@ void MSet_SwWid::on_checkBox_clicked(bool checked)
         mWid[i]->setSelect(checked);
     }
 }
-
 
 void MSet_SwWid::sendRtu(int i)
 {

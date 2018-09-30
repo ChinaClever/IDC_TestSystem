@@ -112,10 +112,10 @@ void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate)
 void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data)
 {
     data.id = i;
-    dataUnit(i, rtuData.vol, data.vol, 10);
+    dataUnit(i, rtuData.vol, data.vol, 1);
     dataUnit(i, rtuData.cur, data.cur, 10);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 10;
+    data.activePow = data.vol.value * data.cur.value / 100;
     data.pf = rtuData.pf[i];
     data.sw = rtuData.sw[i];
 

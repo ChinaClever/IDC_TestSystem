@@ -1,4 +1,4 @@
-#ifndef Z_SNMPRECV_H
+﻿#ifndef Z_SNMPRECV_H
 #define Z_SNMPRECV_H
 #include "z_snmpsend.h"
 #include "z_com/z_datapackets.h"
@@ -10,6 +10,7 @@ public:
 
 protected:
     void devTypeData(int value, sDataPacket *pkt);
+    void lineData(const QByteArray &data);
 };
 
 #endif // Z_SNMPRECV_H

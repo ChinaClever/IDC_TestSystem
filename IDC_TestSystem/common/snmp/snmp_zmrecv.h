@@ -1,4 +1,4 @@
-#ifndef SNMP_ZMRECV_H
+﻿#ifndef SNMP_ZMRECV_H
 #define SNMP_ZMRECV_H
 #include "snmpthread.h"
 
@@ -22,6 +22,7 @@ protected:
     void outputData(const QByteArray &data);
 
 protected:
+    int mRate;
     QString mIP, mOid;
     sDevPackets *mPackets;
     sDataPacket *mDataPacket;

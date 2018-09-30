@@ -1,19 +1,19 @@
-﻿#ifndef ZSET_SWCYCLEWID_H
-#define ZSET_SWCYCLEWID_H
+﻿#ifndef MSET_SWCYCLEWID_H
+#define MSET_SWCYCLEWID_H
 
 #include <QWidget>
-#include "zset_swcycleitemwid.h"
+#include "mset_swcycleitemwid.h"
 namespace Ui {
-class ZSet_SwCycleWid;
+class MSet_SwCycleWid;
 }
 
-class ZSet_SwCycleWid : public QWidget
+class MSet_SwCycleWid : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit ZSet_SwCycleWid(QWidget *parent = 0);
-    ~ZSet_SwCycleWid();
+    explicit MSet_SwCycleWid(QWidget *parent = 0);
+    ~MSet_SwCycleWid();
 
 protected:
     void initwid();
@@ -38,15 +38,15 @@ protected slots:
    void on_stopBtn_clicked();
 
 private:
-    Ui::ZSet_SwCycleWid *ui;
-    ZSet_SnmpThread *mSnmp;
-    ZSet_RtuThread *mRtu;
-    ZSet_SwCycleItemWid *mWid[24];
+    Ui::MSet_SwCycleWid *ui;
+    MSet_SnmpThread *mSnmp;
+    MSet_RtuThread *mRtu;
+    MSet_SwCycleItemWid *mWid[24];
     int mReg;
-    int mCaseCount;//情况计数
+    int mCaseCount;//snmp情况计数
     int mCycleCount;//循环计数
     QList<int> mSelect;
     QTimer* mTimer;
 };
 
-#endif // ZSET_SWCYCLEWID_H
+#endif // MSET_SWCYCLEWID_H

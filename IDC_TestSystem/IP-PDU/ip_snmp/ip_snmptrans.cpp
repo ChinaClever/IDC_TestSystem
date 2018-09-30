@@ -1,4 +1,4 @@
-#include "ip_snmptrans.h"
+﻿#include "ip_snmptrans.h"
 
 IP_SnmpTrans::IP_SnmpTrans(QObject *parent) : SnmpThread(parent)
 {
