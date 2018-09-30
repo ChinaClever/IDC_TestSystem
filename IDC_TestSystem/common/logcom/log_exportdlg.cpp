@@ -52,8 +52,9 @@ void LOG_ExportDlg::on_pushButton_clicked()
     dlg.setFileMode(QFileDialog::DirectoryOnly);
     dlg.setDirectory("E:");
     if(dlg.exec() == QDialog::Accepted) {
-        QStringList fileNames = dlg.selectedFiles();
-        ui->pathEdit->setText(fileNames.at(0) + "/");
+        QString fn = dlg.selectedFiles().at(0);
+        if(fn.right(0) != "/")  fn += "/";
+        ui->pathEdit->setText(fn);
     }
 }
 

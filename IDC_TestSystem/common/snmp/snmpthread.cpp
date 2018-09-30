@@ -10,7 +10,7 @@
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
-    mItem = false;
+    mItem = nullptr;
     mPackets = nullptr;
     mOidSubIndex = mId = 0;
     mMutex = new QMutex();
