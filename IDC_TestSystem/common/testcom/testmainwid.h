@@ -26,17 +26,20 @@ protected:
     void continueTest();
     void overTest();
 
+private:
+    TestDataSave *mDataSave;
+    TestResultWid *mResultWid;
+    TestItemTableWid *mItemTableWid;
+    TestDataTableWid *mDataTableWid;
+    TestSerialNumDlg *mSerialNumDlg;
+
 protected:
     Ui::TestMainWid *ui;
 
     sDevPackets *mPackets;
     TestConfig *mConfig;
-    TestSerialNumDlg *mSerialNumDlg;
-
-    TestDataSave *mDataSave;
-    TestResultWid *mResultWid;
-    TestItemTableWid *mItemTableWid;
-    TestDataTableWid *mDataTableWid;
+    TestTransThread *mTrans;
+    TestCoreThread *mCoreThread;
 };
 
 #endif // TESTMAINWID_H

@@ -2,5 +2,15 @@
 
 ZTest_CoreThread::ZTest_CoreThread(QObject *parent) : TestCoreThread(parent)
 {
-    mTrans = ZTest_TransThread::bulid();
+
+}
+
+bool ZTest_CoreThread::lineVolCmd(sTestSetCmd &it)
+{
+
+}
+
+bool ZTest_CoreThread::loopVolCmd(sTestSetCmd &it)
+{
+
 }

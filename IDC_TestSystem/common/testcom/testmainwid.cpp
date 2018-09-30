@@ -40,6 +40,7 @@ void TestMainWid::initFunSLot()
     mDataTableWid->initPackets(mPackets);
     mDataTableWid->init(mConfig->item);
 
+    mCoreThread->init(mConfig->item, mPackets, mTrans);
     mDataSave = new TestDataSave(this);
     mDataSave->init(mConfig->item);
 }
@@ -50,21 +51,23 @@ void TestMainWid::startTest()
     int ret = mSerialNumDlg->exec();
     if( ret == QDialog::Accepted ) {
 
+        mConfig->item->mode = Test_Start;
         mItemTableWid->startSlot();
         mResultWid->startSlot();
         mDataTableWid->startSLot();
+        mCoreThread->startThread();
     }
 
 }
 
 void TestMainWid::pauseTest()
 {
-
+    mConfig->item->mode = Test_Pause;
 }
 
 void TestMainWid::continueTest()
 {
-
+    mConfig->item->mode = Test_Start;
 }
 
 void TestMainWid::overTest()
@@ -73,6 +76,7 @@ void TestMainWid::overTest()
     if(box.Exec()){
         mResultWid->resultSlot();
         mDataSave->saveTestData();
+        mConfig->item->mode = Test_Over;
     }
 }
 

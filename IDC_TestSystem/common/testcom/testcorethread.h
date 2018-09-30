@@ -34,7 +34,7 @@ public:
     explicit TestCoreThread(QObject *parent = nullptr);
     ~TestCoreThread();
 
-    void init(sTestConfigItem *item){ mItem = item; }
+    void init(sTestConfigItem *item, sDevPackets *packets, TestTransThread *trans);
     void startThread();
 
     virtual bool lineVolCmd(sTestSetCmd &it)=0;
@@ -84,13 +84,13 @@ signals:
 public slots:
 
 protected:
-    TestTransThread *mTrans;
-    sDevPackets *mPackets;
 
 private:
     int mItemId;
     sTestConfigItem  *mItem;
     sDataPacket *mDevPacket;
+    sDevPackets *mPackets;
+    TestTransThread *mTrans;
 };
 
 #endif // TESTCORETHREAD_H

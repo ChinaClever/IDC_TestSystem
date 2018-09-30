@@ -14,10 +14,18 @@ TestCoreThread::~TestCoreThread()
     wait();
 }
 
+void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTransThread *trans)
+{
+    mItem=item;
+    mPackets=packets;
+    mTrans = trans;
+}
+
 void TestCoreThread::startThread()
 {
     mItemId = 1;
     mDevPacket = &(mPackets->dev[mItem->devId]);
+    start();
 }
 
 void TestCoreThread::updateData()

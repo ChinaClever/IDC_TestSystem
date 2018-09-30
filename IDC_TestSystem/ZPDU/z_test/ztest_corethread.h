@@ -9,9 +9,8 @@ class ZTest_CoreThread : public TestCoreThread
 public:
     explicit ZTest_CoreThread(QObject *parent = nullptr);
 
-signals:
-
-public slots:
+    bool lineVolCmd(sTestSetCmd &it);
+    bool loopVolCmd(sTestSetCmd &it);
 };
 
 #endif // ZTEST_CORETHREAD_H
