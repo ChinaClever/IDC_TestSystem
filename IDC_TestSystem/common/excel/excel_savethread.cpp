@@ -51,7 +51,7 @@ void Excel_SaveThread::writeFile(QList<QStringList> &list)
             for(int j=0; j<list.at(i).size(); ++j) {
                 excel.setCellString(i+1, j, list.at(i).at(j));
             }
-            msleep(5);
+            msleep(25);
         }
         excel.save();
     }

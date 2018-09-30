@@ -95,7 +95,7 @@ protected:
     bool getSnClear();
     void setSnClear(bool mode);
 
-    virtual QString getPrefix() {return "test";}
+    virtual QString getPrefix()=0;
 };
 
 #endif // TESTCONFIGFILE_H

@@ -39,7 +39,7 @@ void TestDataTableWid::appendItem(const sTestDataItem &item)
     listStr << item.expect;
     listStr << item.measured;
     listStr << item.result;
-    appendTableRow(listStr, item.status);
+    appendTableRow(listStr, !item.status);
 
     listStr.insert(0, QString::number(item.id));
     mItem->dataList.append(listStr);

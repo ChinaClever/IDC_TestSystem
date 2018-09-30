@@ -84,13 +84,13 @@ signals:
 public slots:
 
 protected:
+    TestTransThread *mTrans;
 
 private:
     int mItemId;
     sTestConfigItem  *mItem;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
-    TestTransThread *mTrans;
 };
 
 #endif // TESTCORETHREAD_H

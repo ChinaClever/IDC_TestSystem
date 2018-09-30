@@ -12,7 +12,7 @@ TestMainWid::TestMainWid(QWidget *parent) :
     ui(new Ui::TestMainWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(400,this,SLOT(initFunSLot()));
+    QTimer::singleShot(1600,this,SLOT(initFunSLot()));
 }
 
 TestMainWid::~TestMainWid()
@@ -72,7 +72,7 @@ void TestMainWid::continueTest()
 
 void TestMainWid::overTest()
 {
-    QuMsgBox box(this, tr("是否停止??"));
+    QuMsgBox box(this, tr("是否停止测试?"));
     if(box.Exec()){
         mResultWid->resultSlot();
         mDataSave->saveTestData();

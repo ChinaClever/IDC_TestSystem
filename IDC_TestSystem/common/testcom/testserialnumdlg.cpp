@@ -23,15 +23,15 @@ TestSerialNumDlg::~TestSerialNumDlg()
 void TestSerialNumDlg::init(TestConfig *con)
 {
     mTestConfig = con;
+    mTestConfig->initConfig();
     mItem = &(mTestConfig->item->serialNum);
     ui->dateEdit->setDate(QDate::currentDate());
 
     ui->opLineEdit->setText(mItem->op);
     ui->cnLineEdit->setText(mItem->cn);
     ui->barCodeLineEdit->setText(mItem->barCode);
-
     ui->clearRadioButton->setChecked(mItem->snClear);
-    ui->typeComboBox->setCurrentText(mItem->name);
+    if(!mItem->name.isEmpty()) ui->typeComboBox->setCurrentText(mItem->name);
     if(!mItem->batch.isEmpty()) ui->batchComboBox->setCurrentText(mItem->batch);
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }
@@ -122,8 +122,9 @@ void TestSerialNumDlg::on_okBtn_clicked()
 {
     bool ret = inputCheck();
     if(ret) {
-        this->accept();
+        this->close();
         mTestConfig->saveConfig(mItem);
+        this->accept();
     }
 }
 

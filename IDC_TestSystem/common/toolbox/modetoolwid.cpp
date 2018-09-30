@@ -29,6 +29,7 @@ void ModeToolWid::initFunSLot()
     QString ip = mConfig->getIp();
     if(ip.isEmpty()) ip = "192.168.1.163";
     ui->ipLineEdit->setText(ip);
+    mConfig->item->ip = ip;
 
     int mode = mConfig->getTestMode();
     ui->comboBox->setCurrentIndex(mode);

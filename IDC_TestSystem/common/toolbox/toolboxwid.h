@@ -19,7 +19,7 @@ signals:
      void toolBoxSig(int);
 
 protected slots:
-    void initFunSLot();
+    virtual void initFunSLot();
 
 protected:
     Ui::ToolBoxWid *ui;

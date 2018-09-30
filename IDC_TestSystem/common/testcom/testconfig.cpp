@@ -9,7 +9,6 @@
 TestConfig::TestConfig()
 {
     item = new sTestConfigItem();
-    initConfig();
 }
 
 void TestConfig::initConfig(sSerialNumItem *it)

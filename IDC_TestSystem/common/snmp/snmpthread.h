@@ -67,11 +67,11 @@ private:
     QMutex *mMutex;
     QString m_address;
     QtSnmpClient *m_snmp_client;
-    QTimer *m_timer, *timer;
     QStringList mOidSubList;
     QtSnmpDataList mValues;
 
     bool isRun;
+    QTimer *m_timer, *timer;
     int mOidSubIndex, mId;
     sDataPacket *mDataPacket;
     QList<sSnmpSetCmd> mSetCmdList;
