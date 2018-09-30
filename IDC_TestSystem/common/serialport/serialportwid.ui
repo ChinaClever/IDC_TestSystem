@@ -20,7 +20,7 @@
    <string>串口操作</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../images/image.qrc">
+   <iconset resource="../../images/image.qrc">
     <normaloff>:/image/logo.jpg</normaloff>:/image/logo.jpg</iconset>
   </property>
   <widget class="QLabel" name="stateLab">
@@ -191,18 +191,8 @@
     <string notr="true"/>
    </property>
    <property name="currentText">
-    <string>2400</string>
+    <string>9600</string>
    </property>
-   <item>
-    <property name="text">
-     <string>2400</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>4800</string>
-    </property>
-   </item>
    <item>
     <property name="text">
      <string>9600</string>
@@ -247,7 +237,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="../images/image.qrc"/>
+  <include location="../../images/image.qrc"/>
  </resources>
  <connections/>
 </ui>

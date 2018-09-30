@@ -65,6 +65,7 @@ void SerialPortWid::serialPortChanged(QString com)
             ui->stateLab->setText(tr("串口已打开"));
             ui->comBox->setEnabled(false);
             ui->baudComBox->setEnabled(false);
+            emit(closeSignal());
         }  else {
             ui->workBtn->setText(tr("打开串口"));
             ui->stateLab->setText(tr("串口打开失败"));

@@ -1,4 +1,4 @@
-#ifndef SERIALPORTWID_H
+﻿#ifndef SERIALPORTWID_H
 #define SERIALPORTWID_H
 
 #include <QWidget>
@@ -21,7 +21,8 @@ public:
 protected:
     void initSerialPort();
     void initWidget();
-
+signals:
+    void closeSignal();
 protected slots:
     void serialPortChanged(QString com);
     void workBtnSlot();
