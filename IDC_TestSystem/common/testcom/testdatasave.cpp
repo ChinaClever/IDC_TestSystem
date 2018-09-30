@@ -43,9 +43,9 @@ QString TestDataSave::bulidPath(sSerialNumItem *item)
     QString path = "E:/" + tr("测试日志") + '/';
     path += item->purpose  + '/';
     path += item->name  + '/';
-    path += item->barCode  + '/';
-    path += item->batch  + '/';
-    path += item->date.toString("yyyyMMdd")  + '/';
+    path += "工装条码_"+item->barCode  + '/';
+    path += "批次_"+item->batch  + '/';
+    path += "日期_"+item->date.toString("yyyy_MM_dd")  + '/';
     dir.mkpath(path); //创建多级目录，如果已存在则会返回去true
 
     return path;

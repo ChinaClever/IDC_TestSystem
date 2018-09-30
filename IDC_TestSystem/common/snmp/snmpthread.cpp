@@ -50,7 +50,7 @@ void SnmpThread::startRun()
     if(msec == 0) msec = 500 + (rand() % 1000);
     m_timer->start(msec);
     clearCount();
-    start();
+    if(!isRun)start();
 }
 
 void SnmpThread::stopRun()
