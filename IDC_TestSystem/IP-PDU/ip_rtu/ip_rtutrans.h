@@ -1,14 +1,14 @@
 #ifndef IP_RTUTRANS_H
 #define IP_RTUTRANS_H
 #include "ip_rturecv.h"
+#include "rtutrans.h"
 
-class IP_RtuTrans
+class IP_RtuTrans : public RtuTrans
 {
     IP_RtuTrans();
 
 public:
     static IP_RtuTrans *bulid();
-    ~IP_RtuTrans();
 
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);

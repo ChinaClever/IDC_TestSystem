@@ -9,8 +9,9 @@
 class IP_RtuThread : public RtuThread
 {
     Q_OBJECT
-public:
     explicit IP_RtuThread(QObject *parent = nullptr);
+public:
+    static IP_RtuThread *bulid(QObject *parent = nullptr);
 
 protected:
     void workDown();

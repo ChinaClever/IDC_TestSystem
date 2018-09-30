@@ -6,7 +6,7 @@
  */
 #include "si_rtutrans.h"
 
-SI_RtuTrans::SI_RtuTrans(QObject *parent) : QThread(parent)
+SI_RtuTrans::SI_RtuTrans(QObject *parent) : RtuTrans(parent)
 {
     mSerial = NULL;
     isRun = false;

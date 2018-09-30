@@ -12,6 +12,15 @@ SI_RtuThread::SI_RtuThread(QObject *parent) : RtuThread(parent)
 }
 
 
+SI_RtuThread *SI_RtuThread::bulid(QObject *parent)
+{
+    static SI_RtuThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new SI_RtuThread(parent);
+    }
+    return sington;
+}
+
 /**
  * @brief 初始化
  */

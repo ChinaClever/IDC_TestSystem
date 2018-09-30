@@ -23,7 +23,6 @@ void SettingToolWid::initFunSLot()
     initLineNum();
     initModbusTime();
     initDevCmd();
-    initDevNum();
     initOutputNum();
     initVersion();
 }
@@ -79,28 +78,6 @@ void SettingToolWid::initModbusTime()
 void SettingToolWid::on_timeBtn_clicked()
 {
     updateModbusTime(ui->timeBox->currentIndex());
-}
-
-/**
- * @brief 更新设备数量
- * @param num
- */
-void SettingToolWid::updateDevNum(int num)
-{
-    mConfig->item->devNum = num;
-    mConfig->setDevNum(num);
-}
-
-void SettingToolWid::initDevNum()
-{
-    int num = mConfig->getDevNum();;
-    updateDevNum(num);
-    ui->spinBox->setValue(num);
-}
-
-void SettingToolWid::on_devNumBtn_clicked()
-{
-    updateDevNum(ui->spinBox->value());
 }
 
 void SettingToolWid::updateOutputNum(int num)

@@ -12,7 +12,7 @@ Z_StatusWid::Z_StatusWid(QWidget *parent) :
     ui(new Ui::Z_StatusWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(90,this,SLOT(initFunSLot())); //延时初始化
 }
 
 Z_StatusWid::~Z_StatusWid()

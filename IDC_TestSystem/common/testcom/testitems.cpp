@@ -9,14 +9,12 @@
 TestItems::TestItems()
 {
     mSpec = nullptr;
-    isSnmp = false;
 }
 
-void TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
+bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
 {
     mId = 1;
     mSpec = spec;
-    if(spec->dev > 1) isSnmp = true;
 
     communication(items);
     objData(tr("相"), items,  mSpec->lineNum);
@@ -24,12 +22,14 @@ void TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
     if(mSpec->spec !=1) {
         outputObjData(tr("输出位"), items, mSpec->outputNum);
     }
+
+    return mSpec->isSnmp;
 }
 
 void TestItems::communication(QList<sTestItem> &items)
 {
     sTestItem item;
-    item.isSnmp = isSnmp;
+    item.isSnmp = mSpec->isSnmp;
 
     item.item = tr("通讯检查");
 
@@ -52,7 +52,7 @@ void TestItems::unitItem(const QString &itemStr, int num, QList<sTestItem> &item
     sTestItem item;
     QString str = itemStr;
 
-    item.isSnmp = isSnmp;
+    item.isSnmp = mSpec->isSnmp;
     item.item = tr("%1检查").arg(str);
     for(int i=0; i<num; ++i) {
         item.id = mId++;
@@ -88,7 +88,7 @@ void TestItems::objData(const QString &itemStr, QList<sTestItem> &items, int num
     unitItem(str, num, items);
 
     sTestItem item;
-    item.isSnmp = isSnmp;
+    item.isSnmp = mSpec->isSnmp;
     item.item = tr("%1功率检查").arg(itemStr);
     for(int i=0; i<num; ++i) {
         item.id = mId++;
@@ -111,7 +111,7 @@ void TestItems::outputObjData(const QString &itemStr, QList<sTestItem> &items, i
 {
     QString str;
     sTestItem item;
-    item.isSnmp = isSnmp;
+    item.isSnmp = mSpec->isSnmp;
 
     if(mSpec->spec !=2) {
         item.item = tr("%1开关检查").arg(itemStr);

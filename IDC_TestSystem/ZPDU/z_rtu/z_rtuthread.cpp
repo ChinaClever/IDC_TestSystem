@@ -11,6 +11,16 @@ Z_RtuThread::Z_RtuThread(QObject *parent) : RtuThread(parent)
 
 }
 
+
+Z_RtuThread *Z_RtuThread::bulid(QObject *parent)
+{
+    static Z_RtuThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new Z_RtuThread(parent);
+    }
+    return sington;
+}
+
 void Z_RtuThread::initSlot()
 {
     SerialPort *serial = Z_ConfigFile::bulid()->item->serial;

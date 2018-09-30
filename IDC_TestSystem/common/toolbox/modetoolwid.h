@@ -28,12 +28,15 @@ protected:
     bool stopTest();
     bool checkInput();
 
+    void initDevNum();
+    void updateDevNum(int num);
 
 protected slots:
     void initFunSLot();
     void on_serialBtn_clicked();
     void on_testBtn_clicked();
     void on_settingBtn_clicked();
+    void on_devNumBtn_clicked();
     void on_comboBox_currentIndexChanged(int index);
 
 protected:

@@ -15,7 +15,7 @@ IP_MainWid::IP_MainWid(QWidget *parent) :
 
     mSnmp = IP_SnmpTrans::bulid(this);
     mDpThread = IP_DpThread::bulid(this);
-    mRtuThread = new IP_RtuThread(this);
+    mRtuThread = IP_RtuThread::bulid(this);
     mServiceThread = new IP_ServiceThread(this);
 
     timer = new QTimer(this);
@@ -47,10 +47,9 @@ void IP_MainWid::toolBoxSlot(int id)
 {
     if(id < Test_Function)
     {
-        sConfigItem *item = IP_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
-        case Test_SNMP: mSnmp->startRun(item->ip, item->msecs * 100); break;
+        case Test_SNMP: mSnmp->startRun(); break;
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }

@@ -11,6 +11,7 @@ M_SnmpTrans::M_SnmpTrans(QObject *parent) : SnmpThread(parent)
     mSnmpSend = new M_SnmpSend;
     mSnmpRecv = new M_SnmpRecv;
     mPackets = M_DataPackets::bulid()->packets;
+    mItem = M_ConfigFile::bulid()->item;
 }
 
 M_SnmpTrans *M_SnmpTrans::bulid(QObject *parent)

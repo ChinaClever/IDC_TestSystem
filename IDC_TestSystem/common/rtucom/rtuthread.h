@@ -1,6 +1,7 @@
 #ifndef RTUTHREAD_H
 #define RTUTHREAD_H
 
+#include "rtutrans.h"
 #include "dpcom/dpthread.h"
 
 class RtuThread : public QThread

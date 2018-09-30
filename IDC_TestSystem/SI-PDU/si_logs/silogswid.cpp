@@ -13,7 +13,7 @@ SILogsWid::SILogsWid(QWidget *parent) :
     ui(new Ui::SILogsWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 
 SILogsWid::~SILogsWid()

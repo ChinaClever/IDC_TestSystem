@@ -16,13 +16,13 @@ ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
 
     mSnmp = Z_SnmpTrans::bulid(this);
     mDpThread = Z_DpThread::bulid(this);
-    mRtuThread = new Z_RtuThread(this);
+    mRtuThread = Z_RtuThread::bulid(this);
     mServiceThread = new Z_ServiceThread(this);
 
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
 }
 
 ZPDU_MainWid::~ZPDU_MainWid()
@@ -56,10 +56,9 @@ void ZPDU_MainWid::toolBoxSlot(int id)
 {
     if(id < Test_Function)
     {
-        sConfigItem *item = Z_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
-        case Test_SNMP: mSnmp->startRun(item->ip, item->msecs * 100); break;
+        case Test_SNMP: mSnmp->startRun(); break;
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }

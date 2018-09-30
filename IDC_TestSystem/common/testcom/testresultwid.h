@@ -7,14 +7,7 @@ namespace Ui {
 class TestResultWid;
 }
 
-struct sTestProgress
-{
-    int allNum;
-    int okNum;
-    int errNum;
-    int finishNum;
-    QString status;
-};
+
 
 class TestResultWid : public QWidget
 {
@@ -24,13 +17,18 @@ public:
     explicit TestResultWid(QWidget *parent = 0);
     ~TestResultWid();
 
+    void init(sTestConfigItem *item) {mItem = item;}
+
 public slots:
-    void startSlot(QString &name, QString &batch, QString &sn);
-    void progressSlot(sTestProgress &arg);
-    void resultSlot(bool p);
+    void startSlot();
+    void progressSlot();
+    void resultSlot();
 
 private:
     Ui::TestResultWid *ui;
+
+    QTimer *timer;
+    sTestConfigItem *mItem;
 };
 
 #endif // TESTRESULTWID_H

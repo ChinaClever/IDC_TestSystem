@@ -6,6 +6,15 @@ IP_RtuThread::IP_RtuThread(QObject *parent) : RtuThread(parent)
 }
 
 
+IP_RtuThread *IP_RtuThread::bulid(QObject *parent)
+{
+    static IP_RtuThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new IP_RtuThread(parent);
+    }
+    return sington;
+}
+
 /**
  * @brief 初始化
  */

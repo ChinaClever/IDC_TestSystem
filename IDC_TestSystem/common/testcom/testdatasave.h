@@ -10,7 +10,8 @@ class TestDataSave : public QObject
 public:
     explicit TestDataSave(QObject *parent = nullptr);
 
-    void saveTestData(sSerialNumItem *item, sTestProgress &arg, QList<QStringList> &list);
+    void init(sTestConfigItem *item) { mItem = item;}
+    void saveTestData();
 
 protected:
     int bulidHead(sSerialNumItem *item);
@@ -23,6 +24,7 @@ private:
 
 private:
     Excel_SaveThread *mSaveThread;
+    sTestConfigItem *mItem;
     QString mFileName;
     QList<QStringList> mList;
 };

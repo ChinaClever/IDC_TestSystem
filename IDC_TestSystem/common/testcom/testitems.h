@@ -17,11 +17,12 @@ struct sTestItem
 
 struct sDutSpec
 {
-    int dev;
+    sDutSpec() {isSnmp = true;}
     int spec;
     int lineNum;
     int loopNum;
     int outputNum;
+    bool isSnmp;
 };
 
 
@@ -30,7 +31,7 @@ class TestItems : public QObject
 public:
     TestItems();
 
-    void bulidItems(sDutSpec *spec, QList<sTestItem> &items);
+    bool bulidItems(sDutSpec *spec, QList<sTestItem> &items);
 
 protected:
     void communication(QList<sTestItem> &items);
@@ -40,8 +41,6 @@ protected:
 
 private:
     sDutSpec *mSpec;
-
-    bool isSnmp;
     int mId;
 };
 

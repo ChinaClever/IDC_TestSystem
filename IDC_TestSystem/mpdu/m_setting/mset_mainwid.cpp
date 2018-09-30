@@ -15,7 +15,7 @@ MSet_MainWid::MSet_MainWid(QWidget *parent) :
 {
     ui->setupUi(this);
     groupBox_background_icon(this);
-    QTimer::singleShot(600,this,SLOT(initFunSLot()));
+    QTimer::singleShot(200,this,SLOT(initFunSLot()));
 }
 
 MSet_MainWid::~MSet_MainWid()

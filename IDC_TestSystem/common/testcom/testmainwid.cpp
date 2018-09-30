@@ -12,7 +12,6 @@ TestMainWid::TestMainWid(QWidget *parent) :
     ui(new Ui::TestMainWid)
 {
     ui->setupUi(this);
-    mDevId = 0;
     QTimer::singleShot(400,this,SLOT(initFunSLot()));
 }
 
@@ -24,28 +23,38 @@ TestMainWid::~TestMainWid()
 
 void TestMainWid::initFunSLot()
 {
-    mTestConfig = new TestConfig();
     mSerialNumDlg = new TestSerialNumDlg(this);
-    mSerialNumDlg->init(mTestConfig, mDevId);
+    mSerialNumDlg->init(mConfig);
 
     mResultWid = new TestResultWid(ui->stackedWid);
     ui->stackedWid->addWidget(mResultWid);
+    mResultWid->init(mConfig->item);
 
     mItemTableWid = new TestItemTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mItemTableWid);
+    mItemTableWid->initPackets(mPackets);
+    mItemTableWid->init(mConfig->item);
 
     mDataTableWid = new TestDataTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mDataTableWid);
+    mDataTableWid->initPackets(mPackets);
+    mDataTableWid->init(mConfig->item);
+
+    mDataSave = new TestDataSave(this);
+    mDataSave->init(mConfig->item);
 }
+
 
 void TestMainWid::startTest()
 {
     int ret = mSerialNumDlg->exec();
     if( ret == QDialog::Accepted ) {
-        qDebug() << "AAAAAAAA";
-    } else {
-        qDebug() << "BBBBBBBBBBBB";
+
+        mItemTableWid->startSlot();
+        mResultWid->startSlot();
+        mDataTableWid->startSLot();
     }
+
 }
 
 void TestMainWid::pauseTest()
@@ -60,7 +69,11 @@ void TestMainWid::continueTest()
 
 void TestMainWid::overTest()
 {
-
+    QuMsgBox box(this, tr("是否停止??"));
+    if(box.Exec()){
+        mResultWid->resultSlot();
+        mDataSave->saveTestData();
+    }
 }
 
 

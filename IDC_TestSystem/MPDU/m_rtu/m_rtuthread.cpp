@@ -12,6 +12,15 @@ M_RtuThread::M_RtuThread(QObject *parent) : RtuThread(parent)
 }
 
 
+M_RtuThread *M_RtuThread::bulid(QObject *parent)
+{
+    static M_RtuThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new M_RtuThread(parent);
+    }
+    return sington;
+}
+
 void M_RtuThread::initSlot()
 {
     SerialPort *serial = M_ConfigFile::bulid()->item->serial;

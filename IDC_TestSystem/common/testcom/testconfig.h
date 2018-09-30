@@ -2,15 +2,6 @@
 #define TESTCONFIGFILE_H
 #include "common.h"
 
-enum {
-    Test_Dev_Zpdu,
-    Test_Dev_Mpdu,
-    Test_Dev_IPpdu,
-    Test_Dev_SIpdu,
-    Test_Dev_SIBusBar,
-    Test_Dev_IPBusBar,
-};
-
 struct sSerialNumItem
 {
     QString name;
@@ -28,14 +19,62 @@ struct sSerialNumItem
     bool isSave;
 };
 
+struct sTestProgress
+{
+    sTestProgress() {okNum=errNum=finishNum=0; allNum=1;}
+
+    int allNum;
+    int okNum;
+    int errNum;
+    int finishNum;
+    QString status;
+};
+
+
+
+/**
+ * @brief 测试数据结构体
+ */
+struct sTestDataItem
+{
+    sTestDataItem(){id=0;}
+
+    int id;
+    bool status; // 状态
+
+    QString item; // 检查项目
+    QString subItem; // 测试项目描述
+
+    int expectValue;
+    int measuredValue;
+
+    QString expect; // 期望值
+    QString measured; // 实测值
+    QString result; // 结果
+};
+
+struct sTestConfigItem
+{
+    sTestConfigItem() {mode=0; devId=1;}
+
+    int devId;
+    int mode;
+    bool isSnmp;
+    sSerialNumItem serialNum;
+    sTestProgress progress;
+
+    QList<sTestDataItem> dataItem;
+    QList<QStringList> dataList;
+};
+
 class TestConfig
 {
 public:
     TestConfig();
 
-    sSerialNumItem *serialNumitem;
-    void initConfig(sSerialNumItem *item=nullptr);
-    void saveConfig(sSerialNumItem *item=nullptr);
+    sTestConfigItem *item;
+    void initConfig(sSerialNumItem *it=nullptr);
+    void saveConfig(sSerialNumItem *it=nullptr);
 
 protected:
     QString getOp();

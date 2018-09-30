@@ -15,13 +15,13 @@ MPDU_MainWid::MPDU_MainWid(QWidget *parent) :
 
     mSnmp = M_SnmpTrans::bulid(this);
     mDpThread = M_DpThread::bulid(this);
-    mRtuThread = new M_RtuThread(this);
+    mRtuThread = M_RtuThread::bulid(this);
     mServiceThread = new M_ServiceThread(this);
 
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(45,this,SLOT(initFunSLot())); //延时初始化
 }
 
 MPDU_MainWid::~MPDU_MainWid()
@@ -51,10 +51,9 @@ void MPDU_MainWid::toolBoxSlot(int id)
 {
     if(id < Test_Function)
     {
-        sConfigItem *item = M_ConfigFile::bulid()->item;
         switch (id) {
         case Test_Rtu: mRtuThread->startThread(); break;
-        case Test_SNMP: mSnmp->startRun(item->ip, item->msecs * 100); break;
+        case Test_SNMP: mSnmp->startRun(); break;
         case Test_Stop: mRtuThread->stopThread(); mSnmp->stopRun(); break;
         default: break;
         }

@@ -13,6 +13,10 @@ public:
 
     int getTgValue(int mode);
     int getTemRise(int id);
+
+    sObjData *getObjData(int id);
+    int getLineVol(int id);
+
 };
 
 #endif // I_DATAPACKETS_H

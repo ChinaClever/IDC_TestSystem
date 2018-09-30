@@ -6,7 +6,7 @@
  */
 #include "bus_rtutrans.h"
 
-BUS_RtuTrans::BUS_RtuTrans(QObject *parent) : QThread(parent)
+BUS_RtuTrans::BUS_RtuTrans(QObject *parent) : RtuTrans(parent)
 {
     mSerial = NULL;
     isRun = false;
@@ -17,6 +17,7 @@ BUS_RtuTrans::BUS_RtuTrans(QObject *parent) : QThread(parent)
     mRtuPkt = new BUS_RtuRecv();
     mRtuSent = new BUS_RtuSent();
 }
+
 BUS_RtuTrans::~BUS_RtuTrans()
 {
     isRun = false;
@@ -31,6 +32,7 @@ BUS_RtuTrans *BUS_RtuTrans::bulid(QObject *parent)
     }
     return sington;
 }
+
 /**
  * @brief 设置串口并开启线程
  * @param serial

@@ -79,3 +79,16 @@ int IN_DataPackets::getTgValue(int mode)
 
     return ret;
 }
+
+int IN_DataPackets::getLineVol(int id)
+{
+    sDevData *data = &(getDev(1)->data);
+    return data->input[id+1].vol.value;
+}
+
+sObjData *IN_DataPackets::getObjData(int id)
+{
+    sDevData *data = &(getDev(id/8)->data);
+    return &(data->input[id%8]);
+}
+

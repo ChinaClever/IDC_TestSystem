@@ -67,7 +67,7 @@
   </widget>
   <widget class="QPushButton" name="pauseBtn">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -83,7 +83,7 @@
   </widget>
   <widget class="QPushButton" name="overBtn">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
@@ -99,7 +99,7 @@
   </widget>
   <widget class="QPushButton" name="continueBtn">
    <property name="enabled">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
    <property name="geometry">
     <rect>
