@@ -1,4 +1,4 @@
-#ifndef IP_SNMPTRANS_H
+﻿#ifndef IP_SNMPTRANS_H
 #define IP_SNMPTRANS_H
 
 #include "ip_snmpv3recv.h"

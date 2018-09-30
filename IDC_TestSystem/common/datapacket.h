@@ -1,4 +1,4 @@
-#ifndef DATAPACKET_H
+﻿#ifndef DATAPACKET_H
 #define DATAPACKET_H
 #include <QtCore>
 
