@@ -18,7 +18,7 @@ void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTrans
 {
     mItem=item;
     mPackets=packets;
-//    mTrans = trans;
+    mTrans = trans;
 }
 
 void TestCoreThread::startThread()
@@ -28,14 +28,16 @@ void TestCoreThread::startThread()
     start();
 }
 
+
+
 void TestCoreThread::updateData()
 {
     if(mItem->isSnmp) {
-        mTrans->snmpUpdateData(0);
+        mTrans->snmpUpdateData();
     } else {
         mTrans->rtuUpdateData();
     }
-    sleep(3);
+    sleep(4);
 }
 
 void TestCoreThread::stopThread()
@@ -86,7 +88,7 @@ bool TestCoreThread::snmpTrans()
     item.expect = tr("通过SNMP能获取到设备数据");
 
     QString str = tr("SNMP通讯失败");
-    mTrans->snmpUpdateData(0); sleep(3);
+    mTrans->snmpUpdateData(); sleep(4);
     if(mDevPacket->offLine) {
         ret = true;
         str = tr("SNMP通讯成功");
@@ -94,7 +96,7 @@ bool TestCoreThread::snmpTrans()
 
     item.status = ret;
     item.measured = str;
-//    mTrans->snmpStop();
+    //    mTrans->snmpStop();
 
     return appendResult(item);
 }
@@ -109,7 +111,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(0); sleep(3);
+    mTrans->rtuUpdateData(); sleep(3);
     if(mDevPacket->offLine) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -117,16 +119,16 @@ bool TestCoreThread::rtuTrans()
 
     item.status = ret;
     item.measured = str;
-//    mTrans->rtuStop();
+    //    mTrans->rtuStop();
 
     return appendResult(item);
 }
 
 bool TestCoreThread::transmission()
 {
-//    bool ret = rtuTrans();
-//    if(mItem->isSnmp)
-        bool ret = snmpTrans();
+    bool ret = rtuTrans();
+    if(mItem->isSnmp)
+        ret = snmpTrans();
 
     return ret;
 }
@@ -185,11 +187,11 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
         if(mItem->isSnmp) {
             mTrans->setSnmpValue(cmd.sAlarmMin);
             mTrans->setSnmpValue(cmd.sAlarmMax);
-            mTrans->snmpUpdateData(0);
+            mTrans->snmpUpdateData();
         } else {
             mTrans->setRtuValue(cmd.rtuAlarmMin);
             mTrans->setRtuValue(cmd.rtuAlarmMax);
-            mTrans->rtuUpdateData(0);
+            mTrans->rtuUpdateData();
         }
     } else {
         mTrans->setRtuValue(cmd.rtuMin);

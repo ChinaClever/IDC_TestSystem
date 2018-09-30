@@ -11,8 +11,6 @@
 
 ZTest_MainWid::ZTest_MainWid(QWidget *parent) : TestMainWid(parent)
 {
-
-    mDevId = Test_Dev_Zpdu;
     mConfig = ZTest_Config::bulid();
     mTrans = new ZTest_TransThread(this);
     mCoreThread = new ZTest_CoreThread(this);

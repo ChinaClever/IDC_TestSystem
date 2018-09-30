@@ -6,6 +6,11 @@ TestTransThread::TestTransThread(QObject *parent) : QThread(parent)
     mSnmp = nullptr;
     mRtuTrans = nullptr;
     mRtuLock = false;
+
+    mStep = 0;
+    timer = new QTimer(this);
+    timer->start(1*1000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     QTimer::singleShot(1400,this,SLOT(initFunSLot()));
 }
 
@@ -14,19 +19,33 @@ TestTransThread::~TestTransThread()
     wait();
 }
 
-void TestTransThread::snmpUpdateData(int s)
+void TestTransThread::timeoutDone()
 {
-    mSnmp->startRun();
-    if(s) QTimer::singleShot(s *1000,this,SLOT(snmpStop()));
+    switch (mStep) {
+    case 1: rtuUpdate(); break;
+    case 2: snmpUpdate(); break;
+    case 3: rtuStopData(); break;
+    case 4: snmpStopData(); break;
+    case 5: stopUpdate(); break;
+    case 6: start(); break;
+    default:  break;
+    }
+    mStep = 0;
 }
 
-bool TestTransThread::rtuUpdateData(int s)
+void TestTransThread::snmpUpdate(int s)
+{
+    mSnmp->startRun();
+    if(s) QTimer::singleShot(s *1000,this,SLOT(snmpStopData()));
+}
+
+bool TestTransThread::rtuUpdate(int s)
 {
     bool ret = true;
     if(!mRtuLock) {
         mRtuLock = true;
         mRtu->startThread();
-        if(s) QTimer::singleShot(s *1000,this,SLOT(rtuStop()));
+        if(s) QTimer::singleShot(s *1000,this,SLOT(rtuStopData()));
     } else {
         ret = false;
     }
@@ -50,7 +69,7 @@ void TestTransThread::setRtuValue(const sRtuSetCmd &cmd)
 {
     if(mRtuCmdList.isEmpty()) {
         if(mRtuLock)  mRtu->stopThread();
-        QTimer::singleShot(1000,this,SLOT(start()));
+        mStep = 6;
     }
     mRtuCmdList.append(cmd);
 }
@@ -62,7 +81,7 @@ void TestTransThread::setRtuValue(QList<sRtuSetCmd> &cmd)
     }
 }
 
-void TestTransThread::rtuStop()
+void TestTransThread::rtuStopData()
 {
     mRtu->stopThread();
     mRtuLock = false;

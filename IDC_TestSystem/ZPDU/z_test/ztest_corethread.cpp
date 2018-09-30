@@ -2,7 +2,7 @@
 
 ZTest_CoreThread::ZTest_CoreThread(QObject *parent) : TestCoreThread(parent)
 {
-    mTrans = new ZTest_TransThread(this);
+//    mTrans = new ZTest_TransThread(this);
 }
 
 bool ZTest_CoreThread::lineVolCmd(sTestSetCmd &it)

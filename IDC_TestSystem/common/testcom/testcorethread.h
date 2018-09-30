@@ -46,7 +46,6 @@ protected:
 private:
     void stopThread();
     void updateData();
-
     void conditionExec(bool s);
     bool appendResult(sTestDataItem &item);
 
@@ -81,14 +80,11 @@ private:
 
 signals:
 
-public slots:
-
-protected:
-    TestTransThread *mTrans;
 
 private:
     int mItemId;
     sTestConfigItem  *mItem;
+    TestTransThread *mTrans;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
 };

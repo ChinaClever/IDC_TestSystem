@@ -20,7 +20,8 @@ Excel_SaveThread::~Excel_SaveThread()
 void Excel_SaveThread::saveData(const QString &fileName, QList<QStringList> &list)
 {
     mFileName = fileName;
-    mList = list;
+    mList.clear();
+    mList.append(list);
     start();
 }
 
@@ -49,9 +50,9 @@ void Excel_SaveThread::writeFile(QList<QStringList> &list)
         for(int i=0; i<list.size(); ++i)
         {
             for(int j=0; j<list.at(i).size(); ++j) {
-                excel.setCellString(i+1, j, list.at(i).at(j));
+                excel.setCellString(i+1, j+1, list.at(i).at(j));
             }
-            msleep(25);
+            msleep(15);
         }
         excel.save();
     }

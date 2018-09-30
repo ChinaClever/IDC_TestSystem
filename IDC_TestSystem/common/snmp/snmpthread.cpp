@@ -40,8 +40,8 @@ void SnmpThread::startRun()
     int msec = 0;
     QString addr = "192.168.1.163";
     if(mItem) {
-      addr = mItem->ip;
-      msec = mItem->msecs * 100;
+        addr = mItem->ip;
+        msec = mItem->msecs * 100;
     }
 
     m_address = addr;
@@ -89,9 +89,9 @@ void SnmpThread::onResponseReceived(const qint32, const QtSnmpDataList& values )
     mValues << values;
     sentOkCmd();
 
-    //    for( const auto& value : values ) {
-    //        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
-    //    }
+//    for( const auto& value : values ) {
+//        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
+//    }
 }
 
 void SnmpThread::onRequestFailed( const qint32 request_id ) {
