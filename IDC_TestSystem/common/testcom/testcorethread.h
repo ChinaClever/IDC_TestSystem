@@ -79,6 +79,7 @@ private:
     void stopThread();
     void updateData();
     void conditionExec(bool s);
+    void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
 
     /********检查通讯***************/

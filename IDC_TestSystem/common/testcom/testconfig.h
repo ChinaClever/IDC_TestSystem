@@ -45,9 +45,6 @@ struct sTestDataItem
     QString item; // 检查项目
     QString subItem; // 测试项目描述
 
-    int expectValue;
-    int measuredValue;
-
     QString expect; // 期望值
     QString measured; // 实测值
     QString result; // 结果

@@ -64,6 +64,19 @@ void TestCoreThread::conditionExec(bool s)
     }
 }
 
+void TestCoreThread::updateProgress(bool status, QString &str)
+{
+    sTestProgress *p = &(mItem->progress);
+    if(status) {
+        p->okNum++;
+    } else {
+        p->errNum++;
+    }
+    p->finishNum++;
+    p->status = str;
+}
+
+
 bool TestCoreThread::appendResult(sTestDataItem &item)
 {
     QString str = tr("失败");
@@ -74,6 +87,9 @@ bool TestCoreThread::appendResult(sTestDataItem &item)
     item.result = str;
     mItem->dataItem.append(item);
     conditionExec(item.status);
+
+    QString statusStr = item.subItem + "  结果: " + str;
+    updateProgress(item.status, statusStr);
 
     return item.status;
 }
