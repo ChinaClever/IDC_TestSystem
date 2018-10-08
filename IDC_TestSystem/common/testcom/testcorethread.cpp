@@ -83,7 +83,7 @@ void TestCoreThread::updateProgress(bool status, QString &str)
 
     ///=========== 测试项目
     p->allNum = 200;
-    msleep(600);
+    sleep(1);
 }
 
 
@@ -270,7 +270,6 @@ void TestCoreThread::lineVolAlarm()
         expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         measuredValue = obj->vol.max;
         volAccuracy(expectValue, measuredValue, item);
-        sleep(1);
     }
     setLineVolCmd(false);
 }
@@ -295,7 +294,6 @@ void TestCoreThread::loopVolAlarm()
         expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         measuredValue = obj->vol.max;
         volAccuracy(expectValue, measuredValue, item);
-        sleep(1);
     }
     setLoopVolCmd(false);
 }
@@ -484,7 +482,6 @@ void TestCoreThread::lineCurAlarm()
         expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         measuredValue = obj->cur.max;
         curAccuracy(expectValue, measuredValue, item);
-        sleep(1);
     }
     setLineCurCmd(false);
 }
@@ -510,7 +507,6 @@ void TestCoreThread::loopCurAlarm()
         expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         measuredValue = obj->cur.max;
         curAccuracy(expectValue, measuredValue, item);
-        sleep(1);
     }
     setLoopCurCmd(false);
 }
@@ -536,7 +532,6 @@ void TestCoreThread::outputCurAlarm()
         expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         measuredValue = obj->cur.max;
         curAccuracy(expectValue, measuredValue, item);
-        sleep(1);
     }
     setOutputCurCmd(false);
 }
@@ -593,7 +588,6 @@ void TestCoreThread::outputSwCtr()
         item.subItem = tr("输出位%1 开关控制 ").arg(i+1);
         int measuredValue = obj->cur.value;
         swAccuracy(measuredValue, item);
-        sleep(1);
     }
     setOutputSwCmd(false);
 }
@@ -740,7 +734,6 @@ int TestCoreThread::outputEle()
         item.subItem = tr("输出位%1 电能清除 ").arg(i+1);
         int measuredValue = obj->ele;
         eleAccuracy(measuredValue, item);
-        sleep(1);
     }
 
     return num;
@@ -761,7 +754,6 @@ int TestCoreThread::lineEle()
         item.subItem = tr("L%1 电能清除 ").arg(i+1);
         int measuredValue = obj->ele;
         eleAccuracy(measuredValue, item);
-        sleep(1);
     }
 
     return num;
