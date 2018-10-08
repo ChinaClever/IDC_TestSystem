@@ -37,7 +37,7 @@ void TestResultWid::startSlot()
     ui->statusLab->clear();
     ui->progressBar->setValue(0);
 
-    timer->start(1*1000);
+    timer->start(200);
     this->setStyleSheet("color:black;");
 }
 

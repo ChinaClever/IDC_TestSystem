@@ -83,6 +83,7 @@ void TestCoreThread::updateProgress(bool status, QString &str)
 
     ///=========== 测试项目
     p->allNum = 200;
+    msleep(600);
 }
 
 
