@@ -21,10 +21,10 @@ protected:
 private:
     void produceCmd(int& mtimers);//产生命令函数
     QString getOid(int i);//获取Oid节点
-    void snmpFirstCase(int& mtimers);//snmp的第一种情况
+    void snmpAllOpenOrCloseCase(int& mtimers);//snmp全开全关
     void snmpOtherCase(int& mtimers , bool end);//snmp的其他情况
     void sendSnmp(int& mtimers);
-    void rtuFirstCase(int& mtimers);//rtu的第一种情况
+    void rtuAllOpenOrCloseCase(int& mtimers);//rtu全开全关
     void rtuOtherCase(int& mtimers , bool end);//rtu的其他情况
     void sendRtu(int& mtimers);
     void updateCycleCount();//更新循环次数

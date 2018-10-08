@@ -94,40 +94,45 @@ QString MSet_SwCycleWid::getOid(int i)
 }
 
 /**
- * @brief SNMP 命令加入命令链表 第一种情况：把第一个选择的输出位ON，其它的输出位OFF
- * @param [in&out]mtimers 只能是0，选择输出位的最小序号
+ * @brief SNMP 命令加入命令链表 全开全关
+ * @param [in&out]mtimers 只能是全开0和全关1
  */
-void MSet_SwCycleWid::snmpFirstCase(int& mtimers)
+void MSet_SwCycleWid::snmpAllOpenOrCloseCase(int& mtimers)
 {
-    for(int i = mtimers ; i < mSelect.size() ; ++i)
+    for(int i = 0 ; i < mSelect.size() ; ++i)
      {
         sSnmpSetCmd cmd;
 
         cmd.oid = getOid(mSelect[i]);
         cmd.type = SNMP_STRING_TYPE;
-        cmd.value.append( i == 0 ? "ON" : "OFF" );
+        cmd.value.append(mtimers == 0? "ON":"OFF" );
         mSnmp->setCmd(cmd);
     }
 }
 
 /**
- * @brief SNMP 命令加入命令链表 其他情况一 end(true)：前一个的输出位OFF，后一个的输出位ON
- * @brief 其他情况二 end(false)：最后一个的输出位OFF
- * @param [in&out]mtimers [1,23]，输出位的序号
+ * @brief SNMP 命令加入命令链表 其他情况一 mtimers为2时：第一个输出位ON
+ * @brief 其他情况二 end(true) and mtimers[3,25]时：前一个的输出位OFF，后一个的输出位ON
+ * @brief 其他情况三 end(false) and mtimers为26时：最后一个的输出位OFF
+ * @param [in&out]mtimers [2,26]，index[0,24]输出位的序号+2
  * @param [in]end 其他一般情况true ，灭掉最后一个输出位false
  */
 void MSet_SwCycleWid::snmpOtherCase(int& mtimers ,bool end)
 {
-    sSnmpSetCmd cmd;
-
-    cmd.oid = getOid(mSelect[mtimers-1]);
-    cmd.type = SNMP_STRING_TYPE;
-    cmd.value.append("OFF");
-    mSnmp->setCmd(cmd);
+    if(mtimers < 2) return;
+    int index = mtimers - 2;
+    if(index != 0)
+    {
+        sSnmpSetCmd cmd;
+        cmd.oid = getOid(mSelect[index-1]);
+        cmd.type = SNMP_STRING_TYPE;
+        cmd.value.append("OFF");
+        mSnmp->setCmd(cmd);
+    }
     if(end)
     {
         sSnmpSetCmd cmd1;
-        cmd1.oid = getOid(mSelect[mtimers]);
+        cmd1.oid = getOid(mSelect[index]);
         cmd1.type = SNMP_STRING_TYPE;
         cmd1.value.append("ON");
         mSnmp->setCmd(cmd1);
@@ -136,18 +141,19 @@ void MSet_SwCycleWid::snmpOtherCase(int& mtimers ,bool end)
 
 /**
  * @brief 启动线程发送snmp命令
- * @param [in&out]mtimers [0,23]输出位的序号
+ * @param [in&out]mtimers [0,26]输出位的序号
  */
 void MSet_SwCycleWid::sendSnmp(int& mtimers)
 {
-    if(mtimers == mSelect.size())
+    if(mtimers - 2 == mSelect.size())
     {
         snmpOtherCase(mtimers , false);
         mSnmp->start();
         updateCycleCount();
         return;
     }
-    (mtimers == 0)? snmpFirstCase(mtimers): snmpOtherCase(mtimers , true);
+    (mtimers == 0 || mtimers == 1)? snmpAllOpenOrCloseCase(mtimers)
+                  :snmpOtherCase(mtimers , true);
     mCaseCount++;
     mSnmp->start();
 
@@ -155,37 +161,45 @@ void MSet_SwCycleWid::sendSnmp(int& mtimers)
 }
 
 /**
- * @brief Rtu 命令加入命令链表 第一种情况：把第一个选择的输出位ON
- * @param [in&out]mtimers 只能是0，选择输出位的最小序号
+ * @brief Rtu 命令加入命令链表 全开全关
+ * @param [in&out]mtimers 只能是全开0和全关1
  */
-void MSet_SwCycleWid::rtuFirstCase(int& mtimers)
+void MSet_SwCycleWid::rtuAllOpenOrCloseCase(int& mtimers)
 {
-
-    sRtuSetCmd cmd;
-    cmd.addr = ui->spinBox->value();
-    cmd.reg = mReg + mtimers;
-    cmd.value = 1;
-    mRtu->setCmd(cmd);
+    for(int i = 0 ; i < mSelect.size() ; ++i)
+     {
+        sRtuSetCmd cmd;
+        cmd.addr = ui->spinBox->value();
+        cmd.reg = mReg + mSelect[i];
+        cmd.value = (mtimers == 0? 1 : 0 );
+        mRtu->setCmd(cmd);
+    }
 }
 
 /**
- * @brief Rtu 命令加入命令链表 其他情况一 end(true)：前一个的输出位OFF，后一个的输出位ON
- * @brief 其他情况二 end(false)：最后一个的输出位OFF
- * @param [in&out]mtimers [1,23]，输出位的序号
- *  @param [in]end 其他一般情况true ，灭掉最后一个输出位false
+ * @brief Rtu 命令加入命令链表 其他情况一 mtimers为2时：第一个输出位1
+ * @brief 其他情况二 end(true) and mtimers[3,25]时：前一个的输出位0，后一个的输出位1
+ * @brief 其他情况三 end(false) and mtimers为26时：最后一个的输出位0
+ * @param [in&out]mtimers [2,26]，index[0,24]输出位的序号+2
+ * @param [in]end 其他一般情况true ，灭掉最后一个输出位false
  */
 void MSet_SwCycleWid::rtuOtherCase(int& mtimers ,bool end)
 {
-    sRtuSetCmd cmd;
-    cmd.addr = ui->spinBox->value();
-    cmd.reg = mReg + mSelect[mtimers - 1];
-    cmd.value = 0;
-    mRtu->setCmd(cmd);
+    if(mtimers < 2) return;
+    int index = mtimers - 2;
+    if(index != 0)
+    {
+        sRtuSetCmd cmd;
+        cmd.addr = ui->spinBox->value();
+        cmd.reg = mReg + mSelect[index - 1];
+        cmd.value = 0;
+        mRtu->setCmd(cmd);
+    }
     if(end)
     {
         sRtuSetCmd cmd1;
         cmd1.addr = ui->spinBox->value();
-        cmd1.reg = mReg + mSelect[mtimers];
+        cmd1.reg = mReg + mSelect[index];
         cmd1.value = 1;
         mRtu->setCmd(cmd1);
     }
@@ -193,18 +207,20 @@ void MSet_SwCycleWid::rtuOtherCase(int& mtimers ,bool end)
 
 /**
  * @brief 启动线程发送Rtu命令
- * @param [in&out]mtimers [0,23]输出位的序号
+ * @param [in&out]mtimers [0,26]输出位的序号
  */
 void MSet_SwCycleWid::sendRtu(int& mtimers)
 {
-    if(mtimers == mSelect.size())
+    if(mtimers - 2 == mSelect.size())
     {
         rtuOtherCase(mtimers , false);
         mRtu->start();
         updateCycleCount();
         return;
     }
-    (mtimers == 0)? rtuFirstCase(mtimers): rtuOtherCase(mtimers , true);
+    (mtimers == 0 || mtimers == 1)?
+                rtuAllOpenOrCloseCase(mtimers):
+                rtuOtherCase(mtimers , true);
     mCaseCount++;
     mRtu->start();
 
