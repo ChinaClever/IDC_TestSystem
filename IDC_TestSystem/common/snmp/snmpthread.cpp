@@ -44,13 +44,14 @@ void SnmpThread::startRun()
         msec = mItem->msecs * 100;
     }
 
-    m_address = addr;
+    m_address = addr;    
+    if(isRun) if(m_address == addr) return;
     m_snmp_client->setAgentAddress(QHostAddress(addr));
 
     if(msec == 0) msec = 500 + (rand() % 1000);
     m_timer->start(msec);
     clearCount();
-    if(!isRun)start();
+    start();
 }
 
 void SnmpThread::stopRun()

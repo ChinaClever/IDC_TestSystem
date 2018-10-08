@@ -4,6 +4,30 @@
 #include "testtransthread.h"
 #include "testdatasave.h"
 
+#define TEST_NORMAL_VOL_MIN 170
+#define TEST_NORMOL_VOL_MAX 245
+
+#define TEST_ABNORMAL_VOL_MIN 100
+#define TEST_ABNORMOL_VOL_MAX 200
+
+enum {
+    Test_Normal_VolMin  = 170,
+    Test_Normal_VolMax  = 245,
+
+    Test_Abnormal_VolMin  = 100,
+    Test_Abnormal_VolMax  = 200,
+
+    Test_Normal_CurMin  = 0,
+    Test_Normal_LineCurMax  = 32,
+    Test_Normal_OutputCurMax  = 32,
+
+    Test_Abnormal_CurMin  = 10,
+    Test_Abnormal_CurMax  = 16,
+};
+
+
+
+
 struct sTestSetCmd
 {
     int devId;
@@ -17,8 +41,8 @@ struct sTestSetCmd
 
     QList<sSnmpSetCmd> sMin;
     QList<sSnmpSetCmd> sMax;
-    QList<sSnmpSetCmd> sAlarmMin; // 最小值设为1
-    QList<sSnmpSetCmd> sAlarmMax; // 最大值设为2
+    QList<sSnmpSetCmd> sAlarmMin; // 最小值设为
+    QList<sSnmpSetCmd> sAlarmMax; // 最大值设为
 
     QList<sRtuSetCmd> rtuMin;
     QList<sRtuSetCmd> rtuMax;
@@ -39,6 +63,14 @@ public:
 
     virtual bool lineVolCmd(sTestSetCmd &it)=0;
     virtual bool loopVolCmd(sTestSetCmd &it)=0;
+
+    virtual bool lineCurCmd(sTestSetCmd &it)=0;
+    virtual bool loopCurCmd(sTestSetCmd &it)=0;
+    virtual bool outputCurCmd(sTestSetCmd &it)=0;
+
+    virtual bool outputSwCmd(sTestSetCmd &it)=0;
+    virtual bool outputEleCmd(sTestSetCmd &it)=0;
+    virtual bool lineEleCmd(sTestSetCmd &it)=0;
 
 protected:
     void run();
@@ -64,7 +96,6 @@ private:
 
     void lineVolAlarm();
     void loopVolAlarm();
-
     void volCheck();
 
     bool curAccuracy(int expect, int measured, sTestDataItem &item);
@@ -75,8 +106,33 @@ private:
     void lineCur();
     void loopCur();
     void outputCur();
-
     void curCheck();
+
+    void setLineCurCmd(bool alrm);
+    void setLoopCurCmd(bool alrm);
+    void setOutputCurCmd(bool alrm);
+    void lineCurAlarm();
+    void loopCurAlarm();
+    void outputCurAlarm();
+    void curAlarmCheck();
+
+    bool swAccuracy(int measured, sTestDataItem &item);
+    void setOutputSwCmd(bool alrm);
+    void outputSwCtr();
+    void switchCtr();
+
+    bool powAccuracy(int expect, int measured, sTestDataItem &item);
+    void linePow();
+    void loopPow();
+    bool outputPow();
+    void powCheck();
+
+    bool eleAccuracy(int measured, sTestDataItem &item);
+    void setOutputEleCmd();
+    void setLineEleCmd();
+    int outputEle();
+    int lineEle();
+    void eleCheck();
 
 signals:
 

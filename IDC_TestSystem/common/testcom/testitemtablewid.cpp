@@ -53,7 +53,7 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
         appendItem(value);
     }
 
-    return packet.offLine;
+    return spdc.lineNum;
 }
 
 void TestItemTableWid::startSlot()
