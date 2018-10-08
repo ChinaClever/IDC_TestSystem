@@ -1,3 +1,9 @@
+/*
+ *
+ *
+ *  Created on: 2018年10月1日
+ *      Author: Lzy
+ */
 #include "testcorethread.h"
 #include "eload_com/in_datapackets.h"
 #include "eload_rtu/eload_rtusent.h"
