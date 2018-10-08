@@ -80,6 +80,9 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     }
     p->finishNum++;
     p->status = str;
+
+    ///=========== 测试项目
+    p->allNum = 200;
 }
 
 
