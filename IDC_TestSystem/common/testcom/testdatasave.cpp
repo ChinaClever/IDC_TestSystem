@@ -32,7 +32,7 @@ QString TestDataSave::bulidFileName(sSerialNumItem *item)
     file += item->purpose + '_';
     file += item->batch  + '_';
     file += item->sn  + '_';
-    file += QDateTime::currentDateTime().toString("yyyyMMddhhmm");
+    file += QDateTime::currentDateTime().toString("yyyyMMdd_hhmm");
 
     return file;
 }

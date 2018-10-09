@@ -59,6 +59,7 @@ void TestResultWid::resultSlot()
 
     mItem->progress.allNum = mItem->progress.finishNum;
     progressSlot();
+    ui->statusLab->setText(tr("测试结束!!!"));
 }
 
 void TestResultWid::progressSlot()
@@ -76,7 +77,6 @@ void TestResultWid::progressSlot()
     QString str = tr("测试项目数:%1  失败项目数：%2  项目测试通过率：%3%").arg(arg->allNum).arg(arg->errNum).arg(ok);
     ui->itemNumLab->setText(str);
     ui->itemNumLab->setPalette(pe);
-
 
 }
 
