@@ -9,6 +9,7 @@
 
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
+    mCount = 0;
     isRun = false;
     mItem = nullptr;
     mPackets = nullptr;
@@ -131,7 +132,7 @@ bool SnmpThread::requestSubValues(int id)
         int rtn = getRequestSubValues(id, mOidSubList);
         if(rtn) {
             ret = true;
-            if(rtn > 5) m_timer->start(80);
+            if(rtn > 5) m_timer->start(150);
         }
     }
 
@@ -152,6 +153,10 @@ void SnmpThread::setAllOffLine()
 void SnmpThread::setOffLine()
 {
     if(mPackets) {
+        mCount += m_timer->remainingTime();//必须大于1秒才执行离线减1
+        if(mCount < 1000) return;
+        else mCount = 0;
+
         if(mDataPacket->offLine) mDataPacket->offLine--;
     }
 }
@@ -211,6 +216,7 @@ void SnmpThread::makeRequest()
         if(mId >= mPackets->devNum) {
             mId = 0;
         }
+
         setOffLine();
     }
 }

@@ -72,6 +72,7 @@ private:
     QtSnmpDataList mValues;
 
     bool isRun;
+    int mCount;
     QTimer *m_timer, *timer;
     int mOidSubIndex, mId;
     sDataPacket *mDataPacket;
