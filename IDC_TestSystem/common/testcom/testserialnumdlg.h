@@ -18,7 +18,7 @@ public:
     ~TestSerialNumDlg();
 
     void init(TestConfig *con);
-    sSerialNumItem *getSerialNum();
+    bool getSerialNum();
 
 protected:
     bool inputCheck();

@@ -18,6 +18,7 @@ enum{
 
 struct sSnmpSetCmd
 {
+    sSnmpSetCmd() {type=SNMP_STRING_TYPE;}
     QString oid;
     ushort type;
     QByteArray value;

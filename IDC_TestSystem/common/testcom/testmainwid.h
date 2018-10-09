@@ -19,6 +19,7 @@ public:
 public slots:
     void initFunSLot();
     void updateWidSlot(int id);
+    void overSlot();
 
 protected:
     void startTest();

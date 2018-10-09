@@ -37,7 +37,7 @@ void TestResultWid::startSlot()
     ui->statusLab->clear();
     ui->progressBar->setValue(0);
 
-    timer->start(1*1000);
+    timer->start(200);
     this->setStyleSheet("color:black;");
 }
 
@@ -56,6 +56,10 @@ void TestResultWid::resultSlot()
 
     timer->stop();
     ui->resultLab->setText(str);
+
+    mItem->progress.allNum = mItem->progress.finishNum;
+    progressSlot();
+    ui->statusLab->setText(tr("测试结束!!!"));
 }
 
 void TestResultWid::progressSlot()
@@ -74,8 +78,5 @@ void TestResultWid::progressSlot()
     ui->itemNumLab->setText(str);
     ui->itemNumLab->setPalette(pe);
 
-    if(progress >= 100) {
-        resultSlot();
-    }
 }
 

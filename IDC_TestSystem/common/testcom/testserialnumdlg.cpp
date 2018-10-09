@@ -36,21 +36,18 @@ void TestSerialNumDlg::init(TestConfig *con)
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }
 
-sSerialNumItem *TestSerialNumDlg::getSerialNum()
+bool TestSerialNumDlg::getSerialNum()
 {
-    bool ret = inputCheck();
+    bool ret  = ui->addRadioButton->isChecked();
     if(ret) {
-        ret = ui->addRadioButton->isChecked();
-        if(ret) {
-            int data = ui->snLineEdit->text().toInt() + 1;
-            QString str = QString::number(data);
-            ui->snLineEdit->setText(str);
-        } else {
-            ui->snLineEdit->clear();
-        }
+        int data = ui->snLineEdit->text().toInt() + 1;
+        QString str = QString::number(data);
+        ui->snLineEdit->setText(str);
+    } else {
+        ui->snLineEdit->clear();
     }
 
-    return mItem;
+    return ret;
 }
 
 void TestSerialNumDlg::on_batchComboBox_currentTextChanged(const QString &arg1)

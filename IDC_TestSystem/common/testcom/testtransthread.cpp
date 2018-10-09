@@ -9,7 +9,7 @@ TestTransThread::TestTransThread(QObject *parent) : QThread(parent)
 
     mStep = 0;
     timer = new QTimer(this);
-    timer->start(1*1000);
+    timer->start(500);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     QTimer::singleShot(1400,this,SLOT(initFunSLot()));
 }
