@@ -41,6 +41,8 @@ void TestMainWid::initFunSLot()
     mDataTableWid->init(mConfig->item);
 
     mCoreThread->init(mConfig->item, mPackets, mTrans);
+    connect(mCoreThread, SIGNAL(overSig()), this, SLOT(overSlot()));
+
     mDataSave = new TestDataSave(this);
     mDataSave->init(mConfig->item);
 }
@@ -70,14 +72,18 @@ void TestMainWid::continueTest()
     mConfig->item->mode = Test_Start;
 }
 
+void TestMainWid::overSlot()
+{
+    mResultWid->resultSlot();
+    mDataSave->saveTestData();
+    mConfig->item->mode = Test_Over;
+}
+
 void TestMainWid::overTest()
 {
     QuMsgBox box(this, tr("是否停止测试?"));
     if(box.Exec()){
-
-        mResultWid->resultSlot();
-        mDataSave->saveTestData();
-        mConfig->item->mode = Test_Over;
+        overSlot();
     }
 }
 

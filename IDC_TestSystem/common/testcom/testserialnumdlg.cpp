@@ -36,7 +36,7 @@ void TestSerialNumDlg::init(TestConfig *con)
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }
 
-sSerialNumItem *TestSerialNumDlg::getSerialNum()
+bool TestSerialNumDlg::getSerialNum()
 {
     bool ret = inputCheck();
     if(ret) {
@@ -50,7 +50,7 @@ sSerialNumItem *TestSerialNumDlg::getSerialNum()
         }
     }
 
-    return mItem;
+    return ret;
 }
 
 void TestSerialNumDlg::on_batchComboBox_currentTextChanged(const QString &arg1)
@@ -120,7 +120,7 @@ bool TestSerialNumDlg::inputCheck()
 
 void TestSerialNumDlg::on_okBtn_clicked()
 {
-    bool ret = inputCheck();
+    bool ret = getSerialNum();
     if(ret) {
         this->close();
         mTestConfig->saveConfig(mItem);

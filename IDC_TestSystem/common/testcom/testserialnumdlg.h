@@ -18,10 +18,10 @@ public:
     ~TestSerialNumDlg();
 
     void init(TestConfig *con);
-    sSerialNumItem *getSerialNum();
 
 protected:
     bool inputCheck();
+    bool getSerialNum();
 
 private slots:
     void on_batchComboBox_currentTextChanged(const QString &arg1);

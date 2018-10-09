@@ -72,6 +72,10 @@ public:
     virtual bool outputEleCmd(sTestSetCmd &it)=0;
     virtual bool lineEleCmd(sTestSetCmd &it)=0;
 
+
+signals:
+    void overSig();
+
 protected:
     void run();
 
@@ -81,6 +85,7 @@ private:
     void conditionExec(bool s);
     void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
+    void countItemsNum();
 
     /********检查通讯***************/
     bool snmpTrans();
@@ -133,10 +138,8 @@ private:
     void setLineEleCmd();
     int outputEle();
     int lineEle();
+    int loopEle();
     void eleCheck();
-
-signals:
-
 
 private:
     int mItemId;

@@ -48,9 +48,9 @@ void TestCoreThread::updateData()
 
 void TestCoreThread::stopThread()
 {
-    mItem->mode = Test_Over;
     quit();
     terminate();
+    emit overSig();
 }
 
 void TestCoreThread::conditionExec(bool s)
@@ -79,13 +79,36 @@ void TestCoreThread::updateProgress(bool status, QString &str)
         p->errNum++;
     }
     p->finishNum++;
-    p->status = str;
+    p->status = tr("第%1项：%2").arg(p->finishNum).arg(str);
 
-    ///=========== 测试项目
-    p->allNum = 200;
     sleep(1);
 }
 
+void TestCoreThread::countItemsNum()
+{
+    sTestProgress *p = &(mItem->progress);
+
+    int num = 1;
+    if(mItem->isSnmp) num++;
+
+    int lineNum = mDevPacket->data.lineNum;
+    int loopNum = mDevPacket->data.loopNum;
+    int outputNum = mDevPacket->data.outputNum;
+
+    num += lineNum * 8;
+    num += loopNum * 6;
+
+    int size = 7;
+    switch(mDevPacket->devSpec) {
+    case 1:  size = 0; break;
+    case 2:  size = 6; break;
+    case 3:  size = 1; break;
+    default: break;
+    }
+    num += outputNum * size;
+
+    p->allNum = num;
+}
 
 bool TestCoreThread::appendResult(sTestDataItem &item)
 {
@@ -224,8 +247,8 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
         mTrans->setRtuValue(cmd.rtuMin);
         mTrans->setRtuValue(cmd.rtuMax);
 
-//        mTrans->rtuStop();
-//        if(mItem->isSnmp) mTrans->snmpStop();
+        //        mTrans->rtuStop();
+        //        if(mItem->isSnmp) mTrans->snmpStop();
     }
     sleep(5);
 }
@@ -422,13 +445,15 @@ void TestCoreThread::curCheck()
     sleep(5); updateData(); sleep(2);
     lineNoCur();
     loopNoCur();
-    outputNoCur();
+    if( mDevPacket->devSpec != 3)
+        outputNoCur();
 
     ELoad_RtuSent::bulid()->switchOpenAll();
     sleep(5); updateData(); sleep(2);
     lineCur();
     loopCur();
-    outputCur();
+    if( mDevPacket->devSpec != 3)
+        outputCur();
 }
 
 
@@ -540,7 +565,8 @@ void TestCoreThread::curAlarmCheck()
 {
     lineCurAlarm();
     loopCurAlarm();
-    outputCurAlarm();
+    if(mDevPacket->devSpec != 3)
+        outputCurAlarm();
 }
 
 
@@ -595,7 +621,8 @@ void TestCoreThread::outputSwCtr()
 
 void TestCoreThread::switchCtr()
 {
-    outputSwCtr();
+    if((mDevPacket->devSpec == 0) || (mDevPacket->devSpec == 4))
+        outputSwCtr();
 }
 
 
@@ -613,7 +640,7 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item)
     if(expect == -1) {
         if(measured) {
             expect = measured;
-             ret = true;
+            ret = true;
         }
     }
 
@@ -675,7 +702,10 @@ bool TestCoreThread::outputPow()
 
 void TestCoreThread::powCheck()
 {
-    bool ret = outputPow();
+    bool ret = true;
+    if(mDevPacket->devSpec != 3)
+        ret = outputPow();
+
     if(ret) {
         linePow();
         loopPow();
@@ -760,15 +790,38 @@ int TestCoreThread::lineEle()
 }
 
 
+int TestCoreThread::loopEle()
+{
+    sTestDataItem item;
+    item.item = tr("回路电能清除");
+    int num = mDevPacket->data.loopNum;
+    if(num <=0) return num;
+
+    for(int i=0; i<num; ++i)
+    {
+        sObjData *obj = &(mDevPacket->data.loop[i]);
+        item.subItem = tr("C%1 电能清除 ").arg(i+1);
+        int measuredValue = obj->ele;
+        eleAccuracy(measuredValue, item);
+    }
+
+    return num;
+}
+
+
 void TestCoreThread::eleCheck()
 {
-    outputEle();
+    if(mDevPacket->devSpec != 3)
+        outputEle();
+
+    loopEle();
     lineEle();
 }
 
 void TestCoreThread::run()
 {
     transmission();
+    countItemsNum();
 
     volCheck();
     curCheck();
@@ -777,4 +830,6 @@ void TestCoreThread::run()
     switchCtr();
     eleCheck();
     powCheck();
+
+    emit overSig();
 }

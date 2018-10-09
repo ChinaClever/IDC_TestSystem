@@ -21,7 +21,7 @@ struct sSerialNumItem
 
 struct sTestProgress
 {
-    sTestProgress() {okNum=errNum=finishNum=0; allNum=1;}
+    sTestProgress() {okNum=errNum=finishNum=0; allNum=10;}
 
     int allNum;
     int okNum;
