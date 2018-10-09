@@ -79,7 +79,7 @@ void TestCoreThread::updateProgress(bool status, QString &str)
         p->errNum++;
     }
     p->finishNum++;
-    p->status = tr("第%1测试项  %2").arg(p->finishNum).arg(str);
+    p->status = tr("测试项:%1  %2").arg(p->finishNum).arg(str);
 
     sleep(1);
 }
