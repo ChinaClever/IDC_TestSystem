@@ -56,6 +56,9 @@ void TestResultWid::resultSlot()
 
     timer->stop();
     ui->resultLab->setText(str);
+
+    mItem->progress.allNum = mItem->progress.finishNum;
+    progressSlot();
 }
 
 void TestResultWid::progressSlot()
@@ -74,8 +77,6 @@ void TestResultWid::progressSlot()
     ui->itemNumLab->setText(str);
     ui->itemNumLab->setPalette(pe);
 
-    if(progress >= 100) {
-        resultSlot();
-    }
+
 }
 

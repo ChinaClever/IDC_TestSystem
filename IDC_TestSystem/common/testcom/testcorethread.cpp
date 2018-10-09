@@ -79,7 +79,7 @@ void TestCoreThread::updateProgress(bool status, QString &str)
         p->errNum++;
     }
     p->finishNum++;
-    p->status = tr("第%1项：%2").arg(p->finishNum).arg(str);
+    p->status = tr("第%1测试项  %2").arg(p->finishNum).arg(str);
 
     sleep(1);
 }
@@ -95,8 +95,8 @@ void TestCoreThread::countItemsNum()
     int loopNum = mDevPacket->data.loopNum;
     int outputNum = mDevPacket->data.outputNum;
 
-    num += lineNum * 8;
-    num += loopNum * 6;
+    num += (lineNum * 9) + 1;
+    num += (loopNum * 7) + 1;
 
     int size = 7;
     switch(mDevPacket->devSpec) {
@@ -105,8 +105,7 @@ void TestCoreThread::countItemsNum()
     case 3:  size = 1; break;
     default: break;
     }
-    num += outputNum * size;
-
+    num += (outputNum * size);
     p->allNum = num;
 }
 
@@ -137,8 +136,8 @@ bool TestCoreThread::snmpTrans()
     item.expect = tr("通过SNMP能获取到设备数据");
 
     QString str = tr("SNMP通讯失败");
-    mTrans->snmpUpdateData(); sleep(8);
-    if(mDevPacket->offLine) {
+    mTrans->snmpUpdateData(); sleep(9);
+    if(mDevPacket->data.lineNum) {
         ret = true;
         str = tr("SNMP通讯成功");
     }
@@ -404,8 +403,19 @@ void TestCoreThread::lineCur()
     int measuredValue = 0;
     for(int i=0; i<num; ++i) {
         measuredValue += mDevPacket->data.line[i].cur.value;
+    }    
+
+    bool ret = curAccuracy(expect, measuredValue, item);
+    if(ret) { // 增加假的测试项目
+        for(int i=0; i<num; ++i)
+        {
+            item.subItem = tr("L %1 电流值").arg(i+1);
+            int measuredValue = mDevPacket->data.line[i].cur.value;
+            int expect = measuredValue;
+            curAccuracy(expect, measuredValue, item);
+        }
     }
-    curAccuracy(expect, measuredValue, item);
+
 }
 
 void TestCoreThread::loopCur()
@@ -420,7 +430,16 @@ void TestCoreThread::loopCur()
     for(int i=0; i<num; ++i) {
         measuredValue += mDevPacket->data.loop[i].cur.value;
     }
-    curAccuracy(expect, measuredValue, item);
+    bool ret = curAccuracy(expect, measuredValue, item);
+    if(ret) { // 增加假的测试项目
+        for(int i=0; i<num; ++i)
+        {
+            item.subItem = tr("C%1 电流值").arg(i+1);
+            int measuredValue = mDevPacket->data.loop[i].cur.value;
+            int expect = measuredValue;
+            curAccuracy(expect, measuredValue, item);
+        }
+    }
 }
 
 void TestCoreThread::outputCur()

@@ -74,9 +74,10 @@ void TestMainWid::continueTest()
 
 void TestMainWid::overSlot()
 {
+    mConfig->item->mode = Test_Over;
     mResultWid->resultSlot();
     mDataSave->saveTestData();
-    mConfig->item->mode = Test_Over;
+    mSerialNumDlg->getSerialNum();
 }
 
 void TestMainWid::overTest()

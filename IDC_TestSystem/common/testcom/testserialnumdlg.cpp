@@ -38,16 +38,13 @@ void TestSerialNumDlg::init(TestConfig *con)
 
 bool TestSerialNumDlg::getSerialNum()
 {
-    bool ret = inputCheck();
+    bool ret  = ui->addRadioButton->isChecked();
     if(ret) {
-        ret = ui->addRadioButton->isChecked();
-        if(ret) {
-            int data = ui->snLineEdit->text().toInt() + 1;
-            QString str = QString::number(data);
-            ui->snLineEdit->setText(str);
-        } else {
-            ui->snLineEdit->clear();
-        }
+        int data = ui->snLineEdit->text().toInt() + 1;
+        QString str = QString::number(data);
+        ui->snLineEdit->setText(str);
+    } else {
+        ui->snLineEdit->clear();
     }
 
     return ret;
@@ -120,7 +117,7 @@ bool TestSerialNumDlg::inputCheck()
 
 void TestSerialNumDlg::on_okBtn_clicked()
 {
-    bool ret = getSerialNum();
+    bool ret = inputCheck();
     if(ret) {
         this->close();
         mTestConfig->saveConfig(mItem);
