@@ -28,6 +28,8 @@ private:
     void rtuOtherCase(int& mtimers , bool end);//rtu的其他情况
     void sendRtu(int& mtimers);
     void updateCycleCount();//更新循环次数
+    void startSend();
+    void stopSend();
 
 protected slots:
    void updateTextSlot(QString str);
@@ -35,7 +37,6 @@ protected slots:
    void on_checkBox_clicked(bool checked);
    void on_radioButton_clicked(bool checked);
    void on_startBtn_clicked();
-   void on_stopBtn_clicked();
 
 private:
     Ui::MSet_SwCycleWid *ui;
@@ -45,6 +46,7 @@ private:
     int mReg;
     int mCaseCount;//snmp情况计数
     int mCycleCount;//循环计数
+    bool mStartOrStop;//开始停止标志
     QList<int> mSelect;
     QTimer* mTimer;
 };

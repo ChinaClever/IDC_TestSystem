@@ -32,6 +32,7 @@ void ZSet_SwCycleWid::initwid()
 
     mCaseCount = 0;
     mCycleCount = 0;
+    mStartOrStop = true;
 
     mSnmp = new ZSet_SnmpThread(this);
     connect(mSnmp, SIGNAL(cmdSig(QString)), this, SLOT(updateTextSlot(QString)));
@@ -112,20 +113,18 @@ void ZSet_SwCycleWid::snmpAllOpenOrCloseCase(int& mtimers)
 }
 
 /**
- * @brief SNMP 命令加入命令链表 其他情况一 mtimers为2时：第一个输出位ON
- * @brief 其他情况二 end(true) and mtimers[3,25]时：前一个的输出位OFF，后一个的输出位ON
- * @brief 其他情况三 end(false) and mtimers为26时：最后一个的输出位OFF
- * @param [in&out]mtimers [2,26]，index[0,24]输出位的序号+2
+ * @brief SNMP 命令加入命令链表 其他情况一 mtimers为0时：第一个输出位ON
+ * @brief 其他情况二 end(true) and mtimers[1,mSelect.size()-1]时：前一个的输出位OFF，后一个的输出位ON
+ * @brief 其他情况三 end(false) and mtimers为mSelect.size()时：最后一个的输出位OFF
+ * @param [in&out]mtimers [0,mSelect.size()] 启动发送命令线程次数
  * @param [in]end 其他一般情况true ，灭掉最后一个输出位false
  */
 void ZSet_SwCycleWid::snmpOtherCase(int& mtimers ,bool end)
 {
-    if(mtimers < 2) return;
-    int index = mtimers - 2;
-    if(index != 0)
+    if(mtimers != 0)
     {
         sSnmpSetCmd cmd;
-        cmd.oid = getOid(mSelect[index-1]);
+        cmd.oid = getOid(mSelect[mtimers-1]);
         cmd.type = SNMP_STRING_TYPE;
         cmd.value.append("OFF");
         mSnmp->setCmd(cmd);
@@ -133,7 +132,7 @@ void ZSet_SwCycleWid::snmpOtherCase(int& mtimers ,bool end)
     if(end)
     {
         sSnmpSetCmd cmd1;
-        cmd1.oid = getOid(mSelect[index]);
+        cmd1.oid = getOid(mSelect[mtimers]);
         cmd1.type = SNMP_STRING_TYPE;
         cmd1.value.append("ON");
         mSnmp->setCmd(cmd1);
@@ -142,22 +141,34 @@ void ZSet_SwCycleWid::snmpOtherCase(int& mtimers ,bool end)
 
 /**
  * @brief 启动线程发送snmp命令
- * @param [in&out]mtimers [0,26]输出位的序号
+ * @param [in&out]mtimers [0,1]或者[0,mSelect.size()]启动发送命令线程次数
  */
 void ZSet_SwCycleWid::sendSnmp(int& mtimers)
 {
-    if(mtimers - 2 == mSelect.size())
-    {
-        snmpOtherCase(mtimers , false);
+    if(ui->comboBox->currentIndex())
+    {//逐个亮灭
+        if(mtimers == mSelect.size())
+        {
+            snmpOtherCase(mtimers , false);
+            mSnmp->start();
+            updateCycleCount();
+            return;
+        }
+        snmpOtherCase(mtimers , true);
+        mCaseCount++;
         mSnmp->start();
-        updateCycleCount();
-        return;
     }
-    (mtimers == 0 || mtimers == 1)? snmpAllOpenOrCloseCase(mtimers)
-                  :snmpOtherCase(mtimers , true);
-    mCaseCount++;
-    mSnmp->start();
-
+    else
+    {//全开全关
+        snmpAllOpenOrCloseCase(mtimers);
+        mCaseCount++;
+        mSnmp->start();
+        if(mtimers == 2)
+        {
+            updateCycleCount();
+            return;
+        }
+    }
     ui->textEdit->clear();
 }
 
@@ -178,21 +189,19 @@ void ZSet_SwCycleWid::rtuAllOpenOrCloseCase(int& mtimers)
 }
 
 /**
- * @brief Rtu 命令加入命令链表 其他情况一 mtimers为2时：第一个输出位1
- * @brief 其他情况二 end(true) and mtimers[3,25]时：前一个的输出位0，后一个的输出位1
- * @brief 其他情况三 end(false) and mtimers为26时：最后一个的输出位0
- * @param [in&out]mtimers [2,26]，index[0,24]输出位的序号+2
+ * @brief Rtu 命令加入命令链表 其他情况一 mtimers为0时：第一个输出位ON
+ * @brief 其他情况二 end(true) and mtimers[1,mSelect.size()-1]时：前一个的输出位OFF，后一个的输出位ON
+ * @brief 其他情况三 end(false) and mtimers为mSelect.size()时：最后一个的输出位OFF
+ * @param [in&out]mtimers [0,mSelect.size()] 启动发送命令线程次数
  * @param [in]end 其他一般情况true ，灭掉最后一个输出位false
  */
 void ZSet_SwCycleWid::rtuOtherCase(int& mtimers ,bool end)
 {
-    if(mtimers < 2) return;
-    int index = mtimers - 2;
-    if(index != 0)
+    if(mtimers != 0)
     {
         sRtuSetCmd cmd;
         cmd.addr = ui->spinBox->value();
-        cmd.reg = mReg + mSelect[index - 1];
+        cmd.reg = mReg + mSelect[mtimers - 1];
         cmd.value = 0;
         mRtu->setCmd(cmd);
     }
@@ -200,37 +209,49 @@ void ZSet_SwCycleWid::rtuOtherCase(int& mtimers ,bool end)
     {
         sRtuSetCmd cmd1;
         cmd1.addr = ui->spinBox->value();
-        cmd1.reg = mReg + mSelect[index];
+        cmd1.reg = mReg + mSelect[mtimers];
         cmd1.value = 1;
         mRtu->setCmd(cmd1);
     }
 }
 
 /**
- * @brief 启动线程发送Rtu命令
- * @param [in&out]mtimers [0,26]输出位的序号
+ * @brief 启动线程发送rtu命令
+ * @param [in&out]mtimers [0,1]或者[0,mSelect.size()]启动发送命令线程次数
  */
 void ZSet_SwCycleWid::sendRtu(int& mtimers)
 {
-    if(mtimers - 2 == mSelect.size())
-    {
-        rtuOtherCase(mtimers , false);
+    if(ui->comboBox->currentIndex())
+    {//逐个亮灭
+        if(mtimers == mSelect.size())
+        {
+            rtuOtherCase(mtimers , false);
+            mRtu->start();
+            updateCycleCount();
+            return;
+        }
+        rtuOtherCase(mtimers , true);
+        mCaseCount++;
         mRtu->start();
-        updateCycleCount();
-        return;
     }
-    (mtimers == 0 || mtimers == 1)?
-                rtuAllOpenOrCloseCase(mtimers):
-                rtuOtherCase(mtimers , true);
-    mCaseCount++;
-    mRtu->start();
+    else
+    {//全开全关
+        rtuAllOpenOrCloseCase(mtimers);
+        mCaseCount++;
+        mRtu->start();
+        if(mtimers == 2)
+        {
+            updateCycleCount();
+            return;
+        }
+    }
 
     ui->textEdit->clear();
 }
 
 /**
  * @brief 产生命令，并且启动线程发送命令
- * @param [in&out]mtimers [0,23]输出位的序号
+ * @param [in&out]mtimers [0,1]或者[0,mSelect.size()]启动发送命令线程次数
  */
 void ZSet_SwCycleWid::produceCmd(int& mtimers)
 {
@@ -253,11 +274,13 @@ void ZSet_SwCycleWid::updateSlot()
     produceCmd(mCaseCount);
 }
 
-void ZSet_SwCycleWid::on_startBtn_clicked()
+void ZSet_SwCycleWid::startSend()
 {
     mSelect.clear();
-    for(int i=0; i<24; ++i) {
-        if(mWid[i]->select()) {
+    for(int i = 0 ; i < 24 ; ++i )
+    {
+        if(mWid[i]->select())
+        {
             mSelect.append(i);
         }
     }
@@ -270,17 +293,24 @@ void ZSet_SwCycleWid::on_startBtn_clicked()
         return;
 
     mTimer->start(ui->timespinBox->value()*1000);
-
+    ui->startBtn->setText(tr("停止"));
+    mStartOrStop = false;
 }
 
-void ZSet_SwCycleWid::on_stopBtn_clicked()
+void ZSet_SwCycleWid::stopSend()
 {
-    mTimer->stop();
-
-    mCaseCount = 0;
-    mCycleCount = 0;//每次停止时，更新循环次数和情况计数状态
-    QString str = QString(tr("当前次数：%1次")).arg(mCycleCount);
+    QString str = QString(tr("当前次数：%1次")).arg(mCycleCount);//每次停止时，更新循环次数和情况计数状态
     ui->cycleCountlab->setText(str);
+    ui->startBtn->setText(tr("开始"));
+    mStartOrStop = true;
+}
+
+void ZSet_SwCycleWid::on_startBtn_clicked()
+{
+    if(mStartOrStop)
+    {
+        startSend();
+    }
 }
 
 /**
@@ -301,7 +331,7 @@ void ZSet_SwCycleWid::updateCycleCount()
         if(ui->cycleCountpinBox->value() == mCycleCount)
          {
             mTimer->stop();
-            mCycleCount = 0;
+            stopSend();
         }
     }
 }
