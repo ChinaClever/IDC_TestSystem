@@ -9,11 +9,11 @@ ModeToolWid::ModeToolWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
-    gridLayout->addWidget(this);
     mSerialPortDlg = new SerialPortDlg(this);
 
     QTimer::singleShot(400,this,SLOT(initFunSLot())); //延时初始化
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 }
 
 ModeToolWid::~ModeToolWid()

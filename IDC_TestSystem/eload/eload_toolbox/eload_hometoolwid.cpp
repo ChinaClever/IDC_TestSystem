@@ -12,8 +12,8 @@ ELoad_HomeToolWid::ELoad_HomeToolWid(QWidget *parent) :
     ui(new Ui::ELoad_HomeToolWid)
 {
     ui->setupUi(this);
-//    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
-//    gridLayout->addWidget(this);
+    QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->addWidget(this);
 
     mSerialPortDlg = new SerialPortDlg(this);
     initSerialPort();

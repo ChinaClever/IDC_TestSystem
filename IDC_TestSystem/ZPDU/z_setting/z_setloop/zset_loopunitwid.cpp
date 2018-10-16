@@ -45,7 +45,12 @@ void ZSet_LoopUnitWid::getCmdList(int addr, QList<sSnmpSetCmd> &list)
             ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
                  sSnmpSetCmd cmd;
-                 cmd.oid  = QString("%1.%2.%3.3.%4.%5.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(j+1).arg(i+7);
+                 cmd.oid  = QString("%1.%2.%3.3.%4.%5.0")
+                         .arg(MIB_OID_CLEVER)
+                         .arg(Z_MIB_OID)
+                         .arg(addr)
+                         .arg(j+1)
+                         .arg(i==0?i+7:(i==1)?i+9:i+7-1);
                  cmd.type = SNMP_STRING_TYPE;
                  cmd.value.append(QString("%1.00").arg(item->status()*LOOPCURRATE));
                  list.append(cmd);

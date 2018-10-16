@@ -1,4 +1,4 @@
-#ifndef TESTCORETHREAD_H
+﻿#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -93,7 +93,7 @@ private:
     bool transmission();  // 通讯
 
     bool volAccuracy(int expect, int measured, sTestDataItem &item);
-    void lineVol(); // 想电压
+    void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
     void setAlarmCmd(sTestSetCmd &cmd, bool alrm);

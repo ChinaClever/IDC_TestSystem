@@ -1,4 +1,4 @@
-#ifndef TESTRESULTWID_H
+﻿#ifndef TESTRESULTWID_H
 #define TESTRESULTWID_H
 
 #include "testserialnumdlg.h"
@@ -18,6 +18,7 @@ public:
     ~TestResultWid();
 
     void init(sTestConfigItem *item) {mItem = item;}
+    void initStytleSheet();
 
 public slots:
     void startSlot();

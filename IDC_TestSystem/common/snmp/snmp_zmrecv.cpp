@@ -141,7 +141,7 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
 
     int item = getItemByOid(4);
     switch (item) {
-    case 1: obj->sw = data.toStdString()=="opened"?1:0; break;
+    case 1: obj->sw = data.toStdString()=="opened"?0:1; break;
     case 2:                         break;
     case 3: obj->cur.value = data.toDouble()*10; break;
     case 4: obj->vol.value = data.toDouble(); break;
@@ -164,7 +164,7 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
     int item = getItemByOid(3);
     switch (item) {
     case 1: sprintf(mDataPacket->name, "%s",data.data()); break;
-    case 2: devTypeData(data.toHex().toInt(&ok,16), mDataPacket);  break;
+    case 2: devTypeData(data.toHex().toInt(&ok,16), mDataPacket); break;
     case 3: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16); break;
     case 4: sprintf(mDataPacket->mac, "%s",data.data()); break;
     case 5: sprintf(mDataPacket->versionStr, "%s",data.data()); break;

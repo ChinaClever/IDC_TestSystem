@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -6,7 +6,7 @@
  */
 #include "testresultwid.h"
 #include "ui_testresultwid.h"
-
+#include <QGraphicsDropShadowEffect>
 TestResultWid::TestResultWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TestResultWid)
@@ -15,11 +15,29 @@ TestResultWid::TestResultWid(QWidget *parent) :
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(progressSlot()));
+
+
+   initStytleSheet();
 }
 
 TestResultWid::~TestResultWid()
 {
     delete ui;
+}
+
+void TestResultWid::initStytleSheet()
+{
+    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+    shadow->setColor(Qt::darkGray);
+    shadow->setOffset(5,5);
+    shadow->setBlurRadius(30);
+    QGraphicsDropShadowEffect *shadow1 = new QGraphicsDropShadowEffect(this);
+    shadow1->setColor(Qt::darkGray);
+    shadow1->setOffset(5,5);
+    shadow1->setBlurRadius(30);
+    ui->widget_3->setGraphicsEffect(shadow);
+    ui->widget->setGraphicsEffect(shadow1);
+    set_background_icon(this,":/image/box_back.jpg");
 }
 
 void TestResultWid::startSlot()
@@ -38,7 +56,11 @@ void TestResultWid::startSlot()
     ui->progressBar->setValue(0);
 
     timer->start(200);
+    ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/run.jpg);border-radius:5px;}"
+                              "QWidget{font: 20pt \"微软雅黑\"; color:white;}"
+                              "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
     this->setStyleSheet("color:black;");
+
 }
 
 void TestResultWid::resultSlot()
@@ -46,16 +68,21 @@ void TestResultWid::resultSlot()
     bool p = true;
     if(mItem->progress.errNum)  p = false;
 
-    QString str = tr("通过");
+    //QString str = tr("通过");
     if(p) {
-
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/pass.jpg);border-radius:5px;"
+                                  "QWidget{font: 20pt \"微软雅黑\"; color:white;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}}");
     } else {
-        str = tr("失败");
+        //str = tr("失败");
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/fail.jpg);border-radius:5px;}"
+                                  "QWidget{font: 20pt \"微软雅黑\"; color:white;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}");
         this->setStyleSheet("color:red;");
     }
 
     timer->stop();
-    ui->resultLab->setText(str);
+    //ui->resultLab->setText(str);
 
     mItem->progress.allNum = mItem->progress.finishNum;
     progressSlot();
