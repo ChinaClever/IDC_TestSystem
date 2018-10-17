@@ -311,6 +311,11 @@ void ZSet_SwCycleWid::on_startBtn_clicked()
     {
         startSend();
     }
+    else
+    {
+        mTimer->stop();
+        stopSend();
+    }
 }
 
 /**

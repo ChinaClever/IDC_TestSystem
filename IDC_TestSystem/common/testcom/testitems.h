@@ -1,4 +1,4 @@
-#ifndef TESTITEMS_H
+﻿#ifndef TESTITEMS_H
 #define TESTITEMS_H
 #include "testresultwid.h"
 #include "comtablewid.h"
@@ -36,8 +36,15 @@ public:
 protected:
     void communication(QList<sTestItem> &items);
     void unitItem(const QString &itemStr, int num, QList<sTestItem> &items);
-    void objData(const QString &itemStr, QList<sTestItem> &items, int num);
-    void outputObjData(const QString &itemStr, QList<sTestItem> &items, int num);
+    void maxminObjData(const QString &itemStr, int num, QList<sTestItem> &items);
+    void powUnitItem(const QString &itemStr, int num, QList<sTestItem> &items);
+    void eleUnitItem(const QString &itemStr, int num, QList<sTestItem> &items);
+    void nocurUnitItem(const QString &itemStr, int num, QList<sTestItem> &items);
+    void volObjData(const QString &itemStr,QList<sTestItem> &items);
+    void curObjData(const QString &itemStr,QList<sTestItem> &items);
+    void swObjData(const QString &itemStr,int num , QList<sTestItem> &items);
+    void eleObjData(const QString &itemStr, QList<sTestItem> &items);
+    void powObjData(const QString & itemStr,QList<sTestItem> &items);
 
 private:
     sDutSpec *mSpec;

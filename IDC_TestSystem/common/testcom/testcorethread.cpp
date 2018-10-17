@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -84,10 +84,10 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     sleep(1);
 }
 
-void TestCoreThread::countItemsNum()
+void TestCoreThread::countItemsNum(bool ret)
 {
     sTestProgress *p = &(mItem->progress);
-
+    if(!ret)  {p->allNum = 2;  return ;}
     int num = 1;
     if(mItem->isSnmp) num++;
 
@@ -177,7 +177,7 @@ bool TestCoreThread::transmission()
     bool ret = true;
 
     if(mItem->isSnmp) ret = snmpTrans();
-    if(ret) ret = rtuTrans();
+    ret |= rtuTrans();
 
     return ret;
 }
@@ -640,7 +640,7 @@ void TestCoreThread::outputSwCtr()
 
 void TestCoreThread::switchCtr()
 {
-    if((mDevPacket->devSpec == 0) || (mDevPacket->devSpec == 4))
+    if((mDevPacket->devSpec != 1) && (mDevPacket->devSpec != 2))
         outputSwCtr();
 }
 
@@ -691,7 +691,7 @@ void TestCoreThread::loopPow()
     for(int i=0; i<num; ++i)
     {
         sTestDataItem item;
-        item.item = tr("回路电压检查");
+        item.item = tr("回路功率检查");
         item.subItem = tr("C %1 功率检查").arg(i+1);
         int expectValue  = -1;
         int measuredValue = mDevPacket->data.loop[i].pow;
@@ -722,13 +722,12 @@ bool TestCoreThread::outputPow()
 void TestCoreThread::powCheck()
 {
     bool ret = true;
-    if(mDevPacket->devSpec != 3)
-        ret = outputPow();
-
     if(ret) {
         linePow();
         loopPow();
     }
+    if(mDevPacket->devSpec != 3)
+        ret = outputPow();
 }
 
 bool TestCoreThread::eleAccuracy(int measured, sTestDataItem &item)
@@ -830,25 +829,26 @@ int TestCoreThread::loopEle()
 
 void TestCoreThread::eleCheck()
 {
+    lineEle();
+    loopEle();
     if(mDevPacket->devSpec != 3)
         outputEle();
-
-    loopEle();
-    lineEle();
 }
 
 void TestCoreThread::run()
 {
-    transmission();
-    countItemsNum();
+    bool ret = true;
+    ret = transmission();
+    countItemsNum(ret);
+    if(ret)
+    {
+        volCheck();
+        curCheck();
+        curAlarmCheck();
 
-    volCheck();
-    curCheck();
-    curAlarmCheck();
-
-    switchCtr();
-    eleCheck();
-    powCheck();
-
+        switchCtr();
+        eleCheck();
+        powCheck();
+    }
     emit overSig();
 }

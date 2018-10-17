@@ -85,7 +85,7 @@ private:
     void conditionExec(bool s);
     void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
-    void countItemsNum();
+    void countItemsNum(bool ret);
 
     /********检查通讯***************/
     bool snmpTrans();
