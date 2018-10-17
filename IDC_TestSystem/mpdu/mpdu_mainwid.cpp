@@ -42,6 +42,10 @@ void MPDU_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
+    mTestWid = new MTest_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mTestWid);
+    connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mTestWid, SLOT(updateWidSlot(int)));
+
     mSetWid = new MSet_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mSetWid);
 
@@ -58,7 +62,7 @@ void MPDU_MainWid::toolBoxSlot(int id)
         default: break;
         }
     } else if(id <= Test_Datas_Wid) {
-
+        ui->stackedWid->setCurrentWidget(mTestWid);
     } else if(id < Info_Set) {
          ui->stackedWid->setCurrentWidget(mStatusWid);
     } else if(id == Info_Set) {
