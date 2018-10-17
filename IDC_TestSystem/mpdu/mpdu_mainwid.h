@@ -8,6 +8,7 @@
 #include "m_rtu/m_rtuthread.h"
 #include "m_status/m_statuswid.h"
 #include "m_snmp/m_snmptrans.h"
+#include "m_test/mtest_mainwid.h"
 
 namespace Ui {
 class MPDU_MainWid;
@@ -34,6 +35,7 @@ private:
     M_StatusWid *mStatusWid;
     M_LogsWid *mLogsWid;
     M_ServiceThread *mServiceThread;
+    MTest_MainWid *mTestWid;
 
     M_SnmpTrans *mSnmp;
     M_DpThread *mDpThread;

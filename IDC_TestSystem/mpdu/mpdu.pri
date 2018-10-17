@@ -61,7 +61,11 @@ HEADERS += \
     $$PWD/m_setting/m_setswcycle/mset_swcyclewid.h \
     $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.h \
     $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.h \
-    $$PWD/m_setting/mset_mainwid.h
+    $$PWD/m_setting/mset_mainwid.h \
+    $$PWD/m_test/mtest_config.h \
+    $$PWD/m_test/mtest_transthread.h \
+    $$PWD/m_test/mtest_corethread.h \
+    $$PWD/m_test/mtest_mainwid.h
 
 	
 SOURCES += \
@@ -121,7 +125,11 @@ SOURCES += \
     $$PWD/m_setting/m_setswcycle/mset_swcyclewid.cpp \
     $$PWD/m_setting/m_setthreshold/mset_thresholditemwid.cpp \
     $$PWD/m_setting/m_setthreshold/mset_thresholdoutputwid.cpp \
-    $$PWD/m_setting/mset_mainwid.cpp
+    $$PWD/m_setting/mset_mainwid.cpp \
+    $$PWD/m_test/mtest_config.cpp \
+    $$PWD/m_test/mtest_transthread.cpp \
+    $$PWD/m_test/mtest_corethread.cpp \
+    $$PWD/m_test/mtest_mainwid.cpp
 
 FORMS += \
     $$PWD/mpdu_mainwid.ui \
