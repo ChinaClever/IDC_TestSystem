@@ -7,7 +7,6 @@
 #include "serialport.h"
 #include <QSerialPortInfo>
 #include <QApplication>
-
 #define SERIAL_READ_TIMEOUT  100  // 100MS
 
 SerialPort::SerialPort(QObject *parent) : QThread(parent)

@@ -146,7 +146,7 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
     case 3: obj->cur.value = data.toDouble()*10; break;
     case 4: obj->vol.value = data.toDouble(); break;
     case 5: obj->ele = data.toDouble() ; break;
-    case 6: obj->activePow = data.toDouble(); break;
+    case 6: obj->activePow = data.toDouble();break;
 
     case 7: obj->cur.min = data.toDouble()*10 ; break;
     case 8: obj->cur.crMin = data.toDouble()*10; break;

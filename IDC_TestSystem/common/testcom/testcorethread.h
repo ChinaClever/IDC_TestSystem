@@ -90,7 +90,7 @@ private:
     /********检查通讯***************/
     bool snmpTrans();
     bool rtuTrans();
-    bool transmission();  // 通讯
+    bool transmission(bool& snmpRet);  // 通讯
 
     bool volAccuracy(int expect, int measured, sTestDataItem &item);
     void lineVol(); // 相电压

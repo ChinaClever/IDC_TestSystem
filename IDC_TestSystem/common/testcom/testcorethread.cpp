@@ -172,12 +172,12 @@ bool TestCoreThread::rtuTrans()
     return appendResult(item);
 }
 
-bool TestCoreThread::transmission()
+bool TestCoreThread::transmission(bool& snmpRet)
 {
     bool ret = true;
 
-    if(mItem->isSnmp) ret = snmpTrans();
-    ret |= rtuTrans();
+    if(mItem->isSnmp) snmpRet = snmpTrans();
+    ret = rtuTrans();
 
     return ret;
 }
@@ -249,7 +249,7 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
-    sleep(5);
+    sleep(10);
 }
 
 void TestCoreThread::setLineVolCmd(bool alrm)
@@ -461,14 +461,14 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(5); updateData(); sleep(2);
+    sleep(3); updateData(); sleep(5);
     lineNoCur();
     loopNoCur();
     if( mDevPacket->devSpec != 3)
         outputNoCur();
 
     ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(5); updateData(); sleep(2);
+    sleep(3); updateData(); sleep(5);
     lineCur();
     loopCur();
     if( mDevPacket->devSpec != 3)
@@ -837,8 +837,10 @@ void TestCoreThread::eleCheck()
 
 void TestCoreThread::run()
 {
-    bool ret = true;
-    ret = transmission();
+    bool rtuRet = true;
+    bool snmpRet = true;
+    rtuRet = transmission(snmpRet);
+    bool ret = snmpRet | rtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
     countItemsNum(ret);
     if(ret)
     {

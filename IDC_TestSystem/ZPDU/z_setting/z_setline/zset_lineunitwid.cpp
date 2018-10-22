@@ -47,7 +47,7 @@ void ZSet_LineUnitWid::getCmdList(int index , int addr, QList<sSnmpSetCmd> &list
                      sSnmpSetCmd cmd;
                      cmd.oid  = QString("%1.%2.%3.2.%4.%5.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(j+1).arg(i+(i==0?0:(i>=2?-1:2))+(index==0?10:6));
                      cmd.type = SNMP_STRING_TYPE;
-                     cmd.value.append(QString("%1.00").arg(item->status()*(index == 0 ? 10:100)));
+                     cmd.value.append(QString("%1.00").arg(item->status()*(index == 0 ? 1:100)));
                      list.append(cmd);
             }
         }
