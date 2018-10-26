@@ -48,7 +48,7 @@ void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
     list << str;
 
     str = "---";
-    double value = unit.vol.value / COM_RATE_VOL;
+    double value = unit.vol.value /COM_RATE_VOL;
     if(value > 0) str = QString::number(value) + "V";
     list << str;
 

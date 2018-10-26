@@ -54,6 +54,7 @@ void TestMainWid::startTest()
     if( ret == QDialog::Accepted ) {
 
         mConfig->item->mode = Test_Start;
+        mTrans->clearSnmpCmd();//把上一次的snmp命令清除
         mItemTableWid->startSlot();
         mResultWid->startSlot();
         mDataTableWid->startSLot();
@@ -75,6 +76,7 @@ void TestMainWid::continueTest()
 void TestMainWid::overSlot()
 {
     mConfig->item->mode = Test_Over;
+    mTrans->stopUpdateData();
     mResultWid->resultSlot();
     mDataSave->saveTestData();
     mSerialNumDlg->getSerialNum();

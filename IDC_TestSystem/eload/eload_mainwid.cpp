@@ -6,7 +6,6 @@
  */
 #include "eload_mainwid.h"
 #include "ui_eload_mainwid.h"
-#include "eload_rtu/in_rtuthread.h"
 
 ELoad_MainWid::ELoad_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -19,13 +18,14 @@ ELoad_MainWid::ELoad_MainWid(QWidget *parent) :
 
 ELoad_MainWid::~ELoad_MainWid()
 {
+    mRtu->stopThread();//退出线程，防止程序崩溃
     delete ui;
 }
 
 
 void ELoad_MainWid::initFunSLot()
 {
-    IN_RtuThread *rtu = IN_RtuThread::bulid(this);
+    mRtu = IN_RtuThread::bulid(this);
     mtoolBoxWid = new ELoad_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
@@ -40,8 +40,8 @@ void ELoad_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
-    rtu->init(ELoad_ConfigFile::bulid()->item->serial);
-//    rtu->startThread();
+    mRtu->init(ELoad_ConfigFile::bulid()->item->serial);
+    mRtu->startThread();
 
     for(int i=0; i<3; ++i) {
         mTemRiseWid[i] = new ELoad_TemRiseWid(ui->stackedWid);

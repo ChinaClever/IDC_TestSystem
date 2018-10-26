@@ -109,23 +109,26 @@ void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate)
     getAlarm(data);
 }
 
-void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data)
+void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data , bool flag)
 {
     data.id = i;
-    dataUnit(i, rtuData.vol, data.vol, 1);
+    dataUnit(i, rtuData.vol, data.vol, 10);
     dataUnit(i, rtuData.cur, data.cur, 10);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 100;
+    data.activePow = data.vol.value * data.cur.value / 10;
     data.pf = rtuData.pf[i];
     data.sw = rtuData.sw[i];
 
-    if(data.sw != 1) {
+    if(flag)
+    {
+        if(data.sw != 1) {
         if(data.vol.value) data.sw = 1;
         else  data.sw = 0;
+        }
     }
 
     if(rtuData.pow[i] > 0) {
-        data.pow = rtuData.pow[i] / 100;
+        data.pow = rtuData.pow[i] / 1000;
     } else {
         data.pow = data.activePow * data.pf / 100.0;
     }
@@ -151,20 +154,20 @@ void Z_RtuTrans::devData(Z_sRtuPacket &rtuData, sDevData &data)
 
     int num = data.lineNum = rtuData.line.num;
     for(int i=0; i<num; ++i) {
-        devObjData(rtuData.line, i, data.line[i]);
+        devObjData(rtuData.line, i, data.line[i] , true);
         vol = rtuData.line.vol.value[0];
     }
 
     num = data.loopNum = rtuData.loop.num;
     for(int i=0; i<num; ++i) {
-        devObjData(rtuData.loop, i, data.loop[i]);
+        devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);
          data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
     num = data.outputNum = rtuData.output.num;
     for(int i=0; i<num; ++i) {
         rtuData.output.vol.value[i] = vol;
-        devObjData(rtuData.output, i, data.output[i]);
+        devObjData(rtuData.output, i, data.output[i] ,false);
         data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
     }
 
@@ -275,7 +278,7 @@ int Z_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
     };
 
     int ret = transData(addr, array[cmd][0], array[cmd][1], mRtuPkt, msecs);
-    if(ret)  devDataPacket(mRtuPkt, pkt);
+    if(ret)  {devDataPacket(mRtuPkt, pkt); pkt->txType = 2;}
     else pkt->id = addr;
 
     return ret;

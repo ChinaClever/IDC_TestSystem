@@ -19,10 +19,10 @@ enum {
 
     Test_Normal_CurMin  = 0,
     Test_Normal_LineCurMax  = 32,
-    Test_Normal_OutputCurMax  = 32,
+    Test_Normal_OutputCurMax  = 16,//32
 
-    Test_Abnormal_CurMin  = 10,
-    Test_Abnormal_CurMax  = 16,
+    Test_Abnormal_CurMin  = 1,//10
+    Test_Abnormal_CurMax  = 2,//16
 };
 
 

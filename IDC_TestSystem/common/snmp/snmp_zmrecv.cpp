@@ -118,14 +118,14 @@ void SNMP_ZmRecv::lineData(const QByteArray &data)
             if(obj->vol.value) obj->sw=1; else obj->sw=0; break;
     case 3: obj->pow = data.toDouble(); break;
     case 4: obj->pf = data.toDouble()*100 ; break;
-    case 5: obj->ele = data.toDouble() ; break;
+    case 5: obj->ele = data.toDouble()*10 ; break;
 
     case 6: obj->cur.min = data.toDouble() * 10 ; break;
     case 7: obj->cur.crMin = data.toDouble() * 10; break;
     case 8: obj->cur.crMax = data.toDouble() * 10 ; break;
     case 9: obj->cur.max = data.toDouble() * 10; break;
 
-    case 10: obj->vol.min = data.toDouble()  ; break;
+    case 10: obj->vol.min = data.toDouble() ; break;
     case 11: obj->vol.crMin = data.toDouble() ; break;
     case 12: obj->vol.crMax = data.toDouble() ; break;
     case 13: obj->vol.max = data.toDouble() ; break;
@@ -145,7 +145,7 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
     case 2:                         break;
     case 3: obj->cur.value = data.toDouble()*10; break;
     case 4: obj->vol.value = data.toDouble(); break;
-    case 5: obj->ele = data.toDouble() ; break;
+    case 5: obj->ele = data.toDouble()*10 ; break;
     case 6: obj->activePow = data.toDouble();break;
 
     case 7: obj->cur.min = data.toDouble()*10 ; break;
@@ -163,7 +163,7 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
     bool ok;
     int item = getItemByOid(3);
     switch (item) {
-    case 1: sprintf(mDataPacket->name, "%s",data.data()); break;
+    case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;break;
     case 2: devTypeData(data.toHex().toInt(&ok,16), mDataPacket); break;
     case 3: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16); break;
     case 4: sprintf(mDataPacket->mac, "%s",data.data()); break;

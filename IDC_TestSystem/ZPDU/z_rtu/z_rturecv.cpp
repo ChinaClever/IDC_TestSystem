@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -108,7 +108,7 @@ bool Z_RtuRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, Z_sRtuPacket &pkt
     case Z_RtuReg_DevIP: devIpAddr(buf, len, pkt); break;
     case Z_RtuReg_DevMac: devMac(buf, len, pkt); break;
     case Z_RtuReg_OutputNum: ptrShort = &(pkt.output.num); break;
-    case Z_RtuReg_OutputSw: ptrShort = pkt.output.sw; break;
+    case Z_RtuReg_OutputSw: ptrShort = pkt.output.sw;break;
 
     case Z_RtuReg_LineCur: ptrShort = pkt.line.cur.value; break;
     case Z_RtuReg_LineCurMin: ptrShort = pkt.line.cur.min; break;
@@ -164,7 +164,7 @@ bool Z_RtuRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, Z_sRtuPacket &pkt
         break;
     }
 
-    if(ptrShort) rtuRecvData(buf, len, ptrShort);
+    if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
 
     return ret;
 }

@@ -1,4 +1,4 @@
-#ifndef ELOAD_MAINWID_H
+﻿#ifndef ELOAD_MAINWID_H
 #define ELOAD_MAINWID_H
 
 #include "eload_toolbox/eload_toolboxwid.h"
@@ -6,7 +6,7 @@
 #include "eload_input/in_mainwid.h"
 #include "eload_logs/eload_logswid.h"
 #include "eload_temrise/eload_temrisewid.h"
-
+#include "eload_rtu/in_rtuthread.h"
 namespace Ui {
 class ELoad_MainWid;
 }
@@ -31,6 +31,7 @@ private:
     ELoad_LogsWid *mLogsWid;
 
     ELoad_TemRiseWid *mTemRiseWid[3];
+    IN_RtuThread *mRtu;
 };
 
 #endif // ELOAD_MAINWID_H

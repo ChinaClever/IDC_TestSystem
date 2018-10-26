@@ -45,7 +45,7 @@ int IN_DataPackets::getTgValue(int mode)
         {
             switch (mode) {
             case 1:
-                 value = data->input[j].vol.value;
+                value = data->input[j].vol.value;
                 if(value > ret) ret = value;
                 break;
             case 2:

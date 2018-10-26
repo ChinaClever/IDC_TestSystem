@@ -76,11 +76,13 @@ private:
     QTimer *m_timer, *timer;
     int mOidSubIndex, mId;
     sDataPacket *mDataPacket;
-    QList<sSnmpSetCmd> mSetCmdList;
 
 protected:
     sDevPackets *mPackets;
     sConfigItem *mItem;
+
+public:
+    QList<sSnmpSetCmd> mSetCmdList;//设置成public，在别的类可以访问    
 };
 
 #endif // SNMP_H

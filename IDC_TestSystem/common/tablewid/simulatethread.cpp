@@ -1,4 +1,4 @@
-#include "simulatethread.h"
+﻿#include "simulatethread.h"
 
 SimulateThread::SimulateThread(QObject *parent) : QThread(parent)
 {
@@ -32,7 +32,7 @@ void SimulateThread::startThread()
 void SimulateThread::stopThread()
 {
     isRun = false;
-    //    wait();
+    wait();
 }
 
 void SimulateThread::setOffLine()

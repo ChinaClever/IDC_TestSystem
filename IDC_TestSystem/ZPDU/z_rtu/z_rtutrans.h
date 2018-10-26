@@ -1,4 +1,4 @@
-#ifndef Z_RTUTRANS_H
+﻿#ifndef Z_RTUTRANS_H
 #define Z_RTUTRANS_H
 #include "z_rturecv.h"
 #include "rtucom/rtutrans.h"
@@ -19,7 +19,7 @@ public:
 protected:
     void getAlarm(sDataUnit &data);
     void dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate=1);
-    void devObjData(Z_sObjData &rtuData, int i, sObjData &data);
+    void devObjData(Z_sObjData &rtuData, int i, sObjData &data , bool flag);
     void devData(Z_sRtuPacket &rtuData, sDevData &data);
     void envData(Z_sEnv &rtuData, sEnvData &data);
     void devDataPacket(Z_sRtuRecv *pkt, sDataPacket *packet);

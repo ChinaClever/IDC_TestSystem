@@ -137,7 +137,7 @@ bool TestCoreThread::snmpTrans()
 
     QString str = tr("SNMP通讯失败");
     mTrans->snmpUpdateData(); sleep(9);
-    if(mDevPacket->data.lineNum) {
+    if(mDevPacket->txType == 1) {
         ret = true;
         str = tr("SNMP通讯成功");
     }
@@ -160,7 +160,7 @@ bool TestCoreThread::rtuTrans()
 
     QString str = tr("Modbus通讯失败");
     mTrans->rtuUpdateData(); sleep(5);
-    if(mDevPacket->offLine) {
+    if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
     }
@@ -208,7 +208,7 @@ void TestCoreThread::lineVol()
         sTestDataItem item;
         item.item = tr("相电压检查");
         item.subItem = tr("L %1 电压检查").arg(i+1);
-        int expectValue  = IN_DataPackets::bulid()->getLineVol(i) ;
+        int expectValue  = IN_DataPackets::bulid()->getTgValue(1);
         int measuredValue = mDevPacket->data.line[i].vol.value;
         volAccuracy(expectValue, measuredValue, item);
     }
@@ -222,8 +222,8 @@ void TestCoreThread::loopVol()
         sTestDataItem item;
         item.item = tr("回路电压检查");
         item.subItem = tr("C %1 电压检查").arg(i+1);
-        int expectValue  = IN_DataPackets::bulid()->getLineVol(i) ;
-        int measuredValue = mDevPacket->data.loop[i].vol.value;
+        int expectValue  = IN_DataPackets::bulid()->getTgValue(1) ;
+        int measuredValue = mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value;
         volAccuracy(expectValue, measuredValue, item);
     }
 }
@@ -243,9 +243,13 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->rtuUpdateData();
         }
     } else {
-        mTrans->setRtuValue(cmd.rtuMin);
-        mTrans->setRtuValue(cmd.rtuMax);
-
+        if(!cmd.sMin.isEmpty())
+        {
+            mTrans->setSnmpValue(cmd.sMin);
+            mTrans->setSnmpValue(cmd.sMax);
+        }
+            mTrans->setRtuValue(cmd.rtuMin);
+            mTrans->setRtuValue(cmd.rtuMax);
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
@@ -278,6 +282,7 @@ void TestCoreThread::lineVolAlarm()
     sTestDataItem item;
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
+    sleep(6);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -452,7 +457,7 @@ void TestCoreThread::outputCur()
     {
         item.subItem = tr("输出位 %1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.output[i].cur.value;
-        int expect = IN_DataPackets::bulid()->getObjData(i)->cur.value;
+        int expect = IN_DataPackets::bulid()->getObjData(i+8)->cur.value;
         curAccuracy(expect, measuredValue, item);
     }
 }
@@ -613,7 +618,7 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    outputSwCmd(cmd);
+    outputSwCmd(cmd);////////////////////////////////暂时注释关闭开关位，正式需要
 
     setAlarmCmd(cmd, alrm);
 }
@@ -662,7 +667,6 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item)
             ret = true;
         }
     }
-
     item.expect = QString::number(expect / COM_RATE_POW) + "KW";
     item.measured = QString::number(measured / COM_RATE_POW) + "KW";
     item.status = ret;
@@ -710,8 +714,8 @@ bool TestCoreThread::outputPow()
     for(int i=0; i<num; ++i)
     {
         item.subItem = tr("输出位 %1 功率值").arg(i+1);
-        int measuredValue = mDevPacket->data.output[i].pow;
-        int expect = IN_DataPackets::bulid()->getObjData(i)->pow;
+        int measuredValue = mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value*mDevPacket->data.output[i].pf/1000;
+        int expect = IN_DataPackets::bulid()->getObjData(i+8)->pow;
         bool r = powAccuracy(expect, measuredValue, item);
         if(r == false) ret = false;
     }
@@ -733,13 +737,12 @@ void TestCoreThread::powCheck()
 bool TestCoreThread::eleAccuracy(int measured, sTestDataItem &item)
 {
     bool ret = true;
-    QString str = tr("断开");
     if(measured) {
         ret = false;
     }
 
     item.expect =  "0 KWh";
-    item.measured = QString::number(measured / COM_RATE_POW) + "KWh";
+    item.measured = QString::number(measured / COM_RATE_ELE) + "KWh";
     item.status = ret;
     appendResult(item);
 
@@ -847,10 +850,10 @@ void TestCoreThread::run()
         volCheck();
         curCheck();
         curAlarmCheck();
+        powCheck();
 
         switchCtr();
         eleCheck();
-        powCheck();
     }
     emit overSig();
 }

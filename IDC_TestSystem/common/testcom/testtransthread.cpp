@@ -1,4 +1,4 @@
-#include "testtransthread.h"
+﻿#include "testtransthread.h"
 
 TestTransThread::TestTransThread(QObject *parent) : QThread(parent)
 {
@@ -85,6 +85,11 @@ void TestTransThread::rtuStopData()
 {
     mRtu->stopThread();
     mRtuLock = false;
+}
+
+void TestTransThread::clearSnmpCmd()
+{
+    mSnmp->mSetCmdList.clear();
 }
 
 void TestTransThread::run()
