@@ -72,7 +72,6 @@ struct ZM_sRtuRecv {
 };
 
 
-
 class RtuZmRecv
 {
 public:
@@ -92,5 +91,7 @@ protected:
     uchar *rtuRecvData(uchar *ptr, int num, ushort *value);
     uchar *rtuRecvData(uchar *ptr, int num, uchar *value);
 };
+
+ushort *zm_reg_array(int id);
 
 #endif // RTUMRECV_H

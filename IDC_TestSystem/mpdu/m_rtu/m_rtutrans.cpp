@@ -99,64 +99,8 @@ int M_RtuTrans::transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, in
 
 int M_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
 {
-    static ushort array[ZM_RtuReg_CmdNum][2] = {
-        ZM_RtuReg_DevType,       ZM_RtuReg_DevTypeSize,
-        ZM_RtuReg_DevIP,         ZM_RtuReg_DevIPSize,
-        ZM_RtuReg_DevMac,        ZM_RtuReg_DevMacSize,
-        ZM_RtuReg_OutputNum,     ZM_RtuReg_OutputNumSize,
-        ZM_RtuReg_OutputSw,      ZM_RtuReg_OutputSwSize,
-
-        ZM_RtuReg_LineCur,        ZM_RtuReg_LineCurSize,
-        ZM_RtuReg_LineCurMin,     ZM_RtuReg_LineCurMinSize,
-        ZM_RtuReg_LineCurMax,     ZM_RtuReg_LineCurMaxSize,
-        ZM_RtuReg_LineCurCrMin,   ZM_RtuReg_LineCurCrMinSize,
-        ZM_RtuReg_LineCurCrMax,   ZM_RtuReg_LineCurCrMaxSize,
-
-        ZM_RtuReg_LineVol,        ZM_RtuReg_LineVolSize,
-        ZM_RtuReg_LineVolMin,        ZM_RtuReg_LineVolMinSize,
-        ZM_RtuReg_LineVolMax,        ZM_RtuReg_LineVolMaxSize,
-        ZM_RtuReg_LineVolCrMin,        ZM_RtuReg_LineVolCrMinSize,
-        ZM_RtuReg_LineVolCrMax,        ZM_RtuReg_LineVolCrMaxSize,
-
-        ZM_RtuReg_LinePow ,        ZM_RtuReg_LinePowSize,
-        ZM_RtuReg_LinePF ,        ZM_RtuReg_LinePFSize,
-        ZM_RtuReg_LineEle ,        ZM_RtuReg_LineEleSize,
-
-        ZM_RtuReg_LoopCur ,        ZM_RtuReg_LoopCurSize ,
-        ZM_RtuReg_LoopCurMin ,        ZM_RtuReg_LoopCurMinSize ,
-        ZM_RtuReg_LoopCurMax ,        ZM_RtuReg_LoopCurMaxSize ,
-        ZM_RtuReg_LoopCurCrMin ,        ZM_RtuReg_LoopCurCrMinSize ,
-        ZM_RtuReg_LoopCurCrMax ,        ZM_RtuReg_LoopCurCrMaxSize ,
-
-        ZM_RtuReg_LoopVol ,        ZM_RtuReg_LoopVolSize ,
-        ZM_RtuReg_LoopEle ,        ZM_RtuReg_LoopEleSize ,
-
-        ZM_RtuReg_OutputCur ,        ZM_RtuReg_OutputCurSize ,
-        ZM_RtuReg_OutputCurMin ,        ZM_RtuReg_OutputCurMinSize ,
-        ZM_RtuReg_OutputCurMax ,        ZM_RtuReg_OutputCurMaxSize ,
-        ZM_RtuReg_OutputCurCrMin ,        ZM_RtuReg_OutputCurCrMinSize ,
-        ZM_RtuReg_OutputCurCrMax ,        ZM_RtuReg_OutputCurCrMaxSize ,
-        ZM_RtuReg_OutputPF ,        ZM_RtuReg_OutputPFSize ,
-        ZM_RtuReg_OutputEle ,        ZM_RtuReg_OutputEleSize ,
-
-        ZM_RtuReg_TemData ,        ZM_RtuReg_TemSize ,
-        ZM_RtuReg_TemMin ,        ZM_RtuReg_TemMinSize ,
-        ZM_RtuReg_TemMax ,        ZM_RtuReg_TemMaxSize ,
-        ZM_RtuReg_TemCrMin ,        ZM_RtuReg_TemCrMinSize ,
-        ZM_RtuReg_TemCrMax ,        ZM_RtuReg_TemCrMaxSize ,
-
-        ZM_RtuReg_HumData ,        ZM_RtuReg_HumSize ,
-        ZM_RtuReg_HumMin ,        ZM_RtuReg_HumMinSize ,
-        ZM_RtuReg_HumMax ,        ZM_RtuReg_HumMaxSize,
-        ZM_RtuReg_HumCrMin ,        ZM_RtuReg_HumCrMinSize ,
-        ZM_RtuReg_HumCrMax ,        ZM_RtuReg_HumCrMaxSize ,
-
-        ZM_RtuReg_DoorData ,        ZM_RtuReg_DoorSize ,
-        ZM_RtuReg_WaterData ,        ZM_RtuReg_WaterSize ,
-        ZM_RtuReg_SmokeData ,        ZM_RtuReg_SmokeSize ,
-    };
-
-    int ret = transData(addr, array[cmd][0], array[cmd][1], mRtuPkt, msecs);
+    ushort *array = zm_reg_array(cmd);
+    int ret = transData(addr, array[0], array[1], mRtuPkt, msecs);
     if(ret)  {devDataPacket(mRtuPkt, pkt); pkt->txType = 2;}
     else pkt->id = addr;
 
