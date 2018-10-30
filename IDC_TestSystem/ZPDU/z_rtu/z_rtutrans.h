@@ -11,20 +11,14 @@ public:
 
     void init(SerialPort *serial);
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
-    int transData(int addr, int cmd, sDataPacket *pkt, int msecs);
 
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
 
-protected:
-    void getAlarm(sDataUnit &data);
-    void dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate=1);
-    void devObjData(Z_sObjData &rtuData, int i, sObjData &data , bool flag);
-    void devData(Z_sRtuPacket &rtuData, sDevData &data);
-    void envData(Z_sEnv &rtuData, sEnvData &data);
-    void devDataPacket(Z_sRtuRecv *pkt, sDataPacket *packet);
+    int transData(int addr, int cmd, sDataPacket *pkt, int msecs);
 
-    int transData(int addr, ushort reg, ushort len, Z_sRtuRecv *pkt, int msecs);
+protected:
+    int transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, int msecs);
 
 private:
     uchar *mSentBuf, *mRecvBuf;
@@ -34,7 +28,7 @@ private:
     QMutex *mMutex;
     bool isRun;
 
-    Z_sRtuRecv *mRtuPkt;
+    ZM_sRtuRecv *mRtuPkt;
     Z_RtuSent *mRtuSent;
     Z_RtuRecv *mRtuRecv;
 };
