@@ -26,7 +26,12 @@ void M_RtuThread::initSlot()
     SerialPort *serial = M_ConfigFile::bulid()->item->serial;
     mPackets = M_DataPackets::bulid()->packets;
     mRtu = M_RtuTrans::bulid();
-    mRtu->init(serial);
+
+    if(serial) {
+        mRtu->init(serial);
+    } else {
+         QTimer::singleShot(1400,this,SLOT(initSlot()));
+    }
 }
 
 
@@ -74,7 +79,7 @@ void M_RtuThread::workDown()
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(455);
+            if(isRun) msleep(1455);
             else return;
             if(!ret) break;
         }

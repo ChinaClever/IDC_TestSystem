@@ -10,7 +10,7 @@ RtuThread::RtuThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
     mPackets = nullptr;
-    QTimer::singleShot(1000,this,SLOT(initSlot()));
+    QTimer::singleShot(1400,this,SLOT(initSlot()));
 }
 
 RtuThread::~RtuThread()

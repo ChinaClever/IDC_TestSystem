@@ -81,7 +81,9 @@ int M_RtuTrans::transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, in
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, reg, len, sent); // 把数据打包成通讯格式的数据
     if(mSerial) {
         rtn = mRecvLen = mSerial->transmit(sent, rtn, recv, msecs); // 传输数据，发送同时接收
-    } else rtn = 0;
+    } else {
+        rtn = 0;
+    }
 
     if(rtn > 0)
     {
