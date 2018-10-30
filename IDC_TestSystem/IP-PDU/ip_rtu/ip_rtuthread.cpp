@@ -1,4 +1,4 @@
-#include "ip_rtuthread.h"
+﻿#include "ip_rtuthread.h"
 
 IP_RtuThread::IP_RtuThread(QObject *parent) : RtuThread(parent)
 {

@@ -27,6 +27,9 @@ protected slots:
     void toolBoxSlot(int);
     void timeoutDone();
 
+signals:
+    void autoTestChange();
+
 private:
     Ui::MPDU_MainWid *ui;
     MPDU_ToolBoxWid *mtoolBoxWid;

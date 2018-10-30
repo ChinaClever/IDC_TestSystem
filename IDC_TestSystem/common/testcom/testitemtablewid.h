@@ -1,4 +1,4 @@
-#ifndef TESTITEMTABLEWID_H
+﻿#ifndef TESTITEMTABLEWID_H
 #define TESTITEMTABLEWID_H
 #include "testitems.h"
 
@@ -10,6 +10,9 @@ public:
     explicit TestItemTableWid(QWidget *parent = nullptr);
 
      void init(sTestConfigItem *item) { mItem = item;}
+
+signals:
+     void allNumsSig(int nums);
 
 public slots:
     void startSlot();

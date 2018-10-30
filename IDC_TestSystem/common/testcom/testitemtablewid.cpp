@@ -52,7 +52,6 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
     for( const auto& value : items ) {
         appendItem(value);
     }
-
     return spdc.lineNum;
 }
 
@@ -62,8 +61,12 @@ void TestItemTableWid::startSlot()
     if(mPackets) {
        int ret = updateWid(mPackets->dev[mItem->devId]);
        if(!ret) {
-           if(mCount++ % 4)
+           if(mCount++ % 10)
                QTimer::singleShot(3*1000,this,SLOT(startSlot()));
+       }
+       else
+       {
+           emit allNumsSig(mTestItems->mId);
        }
     }
 }

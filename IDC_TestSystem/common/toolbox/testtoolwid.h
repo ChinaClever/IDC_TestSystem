@@ -1,4 +1,4 @@
-#ifndef TESTTOOLWID_H
+﻿#ifndef TESTTOOLWID_H
 #define TESTTOOLWID_H
 
 #include "logstoolwid.h"

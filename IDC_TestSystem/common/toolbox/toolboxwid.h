@@ -1,4 +1,4 @@
-#ifndef TOOLBOXWID_H
+﻿#ifndef TOOLBOXWID_H
 #define TOOLBOXWID_H
 
 #include "testtoolwid.h"
@@ -16,20 +16,22 @@ public:
     ~ToolBoxWid();
 
 signals:
-     void toolBoxSig(int);
+    void toolBoxSig(int);
 
 protected slots:
     virtual void initFunSLot();
 
+public slots:
+    void autoTestChangeSlot();
+
 protected:
     Ui::ToolBoxWid *ui;
-
     ConfigBase *mConfig;
     SettingToolWid *mSettingToolWid;
     StatusToolWid *mStatusToolWid;
     LogsToolWid *mLogsToolWid;
     ModeToolWid *mModeToolWid;
-    TestToolWid *mTestToolWid;
+    TestToolWid *mTestToolWid;    
 };
 
 #endif // TOOLBOXWID_H

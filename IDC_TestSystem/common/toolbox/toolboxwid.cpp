@@ -1,4 +1,4 @@
-#include "toolboxwid.h"
+﻿#include "toolboxwid.h"
 #include "ui_toolboxwid.h"
 
 ToolBoxWid::ToolBoxWid(QWidget *parent) :
@@ -54,5 +54,10 @@ void ToolBoxWid::initFunSLot()
     if(mTestToolWid) {
         mTestToolWid->setParent(ui->toolBox->widget(page++));
         connect(mTestToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
-    }
+    }   
+}
+
+void ToolBoxWid::autoTestChangeSlot()
+{
+    ui->toolBox->setCurrentWidget(ui->testPage);
 }

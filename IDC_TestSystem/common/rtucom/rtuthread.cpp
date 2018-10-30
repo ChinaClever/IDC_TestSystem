@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -10,7 +10,7 @@ RtuThread::RtuThread(QObject *parent) : QThread(parent)
 {
     isRun = false;
     mPackets = nullptr;
-    QTimer::singleShot(1000,this,SLOT(initSlot()));
+    QTimer::singleShot(1200,this,SLOT(initSlot()));
 }
 
 RtuThread::~RtuThread()

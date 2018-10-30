@@ -194,7 +194,7 @@ int M_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
     }
 
     int ret = transData(addr, reg, len, mRtuPkt, msecs);
-    if(ret)  devDataPacket(mRtuPkt, pkt);
+    if(ret)  {devDataPacket(mRtuPkt, pkt); pkt->txType = 2;}
     else pkt->id = addr;
 
     return ret;

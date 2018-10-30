@@ -183,7 +183,7 @@ void ModeToolWid::on_comboBox_currentIndexChanged(int index)
     switch (index) {
     case 0: ipEn = false; break;
     case 1: serialEn = false; break;
-    case 2:   break;
+    case 2: ipEn = false;serialEn = false; break;
 
     default:  break;
     }

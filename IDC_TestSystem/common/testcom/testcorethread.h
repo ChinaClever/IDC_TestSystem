@@ -76,6 +76,9 @@ public:
 signals:
     void overSig();
 
+protected slots:
+    void allNumsSlot(int nums);
+
 protected:
     void run();
 
@@ -85,7 +88,7 @@ private:
     void conditionExec(bool s);
     void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
-    void countItemsNum(bool ret);
+    //void countItemsNum();
 
     /********检查通讯***************/
     bool snmpTrans();
@@ -147,6 +150,8 @@ private:
     TestTransThread *mTrans;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
+    bool mRtuRet;
+    bool mSnmpRet;
 };
 
 #endif // TESTCORETHREAD_H

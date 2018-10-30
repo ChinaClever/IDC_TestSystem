@@ -28,6 +28,9 @@ protected slots:
     void toolBoxSlot(int);
     void timeoutDone();
 
+signals:
+    void autoTestChange();
+
 private:
     Ui::ZPDU_MainWid *ui;
 

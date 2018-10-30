@@ -35,6 +35,7 @@ void ZPDU_MainWid::initFunSLot()
 {
     mtoolBoxWid = new Z_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
+    connect(this,SIGNAL(autoTestChange()),mtoolBoxWid,SLOT(autoTestChangeSlot()));
 
     mStatusWid = new Z_StatusWid(ui->stackedWid);
     ui->stackedWid->addWidget(mStatusWid);
@@ -64,6 +65,7 @@ void ZPDU_MainWid::toolBoxSlot(int id)
         }
     } else if(id <= Test_Datas_Wid) {
         ui->stackedWid->setCurrentWidget(mTestWid);
+        emit autoTestChange();
     } else if(id < Info_Set) {
         ui->stackedWid->setCurrentWidget(mStatusWid);
     } else if(id == Info_Set) {

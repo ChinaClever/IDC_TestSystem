@@ -16,7 +16,6 @@ TestResultWid::TestResultWid(QWidget *parent) :
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(progressSlot()));
 
-
    initStytleSheet();
 }
 
@@ -38,6 +37,15 @@ void TestResultWid::initStytleSheet()
     ui->widget_3->setGraphicsEffect(shadow);
     ui->widget->setGraphicsEffect(shadow1);
     set_background_icon(this,":/image/box_back.jpg");
+}
+
+void TestResultWid::init(sTestConfigItem *item)
+{
+    mItem = item;
+    QString name = mItem->serialNum.name;
+    QString batch = mItem->serialNum.batch;
+    QString str = tr("产品:%1  批次：%2").arg(name).arg(batch);
+    ui->titleTab->setText(str);
 }
 
 void TestResultWid::startSlot()

@@ -48,6 +48,8 @@ protected:
 
 private:
     sDutSpec *mSpec;
+
+public:
     int mId;
 };
 

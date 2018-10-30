@@ -45,7 +45,7 @@ bool TestTransThread::rtuUpdate(int s)
     if(!mRtuLock) {
         mRtuLock = true;
         mRtu->startThread();
-        if(s) QTimer::singleShot(s *1000,this,SLOT(rtuStopData()));
+        if(s) QTimer::singleShot(s *1500,this,SLOT(rtuStopData()));
     } else {
         ret = false;
     }

@@ -11,6 +11,8 @@
 TestCoreThread::TestCoreThread(QObject *parent) : QThread(parent)
 {
     mTrans = nullptr;
+    mRtuRet = false;
+    mSnmpRet = false;
 }
 
 TestCoreThread::~TestCoreThread()
@@ -84,29 +86,34 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     sleep(1);
 }
 
-void TestCoreThread::countItemsNum(bool ret)
+//void TestCoreThread::countItemsNum()
+//{
+//    sTestProgress *p = &(mItem->progress);
+//    int num = 1;
+//    if(mItem->isSnmp) num++;
+
+//    int lineNum = mDevPacket->data.lineNum;
+//    int loopNum = mDevPacket->data.loopNum;
+//    int outputNum = mDevPacket->data.outputNum;
+
+//    num += (lineNum * 9) + 1;
+//    num += (loopNum * 7) + 1;
+
+//    int size = 7;
+//    switch(mDevPacket->devSpec) {
+//    case 1:  size = 0; break;
+//    case 2:  size = 6; break;
+//    case 3:  size = 1; break;
+//    default: break;
+//    }
+//    num += (outputNum * size);
+//    p->allNum = num;
+//}
+
+void TestCoreThread::allNumsSlot(int nums)
 {
     sTestProgress *p = &(mItem->progress);
-    if(!ret)  {p->allNum = 2;  return ;}
-    int num = 1;
-    if(mItem->isSnmp) num++;
-
-    int lineNum = mDevPacket->data.lineNum;
-    int loopNum = mDevPacket->data.loopNum;
-    int outputNum = mDevPacket->data.outputNum;
-
-    num += (lineNum * 9) + 1;
-    num += (loopNum * 7) + 1;
-
-    int size = 7;
-    switch(mDevPacket->devSpec) {
-    case 1:  size = 0; break;
-    case 2:  size = 6; break;
-    case 3:  size = 1; break;
-    default: break;
-    }
-    num += (outputNum * size);
-    p->allNum = num;
+    p->allNum = nums;
 }
 
 bool TestCoreThread::appendResult(sTestDataItem &item)
@@ -159,7 +166,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(5);
+    mTrans->rtuUpdateData(); sleep(9);
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -348,7 +355,7 @@ bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item)
 
     item.expect = QString::number(expect / COM_RATE_CUR) + "A";
     item.measured = QString::number(measured / COM_RATE_CUR) + "A";
-    item.status = ret;
+    item.status = mRtuRet|mSnmpRet? ret : false;
     appendResult(item);
 
     return ret;
@@ -840,20 +847,16 @@ void TestCoreThread::eleCheck()
 
 void TestCoreThread::run()
 {
-    bool rtuRet = true;
-    bool snmpRet = true;
-    rtuRet = transmission(snmpRet);
-    bool ret = snmpRet | rtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
-    countItemsNum(ret);
-    if(ret)
-    {
-        volCheck();
-        curCheck();
-        curAlarmCheck();
-        powCheck();
+    mRtuRet = transmission(mSnmpRet);
+    bool ret = mSnmpRet | mRtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
+//    countItemsNum();
 
-        switchCtr();
-        eleCheck();
-    }
+    volCheck();
+    curCheck();
+    curAlarmCheck();
+    powCheck();
+
+    switchCtr();
+    eleCheck();
     emit overSig();
 }

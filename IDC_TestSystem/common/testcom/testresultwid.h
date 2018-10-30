@@ -17,7 +17,7 @@ public:
     explicit TestResultWid(QWidget *parent = 0);
     ~TestResultWid();
 
-    void init(sTestConfigItem *item) {mItem = item;}
+    void init(sTestConfigItem *item);
     void initStytleSheet();
 
 public slots:

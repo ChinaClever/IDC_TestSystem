@@ -27,8 +27,8 @@ void TestMainWid::initFunSLot()
     mSerialNumDlg->init(mConfig);
 
     mResultWid = new TestResultWid(ui->stackedWid);
-    ui->stackedWid->addWidget(mResultWid);
     mResultWid->init(mConfig->item);
+    ui->stackedWid->addWidget(mResultWid);
 
     mItemTableWid = new TestItemTableWid(ui->stackedWid);
     ui->stackedWid->addWidget(mItemTableWid);
@@ -42,6 +42,7 @@ void TestMainWid::initFunSLot()
 
     mCoreThread->init(mConfig->item, mPackets, mTrans);
     connect(mCoreThread, SIGNAL(overSig()), this, SLOT(overSlot()));
+    connect(mItemTableWid,SIGNAL(allNumsSig(int)),mCoreThread,SLOT(allNumsSlot(int)));
 
     mDataSave = new TestDataSave(this);
     mDataSave->init(mConfig->item);
@@ -55,10 +56,10 @@ void TestMainWid::startTest()
 
         mConfig->item->mode = Test_Start;
         mTrans->clearSnmpCmd();//把上一次的snmp命令清除
+        mCoreThread->startThread();
         mItemTableWid->startSlot();
         mResultWid->startSlot();
-        mDataTableWid->startSLot();
-        mCoreThread->startThread();
+        mDataTableWid->startSLot();        
     }
 
 }

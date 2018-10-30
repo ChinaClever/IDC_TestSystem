@@ -33,6 +33,7 @@ void MPDU_MainWid::initFunSLot()
 {
     mtoolBoxWid = new MPDU_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
+    connect(this,SIGNAL(autoTestChange()),mtoolBoxWid,SLOT(autoTestChangeSlot()));
 
     mStatusWid = new M_StatusWid(ui->stackedWid);
     ui->stackedWid->addWidget(mStatusWid);
@@ -63,6 +64,7 @@ void MPDU_MainWid::toolBoxSlot(int id)
         }
     } else if(id <= Test_Datas_Wid) {
         ui->stackedWid->setCurrentWidget(mTestWid);
+        emit autoTestChange();
     } else if(id < Info_Set) {
          ui->stackedWid->setCurrentWidget(mStatusWid);
     } else if(id == Info_Set) {
