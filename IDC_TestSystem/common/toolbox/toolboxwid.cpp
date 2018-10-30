@@ -13,7 +13,7 @@ ToolBoxWid::ToolBoxWid(QWidget *parent) :
     mModeToolWid = nullptr;
     mTestToolWid = nullptr;
 
-    QTimer::singleShot(30,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(130,this,SLOT(initFunSLot())); //延时初始化
     QGridLayout *gridLayout = new QGridLayout(parent);
     gridLayout->setContentsMargins(0, 0, 0, 10);
     gridLayout->addWidget(this);

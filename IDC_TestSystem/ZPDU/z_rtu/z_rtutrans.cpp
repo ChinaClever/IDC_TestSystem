@@ -14,7 +14,7 @@ Z_RtuTrans::Z_RtuTrans()
     mRecvBuf = (uchar *)malloc(2*SERIAL_LEN);
     mMutex = new QMutex();
 
-    mRtuPkt = new  Z_sRtuRecv();
+    mRtuPkt = new  ZM_sRtuRecv();
     mRtuSent = new Z_RtuSent();
     mRtuRecv = new Z_RtuRecv();
 }
@@ -57,14 +57,6 @@ bool Z_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     uchar *sent = mSentBuf;
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
-
-//    QByteArray debugarray;
-//    QString debugstring;
-
-//    debugarray.append((char*)buf,len);
-//    debugstring = cm_ByteArrayToHexStr(debugarray);
-//    qDebug()<<debugstring;//调试用的代码
-
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs);
         if(5 == rtn) {
@@ -80,120 +72,13 @@ bool Z_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     return ret;
 }
 
-void Z_RtuTrans::getAlarm(sDataUnit &data)
-{
-    if((data.value < data.min) || (data.value > data.max)) {
-        if(data.alarm == 0)
-            data.alarm = 1;
-    } else {
-        data.alarm = 0;
-    }
-
-    if((data.value < data.crMin) || (data.value > data.crMax)) {
-        if(data.crAlarm == 0)
-            data.crAlarm = 1;
-    } else {
-        data.crAlarm = 0;
-    }
-}
-
-void Z_RtuTrans::dataUnit(int i, Z_sDataUnit &rtu, sDataUnit &data, int rate)
-{
-    data.value = rtu.value[i] / rate;
-    data.min = rtu.min[i] / rate;
-    data.max = rtu.max[i] / rate;
-
-    data.crMin = rtu.crMin[i] / rate;
-    data.crMax = rtu.crMax[i] / rate;
-
-    getAlarm(data);
-}
-
-void Z_RtuTrans::devObjData(Z_sObjData &rtuData, int i, sObjData &data , bool flag)
-{
-    data.id = i;
-    dataUnit(i, rtuData.vol, data.vol, 10);
-    dataUnit(i, rtuData.cur, data.cur, 10);
-    data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 10;
-    data.pf = rtuData.pf[i];
-    data.sw = rtuData.sw[i];
-
-    if(flag)
-    {
-        if(data.sw != 1) {
-        if(data.vol.value) data.sw = 1;
-        else  data.sw = 0;
-        }
-    }
-
-    if(rtuData.pow[i] > 0) {
-        data.pow = rtuData.pow[i] / 1000;
-    } else {
-        data.pow = data.activePow * data.pf / 100.0;
-    }
-}
-
-void Z_RtuTrans::envData(Z_sEnv &rtuData, sEnvData &data)
-{
-    data.envNum = 2;
-
-    for(int i=0; i<data.envNum; ++i) {
-        dataUnit(i, rtuData.tem, data.tem[i]);
-        dataUnit(i, rtuData.hum, data.hum[i]);
-
-        data.door[i] = rtuData.door[i];
-        data.water[i] = rtuData.water[i];
-        data.smoke[i] = rtuData.smoke[i];
-    }
-}
-
-void Z_RtuTrans::devData(Z_sRtuPacket &rtuData, sDevData &data)
-{
-    int vol =220;
-
-    int num = data.lineNum = rtuData.line.num;
-    for(int i=0; i<num; ++i) {
-        devObjData(rtuData.line, i, data.line[i] , true);
-        vol = rtuData.line.vol.value[0];
-    }
-
-    num = data.loopNum = rtuData.loop.num;
-    for(int i=0; i<num; ++i) {
-        devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);
-         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
-    }
-
-    num = data.outputNum = rtuData.output.num;
-    for(int i=0; i<num; ++i) {
-        rtuData.output.vol.value[i] = vol;
-        devObjData(rtuData.output, i, data.output[i] ,false);
-        data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
-    }
-
-    envData(rtuData.env, data.env);
-}
-
-void Z_RtuTrans::devDataPacket(Z_sRtuRecv *pkt, sDataPacket *packet)
-{
-    packet->id = pkt->addr;
-    packet->offLine = pkt->offLine;
-    packet->br = pkt->data.br;
-    packet->version = pkt->data.version;
-    packet->devSpec = pkt->data.devSpec;
-    strcpy(packet->ip, pkt->data.ip);
-    strcpy(packet->mac, pkt->data.mac);
-
-    devData(pkt->data, packet->data);
-}
-
 
 /**
  * @brief Modbus数据读取
  * @param addr 设备地址
  * @param line
  */
-int Z_RtuTrans::transData(int addr, ushort reg, ushort len, Z_sRtuRecv *pkt, int msecs)
+int Z_RtuTrans::transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, int msecs)
 {
     uchar offLine = 0;
     uchar *sent = mSentBuf, *recv = mRecvBuf;
@@ -220,64 +105,8 @@ int Z_RtuTrans::transData(int addr, ushort reg, ushort len, Z_sRtuRecv *pkt, int
 
 int Z_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
 {
-    static ushort array[Z_RtuReg_CmdNum][2] = {
-        Z_RtuReg_DevType,       Z_RtuReg_DevTypeSize,
-        Z_RtuReg_DevIP,         Z_RtuReg_DevIPSize,
-        Z_RtuReg_DevMac,        Z_RtuReg_DevMacSize,
-        Z_RtuReg_OutputNum,     Z_RtuReg_OutputNumSize,
-        Z_RtuReg_OutputSw,      Z_RtuReg_OutputSwSize,
-
-        Z_RtuReg_LineCur,        Z_RtuReg_LineCurSize,
-        Z_RtuReg_LineCurMin,     Z_RtuReg_LineCurMinSize,
-        Z_RtuReg_LineCurMax,     Z_RtuReg_LineCurMaxSize,
-        Z_RtuReg_LineCurCrMin,   Z_RtuReg_LineCurCrMinSize,
-        Z_RtuReg_LineCurCrMax,   Z_RtuReg_LineCurCrMaxSize,
-
-        Z_RtuReg_LineVol,        Z_RtuReg_LineVolSize,
-        Z_RtuReg_LineVolMin,        Z_RtuReg_LineVolMinSize,
-        Z_RtuReg_LineVolMax,        Z_RtuReg_LineVolMaxSize,
-        Z_RtuReg_LineVolCrMin,        Z_RtuReg_LineVolCrMinSize,
-        Z_RtuReg_LineVolCrMax,        Z_RtuReg_LineVolCrMaxSize,
-
-        Z_RtuReg_LinePow ,        Z_RtuReg_LinePowSize,
-        Z_RtuReg_LinePF ,        Z_RtuReg_LinePFSize,
-        Z_RtuReg_LineEle ,        Z_RtuReg_LineEleSize,
-
-        Z_RtuReg_LoopCur ,        Z_RtuReg_LoopCurSize ,
-        Z_RtuReg_LoopCurMin ,        Z_RtuReg_LoopCurMinSize ,
-        Z_RtuReg_LoopCurMax ,        Z_RtuReg_LoopCurMaxSize ,
-        Z_RtuReg_LoopCurCrMin ,        Z_RtuReg_LoopCurCrMinSize ,
-        Z_RtuReg_LoopCurCrMax ,        Z_RtuReg_LoopCurCrMaxSize ,
-
-        Z_RtuReg_LoopVol ,        Z_RtuReg_LoopVolSize ,
-        Z_RtuReg_LoopEle ,        Z_RtuReg_LoopEleSize ,
-
-        Z_RtuReg_OutputCur ,        Z_RtuReg_OutputCurSize ,
-        Z_RtuReg_OutputCurMin ,        Z_RtuReg_OutputCurMinSize ,
-        Z_RtuReg_OutputCurMax ,        Z_RtuReg_OutputCurMaxSize ,
-        Z_RtuReg_OutputCurCrMin ,        Z_RtuReg_OutputCurCrMinSize ,
-        Z_RtuReg_OutputCurCrMax ,        Z_RtuReg_OutputCurCrMaxSize ,
-        Z_RtuReg_OutputPF ,        Z_RtuReg_OutputPFSize ,
-        Z_RtuReg_OutputEle ,        Z_RtuReg_OutputEleSize ,
-
-        Z_RtuReg_TemData ,        Z_RtuReg_TemSize ,
-        Z_RtuReg_TemMin ,        Z_RtuReg_TemMinSize ,
-        Z_RtuReg_TemMax ,        Z_RtuReg_TemMaxSize ,
-        Z_RtuReg_TemCrMin ,        Z_RtuReg_TemCrMinSize ,
-        Z_RtuReg_TemCrMax ,        Z_RtuReg_TemCrMaxSize ,
-
-        Z_RtuReg_HumData ,        Z_RtuReg_HumSize ,
-        Z_RtuReg_HumMin ,        Z_RtuReg_HumMinSize ,
-        Z_RtuReg_HumMax ,        Z_RtuReg_HumMaxSize,
-        Z_RtuReg_HumCrMin ,        Z_RtuReg_HumCrMinSize ,
-        Z_RtuReg_HumCrMax ,        Z_RtuReg_HumCrMaxSize ,
-
-        Z_RtuReg_DoorData ,        Z_RtuReg_DoorSize ,
-        Z_RtuReg_WaterData ,        Z_RtuReg_WaterSize ,
-        Z_RtuReg_SmokeData ,        Z_RtuReg_SmokeSize ,
-    };
-
-    int ret = transData(addr, array[cmd][0], array[cmd][1], mRtuPkt, msecs);
+    ushort *array = zm_reg_array(cmd);
+    int ret = transData(addr, array[0], array[1], mRtuPkt, msecs);
     if(ret)  {devDataPacket(mRtuPkt, pkt); pkt->txType = 2;}
     else pkt->id = addr;
 

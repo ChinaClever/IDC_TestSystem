@@ -23,7 +23,11 @@ void IP_RtuThread::initSlot()
     SerialPort *serial = IP_ConfigFile::bulid()->item->serial;
     mPackets = IpDataPackets::bulid()->packets;
     mRtu = IP_RtuTrans::bulid();
-    mRtu->init(serial);
+    if(serial) {
+        mRtu->init(serial);
+    } else {
+         QTimer::singleShot(1400,this,SLOT(initSlot()));
+    }
 }
 
 

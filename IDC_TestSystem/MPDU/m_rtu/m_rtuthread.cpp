@@ -26,7 +26,12 @@ void M_RtuThread::initSlot()
     SerialPort *serial = M_ConfigFile::bulid()->item->serial;
     mPackets = M_DataPackets::bulid()->packets;
     mRtu = M_RtuTrans::bulid();
-    mRtu->init(serial);
+
+    if(serial) {
+        mRtu->init(serial);
+    } else {
+         QTimer::singleShot(1400,this,SLOT(initSlot()));
+    }
 }
 
 
@@ -68,13 +73,13 @@ void M_RtuThread::workDown()
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);
-        for(int i=0; i<11; ++i)
+        for(int i=0; i<ZM_RtuReg_CmdNum; ++i)
         {
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(755);
+            if(isRun) msleep(1455);
             else return;
             if(!ret) break;
         }

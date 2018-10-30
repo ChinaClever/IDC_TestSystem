@@ -31,7 +31,11 @@ void BUS_SimulateThread::initSlot()
 
     mPacket = BusPacketSi::bulid();
     mRtu = BUS_RtuTrans::bulid(this);
-    mRtu->init(serial);
+    if(serial) {
+        mRtu->init(serial);
+    } else {
+         QTimer::singleShot(1400,this,SLOT(initSlot()));
+    }
 }
 
 /**

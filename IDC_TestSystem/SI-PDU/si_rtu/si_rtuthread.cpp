@@ -29,7 +29,11 @@ void SI_RtuThread::initSlot()
     SerialPort *serial = SiConfigFile::bulid()->item->serial;
     mPackets = SIDataPackets::bulid()->packets;
     mRtu = SI_RtuTrans::bulid(this);
-    mRtu->init(serial);
+    if(serial) {
+        mRtu->init(serial);
+    } else {
+         QTimer::singleShot(1400,this,SLOT(initSlot()));
+    }
 }
 
 
