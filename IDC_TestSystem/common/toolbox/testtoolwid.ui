@@ -95,7 +95,7 @@
    <item>
     <widget class="QPushButton" name="resultBtn">
      <property name="text">
-      <string>测试结果</string>
+      <string>测试进度</string>
      </property>
     </widget>
    </item>
@@ -109,7 +109,7 @@
    <item>
     <widget class="QPushButton" name="testDataBtn">
      <property name="text">
-      <string>测试数据</string>
+      <string>测试结果</string>
      </property>
     </widget>
    </item>

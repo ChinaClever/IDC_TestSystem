@@ -2,7 +2,8 @@
 #define M_SNMPSEND_H
 #include "snmp_zmrecv.h"
 
-#define M_MIB_OID "7"
+//#define M_MIB_OID "7"
+#define M_MIB_OID "8"//原来是7
 
 class M_SnmpSend
 {

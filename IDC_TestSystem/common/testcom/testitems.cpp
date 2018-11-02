@@ -19,12 +19,12 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
     communication(items);
     volObjData(tr("电压"),items);
     curObjData(tr("电流"),items);
+    powObjData(tr("功率"),items);
     if(mSpec->spec != 1) {
         swObjData(tr("输出位"), mSpec->outputNum , items);
     }
 
-    eleObjData(tr("电能"),items);
-    powObjData(tr("功率"),items);
+    eleObjData(tr("电能"),items); 
     return mSpec->isSnmp;
 }
 
@@ -110,22 +110,29 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
         nocurUnitItem(str, mSpec->outputNum, items);
     }
 
+
     sTestItem item;
-    item.isSnmp = mSpec->isSnmp;
-    item.item = tr("相电流检查");
-    item.id = mId++;
-    item.subItem = tr("相总电流检查");
-    item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
-    items << item;
+    if(mSpec->lineNum > 1)
+    {
+        item.isSnmp = mSpec->isSnmp;
+        item.item = tr("相电流检查");
+        item.id = mId++;
+        item.subItem = tr("相总电流检查");
+        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
+        items << item;
+    }
 
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
 
-    item.item = tr("回路电流检查");
-    item.id = mId++;
-    item.subItem = tr("回路总电流检查");
-    item.eResult = tr("回路总电流值与负载测试柜值在误差范围内");
-    items << item;
+    if(mSpec->loopNum > 1)
+    {
+        item.item = tr("回路电流检查");
+        item.id = mId++;
+        item.subItem = tr("回路总电流检查");
+        item.eResult = tr("回路总电流值与负载测试柜值在误差范围内");
+        items << item;
+    }
 
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
@@ -213,19 +220,18 @@ void TestItems::powUnitItem(const QString & itemStr,int num , QList<sTestItem> &
 }
 
 void TestItems::eleObjData(const QString & itemStr,QList<sTestItem> &items)
-{
+{//先清开关位电能，接着清回路和相电能
     QString str;
-    str = tr("相") + itemStr;
-    eleUnitItem(str, mSpec->lineNum, items);
-
-    str = tr("回路") + itemStr;
-    eleUnitItem(str, mSpec->loopNum, items);
-
     if(mSpec->spec != 3)
     {
         str = tr("输出位")+ itemStr;
         eleUnitItem(str, mSpec->outputNum, items);
     }
+    str = tr("回路") + itemStr;
+    eleUnitItem(str, mSpec->loopNum, items);
+
+    str = tr("相") + itemStr;
+    eleUnitItem(str, mSpec->lineNum, items);
 }
 
 void TestItems::eleUnitItem(const QString & itemStr,int num , QList<sTestItem> &items)

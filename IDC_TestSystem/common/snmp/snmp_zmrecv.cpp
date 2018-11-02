@@ -72,35 +72,35 @@ void SNMP_ZmRecv::envData(const QByteArray &data)
     env->envNum = 2;
     int item = getItemByOid(3);
     switch (item) {
-    case 1: env->tem[0].value = data.toDouble()*10; break;
-    case 2: env->tem[1].value = data.toDouble()*10; break;
-    case 3: env->hum[0].value = data.toDouble()*10; break;
-    case 4: env->hum[1].value = data.toDouble()*10; break;
+    case 1: env->tem[0].value = data.toDouble(); break;
+    case 2: env->tem[1].value = data.toDouble(); break;
+    case 3: env->hum[0].value = data.toDouble(); break;
+    case 4: env->hum[1].value = data.toDouble(); break;
 
     case 5: env->door[0] = data.toDouble() ; break;
     case 6: env->door[1] = data.toDouble() ; break;
     case 7: env->smoke[0] = data.toDouble() ; break;
     case 8: env->water[0] = data.toDouble() ; break;
 
-    case 9: env->tem[0].min = data.toDouble()*10 ; break;
-    case 10: env->tem[0].crMin = data.toDouble()*10; break;
-    case 11: env->tem[0].crMax = data.toDouble()*10 ; break;
-    case 12: env->tem[0].max = data.toDouble()*10; break;
+    case 9: env->tem[0].min = data.toDouble() ; break;
+    case 10: env->tem[0].crMin = data.toDouble(); break;
+    case 11: env->tem[0].crMax = data.toDouble() ; break;
+    case 12: env->tem[0].max = data.toDouble(); break;
 
-    case 13: env->tem[1].min = data.toDouble()*10 ; break;
-    case 14: env->tem[1].crMin = data.toDouble()*10; break;
-    case 15: env->tem[1].crMax = data.toDouble()*10 ; break;
-    case 16: env->tem[1].max = data.toDouble()*10; break;
+    case 13: env->tem[1].min = data.toDouble() ; break;
+    case 14: env->tem[1].crMin = data.toDouble(); break;
+    case 15: env->tem[1].crMax = data.toDouble() ; break;
+    case 16: env->tem[1].max = data.toDouble(); break;
 
-    case 17: env->hum[0].min = data.toDouble()*10; break;
-    case 18: env->hum[0].crMin = data.toDouble()*10; break;
-    case 19: env->hum[0].crMax = data.toDouble()*10; break;
-    case 20: env->hum[0].max = data.toDouble()*10; break;
+    case 17: env->hum[0].min = data.toDouble(); break;
+    case 18: env->hum[0].crMin = data.toDouble(); break;
+    case 19: env->hum[0].crMax = data.toDouble(); break;
+    case 20: env->hum[0].max = data.toDouble(); break;
 
-    case 21: env->hum[1].min = data.toDouble()*10; break;
-    case 22: env->hum[1].crMin = data.toDouble()*10; break;
-    case 23: env->hum[1].crMax = data.toDouble()*10; break;
-    case 24: env->hum[1].max = data.toDouble()*10; break;
+    case 21: env->hum[1].min = data.toDouble(); break;
+    case 22: env->hum[1].crMin = data.toDouble(); break;
+    case 23: env->hum[1].crMax = data.toDouble(); break;
+    case 24: env->hum[1].max = data.toDouble(); break;
 
     default: qDebug() << "SNMP_ZmRecv::envData" << item; break;
     }
