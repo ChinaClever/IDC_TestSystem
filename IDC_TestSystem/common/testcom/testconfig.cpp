@@ -17,6 +17,11 @@ void TestConfig::initConfig(sSerialNumItem *it)
 
     it->op = getOp();
     it->cn = getCn();
+    it->spec = getSpec();
+    it->line = getLine();
+    it->loop = getLoop();
+    it->output = getOutput();
+
     it->barCode = getBarCode();
     it->batch = getBatch();
     it->purpose = getPurpose();
@@ -28,12 +33,86 @@ void TestConfig::saveConfig(sSerialNumItem *it)
     if(!it) it = &(item->serialNum);
 
     setOp(it->op);
-    setCn(it->cn );
+    setCn(it->cn);
+    setSpec(it->spec);
+    setLine(it->line );
+    setLoop(it->loop);
+    setOutput(it->output);
+
     setBarCode(it->barCode);
     setBatch(it->batch);
     setPurpose(it->purpose);
     setSnClear(it->snClear);
 }
+
+
+void TestConfig::setSpec(int value)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_spec").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(value), prefix);
+}
+
+int TestConfig::getSpec()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_spec").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret < 0)  ret = 4;
+    return ret;
+}
+
+
+void TestConfig::setLine(int value)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_line").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(value), prefix);
+}
+
+int TestConfig::getLine()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_line").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret < 0)  ret = 3;
+    return ret;
+}
+
+
+void TestConfig::setLoop(int value)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_loop").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(value), prefix);
+}
+
+int TestConfig::getLoop()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_loop").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret < 0)  ret = 2;
+    return ret;
+}
+
+
+void TestConfig::setOutput(int value)
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_output").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(value), prefix);
+}
+
+int TestConfig::getOutput()
+{
+    QString prefix = getPrefix();
+    QString str = QString("%1_output").arg(prefix);
+    int ret = sys_configFile_readInt(str, prefix);
+    if(ret < 0)  ret = 24;
+    return ret;
+}
+
 
 QString TestConfig::getOp()
 {

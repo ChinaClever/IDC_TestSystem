@@ -83,31 +83,31 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     p->finishNum++;
     p->status = tr("测试项:%1  %2").arg(p->finishNum).arg(str);
 
-    sleep(1);
+    msleep(300);
 }
 
 void TestCoreThread::countItemsNum()
 {
     sTestProgress *p = &(mItem->progress);
-//    int num = 1;
-//    if(mItem->isSnmp) num++;
+    //    int num = 1;
+    //    if(mItem->isSnmp) num++;
 
-//    int lineNum = mDevPacket->data.lineNum;
-//    int loopNum = mDevPacket->data.loopNum;
-//    int outputNum = mDevPacket->data.outputNum;
+    //    int lineNum = mDevPacket->data.lineNum;
+    //    int loopNum = mDevPacket->data.loopNum;
+    //    int outputNum = mDevPacket->data.outputNum;
 
-//    num += (lineNum * 9) + 1;
-//    num += (loopNum * 7) + 1;
+    //    num += (lineNum * 9) + 1;
+    //    num += (loopNum * 7) + 1;
 
-//    int size = 7;
-//    switch(mDevPacket->devSpec) {
-//    case 1:  size = 0; break;
-//    case 2:  size = 6; break;
-//    case 3:  size = 1; break;
-//    default: break;
-//    }
-//    num += (outputNum * size);
-//    p->allNum = num;
+    //    int size = 7;
+    //    switch(mDevPacket->devSpec) {
+    //    case 1:  size = 0; break;
+    //    case 2:  size = 6; break;
+    //    case 3:  size = 1; break;
+    //    default: break;
+    //    }
+    //    num += (outputNum * size);
+    //    p->allNum = num;
     p->allNum = 2;
 }
 
@@ -178,6 +178,109 @@ bool TestCoreThread::rtuTrans()
     //    mTrans->rtuStop();
 
     return appendResult(item);
+}
+
+
+bool TestCoreThread::devSpecCheck()
+{
+    bool ret = false;
+    sTestDataItem item;
+
+    item.item = tr("设备基本检查");
+    item.subItem = tr("设备系列测试");
+
+    QString expectStr = "D";
+    switch (mItem->serialNum.spec) {
+    case 1: expectStr = "A"; break;
+    case 2: expectStr = "B"; break;
+    case 3: expectStr = "C"; break;
+    default: break;
+    }
+
+    QString measuredStr = "D";
+    switch (mDevPacket->devSpec) {
+    case 1: measuredStr = "A"; break;
+    case 2: measuredStr = "B"; break;
+    case 3: measuredStr = "C"; break;
+    default: break;
+    }
+
+    item.expect = tr("%1系列").arg(expectStr);
+    item.measured = tr("%1系列").arg(measuredStr);
+    if(item.expect == item.measured) {
+        ret = true;
+    }
+
+    item.status = ret;
+
+    return appendResult(item);
+}
+
+bool TestCoreThread::devLineNumCheck()
+{
+    bool ret = false;
+    sTestDataItem item;
+
+    item.item = tr("设备基本检查");
+    item.subItem = tr("相数量测试");
+    item.expect = tr("共%1相").arg(mItem->serialNum.line);
+    item.measured = tr("共%1相").arg(mDevPacket->data.lineNum);
+
+    if(item.expect == item.measured) {
+        ret = true;
+    }
+
+    item.status = ret;
+
+    return appendResult(item);
+}
+
+
+bool TestCoreThread::devLoopNumCheck()
+{
+    bool ret = false;
+    sTestDataItem item;
+
+    item.item = tr("设备基本检查");
+    item.subItem = tr("回路数量测试");
+    item.expect = tr("共%1回路").arg(mItem->serialNum.loop);
+    item.measured = tr("共%1回路").arg(mDevPacket->data.loopNum);
+
+    if(item.expect == item.measured) {
+        ret = true;
+    }
+
+    item.status = ret;
+
+    return appendResult(item);
+}
+
+
+bool TestCoreThread::devOutputNumCheck()
+{
+    bool ret = false;
+    sTestDataItem item;
+
+    item.item = tr("设备基本检查");
+    item.subItem = tr("输出位数量测试");
+    item.expect = tr("共%1输出位").arg(mItem->serialNum.output);
+    item.measured = tr("共%1输出位").arg(mDevPacket->data.outputNum);
+
+    if(item.expect == item.measured) {
+        ret = true;
+    }
+
+    item.status = ret;
+
+    return appendResult(item);
+}
+
+void TestCoreThread::devInfoCheck()
+{
+    devSpecCheck();
+    devLineNumCheck();
+    devLoopNumCheck();
+    devOutputNumCheck();
 }
 
 bool TestCoreThread::transmission(bool& snmpRet)
@@ -256,8 +359,8 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->setSnmpValue(cmd.sMin);
             mTrans->setSnmpValue(cmd.sMax);
         }
-            mTrans->setRtuValue(cmd.rtuMin);
-            mTrans->setRtuValue(cmd.rtuMax);
+        mTrans->setRtuValue(cmd.rtuMin);
+        mTrans->setRtuValue(cmd.rtuMax);
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
@@ -848,6 +951,79 @@ void TestCoreThread::eleCheck()
     lineEle();
 }
 
+
+bool TestCoreThread::temAccuracy(int expect, int measured, sTestDataItem &item)
+{
+    bool ret = false;
+    int value = expect - measured;
+    int min = -1*COM_RATE_TEM;
+    int max =  1*COM_RATE_TEM;
+    if((value > min) && (value < max)) {
+        ret = true;
+    }
+
+    item.expect = QString::number(expect / COM_RATE_TEM) + "℃";
+    item.measured = QString::number(measured / COM_RATE_TEM) + "℃";
+    item.status = ret;
+    appendResult(item);
+
+    return ret;
+}
+
+bool TestCoreThread::humAccuracy(int expect, int measured, sTestDataItem &item)
+{
+    bool ret = false;
+    int value = expect - measured;
+    int min = -2*COM_RATE_HUM;
+    int max =  2*COM_RATE_HUM;
+    if((value > min) && (value < max)) {
+        ret = true;
+    }
+
+    item.expect = QString::number(expect / COM_RATE_HUM) + "%";
+    item.measured = QString::number(measured / COM_RATE_HUM) + "%";
+    item.status = ret;
+    appendResult(item);
+
+    return ret;
+}
+
+void TestCoreThread::temCheck()
+{
+    sTestDataItem item;
+    item.item = tr("温度检查");
+
+    int num = mDevPacket->data.env.envNum;
+    for(int i=0; i<num; ++i)
+    {
+        item.subItem = tr(" 温度%1 ").arg(i+1);
+        int expectValue = IN_DataPackets::bulid()->getDev(1)->data.env.tem[1].value;
+        int measuredValue = mDevPacket->data.env.tem[i].value;
+        temAccuracy(expectValue, measuredValue, item);
+    }
+}
+
+void TestCoreThread::humCheck()
+{
+    sTestDataItem item;
+    item.item = tr("湿度检查");
+
+    int num = mDevPacket->data.env.envNum;
+    for(int i=0; i<num; ++i)
+    {
+        item.subItem = tr(" 湿度%1 ").arg(i+1);
+        int expectValue = mDevPacket->data.env.hum[1-i].value;
+        int measuredValue = mDevPacket->data.env.hum[i].value;
+        humAccuracy(expectValue, measuredValue, item);
+    }
+}
+
+void TestCoreThread::envCheck()
+{
+    temCheck();
+    humCheck();
+}
+
 void TestCoreThread::run()
 {
     mRtuRet = transmission(mSnmpRet);
@@ -856,6 +1032,8 @@ void TestCoreThread::run()
         countItemsNum();
     else
     {
+        devInfoCheck();
+
         volCheck();
         curCheck();
         curAlarmCheck();
@@ -863,6 +1041,7 @@ void TestCoreThread::run()
 
         switchCtr();
         eleCheck();
+        envCheck();
     }
     emit overSig();
 }

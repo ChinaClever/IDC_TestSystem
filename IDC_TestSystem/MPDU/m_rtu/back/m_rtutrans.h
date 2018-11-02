@@ -17,7 +17,14 @@ public:
     QByteArray getRecvCmd();
 
 protected:
-    int transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, int msecs);
+    void getAlarm(sDataUnit &data);
+    void dataUnit(int i, M_sDataUnit &rtu, sDataUnit &data);
+    void devObjData(M_sObjData &rtuData, int i, sObjData &data);
+    void devData(M_sRtuPacket &rtuData, sDevData &data);
+    void envData(M_sRtuPacket &rtuData, sEnvData &data);
+    void devDataPacket(M_sRtuRecv *pkt, sDataPacket *packet);
+
+    int transData(int addr, ushort reg, ushort len, M_sRtuRecv *pkt, int msecs);
 
 private:
     uchar *mSentBuf, *mRecvBuf;
@@ -27,7 +34,7 @@ private:
     QMutex *mMutex;
     bool isRun;
 
-    ZM_sRtuRecv *mRtuPkt;
+    M_sRtuRecv *mRtuPkt;
     M_RtuSent *mRtuSent;
     M_RtuRecv *mRtuRecv;
 };

@@ -18,8 +18,8 @@ void TestDataSave::saveTestData()
     if(item->serialNum.isSave)
     {
         mList.clear();
-        bulidHead(&(item->serialNum));
-        bulidProgressLog(item->progress);
+        int id = bulidHead(&(item->serialNum));
+        bulidProgressLog(id, item->progress);
         bulidTestData(item->dataList);
 
         mSaveThread->saveData(mFileName, mList);
@@ -68,6 +68,19 @@ int TestDataSave::bulidHead(sSerialNumItem *item)
     list <<"" << QString::number(id++) << tr("工装条码") << item->barCode;
     mList << list; list.clear();
 
+    QString str = "D";
+    switch (item->spec) { case 1: str = "A"; break;  case 2: str = "B"; break;  case 3: str = "C"; break;  }
+    list <<"" << QString::number(id++) << tr("设备系列") << str + tr("系列");
+    mList << list; list.clear();
+
+    list <<"" << QString::number(id++) << tr("设备相数") << tr("%1相").arg(item->line);
+    mList << list; list.clear();
+
+    if(item->output) {
+        list <<"" << QString::number(id++) << tr("输出位数量") << tr("%1位").arg(item->output);
+        mList << list; list.clear();
+    }
+
     list <<"" << QString::number(id++) << tr("测试日期") << item->date.toString("yyyy-MM-dd");
     mList << list; list.clear();
 
@@ -91,13 +104,17 @@ int TestDataSave::bulidHead(sSerialNumItem *item)
     return id;
 }
 
-int TestDataSave::bulidProgressLog(sTestProgress &arg)
+int TestDataSave::bulidProgressLog(int id, sTestProgress &arg)
 {
     QStringList list;
     int ok = (arg.okNum * 100.0) / arg.allNum;
     int err = (arg.errNum * 100.0) / arg.allNum;
 
-    int id = 10;
+    QString str = tr("通过");
+    if(arg.errNum) str = tr("未通过");
+    list <<"" << QString::number(id++) << tr("测试结果") << str;
+    mList << list; list.clear();
+
     list <<"" << QString::number(id++) << tr("测试项目数") << QString::number(arg.allNum);
     mList << list; list.clear();
 

@@ -12,7 +12,8 @@ TestMainWid::TestMainWid(QWidget *parent) :
     ui(new Ui::TestMainWid)
 {
     ui->setupUi(this);
-    QTimer::singleShot(1600,this,SLOT(initFunSLot()));
+    mConfig = nullptr;
+    QTimer::singleShot(2600,this,SLOT(initFunSLot()));
 }
 
 TestMainWid::~TestMainWid()
@@ -23,6 +24,7 @@ TestMainWid::~TestMainWid()
 
 void TestMainWid::initFunSLot()
 {
+    if(!mConfig) { QTimer::singleShot(1000,this,SLOT(initFunSLot())); return;}
     mSerialNumDlg = new TestSerialNumDlg(this);
     mSerialNumDlg->init(mConfig);
 

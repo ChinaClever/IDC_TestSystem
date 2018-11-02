@@ -14,6 +14,11 @@ struct sSerialNumItem
     QString purpose;
     QDate date;
 
+    int spec; // 产品系列
+    int line;
+    int loop;
+    int output;
+
     bool snClear;
     bool errStop;
     bool isSave;
@@ -74,6 +79,18 @@ public:
     void saveConfig(sSerialNumItem *it=nullptr);
 
 protected:
+    void setSpec(int value);
+    int getSpec();
+
+    void setLine(int value);
+    int getLine();
+
+    void setLoop(int value);
+    int getLoop();
+
+    void setOutput(int value);
+    int getOutput();
+
     QString getOp();
     void setOp(const QString &arg);
 

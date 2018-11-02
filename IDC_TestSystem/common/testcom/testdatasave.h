@@ -15,7 +15,7 @@ public:
 
 protected:
     int bulidHead(sSerialNumItem *item);
-    int bulidProgressLog(sTestProgress &arg);
+    int bulidProgressLog(int id, sTestProgress &arg);
     void bulidTestData(QList<QStringList> &list);
 
 private:

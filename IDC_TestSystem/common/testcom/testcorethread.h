@@ -95,6 +95,12 @@ private:
     bool rtuTrans();
     bool transmission(bool& snmpRet);  // 通讯
 
+    bool devSpecCheck();
+    bool devLineNumCheck();
+    bool devLoopNumCheck();
+    bool devOutputNumCheck();
+    void devInfoCheck();
+
     bool volAccuracy(int expect, int measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
@@ -143,6 +149,12 @@ private:
     int lineEle();
     int loopEle();
     void eleCheck();
+
+    bool temAccuracy(int expect, int measured, sTestDataItem &item);
+    bool humAccuracy(int expect, int measured, sTestDataItem &item);
+    void temCheck();
+    void humCheck();
+    void envCheck();
 
 private:
     int mItemId;

@@ -27,6 +27,11 @@ void TestSerialNumDlg::init(TestConfig *con)
     mItem = &(mTestConfig->item->serialNum);
     ui->dateEdit->setDate(QDate::currentDate());
 
+    ui->specBox->setCurrentIndex(mItem->spec);
+    ui->lineBox->setValue(mItem->line);
+    ui->outputBox->setValue(mItem->output);
+    ui->loopBox->setValue(mItem->loop);
+
     ui->opLineEdit->setText(mItem->op);
     ui->cnLineEdit->setText(mItem->cn);
     ui->barCodeLineEdit->setText(mItem->barCode);
@@ -103,6 +108,11 @@ bool TestSerialNumDlg::inputCheck()
     } else {
         mItem->barCode = str;
     }
+
+    mItem->spec = ui->specBox->currentIndex();
+    mItem->line = ui->lineBox->value();
+    mItem->output = ui->outputBox->value();
+    mItem->loop = ui->loopBox->value();
 
     mItem->date = ui->dateEdit->date();
     mItem->batch = ui->batchComboBox->currentText();
