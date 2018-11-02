@@ -1,9 +1,9 @@
-#include "mtest_config.h"
+﻿#include "mtest_config.h"
 
 MTest_Config::MTest_Config()
 {
     item->isSnmp = true;
-    item->serialNum.name = "M-PDU";
+    item->serialNum.name = "MPDU";
 }
 
 

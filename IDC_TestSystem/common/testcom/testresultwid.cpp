@@ -84,8 +84,9 @@ void TestResultWid::resultSlot()
     } else {
         //str = tr("失败");
         ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/fail.jpg);border-radius:5px;}"
-                                  "QWidget{font: 20pt \"微软雅黑\"; color:white;}"
-                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}");
+                                  "QWidget{font: 20pt \"微软雅黑\"; color:red;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
+                                  "QProgressBar::chunk {background-color:red;}");
         this->setStyleSheet("color:red;");
     }
 

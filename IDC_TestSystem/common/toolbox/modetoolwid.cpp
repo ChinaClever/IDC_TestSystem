@@ -33,6 +33,7 @@ void ModeToolWid::initFunSLot()
 
     int mode = mConfig->getTestMode();
     ui->comboBox->setCurrentIndex(mode);
+    on_comboBox_currentIndexChanged(mode);
 }
 
 void ModeToolWid::sipdu()

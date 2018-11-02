@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -9,7 +9,7 @@
 ZTest_Config::ZTest_Config()
 {
     item->isSnmp = true;
-    item->serialNum.name = "Z-PDU";
+    item->serialNum.name = "ZPDU";
 }
 
 

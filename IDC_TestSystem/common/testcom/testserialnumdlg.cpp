@@ -31,7 +31,7 @@ void TestSerialNumDlg::init(TestConfig *con)
     ui->cnLineEdit->setText(mItem->cn);
     ui->barCodeLineEdit->setText(mItem->barCode);
     ui->clearRadioButton->setChecked(mItem->snClear);
-    if(!mItem->name.isEmpty()) ui->typeComboBox->setCurrentText(mItem->name);
+    ui->typeComboBox->setCurrentText(mItem->name);
     if(!mItem->batch.isEmpty()) ui->batchComboBox->setCurrentText(mItem->batch);
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }

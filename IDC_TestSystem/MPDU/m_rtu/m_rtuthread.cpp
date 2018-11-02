@@ -73,13 +73,14 @@ void M_RtuThread::workDown()
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);
-        for(int i=0; i<ZM_RtuReg_CmdNum; ++i)
+        for(int i=0; i<ZM_RtuReg_CmdNum-5; ++i)//暂时跳过门禁和水烟禁
         {
+            if(i==13||i==14||i==35||i==36) continue;//跳过相电压，温湿度上下限
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(1455);
+            if(isRun) msleep(455);
             else return;
             if(!ret) break;
         }

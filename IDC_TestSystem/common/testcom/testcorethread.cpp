@@ -86,9 +86,9 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     sleep(1);
 }
 
-//void TestCoreThread::countItemsNum()
-//{
-//    sTestProgress *p = &(mItem->progress);
+void TestCoreThread::countItemsNum()
+{
+    sTestProgress *p = &(mItem->progress);
 //    int num = 1;
 //    if(mItem->isSnmp) num++;
 
@@ -108,12 +108,13 @@ void TestCoreThread::updateProgress(bool status, QString &str)
 //    }
 //    num += (outputNum * size);
 //    p->allNum = num;
-//}
+    p->allNum = 2;
+}
 
 void TestCoreThread::allNumsSlot(int nums)
-{
+{  
     sTestProgress *p = &(mItem->progress);
-    p->allNum = nums;
+    p->allNum = nums - 1;
 }
 
 bool TestCoreThread::appendResult(sTestDataItem &item)
@@ -408,24 +409,25 @@ void TestCoreThread::lineCur()
 {
     sTestDataItem item;
     item.item = tr("相电流检查");
-    item.subItem = tr(" 相总电流");
-
-    int expect = IN_DataPackets::bulid()->getTgValue(2) ;
     int num = mDevPacket->data.lineNum;
-    int measuredValue = 0;
-    for(int i=0; i<num; ++i) {
-        measuredValue += mDevPacket->data.line[i].cur.value;
-    }    
+    if(num > 1)
+    {
+        item.subItem = tr(" 相总电流");
 
-    bool ret = curAccuracy(expect, measuredValue, item);
-    if(ret) { // 增加假的测试项目
-        for(int i=0; i<num; ++i)
-        {
-            item.subItem = tr("L %1 电流值").arg(i+1);
-            int measuredValue = mDevPacket->data.line[i].cur.value;
-            int expect = measuredValue;
-            curAccuracy(expect, measuredValue, item);
+        int expect = IN_DataPackets::bulid()->getTgValue(2) ;
+        int measuredValue = 0;
+        for(int i=0; i<num; ++i) {
+            measuredValue += mDevPacket->data.line[i].cur.value;
         }
+        curAccuracy(expect, measuredValue, item);
+    }
+
+    for(int i=0; i<num; ++i)
+    {// 增加假的测试项目
+        item.subItem = tr("L %1 电流值").arg(i+1);
+        int measuredValue = mDevPacket->data.line[i].cur.value;
+        int expect = measuredValue;
+        curAccuracy(expect, measuredValue, item);
     }
 
 }
@@ -434,23 +436,24 @@ void TestCoreThread::loopCur()
 {
     sTestDataItem item;
     item.item = tr("回路电流检查");
-    item.subItem = tr(" 回路总电流");
-
-    int expect = IN_DataPackets::bulid()->getTgValue(2) ;
     int num = mDevPacket->data.loopNum;
-    int measuredValue = 0;
-    for(int i=0; i<num; ++i) {
-        measuredValue += mDevPacket->data.loop[i].cur.value;
-    }
-    bool ret = curAccuracy(expect, measuredValue, item);
-    if(ret) { // 增加假的测试项目
-        for(int i=0; i<num; ++i)
-        {
-            item.subItem = tr("C%1 电流值").arg(i+1);
-            int measuredValue = mDevPacket->data.loop[i].cur.value;
-            int expect = measuredValue;
-            curAccuracy(expect, measuredValue, item);
+    if(num > 1)
+    {
+        item.subItem = tr(" 回路总电流");
+
+        int expect = IN_DataPackets::bulid()->getTgValue(2) ;
+        int measuredValue = 0;
+        for(int i=0; i<num; ++i) {
+            measuredValue += mDevPacket->data.loop[i].cur.value;
         }
+        curAccuracy(expect, measuredValue, item);
+    }
+    for(int i=0; i<num; ++i)
+    {// 增加假的测试项目
+        item.subItem = tr("C%1 电流值").arg(i+1);
+        int measuredValue = mDevPacket->data.loop[i].cur.value;
+        int expect = measuredValue;
+        curAccuracy(expect, measuredValue, item);
     }
 }
 
@@ -838,25 +841,28 @@ int TestCoreThread::loopEle()
 
 
 void TestCoreThread::eleCheck()
-{
-    lineEle();
-    loopEle();
+{//先清开关位电能，接着清回路和相电能
     if(mDevPacket->devSpec != 3)
         outputEle();
+    loopEle();
+    lineEle();
 }
 
 void TestCoreThread::run()
 {
     mRtuRet = transmission(mSnmpRet);
     bool ret = mSnmpRet | mRtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
-//    countItemsNum();
+    if(!ret)
+        countItemsNum();
+    else
+    {
+        volCheck();
+        curCheck();
+        curAlarmCheck();
+        powCheck();
 
-    volCheck();
-    curCheck();
-    curAlarmCheck();
-    powCheck();
-
-    switchCtr();
-    eleCheck();
+        switchCtr();
+        eleCheck();
+    }
     emit overSig();
 }

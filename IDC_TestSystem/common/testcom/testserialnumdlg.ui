@@ -37,14 +37,17 @@
        <property name="enabled">
         <bool>false</bool>
        </property>
+       <property name="currentText">
+        <string>ZPDU</string>
+       </property>
        <item>
         <property name="text">
-         <string>Z-PDU</string>
+         <string>ZPDU</string>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>M-PDU</string>
+         <string>MPDU</string>
         </property>
        </item>
        <item>
