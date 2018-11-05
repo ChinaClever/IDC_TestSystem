@@ -5,7 +5,6 @@ WebSocketClient::WebSocketClient(QObject *parent) : QObject(parent)
 {
     isConnected = false;
     mSocket = new QWebSocket();
-    readFile();
 
     connect(mSocket, SIGNAL(connected()), this, SLOT(connected()));
     connect(mSocket, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -14,8 +13,16 @@ WebSocketClient::WebSocketClient(QObject *parent) : QObject(parent)
 
 void WebSocketClient::open(const QUrl &url)
 {
-    if(!url.isEmpty())
+    if(!url.isEmpty()) {
         mSocket->open(url);
+        m_url = url;
+    }
+}
+
+void WebSocketClient::open()
+{
+    readFile();
+    open(m_url);
 }
 
 void WebSocketClient::readFile()
@@ -32,7 +39,6 @@ void WebSocketClient::readFile()
         sys_configFile_writeParam("port", "2346", WEB_SOCKET);
     }
     m_url = "ws://" + url +":" + port;
-    open(m_url);
 }
 
 bool WebSocketClient::sendMessage(const QJsonObject &message)
@@ -40,7 +46,7 @@ bool WebSocketClient::sendMessage(const QJsonObject &message)
     bool ret = false;
     if(isConnected) {
         QJsonDocument doc(message);
-         QString str = QString::fromUtf8(doc.toJson(QJsonDocument::Compact));
+        QString str = QString::fromUtf8(doc.toJson(QJsonDocument::Compact));
         int rtn = mSocket->sendTextMessage(str);
         if(rtn > 0)  ret = true;
         mSocket->flush();
@@ -67,7 +73,7 @@ void WebSocketClient::disconnected()
 void WebSocketClient::textMessageReceived(const QString &message)
 {
     mRecvList.append(message);
-//    qDebug() << "WebSocketClient recv" <<message;
+    //    qDebug() << "WebSocketClient recv" <<message;
 }
 
 QString WebSocketClient::getMessage()
