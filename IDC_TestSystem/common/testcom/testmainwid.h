@@ -3,6 +3,7 @@
 
 #include "testdatatablewid.h"
 #include "testcorethread.h"
+#include "testwebsocket.h"
 
 namespace Ui {
 class TestMainWid;
@@ -29,6 +30,7 @@ protected:
 
 private:
     TestDataSave *mDataSave;
+    TestWebSocket *mWebSocket;
     TestResultWid *mResultWid;
     TestItemTableWid *mItemTableWid;
     TestDataTableWid *mDataTableWid;

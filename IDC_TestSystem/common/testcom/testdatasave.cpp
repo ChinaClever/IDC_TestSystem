@@ -20,7 +20,7 @@ void TestDataSave::saveTestData()
         mList.clear();
         int id = bulidHead(&(item->serialNum));
         bulidProgressLog(id, item->progress);
-        bulidTestData(item->dataList);
+        bulidTestData(item->logList);
 
         mSaveThread->saveData(mFileName, mList);
     }

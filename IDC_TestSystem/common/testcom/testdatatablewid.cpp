@@ -26,7 +26,7 @@ void TestDataTableWid::initWid()
 void TestDataTableWid::startSLot()
 {
     delTable();
-    mItem->dataList.clear();
+    mItem->logList.clear();
 }
 
 void TestDataTableWid::appendItem(const sTestDataItem &item)
@@ -42,7 +42,8 @@ void TestDataTableWid::appendItem(const sTestDataItem &item)
     appendTableRow(listStr, !item.status);
 
     listStr.insert(0, QString::number(item.id));
-    mItem->dataList.append(listStr);
+    mItem->logList.append(listStr);
+    mItem->logItems.append(item);
 }
 
 void TestDataTableWid::timeoutDone()

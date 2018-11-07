@@ -48,6 +48,9 @@ void TestMainWid::initFunSLot()
 
     mDataSave = new TestDataSave(this);
     mDataSave->init(mConfig->item);
+
+    mWebSocket = new TestWebSocket(this);
+    mWebSocket->init(mConfig->item);
 }
 
 
@@ -82,6 +85,7 @@ void TestMainWid::overSlot()
     mTrans->stopUpdateData();
     mResultWid->resultSlot();
     mDataSave->saveTestData();
+    mWebSocket->saveTestData();
     mSerialNumDlg->getSerialNum();
 }
 
