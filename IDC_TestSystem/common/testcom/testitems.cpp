@@ -17,6 +17,7 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
     mSpec = spec;
 
     communication(items);
+    devInfoObjData(items);
     volObjData(tr("电压"),items);
     curObjData(tr("电流"),items);
     powObjData(tr("功率"),items);
@@ -24,7 +25,8 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
         swObjData(tr("输出位"), mSpec->outputNum , items);
     }
 
-    eleObjData(tr("电能"),items); 
+    eleObjData(tr("电能"),items);
+    temhumObjData(items);
     return mSpec->isSnmp;
 }
 
@@ -242,6 +244,47 @@ void TestItems::eleUnitItem(const QString & itemStr,int num , QList<sTestItem> &
         item.id = mId++;
         item.subItem = tr("测%1 %2 电能清零状态").arg(itemStr).arg(i+1);
         item.eResult = tr("%1 %2 电能值是否为零").arg(itemStr).arg(i+1);
+        items << item;
+    }
+}
+
+void TestItems::temhumObjData(QList<sTestItem> &items)
+{
+    sTestItem item;
+    int num = 2;
+    for(int k = 0 ; k < 2 ; ++k)
+    {
+        item.item = (k == 0 )? tr("温度检查"):tr("湿度检查");
+        QString itemStr = (k == 0 )? tr("温度"):tr("湿度");
+        for(int i=0; i<num; ++i) {
+            item.id = mId++;
+            item.subItem = tr("测%1 %2").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 与负载测试柜值在误差范围内").arg(itemStr).arg(i+1);
+            items << item;
+        }
+    }
+}
+
+void TestItems::devInfoObjData(QList<sTestItem> &items)
+{
+    sTestItem item;
+
+    item.item = tr("设备基本检查");
+    for(int k = 0 ; k < 4 ; ++k)
+    {
+        QString itemStr =  tr("设备系列");
+        switch (k) {
+        case 0:break;
+        case 1:itemStr = tr("相");break;
+        case 2:itemStr = tr("回路");break;
+        case 3:itemStr = tr("输出");break;
+        default:
+            break;
+        }
+        if(k > 0) itemStr += tr("数量");
+        item.id = mId++;
+        item.subItem = tr("%1测试").arg(itemStr);
+        item.eResult = tr("输入信息%1，与PDU信息是否一致").arg(itemStr);
         items << item;
     }
 }
