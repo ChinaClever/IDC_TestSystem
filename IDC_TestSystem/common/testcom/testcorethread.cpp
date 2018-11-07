@@ -318,7 +318,7 @@ void TestCoreThread::lineVol()
     {
         sTestDataItem item;
         item.item = tr("相电压检查");
-        item.subItem = tr("L %1 电压检查").arg(i+1);
+        item.subItem = tr(" L%1 电压检查").arg(i+1);
         int expectValue  = IN_DataPackets::bulid()->getTgValue(1);
         int measuredValue = mDevPacket->data.line[i].vol.value;
         volAccuracy(expectValue, measuredValue, item);
@@ -332,7 +332,7 @@ void TestCoreThread::loopVol()
     {
         sTestDataItem item;
         item.item = tr("回路电压检查");
-        item.subItem = tr("C %1 电压检查").arg(i+1);
+        item.subItem = tr(" C%1 电压检查").arg(i+1);
         int expectValue  = IN_DataPackets::bulid()->getTgValue(1) ;
         int measuredValue = mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value;
         volAccuracy(expectValue, measuredValue, item);
@@ -393,7 +393,8 @@ void TestCoreThread::lineVolAlarm()
     sTestDataItem item;
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
-    sleep(6);
+    msleep(50);
+    setLineVolCmd(true);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -423,7 +424,7 @@ void TestCoreThread::loopVolAlarm()
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
-        item.subItem = tr("修改C %1 电压最小值").arg(i+1);
+        item.subItem = tr("修改 C%1 电压最小值").arg(i+1);
         int expectValue  = Test_Abnormal_VolMin *COM_RATE_VOL;
         int measuredValue = obj->vol.min ;
         volAccuracy(expectValue, measuredValue, item);
@@ -527,7 +528,7 @@ void TestCoreThread::lineCur()
 
     for(int i=0; i<num; ++i)
     {// 增加假的测试项目
-        item.subItem = tr("L %1 电流值").arg(i+1);
+        item.subItem = tr(" L%1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.line[i].cur.value;
         int expect = measuredValue;
         curAccuracy(expect, measuredValue, item);
@@ -630,6 +631,7 @@ void TestCoreThread::lineCurAlarm()
     sTestDataItem item;
     item.item = tr("相电流告警检查");
     setLineCurCmd(true);
+    sleep(2);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -657,6 +659,8 @@ void TestCoreThread::loopCurAlarm()
     if(num <=0) return;
 
     setLoopCurCmd(true);
+    sleep(1);
+    setLoopCurCmd(true);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -681,6 +685,8 @@ void TestCoreThread::outputCurAlarm()
     int num = mDevPacket->data.outputNum;
     if(num <=0) return;
 
+    setOutputCurCmd(true);
+    sleep(7);
     setOutputCurCmd(true);
     for(int i=0; i<num; ++i)
     {
@@ -795,7 +801,7 @@ void TestCoreThread::linePow()
     {
         sTestDataItem item;
         item.item = tr("相功率检查");
-        item.subItem = tr("L %1 功率检查").arg(i+1);
+        item.subItem = tr(" L %1 功率检查").arg(i+1);
         int expectValue  = -1;
         int measuredValue = mDevPacket->data.line[i].pow;
         powAccuracy(expectValue, measuredValue, item);
@@ -809,7 +815,7 @@ void TestCoreThread::loopPow()
     {
         sTestDataItem item;
         item.item = tr("回路功率检查");
-        item.subItem = tr("C %1 功率检查").arg(i+1);
+        item.subItem = tr(" C %1 功率检查").arg(i+1);
         int expectValue  = -1;
         int measuredValue = mDevPacket->data.loop[i].pow;
         powAccuracy(expectValue, measuredValue, item);
@@ -915,7 +921,7 @@ int TestCoreThread::lineEle()
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.line[i]);
-        item.subItem = tr("L%1 电能清除 ").arg(i+1);
+        item.subItem = tr(" L%1 电能清除 ").arg(i+1);
         int measuredValue = obj->ele;
         eleAccuracy(measuredValue, item);
     }
@@ -934,7 +940,7 @@ int TestCoreThread::loopEle()
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
-        item.subItem = tr("C%1 电能清除 ").arg(i+1);
+        item.subItem = tr(" C%1 电能清除 ").arg(i+1);
         int measuredValue = obj->ele;
         eleAccuracy(measuredValue, item);
     }

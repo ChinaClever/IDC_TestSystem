@@ -45,6 +45,8 @@ protected:
     void swObjData(const QString &itemStr,int num , QList<sTestItem> &items);
     void eleObjData(const QString &itemStr, QList<sTestItem> &items);
     void powObjData(const QString & itemStr,QList<sTestItem> &items);
+    void temhumObjData(QList<sTestItem> &items);
+    void devInfoObjData(QList<sTestItem> &items);
 
 private:
     sDutSpec *mSpec;

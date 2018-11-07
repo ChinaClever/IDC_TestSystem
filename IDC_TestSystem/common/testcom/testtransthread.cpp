@@ -36,7 +36,7 @@ void TestTransThread::timeoutDone()
 void TestTransThread::snmpUpdate(int s)
 {
     mSnmp->startRun();
-    if(s) QTimer::singleShot(s *1000,this,SLOT(snmpStopData()));
+    if(s) QTimer::singleShot(s *3000,this,SLOT(snmpStopData()));
 }
 
 bool TestTransThread::rtuUpdate(int s)
@@ -45,7 +45,7 @@ bool TestTransThread::rtuUpdate(int s)
     if(!mRtuLock) {
         mRtuLock = true;
         mRtu->startThread();
-        if(s) QTimer::singleShot(s *1500,this,SLOT(rtuStopData()));
+        if(s) QTimer::singleShot(s *3500,this,SLOT(rtuStopData()));
     } else {
         ret = false;
     }
