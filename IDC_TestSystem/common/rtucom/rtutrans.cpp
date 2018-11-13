@@ -1,4 +1,4 @@
-#include "rtutrans.h"
+﻿#include "rtutrans.h"
 
 RtuTrans::RtuTrans(QObject *parent)
 {
@@ -52,12 +52,25 @@ void RtuTrans::devObjData(ZM_sObjData &rtuData, int i, sObjData &data , bool fla
 
     if(flag)
     {
-        if(data.sw != 1) {
-        if(data.vol.value) data.sw = 1;
-        else  data.sw = 0;
+        if(data.sw != 1)
+        {
+            if(data.vol.value)
+            {
+                data.sw = 1;
+            }
+            else  data.sw = 0;
         }
     }
-
+    else
+    {//防止读几次才有一次输出位的功率因素
+        if(!mRecordPf.contains(i))
+        mRecordPf.insert(i,rtuData.pf[i]);
+        else if(rtuData.pf[i] && data.cur.value)
+        mRecordPf[i] = rtuData.pf[i];
+        else if(rtuData.pf[i] == 0 && data.cur.value == 0)
+        mRecordPf[i] = 0;
+        data.pf = mRecordPf[i];
+    }
     if(rtuData.pow[i] > 0) {
         data.pow = rtuData.pow[i] / 1000;
     } else {
