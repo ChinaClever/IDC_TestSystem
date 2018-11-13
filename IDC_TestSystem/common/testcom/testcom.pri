@@ -11,7 +11,8 @@ HEADERS += \
     $$PWD/testdatasave.h \
     $$PWD/testmainwid.h \
     $$PWD/testtransthread.h \
-    $$PWD/testcorethread.h
+    $$PWD/testcorethread.h \
+    $$PWD/testwebsocket.h
 
 	
 SOURCES += \
@@ -24,7 +25,8 @@ SOURCES += \
     $$PWD/testdatasave.cpp \
     $$PWD/testmainwid.cpp \
     $$PWD/testtransthread.cpp \
-    $$PWD/testcorethread.cpp
+    $$PWD/testcorethread.cpp \
+    $$PWD/testwebsocket.cpp
 
 FORMS += \
     $$PWD/testresultwid.ui \

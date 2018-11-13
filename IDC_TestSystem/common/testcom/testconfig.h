@@ -66,7 +66,8 @@ struct sTestConfigItem
     sTestProgress progress;
 
     QList<sTestDataItem> dataItem;
-    QList<QStringList> dataList;
+    QList<QStringList> logList;
+    QList<sTestDataItem> logItems;
 };
 
 class TestConfig

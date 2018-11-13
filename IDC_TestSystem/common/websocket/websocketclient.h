@@ -12,6 +12,7 @@ class WebSocketClient : public QObject
 public:
     explicit WebSocketClient(QObject *parent = nullptr);
 
+     void open();
     void open(const QUrl &url);
     bool sendMessage(const QJsonObject &message);
     QString getMessage();
