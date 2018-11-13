@@ -1,4 +1,4 @@
-#ifndef RTUTRANS_H
+﻿#ifndef RTUTRANS_H
 #define RTUTRANS_H
 #include "rtusentcom.h"
 #include "rtuzmrecv.h"
@@ -18,6 +18,8 @@ protected:
     void devData(ZM_sRtuPacket &rtuData, sDevData &data);
     void envData(ZM_sEnv &rtuData, sEnvData &data);
     void devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet);
+
+    QMap<int , ushort> mRecordPf;
 };
 
 #endif // RTUTRANS_H
