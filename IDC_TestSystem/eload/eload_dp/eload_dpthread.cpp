@@ -13,6 +13,14 @@ ELoad_DpThread::ELoad_DpThread(QObject *parent) : DpThread(parent)
     initPackets(packets);
 }
 
+ELoad_DpThread *ELoad_DpThread::bulid(QObject *parent)
+{
+    static ELoad_DpThread* sington = nullptr;
+    if(sington == nullptr)
+        sington = new ELoad_DpThread(parent);
+    return sington;
+}
+
 ELoad_DpThread::~ELoad_DpThread()
 {
     isRun = false;

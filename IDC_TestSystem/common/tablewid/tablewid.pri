@@ -10,7 +10,6 @@ HEADERS += \
     $$PWD/loopthresholdtablewid.h \
     $$PWD/outputtablewid.h \
     $$PWD/outputthresholdtablewid.h \
-    $$PWD/simulatethread.h \
     $$PWD/transtablewid.h
 
 	
@@ -23,7 +22,6 @@ SOURCES += \
     $$PWD/loopthresholdtablewid.cpp \
     $$PWD/outputtablewid.cpp \
     $$PWD/outputthresholdtablewid.cpp \
-    $$PWD/simulatethread.cpp \
     $$PWD/transtablewid.cpp
 
 FORMS += \

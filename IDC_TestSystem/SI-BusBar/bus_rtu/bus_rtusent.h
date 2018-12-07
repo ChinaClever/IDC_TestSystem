@@ -5,6 +5,7 @@
 #define BUS_RTU_DCLINE_NUM 4 // 3相
 #define BUS_RTU_LINE_NUM 9 // 3相
 #define BUS_RTU_TH_NUM 3 // 3个传感器
+#define BUS_RTU_THD_NUM 31
 #define BUS_RTU_SENT_LEN (22*BUS_RTU_LINE_NUM+1+3*3+1+1+3)  // 长度需要改变 ////============ 加上开关，功率因素之后，是为14 [追加交直流区分]
 #define BUS_RTU_SENT_DC_LEN (22*4+1+3*3+1+1+3)  // 长度需要改变 直流长度 [追加交直流区分
 

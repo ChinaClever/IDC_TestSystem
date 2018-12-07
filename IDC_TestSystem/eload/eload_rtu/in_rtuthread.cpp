@@ -7,7 +7,7 @@
 #include "in_rtuthread.h"
 #include "eload_dp/eload_dpthread.h"
 
-IN_RtuThread::IN_RtuThread(QObject *parent) : SimulateThread(parent)
+IN_RtuThread::IN_RtuThread(QObject *parent) : RtuThread(parent)
 {
 
 }
@@ -30,7 +30,6 @@ void IN_RtuThread::init(SerialPort *serial)
 void IN_RtuThread::initSlot()
 {
     mPackets = IN_DataPackets::bulid()->packets;
-    mDpThread = new ELoad_DpThread(this);
 }
 
 void IN_RtuThread::sentCmd(sRtuSentCom &cmd)
@@ -62,7 +61,7 @@ void IN_RtuThread::writeErrCmd(int id)
     list << QString::number(id);
     list << strArray;
 
-    mDpThread->saveModbusCmd(list);
+    ELoad_DpThread::bulid(this)->saveModbusCmd(list);
 }
 
 /**

@@ -6,6 +6,7 @@
  */
 #include "eload_mainwid.h"
 #include "ui_eload_mainwid.h"
+#include "eload_dp/eload_dpthread.h"
 
 ELoad_MainWid::ELoad_MainWid(QWidget *parent) :
     QWidget(parent),
@@ -26,6 +27,7 @@ ELoad_MainWid::~ELoad_MainWid()
 void ELoad_MainWid::initFunSLot()
 {
     mRtu = IN_RtuThread::bulid(this);
+
     mtoolBoxWid = new ELoad_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
 
@@ -40,6 +42,7 @@ void ELoad_MainWid::initFunSLot()
     ui->stackedWid->addWidget(mLogsWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), mLogsWid, SLOT(updateWidSlot(int)));
 
+    ELoad_DpThread::bulid(this)->start();
     mRtu->init(ELoad_ConfigFile::bulid()->item->serial);
     mRtu->startThread();
 

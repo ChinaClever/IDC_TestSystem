@@ -1,10 +1,10 @@
 #ifndef IN_RTUTHREAD_H
 #define IN_RTUTHREAD_H
 
-#include "tablewid/simulatethread.h"
+#include "rtuthread.h"
 #include "in_rtutrans.h"
 
-class IN_RtuThread : public SimulateThread
+class IN_RtuThread : public RtuThread
 {
     Q_OBJECT
     explicit IN_RtuThread(QObject *parent = nullptr);

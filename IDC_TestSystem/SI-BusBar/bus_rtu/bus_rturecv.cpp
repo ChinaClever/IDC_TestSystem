@@ -133,6 +133,22 @@ static void rtu_recv_swap(BUS_RtuRecv *pkt)
     }
 }
 
+static int rtu_recv_thd(uchar *ptr, BUS_RtuRecv *msg)
+{
+    msg->lps = *(ptr++); // 防雷开关
+     // 读取负载百分比
+    for(int i=0; i<LINE_NUM; ++i) msg->pl[i] = *(ptr++);
+    msg->hc = *(ptr++);
+
+    int len = BUS_RTU_THD_NUM;
+    if(msg->addr) len = LINE_NUM;
+    for(int i=0; i<len; ++i){
+        msg->thd[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return (1+3+1+len*2);
+}
+
 /**
   * 功　能：还原数据包
   * 入口参数：buf -> 缓冲区   len -> 数据长度
@@ -157,13 +173,15 @@ bool bus_rtu_recv_packet(uchar *buf, int len, BUS_RtuRecv *pkt)
         ptr += 2;
 
         int lineNum = 0;
-        if(pkt->dc) lineNum = BUS_RTU_LINE_NUM;
+        if(pkt->dc) lineNum = pkt->lineNum;
         else lineNum = BUS_RTU_DCLINE_NUM;
 
         for(int i=0; i<lineNum; ++i) // 读取电参数
             ptr += rtu_recv_data(ptr, &(pkt->data[i]));
 
-        if(pkt->dc == 0)  rtu_recv_swap(pkt);
+        if(pkt->dc) ptr += rtu_recv_thd(ptr, pkt);
+        else rtu_recv_swap(pkt);
+
         pkt->crc = (ptr[1]*256) + ptr[0]; // 获取校验码
         ret = rtu_recv_crc(buf, len, pkt); //校验码
     }
