@@ -117,7 +117,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="currentText">
@@ -238,7 +238,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
        </widget>
@@ -325,7 +325,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
        </widget>
@@ -367,7 +367,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
        </widget>
@@ -409,7 +409,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
        </widget>
@@ -451,7 +451,7 @@
         <property name="minimumSize">
          <size>
           <width>150</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
        </widget>
@@ -493,7 +493,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <item>
@@ -550,7 +550,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <item>
@@ -649,7 +649,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="currentText">
@@ -710,7 +710,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="minimum">
@@ -761,11 +761,11 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="minimum">
-         <number>1</number>
+         <number>0</number>
         </property>
         <property name="maximum">
          <number>6</number>
@@ -808,7 +808,7 @@
         <property name="minimumSize">
          <size>
           <width>100</width>
-          <height>50</height>
+          <height>30</height>
          </size>
         </property>
         <property name="minimum">

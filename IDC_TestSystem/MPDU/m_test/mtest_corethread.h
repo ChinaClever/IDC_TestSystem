@@ -1,4 +1,4 @@
-#ifndef MTEST_CORETHREAD_H
+﻿#ifndef MTEST_CORETHREAD_H
 #define MTEST_CORETHREAD_H
 
 #include "mtest_transthread.h"
@@ -20,6 +20,13 @@ public:
 
     bool outputEleCmd(sTestSetCmd &it);
     bool lineEleCmd(sTestSetCmd &it);
+
+    bool temHumCmd(sTestSetCmd &it);
+
+    void temCmd(sTestSetCmd &it);
+    void humCmd(sTestSetCmd &it);
+    void outputCloseSwCmd(sTestSetCmd &it);
+    void outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index);
 };
 
 #endif // MTEST_CORETHREAD_H

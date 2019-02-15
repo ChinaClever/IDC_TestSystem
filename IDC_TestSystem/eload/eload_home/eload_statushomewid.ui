@@ -19,13 +19,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_4">
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
+  <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,1,1">
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="font">
@@ -280,19 +274,66 @@ border-radius:15px
      <property name="title">
       <string>功能选择区</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0">
       <property name="spacing">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>5</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
+       <number>3</number>
       </property>
       <property name="bottomMargin">
        <number>10</number>
       </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <property name="rightMargin">
+         <number>5</number>
+        </property>
+        <property name="bottomMargin">
+         <number>18</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_13">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>状态显示</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="statusBox">
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>总状态</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>负载一</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>负载二</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>负载三</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <property name="topMargin">

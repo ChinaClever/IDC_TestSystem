@@ -7,6 +7,16 @@
 #include "eload_inputunitwid.h"
 #include "ui_eload_inputunitwid.h"
 
+int gAddr=1,gBit=0,gValue=0;
+bool gflag = false;
+void setRes(int addr,int bit,int value, bool ret)
+{
+    gAddr = addr;
+    gBit = bit-1;
+    gValue = value;
+    gflag = ret;
+}
+
 ELoad_InputUnitWid::ELoad_InputUnitWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ELoad_InputUnitWid)
@@ -26,11 +36,14 @@ ELoad_InputUnitWid::~ELoad_InputUnitWid()
 void ELoad_InputUnitWid::initFunSLot()
 {
     isSet = false;
+    mResLab = NULL;
+    mScrollBar = NULL;
     mRtu = ELoad_RtuSent::bulid();
 
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+
 }
 
 void ELoad_InputUnitWid::init(int addr, int bit)
@@ -40,32 +53,67 @@ void ELoad_InputUnitWid::init(int addr, int bit)
     ui->inputLab->setText(str);
     mAddr = addr;
     mBit = bit;
+
+    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+    int ret = config->getResistance(mAddr,mBit);
+    if(ret)
+    {
+        ui->resLab->setText(QString(tr("%1Ω")).arg(ret));
+        ui->horizontalScrollBar->setValue(ret);
+    }
+    else
+    {
+        ui->resLab->setText("0Ω");
+        ui->horizontalScrollBar->setValue(0);
+    }
 }
 
 void ELoad_InputUnitWid::updateWid()
 {
-    if(mObjData->cur.value) {
-        double value = mObjData->cur.value / COM_RATE_CUR;
-        QString str = QString::number(value) + " A";
-        ui->curLab->setText(str);
+    QString str;
+    QPalette pe;
+    setText(mObjData->vol.value ,mObjData->vol.alarm ,tr(" V") ,ui->volLab ,COM_RATE_VOL);//电压
+    setText(mObjData->cur.value ,mObjData->cur.alarm ,tr(" A") ,ui->curLab ,COM_RATE_CUR);//电流
 
-        QPalette pe;
-        if(mObjData->cur.alarm) {
-            pe.setColor(QPalette::WindowText,Qt::red);
-        } else {
-            pe.setColor(QPalette::WindowText,Qt::black);
-        }
-        ui->curLab->setPalette(pe);
+    str = tr("断开");
+    if(mObjData->sw == 1) {
+        str = tr("接通");
+        pe.setColor(QPalette::WindowText,Qt::black);
+    } else {
+        pe.setColor(QPalette::WindowText,Qt::red);
+    }
+    ui->swLab->setText(str);
+    ui->swLab->setPalette(pe);
 
-        str = tr("断开");
-        if(mObjData->sw == 1) {
-            str = tr("接通");
-            pe.setColor(QPalette::WindowText,Qt::black);
-        } else {
-            pe.setColor(QPalette::WindowText,Qt::red);
+    if(isSet){
+        ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+        if(!gflag && mResLab && mScrollBar && gValue == 1){//更改阻值失败
+            int oldValue = config->getResistance(mAddr,mBit);
+            if(oldValue){
+                ui->resLab->setText(QString(tr("%1Ω")).arg(oldValue));
+                mScrollBar->setValue(oldValue);
+            }
+            else{
+                ui->resLab->setText("0Ω");
+                mScrollBar->setValue(0);
+            }
+            //qDebug()<<"fail"<<mResLab<<mScrollBar<<oldValue;
+            isSet = false;
+            mResLab = NULL;
+            mScrollBar = NULL;
+            gValue = 0;
         }
-        ui->swLab->setText(str);
-        ui->swLab->setPalette(pe);
+        else if(gflag && mResLab && mScrollBar && gAddr != -1 && gBit != -1){//更改阻值成功
+            config->setResistance(gAddr,gBit,gValue);
+            mResLab->setText( QString(tr("%1Ω")).arg(gValue) );
+            mScrollBar->setValue(gValue);
+            isSet = false;
+            //qDebug()<<"success"<<mResLab<<mScrollBar<<gValue;
+            mResLab = NULL;
+            mScrollBar = NULL;
+            gValue = 0;
+            gflag = false;
+        }
     }
 }
 
@@ -99,13 +147,37 @@ void ELoad_InputUnitWid::setFunSLot()
     int value = ui->horizontalScrollBar->value();
     mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
     qDebug()<<"eload_inputunitwid.cpp 101th line "<<value;
-    isSet = false;
 }
 
-void ELoad_InputUnitWid::on_horizontalScrollBar_valueChanged(int value)
+void ELoad_InputUnitWid::on_horizontalScrollBar_sliderMoved(int position)
 {
+    ui->resLab->setText( QString(tr("%1Ω")).arg(position) );
     if(!isSet) {
+        mResLab = ui->resLab;
+        mScrollBar = ui->horizontalScrollBar;
         isSet = true;
         QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
+    }
+}
+
+void ELoad_InputUnitWid::setText(ushort value , ushort alarm,QString text,QLabel* lab,double rate)
+{
+    QString str;
+    QPalette pe;
+    if(value){
+        double valuetext = value / rate;
+        str = QString::number(valuetext) + text;
+        lab->setText(str);
+        if(alarm) {
+            pe.setColor(QPalette::WindowText,Qt::red);
+        } else {
+            pe.setColor(QPalette::WindowText,Qt::black);
+        }
+        lab->setPalette(pe);
+     }else{
+        QString str = QString::number(0) + text;
+        lab->setText(str);
+        pe.setColor(QPalette::WindowText,Qt::black);
+        lab->setPalette(pe);
     }
 }

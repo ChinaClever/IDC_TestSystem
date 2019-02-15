@@ -9,11 +9,12 @@
 
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
+    mId = 1;
     mCount = 0;
     isRun = false;
     mItem = nullptr;
     mPackets = nullptr;
-    mOidSubIndex = mId = 0;
+    mOidSubIndex =  0;
     mMutex = new QMutex();
 
     m_snmp_client =  new QtSnmpClient(this);
@@ -25,7 +26,6 @@ SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
     connect( m_timer, SIGNAL(timeout()), SLOT(makeRequest()) );
 
     timer =  new QTimer(this);
-    timer->start(100);
     connect( timer, SIGNAL(timeout()), SLOT(setSlot()) );
 
 }
@@ -51,6 +51,7 @@ void SnmpThread::startRun()
 
     if(msec == 0) msec = 500 + (rand() % 1000);
     m_timer->start(msec);
+    timer->start(100);
 
     makeRequest();
     clearCount();
@@ -61,8 +62,14 @@ void SnmpThread::stopRun()
 {
     m_timer->stop();
     isRun = false;
+    qDebug()<<"snmp finish";
 }
 
+void SnmpThread::finishSlot()
+{
+    timer->stop();
+    qDebug()<<"snmp finishSlot";
+}
 
 qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 {
@@ -80,7 +87,8 @@ void SnmpThread::setSlot()
     {
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
-            m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
+            int ret = m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
+            qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value<<ret;
             mSetCmdList.removeFirst();
         }
     }
@@ -205,16 +213,17 @@ void SnmpThread::saveErrCmd()
 void SnmpThread::makeRequest()
 {
     if(mPackets && isRun) {
-        bool ret = requestSubValues(++mId);
+        bool ret = requestSubValues(mId);
         if(!ret) {
             ret = requestValues(mId);
         }
+
         if(ret) {
-            mDataPacket = &(mPackets->dev[mId]);
+            mDataPacket = &(mPackets->dev[mId++]);
         }
 
-        if(mId >= mPackets->devNum) {
-            mId = 0;
+        if(mId > mPackets->devNum) {
+            mId = 1;
         }
 
         setOffLine();
@@ -226,7 +235,7 @@ void SnmpThread::run()
     isRun = true;
     while(isRun)
     {
-        msleep(10);
+        msleep(100);
         QMutexLocker locker(mMutex);
         for( const auto& value : mValues ) {
             workDown(m_address, value.address(), value.data());

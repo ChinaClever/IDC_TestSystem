@@ -36,9 +36,11 @@ int M_RtuSent::sentCmdBuff(uchar addr, ushort reg, ushort value, uchar *buf)
     QMutexLocker locker(mMutex);
 
     mMsg->addr = addr;
-    mMsg->fn   = 0x06;
+    //mMsg->fn   = 0x06;
+    mMsg->fn   = 0x10;
     mMsg->reg  = reg;
     mMsg->len  = value;
 
-    return rtu_sent_packet(mMsg, buf);
+    //return rtu_sent_packet(mMsg, buf);
+    return zrtu_sent_packet(mMsg , buf);
 }

@@ -180,6 +180,40 @@ bool ZTest_CoreThread::outputSwCmd(sTestSetCmd &it)
     return true;
 }
 
+void ZTest_CoreThread::outputCloseSwCmd(sTestSetCmd &it)
+{
+    sSnmpSetCmd snmpCmd;
+    int addr = it.devId;
+    snmpCmd.type = SNMP_STRING_TYPE;
+
+    for(int i = 0; i < it.num; ++i) {
+        snmpCmd.oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
+        if(i != 0 )
+            snmpCmd.value = "OFF";
+        else
+            snmpCmd.value = "ON";
+        it.sAlarmMin.append(snmpCmd);
+    }
+
+}
+
+void ZTest_CoreThread::outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index)
+{
+    sSnmpSetCmd snmpCmd;
+    int addr = it.devId;
+    snmpCmd.type = SNMP_STRING_TYPE;
+
+    if(!it.sAlarmMin.isEmpty()){
+        it.sAlarmMin.clear();
+    }
+
+    snmpCmd.oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(index);
+    snmpCmd.value = "OFF"; it.sAlarmMin.append(snmpCmd);
+
+    snmpCmd.oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(index+1);
+    snmpCmd.value = "ON"; it.sAlarmMin.append(snmpCmd);
+}
+
 bool ZTest_CoreThread::outputEleCmd(sTestSetCmd &it)
 {
     sRtuSetCmd rtuCmd;
@@ -216,4 +250,76 @@ bool ZTest_CoreThread::lineEleCmd(sTestSetCmd &it)
     }
 
     return true;
+}
+
+bool ZTest_CoreThread::temHumCmd(sTestSetCmd &it)
+{
+    temCmd(it);
+    humCmd(it);
+
+    return true;
+}
+
+void ZTest_CoreThread::temCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    sSnmpSetCmd snmpCmd;
+    int addr = it.devId;
+    rtuCmd.addr  = addr;
+    snmpCmd.type = SNMP_STRING_TYPE;
+    for(int i=0; i<it.num; ++i) {
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(9+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_TemMin).toUtf8(); it.sAlarmMin.push_front(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_TemMin).toUtf8();  it.sMin.append(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(10+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_TemMin).toUtf8(); it.sAlarmMin.push_front(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_TemMin).toUtf8();  it.sMin.append(snmpCmd);
+
+        rtuCmd.reg = Z_RtuReg_TemMin+i;
+        rtuCmd.value = Test_Normal_TemMin; it.rtuMin.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_TemMin; it.rtuAlarmMin.append(rtuCmd);
+
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(11+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_TemMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_TemMax).toUtf8();  it.sMax.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(12+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_TemMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_TemMax).toUtf8();  it.sMax.push_front(snmpCmd);
+
+        rtuCmd.reg = Z_RtuReg_TemMax+i;
+        rtuCmd.value = Test_Normal_TemMax; it.rtuMax.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_TemMax; it.rtuAlarmMax.append(rtuCmd);
+    }
+}
+
+void ZTest_CoreThread::humCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    sSnmpSetCmd snmpCmd;
+    int addr = it.devId;
+    rtuCmd.addr  = addr;
+    snmpCmd.type = SNMP_STRING_TYPE;
+    for(int i=0; i<it.num; ++i) {
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(17+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_HumMin).toUtf8(); it.sAlarmMin.push_front(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_HumMin).toUtf8();  it.sMin.append(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(18+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_HumMin).toUtf8(); it.sAlarmMin.push_front(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_HumMin).toUtf8();  it.sMin.append(snmpCmd);
+
+        rtuCmd.reg = Z_RtuReg_HumMin+i;
+        rtuCmd.value = Test_Normal_HumMin; it.rtuMin.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_HumMin; it.rtuAlarmMin.append(rtuCmd);
+
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(19+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_HumMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_HumMax).toUtf8();  it.sMax.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.4.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(20+i*4);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_HumMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_HumMax).toUtf8();  it.sMax.push_front(snmpCmd);
+
+        rtuCmd.reg = Z_RtuReg_HumMax+i;
+        rtuCmd.value = Test_Normal_HumMax; it.rtuMax.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_HumMax; it.rtuAlarmMax.append(rtuCmd);
+    }
 }

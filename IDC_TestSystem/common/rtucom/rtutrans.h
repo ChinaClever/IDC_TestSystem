@@ -19,7 +19,6 @@ protected:
     void envData(ZM_sEnv &rtuData, sEnvData &data);
     void devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet);
 
-    QMap<int , ushort> mRecordPf;
 };
 
 #endif // RTUTRANS_H

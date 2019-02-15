@@ -39,7 +39,7 @@ void IN_RtuThread::sentCmd(sRtuSentCom &cmd)
 
 void IN_RtuThread::sentCmdList()
 {
-    if(mCmdList.size() > 0) {
+    if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
         bool ret = mRtu->sentSetCmd(cmd, 10);
         if(ret) mCmdList.removeFirst();
@@ -83,6 +83,10 @@ void IN_RtuThread::workDown()
 
         if(isRun) msleep(455);
         else return;
+
+        mRtu->transgetStatus(addr, dev, item->msecs);
+
+
 
         if(ret) { // 正常收到数据
             sentOkCmd(dev->rtuCount);

@@ -116,7 +116,7 @@ bool SerialPort::isContains(const QString &name)
 void SerialPort::timeoutDone()
 {
     if(isOpen) {
-        QWriteLocker locker(&mRwLock);
+    QWriteLocker locker(&mRwLock);
         if(mWriteArray.size()) {
             int ret = write();
             if(ret) {
@@ -196,7 +196,6 @@ int SerialPort::read(QByteArray &array, int msecs)
     {
         msleep(SERIAL_READ_TIMEOUT + 20);
         if(!isOpen) return len;
-
         QWriteLocker locker(&mRwLock);
         array += mSerialData;
         int rtn = mSerialData.size();
@@ -249,6 +248,7 @@ void SerialPort::serialReadSlot(void)
  */
 int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray, int msecs)
 {
+
     int ret = write(witeArray);
     if(ret > 0) {
         ret = read(readArray, msecs);
@@ -276,12 +276,26 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
     QByteArray witeArray, readArray;
     witeArray.append((char *)sent, len);
 
+    QString strArray;
+    strArray = witeArray.toHex(); // 十六进制
+    for(int i=0; i<witeArray.size(); ++i)
+    strArray.insert(2+3*i, " "); // 插入空格
+    qDebug()<< "write:" << strArray;
+
     int ret = transmit(witeArray, readArray, msecs);
     if(ret > 0) {
-        for(int i=0; i<ret; ++i)
+        for(int i=0; i<ret; ++i){
             recv[i] = readArray.at(i);
-    }
+        }
 
+        readArray.clear();
+        readArray.append((char *)recv,ret);
+        strArray = "";
+        strArray = readArray.toHex(); // 十六进制
+        for(int i=0; i<readArray.size(); ++i)
+        strArray.insert(2+3*i, " "); // 插入空格
+        qDebug()<< "read:" << strArray;
+    }
     return ret;
 }
 

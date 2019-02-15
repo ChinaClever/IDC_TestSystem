@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -27,14 +27,26 @@ int IN_RtuSent::sentDataBuff(uchar addr,  uchar *buf)
     return rtu_sent_packet(&msg, buf);
 }
 
-int IN_RtuSent::sentCmdBuff(uchar addr, ushort reg, ushort value, uchar *buf)
+int IN_RtuSent::sentCmdBuff(uchar addr,uchar fn, ushort reg, ushort value, uchar *buf)
 {
     static IN_sRtuSent msg;
     QMutexLocker locker(mMutex);
 
     msg.addr = addr;
-    msg.fn   = 0x10;
+    msg.fn   = fn;
     msg.reg  = reg;
     msg.len  = value;
+    return rtu_sent_packet(&msg, buf);
+}
+
+int IN_RtuSent::sentGetStatusBuff(uchar addr,  uchar *buf)
+{
+    static IN_sRtuSent msg;
+    QMutexLocker locker(mMutex);
+
+    msg.addr = addr;
+    msg.fn = 0x07;
+    msg.reg = 0;
+    msg.len = 0x08;
     return rtu_sent_packet(&msg, buf);
 }

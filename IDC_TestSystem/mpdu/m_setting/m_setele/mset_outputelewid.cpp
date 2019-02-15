@@ -12,7 +12,8 @@ MSet_OutputEleWid::MSet_OutputEleWid(QWidget *parent) :
     ui(new Ui::MSet_OutputEleWid)
 {
     ui->setupUi(this);
-    mReg = 1030;
+    //mReg = 1030;
+    mReg = ZM_RtuReg_OutputEle;
     initwid();
 }
 

@@ -80,6 +80,51 @@ int IN_DataPackets::getTgValue(int mode)
     return ret;
 }
 
+int IN_DataPackets::getTgValueByIndex(int mode,int index)
+{
+    int ret = 0, value;
+    if( index <= packets->devNum )
+    {
+        sDevData *data = &(getDev(index)->data);
+        for(int j=0; j<data->inputNum; j++)
+        {
+            switch (mode) {
+            case 1:
+                value = data->input[j].vol.value;
+                if(value > ret) ret = value;
+                break;
+            case 2:
+                ret += data->input[j].cur.value;
+                break;
+
+            case 3:
+                ret += data->input[j].pow;
+                break;
+
+            case 4:
+                ret += data->input[j].ele;
+                break;
+
+            case 5:
+                value = getDev(index)->hz;
+                if(value > ret) ret = value;
+                break;
+
+            case 6:
+                if(j>0) break;
+                value = data->env.tem[j].value;
+                if(value > ret) ret = value;
+                break;
+            default:
+                break;
+            }
+
+        }
+    }
+
+    return ret;
+}
+
 int IN_DataPackets::getLineVol(int id)
 {
     sDevData *data = &(getDev(1)->data);

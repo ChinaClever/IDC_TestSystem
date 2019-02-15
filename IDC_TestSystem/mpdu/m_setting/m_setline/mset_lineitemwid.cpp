@@ -36,14 +36,16 @@ QString MSet_LineItemWid::getTypeName(int type)
 
 int MSet_LineItemWid::getReg(int mode, int type)
 {
-    int reg = 1085;
-    if(mode) reg = 1079;
+//    int reg = 1085;
+//    if(mode) reg = 1079;
+    int reg = ZM_RtuReg_LineCurMin;
+    if(mode) reg = ZM_RtuReg_LineVolMin;
 
     switch (type) {
-    case Mpdu_Rtu_Test_min: reg += 0; break;
-    case Mpdu_Rtu_Test_max: reg += 3; break;
-    case Mpdu_Rtu_Test_crMin: reg = 1205; break;
-    case Mpdu_Rtu_Test_crMax: reg = 1208; break;
+    case Mpdu_Rtu_Test_min: /*reg += 0;*/ break;
+    case Mpdu_Rtu_Test_max: /*reg += 3;*/ reg += 0x100;break;
+    case Mpdu_Rtu_Test_crMin: /*reg = 1205;*/reg += 0x200;break;
+    case Mpdu_Rtu_Test_crMax: /*reg = 1208;*/reg += 0x300;break;
     default: break;
     }
 

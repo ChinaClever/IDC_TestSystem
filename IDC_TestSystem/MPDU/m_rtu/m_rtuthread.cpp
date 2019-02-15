@@ -73,8 +73,9 @@ void M_RtuThread::workDown()
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);
-        for(int i=0; i<ZM_RtuReg_CmdNum; ++i)
-        {
+        for(int i=0; i<ZM_RtuReg_CmdNum - 3; ++i)
+        {//跳过MPDU相电压上下限 回路 温湿度上下限 门水烟禁
+            if(i==13 || i==14 || (i>=18 && i<=24) || i==35 || i==36 || i==40 || i==41) continue;
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;

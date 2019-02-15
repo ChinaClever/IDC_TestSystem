@@ -63,6 +63,8 @@ private slots:
     void onResponseReceived( const qint32 request_id,const QtSnmpDataList& );
     void onRequestFailed( const qint32 request_id );
     void makeRequest();
+public slots:
+    void finishSlot();
 
 private:
     QMutex *mMutex;
@@ -73,7 +75,7 @@ private:
 
     bool isRun;
     int mCount;
-    QTimer *m_timer, *timer;
+    QTimer *m_timer,*timer;
     int mOidSubIndex, mId;
     sDataPacket *mDataPacket;
 
@@ -82,7 +84,7 @@ protected:
     sConfigItem *mItem;
 
 public:
-    QList<sSnmpSetCmd> mSetCmdList;//设置成public，在别的类可以访问    
+    QList<sSnmpSetCmd> mSetCmdList;//设置成public，在别的类可以访问
 };
 
 #endif // SNMP_H

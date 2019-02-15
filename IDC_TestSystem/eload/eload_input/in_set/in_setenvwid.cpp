@@ -55,6 +55,7 @@ void IN_SetEnvWid::on_updateBtn_clicked()
 void IN_SetEnvWid::sendCmd()
 {
     sRtuSentCom cmd;
+    cmd.fn = 0x10;
     cmd.addr = ui->addrBox->currentIndex() + 1;
     if(ui->checkBox->isChecked()) cmd.addr = 0xff;
 

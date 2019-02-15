@@ -5,7 +5,7 @@
  *      Author: Lzy
  */
 #include "eload_rtusent.h"
-
+#include "eload_rtu/in_rtuthread.h"
 ELoad_RtuSent::ELoad_RtuSent()
 {
     mSerial = IN_RtuTrans::bulid();
@@ -31,8 +31,10 @@ int ELoad_RtuSent::setDataBuf(uchar addr, uchar fn, ushort reg, ushort value)
     cmd.reg = reg;
     cmd.len = value;
     int rtn = rtu_sent_packet(&cmd, buf);
-
-    return mSerial->sendData(buf, rtn);
+    IN_RtuThread::bulid()->sentCmd(cmd);
+    //return mSerial->sendData(buf, rtn);
+    //return mSerial->transCmd(buf,rtn,10);
+    return rtn;
 }
 
 /**
@@ -75,7 +77,8 @@ int ELoad_RtuSent::switchOpenCtr(uchar addr,  uchar bit)
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::switchOpenAll()
@@ -90,7 +93,8 @@ int ELoad_RtuSent::switchOpenAll()
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
@@ -107,7 +111,8 @@ int ELoad_RtuSent::switchCloseCtr(uchar addr,  uchar bit)
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::switchCloseAll()
@@ -121,7 +126,8 @@ int ELoad_RtuSent::switchCloseAll()
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t)
@@ -148,7 +154,8 @@ int ELoad_RtuSent::setDpAdjust(uchar addr, ushort reg, ushort start, ushort end,
     buf[offset++] = (crc >> 8);
     buf[offset++] = (crc & 0xff);
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t)
@@ -172,30 +179,36 @@ int ELoad_RtuSent::setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t
     buf[offset++] = (crc >> 8);
     buf[offset++] = (crc & 0xff);
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::setAllDpAdjust()
 {
-    for(int i=0; i<3; ++i)
-        setAllDpAdjust(i+1, 0, 1000, 10);
+//    for(int i=0; i<3; ++i)
+//        setAllDpAdjust(i+1, 0, 1000, 10);
 }
 
+/**
+ * @brief
+ * @param [in]addr[1-3]：对应地址的电子负载,sw[0，1]：0为关闭大电流模式，1为打开大电流模式
+ * @return int 接收到的字节数
+ */
 int ELoad_RtuSent::setBigCur(uchar addr, uchar sw)
 {
     uchar cmd[16] = {0x7B, 0xA6, 0x01, 0x10, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xCD};
     cmd[2] = addr;
     cmd[4] = sw;
 
-    int offset = 14;
-    ushort crc =rtu_crc(cmd, offset);
-    cmd[offset++] = (crc >> 8);
-    cmd[offset++] = (crc & 0xff);
+    int offset = 15;
+    uchar crc =rtu_xorsum(cmd, offset);
+    cmd[offset++] = crc;
 
     uchar *buf = mSentBuf;
     for(int i=0; i<offset; ++i) buf[i] = cmd[i];
 
-    return mSerial->sendData(buf, offset);
+    //return mSerial->sendData(buf, offset);
+    return mSerial->transCmd(buf,offset,10);
 }
 
 int ELoad_RtuSent::getHandshake(uchar addr)

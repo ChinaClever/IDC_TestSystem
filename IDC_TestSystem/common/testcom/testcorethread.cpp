@@ -27,6 +27,7 @@ void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTrans
     mItem=item;
     mPackets=packets;
     mTrans = trans;
+    connect(this,SIGNAL(finishSig()),this->mTrans->mSnmp,SLOT(finishSlot()));
 }
 
 void TestCoreThread::startThread()
@@ -167,7 +168,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(9);
+    mTrans->rtuUpdateData(); sleep(16);//必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -321,6 +322,7 @@ void TestCoreThread::lineVol()
         item.subItem = tr(" L%1 电压检查").arg(i+1);
         int expectValue  = IN_DataPackets::bulid()->getTgValue(1);
         int measuredValue = mDevPacket->data.line[i].vol.value;
+        //qDebug()<<mDevPacket->data.line[0].vol.value<<mDevPacket->data.line[1].vol.value<<mDevPacket->data.line[2].vol.value;
         volAccuracy(expectValue, measuredValue, item);
     }
 }
@@ -342,8 +344,7 @@ void TestCoreThread::loopVol()
 
 void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
 {
-    if(alrm)
-    {
+    if(alrm){
         if(mItem->isSnmp) {
             mTrans->setSnmpValue(cmd.sAlarmMin);
             mTrans->setSnmpValue(cmd.sAlarmMax);
@@ -354,13 +355,16 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->rtuUpdateData();
         }
     } else {
-        if(!cmd.sMin.isEmpty())
-        {
+        if(!cmd.sMin.isEmpty()){
             mTrans->setSnmpValue(cmd.sMin);
             mTrans->setSnmpValue(cmd.sMax);
+            mTrans->snmpUpdateData();
         }
-        mTrans->setRtuValue(cmd.rtuMin);
-        mTrans->setRtuValue(cmd.rtuMax);
+        else{
+            mTrans->setRtuValue(cmd.rtuMin);
+            mTrans->setRtuValue(cmd.rtuMax);
+            mTrans->rtuUpdateData();
+        }
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
@@ -393,8 +397,10 @@ void TestCoreThread::lineVolAlarm()
     sTestDataItem item;
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
-    msleep(50);
-    setLineVolCmd(true);
+    //sleep(20);
+    sleep(3);
+    emit finishSig();
+    msleep(500);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -421,6 +427,8 @@ void TestCoreThread::loopVolAlarm()
     if(num <=0) return;
 
     setLoopVolCmd(true);
+    emit finishSig();
+    msleep(500);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -444,7 +452,7 @@ void TestCoreThread::volCheck()
     loopVol();
 
     lineVolAlarm();
-    //    loopVolAlarm();
+    //loopVolAlarm();
 }
 
 
@@ -580,18 +588,21 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(3); updateData(); sleep(5);
+    sleep(15); updateData(); sleep(5);
+    //qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
     if( mDevPacket->devSpec != 3)
         outputNoCur();
-
+    //qDebug()<<"no cur end";
     ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(3); updateData(); sleep(5);
+    sleep(15); updateData(); sleep(5);
+    //qDebug()<<"cur start";
     lineCur();
     loopCur();
     if( mDevPacket->devSpec != 3)
         outputCur();
+    //qDebug()<<"cur end";
 }
 
 
@@ -631,7 +642,11 @@ void TestCoreThread::lineCurAlarm()
     sTestDataItem item;
     item.item = tr("相电流告警检查");
     setLineCurCmd(true);
-    sleep(2);
+    //
+    sleep(5);
+    emit finishSig();
+    mTrans->snmpUpdateData();
+    msleep(500);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -659,8 +674,10 @@ void TestCoreThread::loopCurAlarm()
     if(num <=0) return;
 
     setLoopCurCmd(true);
-    sleep(1);
-    setLoopCurCmd(true);
+    sleep(5);
+    emit finishSig();
+    mTrans->snmpUpdateData();
+    msleep(500);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -686,8 +703,10 @@ void TestCoreThread::outputCurAlarm()
     if(num <=0) return;
 
     setOutputCurCmd(true);
-    sleep(7);
-    setOutputCurCmd(true);
+    sleep(21);
+    emit finishSig();
+    mTrans->snmpUpdateData();
+    sleep(1);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -781,10 +800,8 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item)
 
     // 总功率 回路功率，只要大于0就表示正常
     if(expect == -1) {
-        if(measured) {
-            expect = measured;
-            ret = true;
-        }
+        expect = measured;
+        ret = true;
     }
     item.expect = QString::number(expect / COM_RATE_POW) + "KW";
     item.measured = QString::number(measured / COM_RATE_POW) + "KW";
@@ -996,10 +1013,11 @@ bool TestCoreThread::humAccuracy(int expect, int measured, sTestDataItem &item)
 
 void TestCoreThread::temCheck()
 {
+    int num = mDevPacket->data.env.envNum;
+    if(num <=0) return;
+
     sTestDataItem item;
     item.item = tr("温度检查");
-
-    int num = mDevPacket->data.env.envNum;
     for(int i=0; i<num; ++i)
     {
         item.subItem = tr(" 温度%1 ").arg(i+1);
@@ -1011,10 +1029,11 @@ void TestCoreThread::temCheck()
 
 void TestCoreThread::humCheck()
 {
+    int num = mDevPacket->data.env.envNum;
+    if(num <=0) return;
+
     sTestDataItem item;
     item.item = tr("湿度检查");
-
-    int num = mDevPacket->data.env.envNum;
     for(int i=0; i<num; ++i)
     {
         item.subItem = tr(" 湿度%1 ").arg(i+1);
@@ -1024,10 +1043,156 @@ void TestCoreThread::humCheck()
     }
 }
 
+void TestCoreThread::temHumAlarm()
+{
+    int num = mDevPacket->data.env.envNum;
+    if(num <=0) return;
+
+    sTestDataItem item;
+    item.item = tr("温度湿度告警检查");
+
+    setTemHumAlarmCmd(true);
+
+    for(int i=0; i<num; ++i)
+    {
+        sEnvData *obj = &(mDevPacket->data.env);
+        item.subItem = tr("修改 温度%1 温度最小值").arg(i+1);
+        int expectValue  =  Test_Abnormal_TemMin;
+        int measuredValue = obj->tem[i].min;
+        temAccuracy(expectValue, measuredValue, item);
+
+        item.subItem = tr("修改 温度%1 温度最大值").arg(i+1);
+        expectValue  =  Test_Abnormal_TemMax;
+        measuredValue = obj->tem[i].max;
+        temAccuracy(expectValue, measuredValue, item);
+    }
+
+    for(int i=0; i<num; ++i)
+    {
+        sEnvData *obj = &(mDevPacket->data.env);
+        item.subItem = tr("修改 湿度%1 湿度最小值").arg(i+1);
+        int expectValue  = Test_Abnormal_HumMin;
+        int measuredValue = obj->hum[i].min;
+        humAccuracy(expectValue, measuredValue, item);
+
+        item.subItem = tr("修改 湿度%1 湿度最大值").arg(i+1);
+        expectValue  =  Test_Abnormal_HumMax;
+        measuredValue = obj->hum[i].max;
+        humAccuracy(expectValue, measuredValue, item);
+    }
+    setTemHumAlarmCmd(false);
+}
+
+void TestCoreThread::setTemHumAlarmCmd(bool alrm)
+{
+    sTestSetCmd cmd;
+    cmd.num = mDevPacket->data.env.envNum;
+    cmd.devId = mItem->devId;
+    temHumCmd(cmd);
+
+    setAlarmCmd(cmd, alrm);
+}
+
 void TestCoreThread::envCheck()
 {
     temCheck();
     humCheck();
+    //temHumAlarm();
+}
+
+void TestCoreThread::openOrCloseBigCur(bool mode)
+{
+    for(int i = 1 ; i < 4 ; ++i){
+        ELoad_RtuSent::bulid()->setBigCur( i , mode );//打开关闭大电流模式
+        msleep(10);
+    }
+}
+
+void TestCoreThread::closeOtherOutput(sTestSetCmd& cmd)
+{
+    //关闭除第一位外的输出位的灯
+    outputCloseSwCmd(cmd);
+    if(mItem->isSnmp) {
+        mTrans->setSnmpValue(cmd.sAlarmMin);
+        mTrans->snmpUpdateData();
+    }
+    sleep(10);
+}
+
+void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowValue,QList<int>& expectPowValue)
+{
+    sTestSetCmd cmd;
+    int num = cmd.num = mDevPacket->data.outputNum;
+    cmd.devId = mItem->devId;
+    items.item = tr("大电流输出位电流检查");//大电流输出位电流检查
+    for(int i=0; i<num; ++i)
+    {
+        if(i==15) break;
+        int index = i/8;
+        int bit = i%8;
+        items.subItem = tr("大电流输出位 %1 电流值").arg(i+1);
+        int measuredValue = mDevPacket->data.output[i].cur.value;
+        int expect = IN_DataPackets::bulid()->getTgValueByIndex( 2 , index+1 );
+        measuredPowValue.append(mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value*mDevPacket->data.output[i].pf/1000);
+        expectPowValue.append(IN_DataPackets::bulid()->getTgValueByIndex( 3 , index+1 ));
+        curAccuracy(expect, measuredValue, items);
+        if(i < num-1){
+//            outputCloseAndOpenIndexSwCmd(cmd,i+1);
+            int addr = index + 1;
+            ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit);//关闭第i位继电器
+
+            if(bit == 7){
+                addr += 1;
+                bit = 0;
+             }else bit += 1;
+            sleep(1);
+            ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
+//            mTrans->setSnmpValue(cmd.sAlarmMin);
+            mTrans->snmpUpdateData();
+            sleep(30);
+        }
+    }
+}
+
+void TestCoreThread::bigCurPowCheck(sTestDataItem& items,QList<int>& measuredPowValue,QList<int>& expectPowValue)
+{
+    items.item = tr("大电流输出位功率检查");//大电流输出位功率检查
+    int num = mDevPacket->data.outputNum;
+    for(int i=0; i<num; ++i)
+    {
+        if(i==15) break;
+        items.subItem = tr("大电流输出位 %1 功率值").arg(i+1);
+        int measuredValue = measuredPowValue.at(i);
+        int expect = expectPowValue.at(i);
+        powAccuracy(expect, measuredValue, items);
+    }
+}
+
+void TestCoreThread::bigCurCheck()
+{
+    openOrCloseBigCur(true);//打开大电流模式
+
+    sTestSetCmd cmd;
+    cmd.num = mDevPacket->data.outputNum;
+    cmd.devId = mItem->devId;
+
+    //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
+
+    ELoad_RtuSent::bulid()->switchCloseAll();//关闭所有电子负载的继电器，并且打开第一位
+    sleep(5);
+    ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
+
+    sTestDataItem items;
+    QList<int> measuredPowValue;
+    QList<int> expectPowValue;
+
+    setBigCurCmd(items,measuredPowValue,expectPowValue);//大电流输出位电流检查
+
+    bigCurPowCheck(items,measuredPowValue,expectPowValue);
+
+    openOrCloseBigCur(false);//关闭大电流模式
+
+    ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
 void TestCoreThread::run()
@@ -1039,15 +1204,16 @@ void TestCoreThread::run()
     else
     {
         devInfoCheck();
+//        volCheck();
+//        curCheck();
+//        curAlarmCheck();
+//        powCheck();
 
-        volCheck();
-        curCheck();
-        curAlarmCheck();
-        powCheck();
-
-        switchCtr();
-        eleCheck();
-        envCheck();
+//        switchCtr();
+//        //eleCheck();
+//        envCheck();
+//       if(mDevPacket->devSpec != 1 && mDevPacket->devSpec != 2 && mDevPacket->devSpec != 3)
+            bigCurCheck();
     }
     emit overSig();
 }
