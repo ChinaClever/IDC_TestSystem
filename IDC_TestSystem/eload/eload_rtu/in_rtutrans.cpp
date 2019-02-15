@@ -5,7 +5,8 @@
  *      Author: Lzy
  */
 #include "in_rtutrans.h"
-
+#include <QMutexLocker>
+extern void setRes(int addr,int bit,int value,bool ret);
 IN_RtuTrans::IN_RtuTrans()
 {
     isRun = false;
@@ -49,6 +50,18 @@ int IN_RtuTrans::sendData(uchar *pBuff, int nCount, int msec)
     return ret;
 }
 
+int IN_RtuTrans::transCmd(uchar *pBuff, int nCount, int msec)
+{
+    QMutexLocker locker(mMutex); msleep(300);
+    uchar *sent = mSentBuf;//recv
+    int rtn = 0;
+    if(mSerial) {
+    rtn = mSerial->transmit(pBuff, nCount, sent, msec);
+    }
+    //msleep(300);
+    return rtn;
+}
+
 /**
  * @brief 发送设置命令
  * @param addr 地址
@@ -56,23 +69,29 @@ int IN_RtuTrans::sendData(uchar *pBuff, int nCount, int msec)
  * @param value 值
  * @return true
  */
-bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
+bool IN_RtuTrans::sentSetCmd(int addr,int fn, int reg, ushort value, int msecs)
 {
     bool ret = false;
     static uchar buf[IN_ARRAY_LEN] = {0};
-    QMutexLocker locker(mMutex);
+    QMutexLocker locker(mMutex); msleep(300);
     uchar *sent = mSentBuf;
-    msleep(300);
-
-    int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
+    int len = mRtuSent->sentCmdBuff(addr,fn, reg, value, buf);//打包数据
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs);
         if(len == rtn) {
-            if(memcmp(buf, sent,rtn) == 0)
+            if(memcmp(buf, sent,rtn) == 0){
                 ret = true;
-            else
+                if(sent[1] == 0x11){
+                setRes(sent[0],sent[3],(sent[4]*256+sent[5]),ret);
+                memset(mSentBuf,0,len);
+                return ret;
+                }
+            }
+            else{
                 qDebug() << "IN si sent Set Cmd Err";
+            }
         }
+        if(!ret) setRes(-1,0,1,ret);
     }
     msleep(300);
 
@@ -81,7 +100,7 @@ bool IN_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 
 bool IN_RtuTrans::sentSetCmd(sRtuSentCom &cmd, int msecs)
 {
-    return sentSetCmd(cmd.addr, cmd.reg, cmd.len, msecs);
+    return sentSetCmd(cmd.addr,cmd.fn ,cmd.reg, cmd.len, msecs);
 }
 
 /**
@@ -92,7 +111,7 @@ bool IN_RtuTrans::sentSetCmd(sRtuSentCom &cmd, int msecs)
 int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
 {
     char offLine = 0;
-    QMutexLocker locker(mMutex);
+    QMutexLocker locker(mMutex);msleep(300);
     uchar *sent = mSentBuf, *recv = mRecvBuf;
 
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, sent); // 把数据打包成通讯格式的数据
@@ -109,7 +128,7 @@ int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
             }
         }
     }
-
+    msleep(300);
     return offLine;
 }
 
@@ -140,9 +159,10 @@ void IN_RtuTrans::objData(IN_sRtuLine *data, sObjData *obj)
     obj->pow = data->pow;
     obj->ele = data->ele;
     obj->pf = data->pf;
-    obj->sw = data->sw;
+
     obj->activePow = data->apPow;
     obj->wave = data->wave;
+    //obj->sw = data->sw;
 }
 
 
@@ -189,7 +209,32 @@ int IN_RtuTrans::transmit(int addr, sDataPacket *packet, int msecs)
     return packet->offLine;
 }
 
+void IN_RtuTrans::transgetStatus(int addr, sDataPacket *packet, int msecs)
+{
+    QMutexLocker locker(mMutex);msleep(300);
+    static uchar sent[8] , recv[8];
 
+    int rtn = mSentLen = mRtuSent->sentGetStatusBuff(addr, sent);
+    if(mSerial) {
+        rtn = mRecvLen = mSerial->transmit(sent, rtn, recv, msecs); // 传输数据，发送同时接收
+    } else rtn = 0;
+
+    sDevData* dev = &(packet->data);
+    if(rtn && addr == recv[0] && recv[1] == 0x07) {
+        for(int i=0; i<dev->inputNum; i++)
+        {
+            sObjData *obj = &dev->input[i];
+            obj->sw = (recv[5]>>(8-i-1))&0x01;
+        }
+    }
+    else{
+        for(int i=0; i<dev->inputNum; i++)
+        {
+            sObjData *obj = &dev->input[i];
+            obj->sw = 0x00;
+        }
+    }
+}
 
 QByteArray IN_RtuTrans::getSentCmd()
 {

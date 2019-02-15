@@ -12,7 +12,9 @@ MSet_ThresholdOutputWid::MSet_ThresholdOutputWid(QWidget *parent) :
     ui(new Ui::MSet_ThresholdOutputWid)
 {
     ui->setupUi(this);    
-    mReg = 157;
+    //mReg = 157;
+
+    mReg = ZM_RtuReg_OutputCurMin;
 }
 
 MSet_ThresholdOutputWid::~MSet_ThresholdOutputWid()
@@ -21,21 +23,36 @@ MSet_ThresholdOutputWid::~MSet_ThresholdOutputWid()
 }
 
 
+//int MSet_ThresholdOutputWid::getReg(int mode)//旧的MTU协议
+//{
+//    int reg=1054;
+
+//    switch (mode) {
+//    case Mpdu_Rtu_Test_min: reg = 1099; break;
+//    case Mpdu_Rtu_Test_crMin: reg = 1123; break;
+//    case Mpdu_Rtu_Test_crMax: reg = 1147; break;
+//    case Mpdu_Rtu_Test_max: reg = 1181; break;
+//    case Mpdu_Rtu_Test_delay: reg = 1055; break;
+//    default: break;
+//    }
+
+//    return reg;
+//}
 int MSet_ThresholdOutputWid::getReg(int mode)
 {
-    int reg=1054;
+    int reg=ZM_RtuReg_OutputCurMin;
 
     switch (mode) {
-    case Mpdu_Rtu_Test_min: reg = 1099; break;
-    case Mpdu_Rtu_Test_crMin: reg = 1123; break;
-    case Mpdu_Rtu_Test_crMax: reg = 1147; break;
-    case Mpdu_Rtu_Test_max: reg = 1181; break;
-    case Mpdu_Rtu_Test_delay: reg = 1055; break;
+    case Mpdu_Rtu_Test_min: reg = ZM_RtuReg_OutputCurMin; break;
+    case Mpdu_Rtu_Test_crMin: reg = ZM_RtuReg_OutputCurCrMin; break;
+    case Mpdu_Rtu_Test_crMax: reg = ZM_RtuReg_OutputCurCrMax; break;
+    case Mpdu_Rtu_Test_max: reg = ZM_RtuReg_OutputCurMax; break;
     default: break;
     }
 
     return reg;
 }
+
 QString MSet_ThresholdOutputWid::getOid(int mode)
 {
     int addr = ui->spinBox->value() , index = 2;
@@ -101,7 +118,7 @@ void MSet_ThresholdOutputWid::sendSnmp(int i)
     sSnmpSetCmd cmd;
     cmd.oid = mOid + QString(".%1.0").arg(i+1);
     cmd.type = SNMP_STRING_TYPE;
-    cmd.value.append( QString("%1.00").arg(mWid[i]->status()));
+    cmd.value.append( QString("%1.0").arg(mWid[i]->status()));
     mSnmp->setCmd(cmd);
 }
 void MSet_ThresholdOutputWid::on_pushButton_clicked()

@@ -12,7 +12,8 @@ MSet_SwWid::MSet_SwWid(QWidget *parent) :
     ui(new Ui::MSet_SwWid)
 {
     ui->setupUi(this);
-    mReg = 1003;
+    //mReg = 1003;
+    mReg = ZM_RtuReg_OutputSw;
     initwid();
 }
 
@@ -67,10 +68,12 @@ void MSet_SwWid::sendSnmp(int i)
     sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
     QString oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+    // QString oid = QString("%1.%2.%3.5.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
 
     cmd.oid = oid;
     cmd.type = SNMP_STRING_TYPE;
     cmd.value.append( mWid[i]->status()==1 ? "ON":"OFF");
+    //cmd.value.append( mWid[i]->status()==1 ? tr("OUTPUT%1").arg(i+1):tr("output%1").arg(i+1));
     mSnmp->setCmd(cmd);
 }
 

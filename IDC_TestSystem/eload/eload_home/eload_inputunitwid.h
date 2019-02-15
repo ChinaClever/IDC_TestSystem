@@ -1,9 +1,10 @@
-#ifndef ELOAD_INPUTUNITWID_H
+﻿#ifndef ELOAD_INPUTUNITWID_H
 #define ELOAD_INPUTUNITWID_H
 
 #include "eload_rtu/eload_rtusent.h"
 #include "eload_com/in_datapackets.h"
-
+#include "eload_rtu/in_rtutrans.h"
+#include <QScrollBar>
 namespace Ui {
 class ELoad_InputUnitWid;
 }
@@ -20,6 +21,7 @@ public:
 
 protected:
     void updateWid();
+    void setText(ushort value , ushort alarm,QString text,QLabel* lab,double rate);
 
 private slots:
     void initFunSLot();
@@ -28,7 +30,7 @@ private slots:
     void on_openBtn_clicked();
     void on_closeBtn_clicked();
     void on_checkBox_clicked(bool checked);
-    void on_horizontalScrollBar_valueChanged(int value);
+    void on_horizontalScrollBar_sliderMoved(int position);
 
 private:
     Ui::ELoad_InputUnitWid *ui;
@@ -36,8 +38,10 @@ private:
     QTimer *timer;
     sObjData *mObjData;
     ELoad_RtuSent *mRtu;
-    int mAddr, mBit;
+    int mAddr, mBit ;
     bool isSet;
+    QLabel * mResLab;
+    QScrollBar * mScrollBar;
 };
-
+void setRes(int addr,int bit,int value,bool ret);
 #endif // ELOAD_INPUTUNITWID_H

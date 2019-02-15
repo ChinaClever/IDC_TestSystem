@@ -1,4 +1,4 @@
-#ifndef ZTEST_CORETHREAD_H
+﻿#ifndef ZTEST_CORETHREAD_H
 #define ZTEST_CORETHREAD_H
 
 #include "ztest_transthread.h"
@@ -20,6 +20,13 @@ public:
 
     bool outputEleCmd(sTestSetCmd &it);
     bool lineEleCmd(sTestSetCmd &it);
+    bool temHumCmd(sTestSetCmd &it);
+
+    void temCmd(sTestSetCmd &it);
+    void humCmd(sTestSetCmd &it);
+
+    void outputCloseSwCmd(sTestSetCmd &it);
+    void outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index);
 };
 
 #endif // ZTEST_CORETHREAD_H

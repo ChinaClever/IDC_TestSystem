@@ -1,4 +1,4 @@
-#ifndef I_DATAPACKETS_H
+﻿#ifndef I_DATAPACKETS_H
 #define I_DATAPACKETS_H
 #include "eload_configfile.h"
 
@@ -16,6 +16,7 @@ public:
 
     sObjData *getObjData(int id);
     int getLineVol(int id);
+    int getTgValueByIndex(int mode,int index);
 
 };
 

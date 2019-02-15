@@ -5,7 +5,8 @@ MSet_SwCycleWid::MSet_SwCycleWid(QWidget *parent) :
     ui(new Ui::MSet_SwCycleWid)
 {
     ui->setupUi(this);
-    mReg = 1003;//MPDU首位输出位寄存器地址
+    //mReg = 1003;//MPDU首位输出位寄存器地址
+    mReg = ZM_RtuReg_OutputSw;//MPDU首位输出位寄存器地址
     initwid();
 }
 

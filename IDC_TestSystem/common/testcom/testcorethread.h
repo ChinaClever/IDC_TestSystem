@@ -23,6 +23,16 @@ enum {
 
     Test_Abnormal_CurMin  = 10,
     Test_Abnormal_CurMax  = 16,
+
+    Test_Normal_TemMin  = 0,
+    Test_Normal_TemMax  = 90,
+    Test_Abnormal_TemMin  = 30,
+    Test_Abnormal_TemMax  = 60,
+
+    Test_Normal_HumMin  = 0,
+    Test_Normal_HumMax  = 99,
+    Test_Abnormal_HumMin  = 96,
+    Test_Abnormal_HumMax  = 98,
 };
 
 
@@ -71,10 +81,15 @@ public:
     virtual bool outputSwCmd(sTestSetCmd &it)=0;
     virtual bool outputEleCmd(sTestSetCmd &it)=0;
     virtual bool lineEleCmd(sTestSetCmd &it)=0;
+    virtual bool temHumCmd(sTestSetCmd &it)=0;
+
+    virtual void outputCloseSwCmd(sTestSetCmd &it)=0;
+    virtual void outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index)=0;
 
 
 signals:
     void overSig();
+    void finishSig();
 
 protected slots:
     void allNumsSlot(int nums);
@@ -155,6 +170,13 @@ private:
     void temCheck();
     void humCheck();
     void envCheck();
+    void bigCurCheck();
+    void temHumAlarm();
+    void setTemHumAlarmCmd(bool alrm);
+    void openOrCloseBigCur(bool mode);//mode:ture打开 false关闭
+    void closeOtherOutput(sTestSetCmd& cmd);
+    void setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowValue,QList<int>& expectPowValue);
+    void bigCurPowCheck(sTestDataItem& items, QList<int> &measuredPowValue, QList<int> &expectPowValue);
 
 private:
     int mItemId;

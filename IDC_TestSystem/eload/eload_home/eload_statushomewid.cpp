@@ -33,7 +33,7 @@ ELoad_StatusHomeWid::~ELoad_StatusHomeWid()
     delete ui;
 }
 
-void ELoad_StatusHomeWid::updateWid()
+void ELoad_StatusHomeWid::updateTotalShowWid()
 {
     int mode = 1;
     IN_DataPackets *packets = IN_DataPackets::bulid();
@@ -61,6 +61,58 @@ void ELoad_StatusHomeWid::updateWid()
     value = packets->getTgValue(mode++) / COM_RATE_TEM;
     str = QString::number(value) + " ℃";
     ui->temLab->setText(str);
+    ui->groupBox_2->setTitle(tr("总状态显示区"));
+}
+
+void ELoad_StatusHomeWid::updateIndexShowWid(int index)
+{
+    int mode = 1;
+    IN_DataPackets *packets = IN_DataPackets::bulid();
+
+    double value = packets->getTgValueByIndex(mode++,index) / COM_RATE_VOL;
+    QString str = QString::number(value) + " V";
+    ui->volLab->setText(str);
+
+    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR;
+    str = QString::number(value) + " A";
+    ui->curLab->setText(str);
+
+    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_POW;
+    str = QString::number(value) + " KW";
+    ui->powLab->setText(str);
+
+    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_ELE;
+    str = QString::number(value) + " KWh";
+    ui->eleLab->setText(str);
+
+    value = packets->getTgValueByIndex(mode++,index);
+    str = QString::number(value) + " HZ";
+    ui->hzLab->setText(str);
+
+    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_TEM;
+    str = QString::number(value) + " ℃";
+    ui->temLab->setText(str);
+    str = ui->statusBox->currentText();
+    ui->groupBox_2->setTitle(str+tr("显示区"));
+}
+
+void ELoad_StatusHomeWid::updateWid()
+{
+    int mode = ui->statusBox->currentIndex();
+    switch(mode)
+    {
+    case 0:
+        updateTotalShowWid();
+        break;
+    case 1:
+    case 2:
+    case 3:
+        updateIndexShowWid(mode);
+        break;
+    default:
+        updateTotalShowWid();
+        break;
+    }
 }
 
 bool ELoad_StatusHomeWid::checkRunTime()
@@ -121,21 +173,38 @@ void ELoad_StatusHomeWid::setMode()
         ELoad_RtuSent::bulid()->setAllDpAdjust();
         break;
     case 1: // 大电流模式
-
+    {
+        int start = ui->inputStartSpinBox->value();
+        int end = ui->inputEndSpinBox->value();
+        if( ui->startBtn->text() == tr("启动") ){
+            for(int i = start ; i <= end ; i++ )
+                ELoad_RtuSent::bulid()->setBigCur(i,1);
+        }
         break;
-
+    }
     case 2: // 手动模式
 
         break;
     }
 }
 
+int ELoad_StatusHomeWid::getMode()
+{
+    return ui->modeBox->currentIndex();
+}
+
 void ELoad_StatusHomeWid::startUp()
 {
+    int start = ui->inputStartSpinBox->value();
+    int end = ui->inputEndSpinBox->value();
+    if(start > end){
+        InfoMsgBox box(this, tr("起始位不能小于结束位！！"));
+        return;
+    }
     mSec = 0;
     isRun = true;
 
-    openInput();
+    //openInput();
     setMode();
     ui->groupBox->setEnabled(false);
     ui->startBtn->setText(tr("停止"));
@@ -146,6 +215,12 @@ void ELoad_StatusHomeWid::stopFun()
 {
     isRun = false;
 
+    if(ui->modeBox->currentIndex() == 1 && ui->startBtn->text() == tr("停止") ){
+        int start = ui->inputStartSpinBox->value();
+        int end = ui->inputEndSpinBox->value();
+        for(int i = start ; i <= end ; i++ )
+            ELoad_RtuSent::bulid()->setBigCur(i,0);
+    }
     ui->groupBox->setEnabled(true);
     ui->startBtn->setText(tr("启动"));
     ELoad_ConfigFile::bulid()->item->testMode = ELoad_Test_Stop;
@@ -171,12 +246,12 @@ void ELoad_StatusHomeWid::on_closeBtn_clicked()
     ELoad_RtuSent::bulid()->switchCloseAll();
 }
 
-
 void ELoad_StatusHomeWid::on_eleBtn_clicked()
 {
     sRtuSentCom cmd;
     cmd.addr = 0xff;
 
+    cmd.fn = 0x10;
     cmd.reg = 0x1039;
     cmd.len = 0;
     IN_RtuThread::bulid()->sentCmd(cmd);

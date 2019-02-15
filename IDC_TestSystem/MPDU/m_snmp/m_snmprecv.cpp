@@ -22,6 +22,6 @@ void M_SnmpRecv::devTypeData(int value, sDataPacket *pkt)
 //    else if(value < 13) loop = 4;
 
     pkt->data.lineNum = 3;
-    pkt->data.loopNum = 2;
+    pkt->data.loopNum = 0;
     pkt->devSpec = 4;
 }

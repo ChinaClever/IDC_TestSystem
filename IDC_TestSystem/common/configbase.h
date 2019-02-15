@@ -1,4 +1,4 @@
-#ifndef CONFIGBASH
+﻿#ifndef CONFIGBASH
 #define CONFIGBASH
 #include "sysconfigfile.h"
 #include "serialportdlg.h"
@@ -92,6 +92,9 @@ public:
 
     int getVersion();
     void setVersion(int num);
+
+    int getResistance(int addr,int bit);
+    void setResistance(int addr,int bit,int num);
 
     virtual QString getPrefix()=0;
 };

@@ -34,12 +34,14 @@ QString MSet_EnvItemWid::getTypeName(int type)
 
 int MSet_EnvItemWid::getReg(int mode, int type)
 {
-    int reg = 1091;
-    if(mode) reg = 1095;
+//    int reg = 1091;
+//    if(mode) reg = 1095;
+    int reg = ZM_RtuReg_TemMin;
+    if(mode) reg = ZM_RtuReg_HumMin;
 
     switch (type) {
-    case Mpdu_Rtu_Test_min: reg += 0; break;
-    case Mpdu_Rtu_Test_max: reg += 2; break;
+    case Mpdu_Rtu_Test_min: /*reg += 0;*/break;
+    case Mpdu_Rtu_Test_max: /*reg += 2;*/reg += 0x100; break;
     default: break;
     }
 

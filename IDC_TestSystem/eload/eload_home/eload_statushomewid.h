@@ -1,4 +1,4 @@
-#ifndef ELOAD_STATUSHOMEWID_H
+﻿#ifndef ELOAD_STATUSHOMEWID_H
 #define ELOAD_STATUSHOMEWID_H
 
 #include <QWidget>
@@ -14,6 +14,10 @@ class ELoad_StatusHomeWid : public QWidget
 public:
     explicit ELoad_StatusHomeWid(QWidget *parent = 0);
     ~ELoad_StatusHomeWid();
+    int getMode();
+private:
+    void updateTotalShowWid();
+    void updateIndexShowWid(int index);
 
 protected:
     void updateWid();

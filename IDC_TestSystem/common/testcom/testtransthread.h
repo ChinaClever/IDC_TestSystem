@@ -34,10 +34,10 @@ protected slots:
     void snmpStopData() {mSnmp->stopRun();}
     void timeoutDone();
     virtual void initFunSLot()=0;
-
+public:
+    SnmpThread *mSnmp;
 protected:
     RtuThread *mRtu;
-    SnmpThread *mSnmp;
     RtuTrans *mRtuTrans;
 
 private:
