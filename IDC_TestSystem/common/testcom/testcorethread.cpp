@@ -1212,8 +1212,7 @@ void TestCoreThread::run()
 //        switchCtr();
 //        //eleCheck();
 //        envCheck();
-//       if(mDevPacket->devSpec != 1 && mDevPacket->devSpec != 2 && mDevPacket->devSpec != 3)
-            bigCurCheck();
+         bigCurCheck();
     }
     emit overSig();
 }

@@ -30,7 +30,7 @@ private:
     IN_MainWid *mInputMainWid;
     ELoad_LogsWid *mLogsWid;
 
-    ELoad_TemRiseWid *mTemRiseWid[3];
+    ELoad_TemRiseWid *mTemRiseWid;
     IN_RtuThread *mRtu;
 };
 

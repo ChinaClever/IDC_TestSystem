@@ -1,4 +1,4 @@
-#ifndef LINECHART_H
+﻿#ifndef LINECHART_H
 #define LINECHART_H
 
 #include <QtCore>
@@ -13,7 +13,7 @@ public:
     explicit LineChart(QWidget *parent = nullptr);
 
     void setTitle(const QString &title);
-    void append(qreal y);
+    void append(qreal y,int index);
     void clearChart();
 
 protected:
@@ -26,7 +26,9 @@ protected:
 
 private:
     QChart *mChart;
-    QSplineSeries *mSeries;
+    QSplineSeries *mSeries1;
+    QSplineSeries *mSeries2;
+    QSplineSeries *mSeries3;
     QChartView *mChartView;
 
     int mY;
