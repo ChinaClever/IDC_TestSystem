@@ -47,6 +47,7 @@ protected:
     void powObjData(const QString & itemStr,QList<sTestItem> &items);
     void temhumObjData(QList<sTestItem> &items);
     void devInfoObjData(QList<sTestItem> &items);
+    void bigCurObjData(QList<sTestItem> &items);
 
 private:
     sDutSpec *mSpec;

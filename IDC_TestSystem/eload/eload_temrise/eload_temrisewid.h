@@ -1,4 +1,4 @@
-#ifndef ELOAD_TEMRISEWID_H
+﻿#ifndef ELOAD_TEMRISEWID_H
 #define ELOAD_TEMRISEWID_H
 
 #include "linechart.h"
@@ -15,7 +15,7 @@ public:
     explicit ELoad_TemRiseWid(QWidget *parent = 0);
     ~ELoad_TemRiseWid();
 
-    void init(int id);
+    void init();
 
 protected slots:
     void timeoutDone();
@@ -23,7 +23,6 @@ protected slots:
 private:
     Ui::ELoad_TemRiseWid *ui;
 
-    int mId;
     LineChart *mChart;
     QTimer *timer;
 };

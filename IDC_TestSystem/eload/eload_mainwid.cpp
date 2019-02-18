@@ -43,11 +43,10 @@ void ELoad_MainWid::initFunSLot()
     mRtu->init(ELoad_ConfigFile::bulid()->item->serial);
     mRtu->startThread();
 
-    for(int i=0; i<3; ++i) {
-        mTemRiseWid[i] = new ELoad_TemRiseWid(ui->stackedWid);
-        mTemRiseWid[i]->init(i);
-        ui->stackedWid->addWidget(mTemRiseWid[i]);
-    }
+
+    mTemRiseWid = new ELoad_TemRiseWid(ui->stackedWid);
+    mTemRiseWid->init();
+    ui->stackedWid->addWidget(mTemRiseWid);
 }
 
 void ELoad_MainWid::toolBoxSlot(int id)
@@ -58,7 +57,7 @@ void ELoad_MainWid::toolBoxSlot(int id)
         ui->stackedWid->setCurrentWidget(mLogsWid);
     }else if((id >= ELoad_Tem_RiseOne) && (id <= ELoad_Tem_RiseThree)) {
         id = id - ELoad_Tem_RiseOne;
-        ui->stackedWid->setCurrentWidget(mTemRiseWid[id]);
+        ui->stackedWid->setCurrentWidget(mTemRiseWid);
     }else {
         ui->stackedWid->setCurrentWidget(mHomeMainWid);
     }

@@ -27,6 +27,7 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
 
     eleObjData(tr("电能"),items);
     temhumObjData(items);
+    bigCurObjData(items);
     return mSpec->isSnmp;
 }
 
@@ -61,7 +62,7 @@ void TestItems::unitItem(const QString &itemStr, int num, QList<sTestItem> &item
     for(int i=0; i<num; ++i) {
         item.id = mId++;
         item.subItem = tr("测%1 %2").arg(str).arg(i+1);
-        item.eResult = tr("%1 %2 值与负载测试柜值在误差范围内").arg(str).arg(i+1);
+        item.eResult = tr("%1 %2 电流值与负载测试柜值在误差范围内").arg(str).arg(i+1);
         items << item;
     }
 }
@@ -286,5 +287,15 @@ void TestItems::devInfoObjData(QList<sTestItem> &items)
         item.subItem = tr("%1测试").arg(itemStr);
         item.eResult = tr("输入信息%1，与PDU信息是否一致").arg(itemStr);
         items << item;
+    }
+}
+
+void TestItems::bigCurObjData(QList<sTestItem> &items)
+{
+    if(mSpec->spec != 3)
+    {
+        QString str = tr("大电流输出位");
+        unitItem(str, mSpec->outputNum, items);
+        powUnitItem(str, mSpec->outputNum, items);
     }
 }
