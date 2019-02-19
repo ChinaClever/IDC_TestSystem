@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -32,6 +32,7 @@ void ELoad_ToolBoxWid::initWid()
 
     mHomeToolWid = new ELoad_HomeToolWid(ui->toolBox->widget(page++));
     connect(mHomeToolWid, SIGNAL(toolSig(int)), this, SIGNAL(toolBoxSig(int)));
+    connect(mHomeToolWid, SIGNAL(saveSig()), this, SIGNAL(saveBoxSig()));
 
     mInputToolWid = new ELoad_InputToolWid(ui->toolBox->widget(page++));
     connect(mInputToolWid, SIGNAL(toolSig(int)), this, SIGNAL(toolBoxSig(int)));

@@ -175,6 +175,8 @@ bool ZTest_CoreThread::outputSwCmd(sTestSetCmd &it)
 
         rtuCmd.reg = Z_RtuReg_OutputSw+i;
         rtuCmd.value = 1; it.rtuMin.append(rtuCmd);
+        snmpCmd.oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = "ON"; it.sAlarmMax.append(snmpCmd);
     }
 
     return true;

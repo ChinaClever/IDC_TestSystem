@@ -28,6 +28,7 @@ void ELoad_MainWid::initFunSLot()
     mRtu = IN_RtuThread::bulid(this);
     mtoolBoxWid = new ELoad_ToolBoxWid(ui->toolBoxWid);
     connect(mtoolBoxWid, SIGNAL(toolBoxSig(int)), this, SLOT(toolBoxSlot(int)));
+    connect(mtoolBoxWid, SIGNAL(saveBoxSig()), this, SLOT(saveBoxSlot()));
 
     mHomeMainWid = new ELoad_HomeMainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mHomeMainWid);
@@ -61,4 +62,9 @@ void ELoad_MainWid::toolBoxSlot(int id)
     }else {
         ui->stackedWid->setCurrentWidget(mHomeMainWid);
     }
+}
+
+void ELoad_MainWid::saveBoxSlot()
+{
+    mTemRiseWid->save();
 }

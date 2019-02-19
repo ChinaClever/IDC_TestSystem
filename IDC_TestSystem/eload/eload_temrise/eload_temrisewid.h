@@ -16,6 +16,7 @@ public:
     ~ELoad_TemRiseWid();
 
     void init();
+    void save();
 
 protected slots:
     void timeoutDone();

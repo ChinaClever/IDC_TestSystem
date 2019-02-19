@@ -1,4 +1,4 @@
-#ifndef ELOAD_HOMETOOLWID_H
+﻿#ifndef ELOAD_HOMETOOLWID_H
 #define ELOAD_HOMETOOLWID_H
 
 #include "eload_com/eload_configfile.h"
@@ -17,6 +17,7 @@ public:
 
 signals:
     void toolSig(int);
+    void saveSig();
 
 
 protected:

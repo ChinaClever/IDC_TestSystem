@@ -22,6 +22,7 @@ public:
 protected slots:
     void initFunSLot();
     void toolBoxSlot(int);
+    void saveBoxSlot();
 
 private:
     Ui::ELoad_MainWid *ui;

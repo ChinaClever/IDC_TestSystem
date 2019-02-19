@@ -84,8 +84,8 @@ void TestMainWid::overSlot()
     mConfig->item->mode = Test_Over;
     mTrans->stopUpdateData();
     mResultWid->resultSlot();
-    mDataSave->saveTestData();
     mWebSocket->saveTestData();
+    mDataSave->saveTestData();
     mSerialNumDlg->getSerialNum();
 }
 

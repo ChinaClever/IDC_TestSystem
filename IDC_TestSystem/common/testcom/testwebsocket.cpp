@@ -1,4 +1,4 @@
-#include "testwebsocket.h"
+﻿#include "testwebsocket.h"
 
 TestWebSocket::TestWebSocket(QObject *parent) : QThread(parent)
 {
@@ -32,7 +32,7 @@ void TestWebSocket::saveTestData()
     {
         QJsonObject json;
         toJson(item, json);
-        // saveJson("saveTest", json);
+        saveJson("saveTest", json);
 
         mWebSocket->sendMessage(json);
     }

@@ -588,21 +588,21 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(15); updateData(); sleep(5);
-    //qDebug()<<"no cur start";
+    sleep(15); updateData(); sleep(10);
+    qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
     if( mDevPacket->devSpec != 3)
         outputNoCur();
-    //qDebug()<<"no cur end";
+    qDebug()<<"no cur end";
     ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(15); updateData(); sleep(5);
-    //qDebug()<<"cur start";
+    sleep(15); updateData(); sleep(10);
+    qDebug()<<"cur start";
     lineCur();
     loopCur();
     if( mDevPacket->devSpec != 3)
         outputCur();
-    //qDebug()<<"cur end";
+    qDebug()<<"cur end";
 }
 
 
@@ -758,7 +758,9 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     cmd.devId = mItem->devId;
     outputSwCmd(cmd);////////////////////////////////暂时注释关闭开关位，正式需要
 
-    setAlarmCmd(cmd, alrm);
+    //setAlarmCmd(cmd, alrm);/////////////////////////暂时注释用串口打开开关位
+    mTrans->setSnmpValue(cmd.sAlarmMax);
+    mTrans->snmpUpdateData();
 }
 
 
@@ -1204,15 +1206,15 @@ void TestCoreThread::run()
     else
     {
         devInfoCheck();
-//        volCheck();
-//        curCheck();
-//        curAlarmCheck();
-//        powCheck();
+        volCheck();
+        curCheck();
+        curAlarmCheck();
+        powCheck();
 
-//        switchCtr();
-//        //eleCheck();
-//        envCheck();
-         bigCurCheck();
+        switchCtr();
+        eleCheck();
+        envCheck();
+        bigCurCheck();
     }
     emit overSig();
 }

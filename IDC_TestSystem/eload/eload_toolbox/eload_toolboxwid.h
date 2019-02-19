@@ -1,4 +1,4 @@
-#ifndef ELOAD_TOOLBOXWID_H
+﻿#ifndef ELOAD_TOOLBOXWID_H
 #define ELOAD_TOOLBOXWID_H
 
 #include "eload_inputtoolwid.h"
@@ -19,6 +19,7 @@ public:
 
 signals:
      void toolBoxSig(int);
+     void saveBoxSig();
 
 protected:
     void initWid();

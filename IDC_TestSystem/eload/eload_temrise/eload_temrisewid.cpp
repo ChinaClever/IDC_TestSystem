@@ -35,3 +35,18 @@ void ELoad_TemRiseWid::timeoutDone()
         mChart->append(tem,i+1);
     }
 }
+
+void ELoad_TemRiseWid::save()
+{
+    QPixmap p = mChart->mChartView->grab();
+    QOpenGLWidget *glWidget  = mChart->mChartView->findChild<QOpenGLWidget*>();
+    if(glWidget){
+        QPainter painter(&p);
+        QPoint d = glWidget->mapToGlobal(QPoint())-mChart->mChartView->mapToGlobal(QPoint());
+        painter.setCompositionMode(QPainter::CompositionMode_SourceAtop);
+        painter.drawImage(d, glWidget->grabFramebuffer());
+        painter.end();
+    }
+    qDebug()<<"aaaaaaa";
+    p.save("test", "PNG");
+}

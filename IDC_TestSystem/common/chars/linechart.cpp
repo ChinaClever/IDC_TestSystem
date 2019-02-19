@@ -13,17 +13,17 @@ LineChart::LineChart(QWidget *parent) : QWidget(parent)
 
     mSeries1 = new QSplineSeries(this);
     mSeries1->setColor(QColor("Blue"));
-    mSeries1->setName("Blue");
+    mSeries1->setName("ELoad1");
     mChart->addSeries(mSeries1);
 
     mSeries2 = new QSplineSeries(this);
     mSeries2->setColor(QColor("Green"));
-    mSeries2->setName("Green");
+    mSeries2->setName("ELoad2");
     mChart->addSeries(mSeries2);
 
     mSeries3 = new QSplineSeries(this);
     mSeries3->setColor(QColor("Red"));
-    mSeries3->setName("Red");
+    mSeries3->setName("ELoad3");
     mChart->addSeries(mSeries3);
 
     mChart->legend()->show();

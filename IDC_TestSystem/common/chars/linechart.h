@@ -15,6 +15,7 @@ public:
     void setTitle(const QString &title);
     void append(qreal y,int index);
     void clearChart();
+    QChartView *mChartView;
 
 protected:
     void initAxisX();
@@ -29,8 +30,6 @@ private:
     QSplineSeries *mSeries1;
     QSplineSeries *mSeries2;
     QSplineSeries *mSeries3;
-    QChartView *mChartView;
-
     int mY;
     QDateTime mYtime;
 };
