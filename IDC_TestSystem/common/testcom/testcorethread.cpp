@@ -1129,7 +1129,6 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
     items.item = tr("大电流输出位电流检查");//大电流输出位电流检查
     for(int i=0; i<num; ++i)
     {
-        if(i==15) break;
         int index = i/8;
         int bit = i%8;
         items.subItem = tr("大电流输出位 %1 电流值").arg(i+1);
@@ -1162,7 +1161,6 @@ void TestCoreThread::bigCurPowCheck(sTestDataItem& items,QList<int>& measuredPow
     int num = mDevPacket->data.outputNum;
     for(int i=0; i<num; ++i)
     {
-        if(i==15) break;
         items.subItem = tr("大电流输出位 %1 功率值").arg(i+1);
         int measuredValue = measuredPowValue.at(i);
         int expect = expectPowValue.at(i);

@@ -47,6 +47,5 @@ void ELoad_TemRiseWid::save()
         painter.drawImage(d, glWidget->grabFramebuffer());
         painter.end();
     }
-    qDebug()<<"aaaaaaa";
-    p.save("test", "PNG");
+    p.save("test.png", "PNG");
 }

@@ -28,7 +28,7 @@ bool TestWebSocket::saveJson(const QString &name, QJsonObject &json)
 void TestWebSocket::saveTestData()
 {
     sTestConfigItem  *item = mItem;
-    if(item->serialNum.isSave)
+    if(item->serialNum.isSave && (item->progress.finishNum>5))
     {
         QJsonObject json;
         toJson(item, json);
