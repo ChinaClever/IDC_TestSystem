@@ -588,21 +588,25 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(15); updateData(); sleep(10);
-    qDebug()<<"no cur start";
+    sleep(10);
+    mTrans->snmpUpdateData();
+    sleep(15);
+    //qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
     if( mDevPacket->devSpec != 3)
         outputNoCur();
-    qDebug()<<"no cur end";
+    //qDebug()<<"no cur end";
     ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(15); updateData(); sleep(10);
-    qDebug()<<"cur start";
+    sleep(15);
+    mTrans->snmpUpdateData();
+    sleep(10);
+    //qDebug()<<"cur start";
     lineCur();
     loopCur();
     if( mDevPacket->devSpec != 3)
         outputCur();
-    qDebug()<<"cur end";
+    //qDebug()<<"cur end";
 }
 
 
@@ -758,9 +762,16 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     cmd.devId = mItem->devId;
     outputSwCmd(cmd);////////////////////////////////暂时注释关闭开关位，正式需要
 
-    //setAlarmCmd(cmd, alrm);/////////////////////////暂时注释用串口打开开关位
-    mTrans->setSnmpValue(cmd.sAlarmMax);
-    mTrans->snmpUpdateData();
+    if(alrm){
+        //setAlarmCmd(cmd, alrm);/////////////////////////暂时注释用串口打开开关位
+        mTrans->setSnmpValue(cmd.sAlarmMin);
+        mTrans->snmpUpdateData();
+        sleep(10);
+    }
+    else{
+        mTrans->setSnmpValue(cmd.sAlarmMax);
+        mTrans->snmpUpdateData();
+    }
 }
 
 
@@ -772,6 +783,10 @@ void TestCoreThread::outputSwCtr()
     if(num <=0) return;
 
     setOutputSwCmd(true);
+    sleep(21);
+    emit finishSig();
+    mTrans->snmpUpdateData();
+    sleep(1);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1149,8 +1164,10 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
             sleep(1);
             ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
 //            mTrans->setSnmpValue(cmd.sAlarmMin);
+            sleep(5);
             mTrans->snmpUpdateData();
-            sleep(30);
+            sleep(10);
+            emit finishSig();
         }
     }
 }
@@ -1179,7 +1196,7 @@ void TestCoreThread::bigCurCheck()
     //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
 
     ELoad_RtuSent::bulid()->switchCloseAll();//关闭所有电子负载的继电器，并且打开第一位
-    sleep(5);
+    sleep(15);
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
 
     sTestDataItem items;

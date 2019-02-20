@@ -88,7 +88,7 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             int ret = m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-            qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value<<ret;
+            //qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value<<ret;
             mSetCmdList.removeFirst();
         }
     }
