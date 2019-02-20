@@ -20,7 +20,6 @@ HEADERS += \
     $$PWD/bus_toolbox/bus_settingtoolwid.h \
     $$PWD/bus_com/bus_configfile.h \
     $$PWD/bus_simulate/bus_simulatewid.h \
-    $$PWD/bus_simulate/bus_simulatethread.h \
     $$PWD/bus_toolbox/bus_simulationtoolwid.h \
     $$PWD/bus_toolbox/buslogstoolwid.h \
     $$PWD/bus_logs/buslogalarmwid.h \
@@ -44,7 +43,8 @@ HEADERS += \
     $$PWD/bus_dp/bus_dpsavetrans.h \
     $$PWD/bus_test/bustest_mainwid.h \
     $$PWD/bus_test/bustest_thresholdsetwid.h \
-    $$PWD/bus_test/bustest_envsetwid.h
+    $$PWD/bus_test/bustest_envsetwid.h \
+    $$PWD/bus_rtu/bus_rtuthread.h
 	
 SOURCES += \
     $$PWD/bus_rtu/bus_rtusent.cpp \
@@ -65,7 +65,6 @@ SOURCES += \
     $$PWD/bus_toolbox/bus_settingtoolwid.cpp \
     $$PWD/bus_com/bus_configfile.cpp \
     $$PWD/bus_simulate/bus_simulatewid.cpp \
-    $$PWD/bus_simulate/bus_simulatethread.cpp \
     $$PWD/bus_toolbox/bus_simulationtoolwid.cpp \
     $$PWD/bus_toolbox/buslogstoolwid.cpp \    
     $$PWD/bus_logs/buslogalarmwid.cpp \
@@ -88,7 +87,8 @@ SOURCES += \
     $$PWD/bus_dp/bus_dpsavetrans.cpp \
     $$PWD/bus_test/bustest_mainwid.cpp \
     $$PWD/bus_test/bustest_thresholdsetwid.cpp \
-    $$PWD/bus_test/bustest_envsetwid.cpp
+    $$PWD/bus_test/bustest_envsetwid.cpp \
+    $$PWD/bus_rtu/bus_rtuthread.cpp
 
 FORMS += \
     $$PWD/bus_mainwid.ui \

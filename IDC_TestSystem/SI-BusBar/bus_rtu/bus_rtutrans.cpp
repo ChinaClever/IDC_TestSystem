@@ -159,18 +159,52 @@ void BUS_RtuTrans::envData(sDataPacket *box, BUS_RtuRecv *pkt)
     }
 }
 
-int BUS_RtuTrans::transmit(int addr, sDataPacket *box, int msecs)
+
+void BUS_RtuTrans::thdData(sDevPackets *packets, BUS_RtuRecv *pkt)
+{
+    sDataPacket *box = &(packets->dev[pkt->addr]);
+
+    box->lps = pkt->lps;
+    for(int i=0; i<LINE_NUM; ++i) {
+        box->data.line[i].pl = pkt->pl[i];
+    }
+
+    if(pkt->addr == 0) {
+        int line = pkt->hc % 3;
+        ushort *thd = packets->thd[line].curThd;
+        if(pkt->hc < 3) thd = packets->thd[line].volThd;
+        for(int i=0; i<BUS_RTU_THD_NUM; ++i) thd[i] = pkt->thd[i];
+
+        if(pkt->hc < 3) {
+            box->data.line[line].volThd = thd[0];
+        } else {
+            box->data.line[line].curThd = thd[0];
+        }
+        thd[0] = 0;
+
+    } else {
+        for(int i=0; i<LINE_NUM; ++i) {
+            box->data.line[i].curThd = pkt->thd[i];
+        }
+    }
+}
+
+int BUS_RtuTrans::transmit(int addr, sDevPackets *packets, int msecs)
 {
     BUS_RtuRecv *pkt = mRtuPkt; //数据包
+    sDataPacket *box = &(packets->dev[addr]);
 
     sentCmdList();
     int ret = transData(addr, pkt, msecs);
     if(ret) {
         loopData(&(box->data), pkt); //更新数据
         envData(box, pkt);
+
         box->hz = pkt->rate;
         box->dc = pkt->dc;
         box->version = pkt->version;
+
+        thdData(packets, pkt);
     }
     box->offLine = ret; //在线
 

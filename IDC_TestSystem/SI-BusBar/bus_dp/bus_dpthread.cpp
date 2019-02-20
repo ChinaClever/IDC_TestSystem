@@ -34,6 +34,16 @@ BUS_DpThread::~BUS_DpThread()
     wait();
 }
 
+BUS_DpThread *BUS_DpThread::bulid(QObject *parent)
+{
+    static BUS_DpThread* sington = NULL;
+    if(sington == NULL) {
+        sington = new BUS_DpThread(parent);
+    }
+    return sington;
+}
+
+
 void BUS_DpThread::saveModbusCmd(QStringList &list)
 {
     BusDbModbusCmdItem item;

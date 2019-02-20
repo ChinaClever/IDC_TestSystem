@@ -8,8 +8,9 @@
 class ELoad_DpThread : public DpThread
 {
     Q_OBJECT
-public:
     explicit ELoad_DpThread(QObject *parent = nullptr);
+public:
+     static ELoad_DpThread *bulid(QObject *parent = nullptr);
     ~ELoad_DpThread();
 
 protected:
