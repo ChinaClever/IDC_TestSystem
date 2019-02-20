@@ -84,7 +84,7 @@ void TestWebSocket::itemNum(sTestProgress &item, QJsonObject &json)
 {
     QJsonObject obj;
     obj.insert("all",  item.allNum);
-    obj.insert("finsh", item.finishNum);
+    obj.insert("finish", item.finishNum);
     obj.insert("pass", item.okNum);
     obj.insert("err", item.errNum);
 
