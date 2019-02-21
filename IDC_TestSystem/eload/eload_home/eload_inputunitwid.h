@@ -32,6 +32,8 @@ private slots:
     void on_checkBox_clicked(bool checked);
     void on_horizontalScrollBar_sliderMoved(int position);
 
+    void on_horizontalScrollBar_sliderReleased();
+
 private:
     Ui::ELoad_InputUnitWid *ui;
 
@@ -39,9 +41,10 @@ private:
     sObjData *mObjData;
     ELoad_RtuSent *mRtu;
     int mAddr, mBit ;
-    bool isSet;
-    QLabel * mResLab;
-    QScrollBar * mScrollBar;
+    QMap<int,QLabel *> mQmapRes;
+    QMap<int,QScrollBar *> mQmapScroll;
+    QMap<int,bool> mQmapIsSend;
+    QMap<int,bool> mQmapIsSet;
 };
 void setRes(int addr,int bit,int value,bool ret);
 #endif // ELOAD_INPUTUNITWID_H

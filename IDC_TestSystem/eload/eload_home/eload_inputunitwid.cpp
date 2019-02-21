@@ -35,9 +35,6 @@ ELoad_InputUnitWid::~ELoad_InputUnitWid()
 
 void ELoad_InputUnitWid::initFunSLot()
 {
-    isSet = false;
-    mResLab = NULL;
-    mScrollBar = NULL;
     mRtu = ELoad_RtuSent::bulid();
 
     timer = new QTimer(this);
@@ -53,6 +50,11 @@ void ELoad_InputUnitWid::init(int addr, int bit)
     ui->inputLab->setText(str);
     mAddr = addr;
     mBit = bit;
+    mQmapRes.insert(addr*10+bit,ui->resLab);
+    mQmapScroll.insert(addr*10+bit,ui->horizontalScrollBar);
+    mQmapIsSend.insert(addr*10+bit,false);
+    mQmapIsSet.insert(addr*10+bit,false);
+    qDebug()<<addr<<bit<<ui->resLab<<ui->horizontalScrollBar;
 
     ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
     int ret = config->getResistance(mAddr,mBit);
@@ -85,32 +87,33 @@ void ELoad_InputUnitWid::updateWid()
     ui->swLab->setText(str);
     ui->swLab->setPalette(pe);
 
-    if(isSet){
+    if(mQmapIsSet[mAddr*10+mBit]&&mQmapIsSend[mAddr*10+mBit]){
         ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-        if(!gflag && mResLab && mScrollBar && gValue == 1){//更改阻值失败
+        if(!gflag && gValue == 1){//更改阻值失败
             int oldValue = config->getResistance(mAddr,mBit);
+            qDebug()<<"fail"<<mAddr<<mBit<<mQmapRes[mAddr*10+mBit]<<mQmapScroll[mAddr*10+mBit]<<oldValue;
             if(oldValue){
-                ui->resLab->setText(QString(tr("%1Ω")).arg(oldValue));
-                mScrollBar->setValue(oldValue);
+                mQmapRes[mAddr*10+mBit]->setText(QString(tr("%1Ω")).arg(oldValue));
+                mQmapScroll[mAddr*10+mBit]->setValue(oldValue);
+                mQmapScroll[mAddr*10+mBit]->setEnabled(true);
             }
             else{
-                ui->resLab->setText("0Ω");
-                mScrollBar->setValue(0);
+                mQmapRes[mAddr*10+mBit]->setText("0Ω");
+                mQmapScroll[mAddr*10+mBit]->setValue(0);
+                mQmapScroll[mAddr*10+mBit]->setEnabled(true);
             }
-            //qDebug()<<"fail"<<mResLab<<mScrollBar<<oldValue;
-            isSet = false;
-            mResLab = NULL;
-            mScrollBar = NULL;
+            mQmapIsSet[mAddr*10+mBit] = false;
+            mQmapIsSend[mAddr*10+mBit] = false;
             gValue = 0;
         }
-        else if(gflag && mResLab && mScrollBar && gAddr != -1 && gBit != -1){//更改阻值成功
+        else if(gflag && gAddr != -1 && gBit != -1){//更改阻值成功
+            qDebug()<<"success"<<mQmapRes[gAddr*10+gBit]<<mQmapScroll[gAddr*10+gBit]<<gValue;
             config->setResistance(gAddr,gBit,gValue);
-            mResLab->setText( QString(tr("%1Ω")).arg(gValue) );
-            mScrollBar->setValue(gValue);
-            isSet = false;
-            //qDebug()<<"success"<<mResLab<<mScrollBar<<gValue;
-            mResLab = NULL;
-            mScrollBar = NULL;
+            mQmapRes[gAddr*10+gBit]->setText( QString(tr("%1Ω")).arg(gValue) );
+            mQmapScroll[gAddr*10+gBit]->setValue(gValue);
+            mQmapScroll[gAddr*10+gBit]->setEnabled(true);
+            mQmapIsSet[mAddr*10+mBit] = false;
+            mQmapIsSend[mAddr*10+mBit] = false;
             gValue = 0;
             gflag = false;
         }
@@ -144,20 +147,17 @@ void ELoad_InputUnitWid::on_checkBox_clicked(bool checked)
 
 void ELoad_InputUnitWid::setFunSLot()
 {
+    if(!mQmapIsSend[mAddr*10+mBit]){
     int value = ui->horizontalScrollBar->value();
+    mQmapIsSend[mAddr*10+mBit] = true;
     mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
     qDebug()<<"eload_inputunitwid.cpp 101th line "<<value;
+    }
 }
 
 void ELoad_InputUnitWid::on_horizontalScrollBar_sliderMoved(int position)
 {
     ui->resLab->setText( QString(tr("%1Ω")).arg(position) );
-    if(!isSet) {
-        mResLab = ui->resLab;
-        mScrollBar = ui->horizontalScrollBar;
-        isSet = true;
-        QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
-    }
 }
 
 void ELoad_InputUnitWid::setText(ushort value , ushort alarm,QString text,QLabel* lab,double rate)
@@ -179,5 +179,14 @@ void ELoad_InputUnitWid::setText(ushort value , ushort alarm,QString text,QLabel
         lab->setText(str);
         pe.setColor(QPalette::WindowText,Qt::black);
         lab->setPalette(pe);
+    }
+}
+
+void ELoad_InputUnitWid::on_horizontalScrollBar_sliderReleased()
+{
+    if(!mQmapIsSet[mAddr*10+mBit]) {
+        mQmapIsSet[mAddr*10+mBit] = true;
+        QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
+        ui->horizontalScrollBar->setEnabled(false);
     }
 }
