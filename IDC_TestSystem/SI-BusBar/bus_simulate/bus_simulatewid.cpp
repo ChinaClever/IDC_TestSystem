@@ -16,7 +16,9 @@ BUS_SimulateWid::BUS_SimulateWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    mSimulateThread = new BUS_SimulateThread(this);
+
+    mDpThread = BUS_DpThread::bulid(this);
+    mRtuThread = BUS_RtuThread::bulid(this);
 
     QTimer::singleShot(100,this,SLOT(initFunSLot())); //延时初始化
 }
@@ -65,8 +67,8 @@ void BUS_SimulateWid:: simulateSlot(int id)
 {
     QWidget *wid = nullptr;
     switch (id) {
-    case BUS_Test_Stop: mSimulateThread->stopThread(); break;
-    case BUS_Test_Simulate: mSimulateThread->startThread(); break;
+    case BUS_Test_Stop: mRtuThread->stopThread(); break;
+    case BUS_Test_Simulate: mRtuThread->startThread(); break;
     case BUS_Info_Bus: wid = mBusTableWid; break;
     case BUS_Info_Box: wid = mBoxTableWid; break;
     case BUS_Info_Loop: wid = mLoopTableWid; break;

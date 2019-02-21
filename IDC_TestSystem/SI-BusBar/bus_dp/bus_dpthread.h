@@ -6,8 +6,9 @@
 class BUS_DpThread : public QThread
 {
     Q_OBJECT
-public:
     explicit BUS_DpThread(QObject *parent = nullptr);
+public:
+    static BUS_DpThread *bulid(QObject *parent);
     ~BUS_DpThread();
 
     void saveModbusCmd(QStringList &list);

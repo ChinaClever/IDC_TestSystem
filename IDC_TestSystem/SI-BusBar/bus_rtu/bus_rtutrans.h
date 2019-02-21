@@ -12,7 +12,7 @@ public:
     ~BUS_RtuTrans();
 
     void init(SerialPort *serial);
-    int transmit(int addr, sDataPacket *box, int msecs); //发送数据并回收
+    int transmit(int addr, sDevPackets *packets, int msecs); //发送数据并回收
     bool sentSetCmd(int addr, int reg, ushort value, int msecs);
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
@@ -23,6 +23,7 @@ protected:
     void loopObjData(sObjData *loop, BUS_RtuRecvLine *data);
     void loopData(sDevData *box, BUS_RtuRecv *pkt);
     void envData(sDataPacket *box, BUS_RtuRecv *pkt);
+    void thdData(sDevPackets *packets, BUS_RtuRecv *pkt);
     void sentCmdList();
 
 private:
