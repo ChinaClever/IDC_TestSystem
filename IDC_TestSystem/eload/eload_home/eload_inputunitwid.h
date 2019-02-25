@@ -18,6 +18,7 @@ public:
     ~ELoad_InputUnitWid();
 
     void init(int addr, int bit);
+    void changeRes(int addr, int bit ,int value);
 
 protected:
     void updateWid();

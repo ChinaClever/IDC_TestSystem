@@ -182,7 +182,7 @@ border-radius:15px
            </font>
           </property>
           <property name="text">
-           <string>最高温度</string>
+           <string>机箱温度</string>
           </property>
          </widget>
         </item>

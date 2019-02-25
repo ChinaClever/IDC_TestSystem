@@ -11,6 +11,7 @@ IN_RtuTrans::IN_RtuTrans()
 {
     isRun = false;
     mSerial = nullptr;
+    mCount = 0;
 
     mSentBuf = (uchar *)malloc(2*IN_ARRAY_LEN);
     mRecvBuf = (uchar *)malloc(2*IN_ARRAY_LEN);
@@ -226,12 +227,23 @@ void IN_RtuTrans::transgetStatus(int addr, sDataPacket *packet, int msecs)
             sObjData *obj = &dev->input[i];
             obj->sw = (recv[5]>>(8-i-1))&0x01;
         }
+        mCount = 0;
     }
     else{
-        for(int i=0; i<dev->inputNum; i++)
-        {
-            sObjData *obj = &dev->input[i];
-            obj->sw = 0x00;
+        if(mCount == 0){
+            for(int i=0; i<dev->inputNum; i++)
+            {
+                sObjData *obj = &dev->input[i];
+                obj->sw = 0x01;
+            }
+            mCount ++;
+        }
+        else{//第二次没有接收到返回才判断失败
+            for(int i=0; i<dev->inputNum; i++)
+            {
+                sObjData *obj = &dev->input[i];
+                obj->sw = 0x00;
+            }
         }
     }
 }

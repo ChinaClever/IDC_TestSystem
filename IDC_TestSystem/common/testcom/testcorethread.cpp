@@ -320,7 +320,7 @@ void TestCoreThread::lineVol()
         sTestDataItem item;
         item.item = tr("相电压检查");
         item.subItem = tr(" L%1 电压检查").arg(i+1);
-        int expectValue  = IN_DataPackets::bulid()->getTgValue(1);
+        int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i+1);
         int measuredValue = mDevPacket->data.line[i].vol.value;
         //qDebug()<<mDevPacket->data.line[0].vol.value<<mDevPacket->data.line[1].vol.value<<mDevPacket->data.line[2].vol.value;
         volAccuracy(expectValue, measuredValue, item);
@@ -335,7 +335,7 @@ void TestCoreThread::loopVol()
         sTestDataItem item;
         item.item = tr("回路电压检查");
         item.subItem = tr(" C%1 电压检查").arg(i+1);
-        int expectValue  = IN_DataPackets::bulid()->getTgValue(1) ;
+        int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i/2+1);
         int measuredValue = mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value;
         volAccuracy(expectValue, measuredValue, item);
     }
@@ -783,10 +783,10 @@ void TestCoreThread::outputSwCtr()
     if(num <=0) return;
 
     setOutputSwCmd(true);
-    sleep(21);
+    sleep(25);
     emit finishSig();
     mTrans->snmpUpdateData();
-    sleep(1);
+    sleep(3);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1196,8 +1196,9 @@ void TestCoreThread::bigCurCheck()
     //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
 
     ELoad_RtuSent::bulid()->switchCloseAll();//关闭所有电子负载的继电器，并且打开第一位
-    sleep(15);
+    sleep(5);
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
+    sleep(10);
 
     sTestDataItem items;
     QList<int> measuredPowValue;

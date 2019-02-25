@@ -41,6 +41,7 @@ private:
     IN_RtuRecv *mRtuRecv;
     IN_RtuSent *mRtuSent;
     SerialPort *mSerial;
+    int mCount;
 };
 
 #endif // IN_RTUTRANS_H
