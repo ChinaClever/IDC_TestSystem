@@ -783,10 +783,10 @@ void TestCoreThread::outputSwCtr()
     if(num <=0) return;
 
     setOutputSwCmd(true);
-    sleep(25);
+    sleep(26);
     emit finishSig();
     mTrans->snmpUpdateData();
-    sleep(3);
+    sleep(10);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1163,12 +1163,13 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
              }else bit += 1;
             sleep(1);
             ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
+        }
 //            mTrans->setSnmpValue(cmd.sAlarmMin);
             sleep(5);
             mTrans->snmpUpdateData();
             sleep(10);
             emit finishSig();
-        }
+
     }
 }
 
@@ -1196,9 +1197,11 @@ void TestCoreThread::bigCurCheck()
     //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
 
     ELoad_RtuSent::bulid()->switchCloseAll();//关闭所有电子负载的继电器，并且打开第一位
-    sleep(5);
+    sleep(15);
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
-    sleep(10);
+    mTrans->snmpUpdateData();
+    sleep(30);
+    //emit finishSig();
 
     sTestDataItem items;
     QList<int> measuredPowValue;
