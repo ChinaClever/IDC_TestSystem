@@ -1038,7 +1038,7 @@ void TestCoreThread::temCheck()
     for(int i=0; i<num; ++i)
     {
         item.subItem = tr(" 温度%1 ").arg(i+1);
-        int expectValue = IN_DataPackets::bulid()->getDev(1)->data.env.tem[1].value;
+        int expectValue = IN_DataPackets::bulid()->getTgValue(6);
         int measuredValue = mDevPacket->data.env.tem[i].value;
         temAccuracy(expectValue, measuredValue, item);
     }
@@ -1156,12 +1156,16 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
 //            outputCloseAndOpenIndexSwCmd(cmd,i+1);
             int addr = index + 1;
             ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit);//关闭第i位继电器
-
+            msleep(50);
+            ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit);//关闭第i位继电器
             if(bit == 7){
                 addr += 1;
                 bit = 0;
              }else bit += 1;
-            sleep(1);
+
+            msleep(50);
+            ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
+            msleep(50);
             ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
         }
 //            mTrans->setSnmpValue(cmd.sAlarmMin);
@@ -1193,7 +1197,6 @@ void TestCoreThread::bigCurCheck()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-
     //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
 
     ELoad_RtuSent::bulid()->switchCloseAll();//关闭所有电子负载的继电器，并且打开第一位
@@ -1201,18 +1204,14 @@ void TestCoreThread::bigCurCheck()
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
     mTrans->snmpUpdateData();
     sleep(30);
-    //emit finishSig();
 
     sTestDataItem items;
     QList<int> measuredPowValue;
     QList<int> expectPowValue;
 
     setBigCurCmd(items,measuredPowValue,expectPowValue);//大电流输出位电流检查
-
     bigCurPowCheck(items,measuredPowValue,expectPowValue);
-
     openOrCloseBigCur(false);//关闭大电流模式
-
     ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
