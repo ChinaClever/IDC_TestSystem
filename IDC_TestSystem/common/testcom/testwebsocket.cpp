@@ -32,7 +32,7 @@ void TestWebSocket::saveTestData()
     {
         QJsonObject json;
         toJson(item, json);
-        saveJson("saveTest", json);
+        //saveJson("saveTest", json);
 
         mWebSocket->sendMessage(json);
     }
