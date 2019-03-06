@@ -1155,7 +1155,6 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
             sleep(2);
             mTrans->snmpUpdateData();
             sleep(3);
-
         }
     }
 }
@@ -1229,6 +1228,6 @@ void TestCoreThread::run()
         eleCheck();
         envCheck();
         bigCurCheck();
-        //    }
-        emit overSig();
     }
+    emit overSig();
+}
