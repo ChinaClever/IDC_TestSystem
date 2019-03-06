@@ -1217,20 +1217,20 @@ void TestCoreThread::run()
 {
     mRtuRet = transmission(mSnmpRet);
     bool ret = mSnmpRet | mRtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
-//    if(!ret)
-//        countItemsNum();
-//    else
-//    {
+    if(!ret)
+        countItemsNum();
+    else
+    {
         devInfoCheck();
-//        volCheck();
-//        curCheck();
-//        curAlarmCheck();
-//        powCheck();
+        volCheck();
+        curCheck();
+        curAlarmCheck();
+        powCheck();
 
-//        switchCtr();
-//        eleCheck();
-//        envCheck();
+        switchCtr();
+        eleCheck();
+        envCheck();
         bigCurCheck();
-//    }
+    }
     emit overSig();
 }
