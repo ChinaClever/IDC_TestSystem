@@ -1129,9 +1129,11 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
     int num = cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
     items.item = tr("大电流输出位电流检查");//大电流输出位电流检查
+    int nextaddr = 1,addr = 0;
     for(int i=0; i<num; ++i)
     {
-        int index = i/8,bit = i%8,nextbit = 0,addr = index + 1,nextaddr = 0;
+        int index = i/8,bit = i%8,nextbit = 0;
+        addr = index + 1;
         items.subItem = tr("大电流输出位 %1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.output[i].cur.value;
         int expect = IN_DataPackets::bulid()->getTgValueByIndex( 2 , index+1 );
@@ -1156,7 +1158,7 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
             // mTrans->setSnmpValue(cmd.sAlarmMin);
             sleep(2);
             mTrans->snmpUpdateData();
-            sleep(3);
+            sleep(5);
         }
     }
 }
@@ -1215,20 +1217,20 @@ void TestCoreThread::run()
 {
     mRtuRet = transmission(mSnmpRet);
     bool ret = mSnmpRet | mRtuRet;//暂时这样写，后面电能清零只能用rtu，不能用snmp，要分开处理
-    if(!ret)
-        countItemsNum();
-    else
-    {
+//    if(!ret)
+//        countItemsNum();
+//    else
+//    {
         devInfoCheck();
-        volCheck();
-        curCheck();
-        curAlarmCheck();
-        powCheck();
+//        volCheck();
+//        curCheck();
+//        curAlarmCheck();
+//        powCheck();
 
-        switchCtr();
-        eleCheck();
-        envCheck();
+//        switchCtr();
+//        eleCheck();
+//        envCheck();
         bigCurCheck();
-    }
+//    }
     emit overSig();
 }

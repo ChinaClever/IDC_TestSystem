@@ -76,33 +76,33 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 
     double value = packets->getTgValueByIndex(mode++,index) / COM_RATE_VOL;
     QString str = QString::number(value) + " V";
-    ui->volLab->setText(str);
+    //ui->volLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR;
     str = QString::number(value) + " A";
     qstr = "                 "+tr("总电流：")+ str;
-    ui->curLab->setText(str);
+    //ui->curLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_POW;
     str = QString::number(value) + " KW";
     qstr += spacestr+tr("总功率：")+ str;
-    ui->powLab->setText(str);
+    //ui->powLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_ELE;
     str = QString::number(value) + " KWh";
     qstr += spacestr+tr("总电能：")+ str;
-    ui->eleLab->setText(str);
+    //ui->eleLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index);
     str = QString::number(value) + " HZ";
-    ui->hzLab->setText(str);
+    //ui->hzLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_TEM;
     str = QString::number(value) + " ℃";
     qstr += spacestr+tr("机箱温度：")+ str;
-    ui->temLab->setText(str);
+    //ui->temLab->setText(str);
     str = ui->statusBox->currentText();
-    ui->groupBox_2->setTitle(str+tr("显示区"));
+    //ui->groupBox_2->setTitle(str+tr("显示区"));
     emit updateIndexSig(index,qstr);
 }
 
