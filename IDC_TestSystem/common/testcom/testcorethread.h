@@ -89,7 +89,6 @@ public:
 
 signals:
     void overSig();
-    void finishSig();
 
 protected slots:
     void allNumsSlot(int nums);
@@ -175,7 +174,7 @@ private:
     void setTemHumAlarmCmd(bool alrm);
     void openOrCloseBigCur(bool mode);//mode:ture打开 false关闭
     void closeOtherOutput(sTestSetCmd& cmd);
-    void setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowValue,QList<int>& expectPowValue);
+    void setBigCurCmd(sTestDataItem& items, QList<int>& measuredPowValue, QList<int>& expectPowValue, QList<int> &res);
     void bigCurPowCheck(sTestDataItem& items, QList<int> &measuredPowValue, QList<int> &expectPowValue);
 
 private:

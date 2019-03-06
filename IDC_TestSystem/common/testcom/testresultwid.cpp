@@ -64,7 +64,7 @@ void TestResultWid::startSlot()
     ui->progressBar->setValue(0);
 
     timer->start(200);
-    ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/run.jpg);border-radius:5px;}"
+    ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                               "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
     this->setStyleSheet("color:black;");
@@ -78,12 +78,12 @@ void TestResultWid::resultSlot()
 
     //QString str = tr("通过");
     if(p) {
-        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/pass.jpg);border-radius:5px;"
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                                   "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}}");
     } else {
         //str = tr("失败");
-        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/fail.jpg);border-radius:5px;}"
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:red;}"
                                   "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
                                   "QProgressBar::chunk {background-color:red;}");

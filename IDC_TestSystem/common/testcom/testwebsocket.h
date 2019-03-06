@@ -14,7 +14,7 @@ public:
 protected:
     bool saveJson(const QString &name, QJsonObject &json);
     void toJson(sTestConfigItem *item, QJsonObject &obj);
-    void devUut(sSerialNumItem &item, QJsonObject &json);
+    void devUut(sSerialNumItem &item, int errNum, QJsonObject &json);
     void devInfo(sSerialNumItem &item, QJsonObject &json);
     void itemNum(sTestProgress &item, QJsonObject &json);
     void objData(const sTestDataItem &item, QJsonObject &obj);

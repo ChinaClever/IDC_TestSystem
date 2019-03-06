@@ -18,10 +18,11 @@ public:
     ~ELoad_InputUnitWid();
 
     void init(int addr, int bit);
-    void changeRes(int addr, int bit ,int value);
 
 protected:
     void updateWid();
+    void staticSetCurUpdate();
+    void autoSetCurUpdate(int addr , int bit , QList<bool> flag);
     void setText(ushort value , ushort alarm,QString text,QLabel* lab,double rate);
 
 private slots:

@@ -32,7 +32,7 @@ void TestWebSocket::saveTestData()
     {
         QJsonObject json;
         toJson(item, json);
-        saveJson("saveTest", json);
+        //saveJson("saveTest", json);
 
         mWebSocket->sendMessage(json);
     }
@@ -45,14 +45,16 @@ void TestWebSocket::toJson(sTestConfigItem  *item,QJsonObject &obj)
     obj.insert("company", "CLEVER");
     obj.insert("version", 2);
 
-    devUut(item->serialNum, obj);
+    int errNum = item->progress.errNum;
+    devUut(item->serialNum, errNum, obj);
+
     devInfo(item->serialNum, obj);
     itemNum(item->progress, obj);
     listData(item->logItems, obj);
 }
 
 
-void TestWebSocket::devUut(sSerialNumItem &item, QJsonObject &json)
+void TestWebSocket::devUut(sSerialNumItem &item, int errNum, QJsonObject &json)
 {
     QJsonObject obj;
     obj.insert("devtype", item.name);
@@ -65,6 +67,8 @@ void TestWebSocket::devUut(sSerialNumItem &item, QJsonObject &json)
     obj.insert("op", item.op);
     obj.insert("cn", item.cn);
     obj.insert("testdate", item.date.toString("yyyy-dd-MM"));
+    QString str = "normal"; if(errNum) str = "deleted";
+    obj.insert("status", str);
 
     json.insert("dev_uut", QJsonValue(obj));
 }

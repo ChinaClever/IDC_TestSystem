@@ -42,7 +42,17 @@ void IN_RtuThread::sentCmdList()
     if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
         bool ret = mRtu->sentSetCmd(cmd, 10);
-        if(ret) mCmdList.removeFirst();
+        if(ret) mSecondCmdList.append(cmd);
+        mCmdList.removeFirst();
+    }
+}
+
+void IN_RtuThread::sentSecondCmdList()
+{
+    if(!mSecondCmdList.isEmpty()) {
+        sRtuSentCom cmd = mSecondCmdList.first();
+        mRtu->sentSetCmd(cmd, 10);
+        mSecondCmdList.removeFirst();
     }
 }
 
@@ -72,6 +82,7 @@ void IN_RtuThread::workDown()
     int ret = 0;
 
     sentCmdList();
+    sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 

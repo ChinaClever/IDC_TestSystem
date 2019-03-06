@@ -1,4 +1,4 @@
-#ifndef IN_RTUTHREAD_H
+﻿#ifndef IN_RTUTHREAD_H
 #define IN_RTUTHREAD_H
 
 #include "rtuthread.h"
@@ -16,6 +16,7 @@ public:
 protected:
     void workDown();
     void sentCmdList();
+    void sentSecondCmdList();
     void writeErrCmd(int id);
 
 protected slots:
@@ -24,6 +25,7 @@ protected slots:
 private:
     IN_RtuTrans *mRtu;
     QList<sRtuSentCom> mCmdList;
+    QList<sRtuSentCom> mSecondCmdList;
 };
 
 #endif // IN_RTUTHREAD_H

@@ -1,4 +1,4 @@
-#ifndef ELOAD_INPUTHOMEWID_H
+﻿#ifndef ELOAD_INPUTHOMEWID_H
 #define ELOAD_INPUTHOMEWID_H
 
 #include <QWidget>
@@ -17,6 +17,8 @@ public:
 
 protected:
     void initWid();
+private slots:
+    void updateIndexSlot(int index, QString str);
 
 private:
     Ui::ELoad_InputHomeWid *ui;

@@ -1,4 +1,4 @@
-#ifndef ELOAD_RTUSENT_H
+﻿#ifndef ELOAD_RTUSENT_H
 #define ELOAD_RTUSENT_H
 #include "in_rtutrans.h"
 
@@ -33,6 +33,10 @@ public:
     static ELoad_RtuSent *bulid();
 
     int setData(uchar addr, ushort reg, ushort value);
+    int setResData(uchar addr, ushort reg, ushort value);
+    void getValue(int& addr , int& bit, QList<bool> &flag);
+    void setValue(int& addr , int& bit , QList<bool> &flag);
+
     int setBaudRate(uchar addr, ushort reg, ushort value);
 
     int setDpAdjust(uchar addr, ushort reg, ushort start, ushort end, ushort t);
@@ -55,6 +59,8 @@ private:
     IN_RtuTrans *mSerial;
     uchar *mSentBuf;
     int mSentLen;
+    int mAddr,mBit;
+    QList<bool> mFlag;
 };
-
+void Delay_MSec(unsigned int msec);
 #endif // ELOAD_RTUSENT_H

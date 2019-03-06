@@ -34,8 +34,24 @@ void ELoad_InputHomeWid::initWid()
     {
         for(int j=0; j<8; j++)
         {
-            ELoad_InputUnitWid *wid = new ELoad_InputUnitWid(unitWid[i][j]);
+            ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);
             wid->init(i+1, j);
         }
+    }
+}
+
+void ELoad_InputHomeWid::updateIndexSlot(int index,QString str)
+{
+    switch(index)
+    {
+    case 1: ui->groupBox->setTitle(tr("电子可控负载一")+str);
+        break;
+    case 2: ui->groupBox_2->setTitle(tr("电子可控负载二")+str);
+        break;
+    case 3: ui->groupBox_3->setTitle(tr("电子可控负载三")+str);
+        break;
+    default:
+        ui->groupBox->setTitle(tr("电子可控负载一")+str);
+        break;
     }
 }

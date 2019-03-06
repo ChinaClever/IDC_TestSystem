@@ -16,6 +16,7 @@ ELoad_HomeMainWid::ELoad_HomeMainWid(QWidget *parent) :
     groupBox_background_icon(this);
     mStatusWid = new ELoad_StatusHomeWid(ui->widget_1);
     mInputWid = new ELoad_InputHomeWid(ui->widget_2);
+    connect(mStatusWid,SIGNAL(updateIndexSig(int,QString)),mInputWid,SLOT(updateIndexSlot(int,QString)));
 }
 
 ELoad_HomeMainWid::~ELoad_HomeMainWid()

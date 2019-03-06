@@ -9,7 +9,7 @@
 #include "eload_com/in_datapackets.h"
 #include "eload_rtu/eload_rtusent.h"
 #include "eload_rtu/in_rtuthread.h"
-
+extern void Delay_MSec(unsigned int msec);
 ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ELoad_StatusHomeWid)
@@ -62,11 +62,16 @@ void ELoad_StatusHomeWid::updateTotalShowWid()
     str = QString::number(value) + " ℃";
     ui->temLab->setText(str);
     ui->groupBox_2->setTitle(tr("总状态显示区"));
+
+    for(int i = 1 ; i <= 3 ; i++)
+        updateIndexShowWid(i);
 }
 
 void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 {
     int mode = 1;
+    QString qstr("");
+    QString spacestr="  ";
     IN_DataPackets *packets = IN_DataPackets::bulid();
 
     double value = packets->getTgValueByIndex(mode++,index) / COM_RATE_VOL;
@@ -75,14 +80,17 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR;
     str = QString::number(value) + " A";
+    qstr = "                 "+tr("总电流：")+ str;
     ui->curLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_POW;
     str = QString::number(value) + " KW";
+    qstr += spacestr+tr("总功率：")+ str;
     ui->powLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_ELE;
     str = QString::number(value) + " KWh";
+    qstr += spacestr+tr("总电能：")+ str;
     ui->eleLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index);
@@ -91,9 +99,11 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_TEM;
     str = QString::number(value) + " ℃";
+    qstr += spacestr+tr("机箱温度：")+ str;
     ui->temLab->setText(str);
     str = ui->statusBox->currentText();
     ui->groupBox_2->setTitle(str+tr("显示区"));
+    emit updateIndexSig(index,qstr);
 }
 
 void ELoad_StatusHomeWid::updateWid()
@@ -178,7 +188,10 @@ void ELoad_StatusHomeWid::setMode()
         int end = ui->inputEndSpinBox->value();
         if( ui->startBtn->text() == tr("启动") ){
             for(int i = start ; i <= end ; i++ )
-                ELoad_RtuSent::bulid()->setBigCur(i,1);
+            {
+                ELoad_RtuSent::bulid()->setBigCur(i,1);//打开大电流模式
+                Delay_MSec(1000);
+            }
         }
         break;
     }
@@ -219,7 +232,10 @@ void ELoad_StatusHomeWid::stopFun()
         int start = ui->inputStartSpinBox->value();
         int end = ui->inputEndSpinBox->value();
         for(int i = start ; i <= end ; i++ )
-            ELoad_RtuSent::bulid()->setBigCur(i,0);
+        {
+            ELoad_RtuSent::bulid()->setBigCur(i,0);//关闭大电流模式
+            Delay_MSec(1000);
+        }
     }
     ui->groupBox->setEnabled(true);
     ui->startBtn->setText(tr("启动"));

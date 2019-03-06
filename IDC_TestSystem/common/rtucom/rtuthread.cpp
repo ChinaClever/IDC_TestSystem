@@ -36,7 +36,7 @@ void RtuThread::startThread()
 void RtuThread::stopThread()
 {
     isRun = false;
-    //    wait();
+    wait();
 }
 
 void RtuThread::setOffLine()

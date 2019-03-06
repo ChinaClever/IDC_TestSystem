@@ -10,6 +10,11 @@ ELoad_RtuSent::ELoad_RtuSent()
 {
     mSerial = IN_RtuTrans::bulid();
     mSentBuf = (uchar *)malloc(256);
+    mAddr = -1;
+    mBit = -1;
+    for(int i = 0 ; i < 3 ; i ++)
+        for(int j = 0 ;j < 8 ; j ++)
+            mFlag.append(false);
 }
 
 
@@ -48,6 +53,46 @@ int ELoad_RtuSent::setDataBuf(uchar addr, uchar fn, ushort reg, ushort value)
 int ELoad_RtuSent::setData(uchar addr, ushort reg, ushort value)
 {
     return setDataBuf(addr, ELoad_FN_Set, reg, value);
+}
+
+/**
+ * @brief 设置数据参数
+ * @param addr  从机地址  从机地址可设置范围：1~15
+ * @param reg 数字电位器地址  1 ~ 8
+ * @param value   参数（数字电位器阻值）可设置范围：40Ω~50KΩ
+ * @param buf 数据缓冲区
+ * @return 数据长度
+ */
+int ELoad_RtuSent::setResData(uchar addr, ushort reg, ushort value)
+{
+    mAddr = addr;
+    mBit = reg - ELoad_DP_1;
+    mFlag[(mAddr-1)*8+mBit] = true;
+    return setDataBuf(addr, ELoad_FN_Set, reg, value);
+}
+
+/**
+ * @brief 提供给ELoad_InputUnitWid类界面自动更新阻值
+ * @param [in&out]addr  从机地址  从机地址可设置范围：1~15
+ *        [in&out]reg 数字电位器地址  1 ~ 8
+ *        [in&out]flag  自动改变阻值标志位
+ */
+void ELoad_RtuSent::getValue(int& addr , int& bit, QList<bool>& flag)
+{
+    addr = mAddr;
+    bit = mBit;
+    flag = mFlag;
+}
+
+/**
+ * @brief 提供给ELoad_InputUnitWid类界面自动更新阻值
+ * @param [in&out]flag  自动改变阻值标志位
+ */
+void ELoad_RtuSent::setValue(int& addr , int& bit ,QList<bool>& flag)
+{
+    mAddr = addr;
+    mBit = bit;
+    mFlag = flag;
 }
 
 /**
@@ -183,10 +228,21 @@ int ELoad_RtuSent::setAllDpAdjust(uchar addr, ushort start, ushort end, ushort t
     return mSerial->transCmd(buf,offset,10);
 }
 
+void Delay_MSec(unsigned int msec)
+{
+    QTime _Timer = QTime::currentTime().addMSecs(msec);
+
+    while( QTime::currentTime() < _Timer )
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+}
+
 int ELoad_RtuSent::setAllDpAdjust()
 {
-//    for(int i=0; i<3; ++i)
-//        setAllDpAdjust(i+1, 0, 1000, 10);
+    for(int i=0; i<3; ++i)
+    {
+        setAllDpAdjust(i+1, 1000, 10000, 60000);
+        Delay_MSec(1000);
+    }
 }
 
 /**

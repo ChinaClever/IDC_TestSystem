@@ -28,6 +28,8 @@ protected:
     void stopFun();
     void openInput();
     void setMode();
+signals:
+    void updateIndexSig(int index,QString str);
 
 private slots:
     void timeoutDone();
