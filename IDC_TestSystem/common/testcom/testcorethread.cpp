@@ -423,7 +423,7 @@ void TestCoreThread::loopVolAlarm()
 
     setLoopVolCmd(true);
     for(int i=0; i<num; ++i)
-    {        
+    {
         sObjData *obj = &(mDevPacket->data.loop[i]);
         item.subItem = tr("修改 C%1 电压最小值").arg(i+1);
         int expectValue  = Test_Abnormal_VolMin *COM_RATE_VOL;
@@ -1139,21 +1139,19 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
         expectPowValue.append(IN_DataPackets::bulid()->getTgValueByIndex( 3 , index+1 ));
         curAccuracy(expect, measuredValue, items);
         if(bit == 7){
-//            for(int j = 0 ; j < 8 ; j++){
-//                ELoad_RtuSent::bulid()->setResData(addr,ELoad_DP_1+j,res[addr*8+j]);
-//                if(addr != 3)
-//                    ELoad_RtuSent::bulid()->setResData(addr+1,ELoad_DP_1+j,18000);
-//            }
+            // for(int j = 0 ; j < 8 ; j++){
+            //    ELoad_RtuSent::bulid()->setResData(addr,ELoad_DP_1+j,res[addr*8+j]);
+            //    if(addr != 3) ELoad_RtuSent::bulid()->setResData(addr+1,ELoad_DP_1+j,18000);
+            //    }
             nextaddr = addr + 1;
             nextbit = 0;
         }
         else nextbit = bit+1;
         if(i < num-1){
-//            outputCloseAndOpenIndexSwCmd(cmd,i+1);
-
+            // outputCloseAndOpenIndexSwCmd(cmd,i+1);
             ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr , nextbit);//打开第i+1位继电器
             ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit);//关闭第i位继电器
-//            mTrans->setSnmpValue(cmd.sAlarmMin);
+            // mTrans->setSnmpValue(cmd.sAlarmMin);
             sleep(2);
             mTrans->snmpUpdateData();
             sleep(3);
@@ -1182,15 +1180,15 @@ void TestCoreThread::bigCurCheck()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-//    QList<int> res;
-//    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-//    for(int i = 1 ; i <= 3 ; i ++)
-//        for(int j = 0 ;j < 8 ; j ++){
-//            res.append(config->getResistance(i,j));
-//        }
-//    for(int i = 0 ; i < 8 ; i++)
-//    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
-//    }
+    //    QList<int> res;
+    //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+    //    for(int i = 1 ; i <= 3 ; i ++)
+    //        for(int j = 0 ;j < 8 ; j ++){
+    //            res.append(config->getResistance(i,j));
+    //        }
+    //    for(int i = 0 ; i < 8 ; i++)
+    //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
+    //    }
 
     //closeOtherOutput(cmd);//关闭除第一位外的输出位的灯
 
@@ -1231,6 +1229,6 @@ void TestCoreThread::run()
         eleCheck();
         envCheck();
         bigCurCheck();
-//    }
-    emit overSig();
-}
+        //    }
+        emit overSig();
+    }
