@@ -1149,8 +1149,10 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
         else nextbit = bit+1;
         if(i < num-1){
             // outputCloseAndOpenIndexSwCmd(cmd,i+1);
-            ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr , nextbit);//打开第i+1位继电器
-            ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit);//关闭第i位继电器
+            ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr , nextbit); msleep(50);//打开第i+1位继电器
+            ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr , nextbit); msleep(50);//打开第i+1位继电器
+            ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit); msleep(50);//关闭第i位继电器
+            ELoad_RtuSent::bulid()->switchCloseCtr(addr , bit); msleep(50);//关闭第i位继电器
             // mTrans->setSnmpValue(cmd.sAlarmMin);
             sleep(2);
             mTrans->snmpUpdateData();
@@ -1201,7 +1203,6 @@ void TestCoreThread::bigCurCheck()
     sTestDataItem items;
     QList<int> measuredPowValue;
     QList<int> expectPowValue;
-
 
     //setBigCurCmd(items,measuredPowValue,expectPowValue,res);//大电流输出位电流检查
     setBigCurCmd(items,measuredPowValue,expectPowValue);//大电流输出位电流检查
