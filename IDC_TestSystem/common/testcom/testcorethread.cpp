@@ -1155,9 +1155,9 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
             ELoad_RtuSent::bulid()->switchOpenCtr(addr , bit);//关闭第i+1位继电器
         }
 //            mTrans->setSnmpValue(cmd.sAlarmMin);
-            sleep(5);
+            sleep(2);
             mTrans->snmpUpdateData();
-            sleep(10);
+            sleep(3);
 
     }
 }
