@@ -63,8 +63,6 @@ private slots:
     void onResponseReceived( const qint32 request_id,const QtSnmpDataList& );
     void onRequestFailed( const qint32 request_id );
     void makeRequest();
-public slots:
-    void finishSlot();
 
 private:
     QMutex *mMutex;

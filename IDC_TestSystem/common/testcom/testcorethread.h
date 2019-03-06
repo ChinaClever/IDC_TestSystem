@@ -89,7 +89,6 @@ public:
 
 signals:
     void overSig();
-    void finishSig();
 
 protected slots:
     void allNumsSlot(int nums);

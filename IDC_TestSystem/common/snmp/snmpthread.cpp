@@ -45,31 +45,28 @@ void SnmpThread::startRun()
         msec = mItem->msecs * 100;
     }
 
-    m_address = addr;    
-    if(isRun) if(m_address == addr) return;
-    m_snmp_client->setAgentAddress(QHostAddress(addr));
+    if(m_address != addr) {
+        m_address = addr;
+        m_snmp_client->setAgentAddress(QHostAddress(addr));
+    }
 
-    if(msec == 0) msec = 500 + (rand() % 1000);
-    m_timer->start(msec);
-    timer->start(100);
+    if(!isRun) {
+        if(msec == 0) msec = 500 + (rand() % 1000);
+        if(!m_timer->isActive()) m_timer->start(msec);
+        if(!timer->isActive()) timer->start(100);
 
-    makeRequest();
-    clearCount();
-    start();
+        makeRequest();
+        clearCount();
+        start();
+    }
 }
 
 void SnmpThread::stopRun()
 {
     m_timer->stop();
     isRun = false;
-    qDebug()<<"snmp finish";
 }
 
-void SnmpThread::finishSlot()
-{
-    timer->stop();
-    qDebug()<<"snmp finishSlot";
-}
 
 qint32 SnmpThread::setValue(const sSnmpSetCmd &cmd)
 {
@@ -101,9 +98,9 @@ void SnmpThread::onResponseReceived(const qint32, const QtSnmpDataList& values )
     mValues << values;
     sentOkCmd();
 
-//    for( const auto& value : values ) {
-//        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
-//    }
+    //    for( const auto& value : values ) {
+    //        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
+    //    }
 }
 
 void SnmpThread::onRequestFailed( const qint32 request_id ) {

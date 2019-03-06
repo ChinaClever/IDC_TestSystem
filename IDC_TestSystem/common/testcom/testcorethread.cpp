@@ -27,7 +27,6 @@ void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTrans
     mItem=item;
     mPackets=packets;
     mTrans = trans;
-    connect(this,SIGNAL(finishSig()),this->mTrans->mSnmp,SLOT(finishSlot()));
 }
 
 void TestCoreThread::startThread()
@@ -36,8 +35,6 @@ void TestCoreThread::startThread()
     mDevPacket = &(mPackets->dev[mItem->devId]);
     start();
 }
-
-
 
 void TestCoreThread::updateData()
 {
@@ -397,10 +394,7 @@ void TestCoreThread::lineVolAlarm()
     sTestDataItem item;
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
-    //sleep(20);
     sleep(3);
-    emit finishSig();
-    msleep(500);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -427,10 +421,8 @@ void TestCoreThread::loopVolAlarm()
     if(num <=0) return;
 
     setLoopVolCmd(true);
-    emit finishSig();
-    msleep(500);
     for(int i=0; i<num; ++i)
-    {
+    {        
         sObjData *obj = &(mDevPacket->data.loop[i]);
         item.subItem = tr("修改 C%1 电压最小值").arg(i+1);
         int expectValue  = Test_Abnormal_VolMin *COM_RATE_VOL;
@@ -646,9 +638,7 @@ void TestCoreThread::lineCurAlarm()
     sTestDataItem item;
     item.item = tr("相电流告警检查");
     setLineCurCmd(true);
-    //
     sleep(5);
-    emit finishSig();
     mTrans->snmpUpdateData();
     msleep(500);
 
@@ -679,7 +669,6 @@ void TestCoreThread::loopCurAlarm()
 
     setLoopCurCmd(true);
     sleep(5);
-    emit finishSig();
     mTrans->snmpUpdateData();
     msleep(500);
     for(int i=0; i<num; ++i)
@@ -708,7 +697,6 @@ void TestCoreThread::outputCurAlarm()
 
     setOutputCurCmd(true);
     sleep(21);
-    emit finishSig();
     mTrans->snmpUpdateData();
     sleep(1);
     for(int i=0; i<num; ++i)
@@ -745,7 +733,6 @@ bool TestCoreThread::swAccuracy(int measured, sTestDataItem &item)
     } else {
         ret = true;
     }
-
 
     item.expect = tr("断开");
     item.measured = str;
@@ -784,7 +771,6 @@ void TestCoreThread::outputSwCtr()
 
     setOutputSwCmd(true);
     sleep(26);
-    emit finishSig();
     mTrans->snmpUpdateData();
     sleep(10);
     for(int i=0; i<num; ++i)
@@ -909,7 +895,7 @@ void TestCoreThread::setOutputEleCmd()
     cmd.devId = mItem->devId;
     outputEleCmd(cmd);
 
-    setAlarmCmd(cmd, true);
+    setAlarmCmd(cmd, false);
 }
 
 
@@ -1172,7 +1158,6 @@ void TestCoreThread::setBigCurCmd(sTestDataItem& items,QList<int>& measuredPowVa
             sleep(5);
             mTrans->snmpUpdateData();
             sleep(10);
-            emit finishSig();
 
     }
 }
