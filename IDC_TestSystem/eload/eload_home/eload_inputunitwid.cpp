@@ -47,7 +47,9 @@ void ELoad_InputUnitWid::init(int addr, int bit)
 {
     mObjData = &(IN_DataPackets::bulid()->getDev(addr)->data.input[bit]);
     QString str = QString::number((addr-1) * 8 + bit+1);
-    ui->inputLab->setText(str);
+    ui->inputLab->setText(tr(""));
+    QString labstr = ui->label->text()+str;
+    ui->label->setText(labstr);
     mAddr = addr;
     mBit = bit;
     mQmapRes.insert(addr*10+bit,ui->resLab);
