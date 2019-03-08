@@ -146,7 +146,7 @@ void ELoad_StatusHomeWid::updateRunTime()
             int min = mSec++ / 60 ;
             int hour = min / 60;
             int day = hour / 24;
-            str = tr("%1天 %2时 %3分 %4抄").arg(day).arg(hour%24).arg(min%60).arg(mSec%60);
+            str = tr("%1天 %2时 %3分 %4秒").arg(day).arg(hour%24).arg(min%60).arg(mSec%60);
         } else {
             on_startBtn_clicked();
         }
