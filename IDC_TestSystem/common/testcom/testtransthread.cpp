@@ -96,7 +96,7 @@ void TestTransThread::run()
 {
     while(mRtuCmdList.size()) {
         mRtuTrans->setValue(mRtuCmdList.first());
-        sleep(1);
+        sleep(2);
         mRtuCmdList.removeFirst();
     }
 

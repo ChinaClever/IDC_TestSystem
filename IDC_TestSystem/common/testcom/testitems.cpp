@@ -48,7 +48,7 @@ void TestItems::communication(QList<sTestItem> &items)
     item.id = mId++;
     item.subItem = tr("Modbus通讯测试");
     item.eResult = tr("通过Modbus能获取到设备数据");
-    items << item; 
+    items << item;
 }
 
 

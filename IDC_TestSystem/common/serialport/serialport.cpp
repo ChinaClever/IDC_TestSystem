@@ -280,7 +280,7 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
     strArray = witeArray.toHex(); // 十六进制
     for(int i=0; i<witeArray.size(); ++i)
     strArray.insert(2+3*i, " "); // 插入空格
-    qDebug()<< "write:" << strArray;
+    //qDebug()<< "write:" << strArray;
 
     int ret = transmit(witeArray, readArray, msecs);
     if(ret > 0) {
@@ -294,7 +294,7 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
         strArray = readArray.toHex(); // 十六进制
         for(int i=0; i<readArray.size(); ++i)
         strArray.insert(2+3*i, " "); // 插入空格
-        qDebug()<< "read:" << strArray;
+        //qDebug()<< "read:" << strArray;
     }
     return ret;
 }

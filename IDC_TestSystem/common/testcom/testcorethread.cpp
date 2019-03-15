@@ -143,7 +143,7 @@ bool TestCoreThread::snmpTrans()
     item.expect = tr("通过SNMP能获取到设备数据");
 
     QString str = tr("SNMP通讯失败");
-    mTrans->snmpUpdateData(); sleep(9);
+    mTrans->snmpUpdateData(); sleep(10);
     if(mDevPacket->txType == 1) {
         ret = true;
         str = tr("SNMP通讯成功");
@@ -166,7 +166,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(16);//必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
+    mTrans->rtuUpdateData(); sleep(20);//必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -285,6 +285,7 @@ void TestCoreThread::devInfoCheck()
 bool TestCoreThread::transmission(bool& snmpRet)
 {
     bool ret = true;
+
 
     if(mItem->isSnmp) snmpRet = snmpTrans();
     ret = rtuTrans();
@@ -907,7 +908,7 @@ void TestCoreThread::setLineEleCmd()
     cmd.devId = mItem->devId;
     lineEleCmd(cmd);
 
-    setAlarmCmd(cmd, true);
+    setAlarmCmd(cmd, false);
 }
 
 
@@ -1108,7 +1109,7 @@ void TestCoreThread::openOrCloseBigCur(bool mode)
 {
     for(int i = 1 ; i < 4 ; ++i){
         ELoad_RtuSent::bulid()->setBigCur( i , mode );//打开关闭大电流模式
-        msleep(10);
+        msleep(500);
     }
 }
 
