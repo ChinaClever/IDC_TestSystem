@@ -1145,7 +1145,6 @@ bool TestCoreThread::checkOutputZeroCur(int b, sTestDataItem &item)
     return ret;
 }
 
-
 void TestCoreThread::bigCurPowCheck(int i, int addr)
 {
     sTestDataItem item;
@@ -1157,8 +1156,6 @@ void TestCoreThread::bigCurPowCheck(int i, int addr)
     int expect = IN_DataPackets::bulid()->getTgValueByIndex( 3 , addr);
     powAccuracy(expect, measuredValue, item);
 }
-
-
 
 void TestCoreThread::setBigCurCmd()
 {
