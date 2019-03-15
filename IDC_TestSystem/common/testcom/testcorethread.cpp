@@ -1225,7 +1225,7 @@ void TestCoreThread::openAllOutput()
 
 void TestCoreThread::resDev()
 {
-    openAllOutput();
+    openAllOutput(); // 打开输出位
 
     //// 这里发送恢复出厂设置命令，清除日志，清除电能等
 }
