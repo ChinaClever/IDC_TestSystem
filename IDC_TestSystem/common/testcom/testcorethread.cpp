@@ -1212,7 +1212,6 @@ void TestCoreThread::bigCurCheck()
     setBigCurCmd();//大电流输出位电流检查
     openOrCloseBigCur(false);//关闭大电流模式
     ELoad_RtuSent::bulid()->switchOpenAll();
-    openAllOutput();
 }
 
 void TestCoreThread::openAllOutput()
