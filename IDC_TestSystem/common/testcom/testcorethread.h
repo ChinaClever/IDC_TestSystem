@@ -169,13 +169,18 @@ private:
     void temCheck();
     void humCheck();
     void envCheck();
+    bool checkOutputZeroCur(int b, sTestDataItem &item);
     void bigCurCheck();
+
     void temHumAlarm();
     void setTemHumAlarmCmd(bool alrm);
     void openOrCloseBigCur(bool mode);//mode:ture打开 false关闭
     void closeOtherOutput(sTestSetCmd& cmd);
-    void setBigCurCmd(sTestDataItem& items, QList<int>& measuredPowValue, QList<int>& expectPowValue);
-    void bigCurPowCheck(sTestDataItem& items, QList<int> &measuredPowValue, QList<int> &expectPowValue);
+    void setBigCurCmd();
+    void bigCurPowCheck(int i, int addr);
+
+    void openAllOutput();
+    void resDev();
 
 private:
     int mItemId;
