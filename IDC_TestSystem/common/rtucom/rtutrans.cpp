@@ -117,6 +117,7 @@ void RtuTrans::devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet)
     packet->devSpec = pkt->data.devSpec;
     strcpy(packet->ip, pkt->data.ip);
     strcpy(packet->mac, pkt->data.mac);
+    packet->txType = 2;
 
     devData(pkt->data, packet->data);
 }

@@ -288,3 +288,21 @@ void MTest_CoreThread::humCmd(sTestSetCmd &it)
         rtuCmd.value = Test_Abnormal_HumMax; it.rtuAlarmMax.append(rtuCmd);
     }
 }
+
+bool MTest_CoreThread::clearEleCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = ZM_RtuReg_ClearEle;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
+}
+
+bool MTest_CoreThread::setFactoryCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = ZM_RtuReg_SetFactory;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
+}

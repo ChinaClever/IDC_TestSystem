@@ -166,7 +166,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(20);//必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
+    mTrans->rtuUpdateData(); sleep(23);//zpdu20 必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -1233,6 +1233,15 @@ void TestCoreThread::openAllOutput()
 void TestCoreThread::resDev()
 {
     //// 这里发送恢复出厂设置命令，清除日志，清除电能等
+    ///
+    ///
+    ///
+    sTestSetCmd cmd;
+    cmd.devId = mItem->devId;
+    clearEleCmd(cmd);
+
+    setFactoryCmd(cmd);
+    setAlarmCmd(cmd, false);
 }
 
 void TestCoreThread::run()
@@ -1253,7 +1262,7 @@ void TestCoreThread::run()
         envCheck();
 
         bigCurCheck();
-        resDev();
+        //resDev();
     }  else {
         countItemsNum();
     }

@@ -1,4 +1,4 @@
-#ifndef Z_SETCMDENUM_H
+﻿#ifndef Z_SETCMDENUM_H
 #define Z_SETCMDENUM_H
 
 
@@ -105,6 +105,9 @@ enum Z_SetCmdEnum {
     Z_RtuReg_WaterSize = 0x01,
     Z_RtuReg_SmokeData = 0x4100,
     Z_RtuReg_SmokeSize = 0x01,
+
+    Z_RtuReg_ClearEle = 0x6000,
+    Z_RtuReg_SetFactory = 0x6001,
 
     Z_RtuReg_CmdNum = 45,
 };

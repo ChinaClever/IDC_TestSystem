@@ -86,6 +86,9 @@ public:
     virtual void outputCloseSwCmd(sTestSetCmd &it)=0;
     virtual void outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index)=0;
 
+    virtual bool clearEleCmd(sTestSetCmd &it)=0;
+    virtual bool setFactoryCmd(sTestSetCmd &it)=0;
+
 
 signals:
     void overSig();

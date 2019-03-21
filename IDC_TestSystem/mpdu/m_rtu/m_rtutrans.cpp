@@ -120,7 +120,7 @@ int M_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
 {
     ushort *array = zm_reg_array(cmd);
     int ret = transData(addr, array[0], array[1], mRtuPkt, msecs);
-    if(ret){ devDataPacket(mRtuPkt, pkt); pkt->txType = 2;}
+    if(ret){ devDataPacket(mRtuPkt, pkt);}
     else pkt->id = addr;
 
     return ret;

@@ -27,6 +27,9 @@ public:
 
     void outputCloseSwCmd(sTestSetCmd &it);
     void outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index);
+
+    bool clearEleCmd(sTestSetCmd &it);
+    bool setFactoryCmd(sTestSetCmd &it);
 };
 
 #endif // ZTEST_CORETHREAD_H
