@@ -44,6 +44,7 @@ void TestDataTableWid::appendItem(const sTestDataItem &item)
     listStr.insert(0, QString::number(item.id));
     mItem->logList.append(listStr);
     mItem->logItems.append(item);
+    scrollToBottomTable();
 }
 
 void TestDataTableWid::timeoutDone()

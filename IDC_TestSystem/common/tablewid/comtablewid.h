@@ -1,4 +1,4 @@
-#ifndef COMTABLEWID_H
+﻿#ifndef COMTABLEWID_H
 #define COMTABLEWID_H
 
 #include <QWidget>
@@ -29,6 +29,7 @@ protected:
     void delTable();
     void setBackgroundColor(int id);
     void setItemColor(int id, int column, int alarm);
+    void scrollToBottomTable();
 
 protected slots:
     virtual void timeoutDone(){}
