@@ -166,7 +166,7 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(20);//必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
+    mTrans->rtuUpdateData(); sleep(23);//zpdu20 必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -1145,7 +1145,6 @@ bool TestCoreThread::checkOutputZeroCur(int b, sTestDataItem &item)
     return ret;
 }
 
-
 void TestCoreThread::bigCurPowCheck(int i, int addr)
 {
     sTestDataItem item;
@@ -1157,8 +1156,6 @@ void TestCoreThread::bigCurPowCheck(int i, int addr)
     int expect = IN_DataPackets::bulid()->getTgValueByIndex( 3 , addr);
     powAccuracy(expect, measuredValue, item);
 }
-
-
 
 void TestCoreThread::setBigCurCmd()
 {
@@ -1205,10 +1202,21 @@ void TestCoreThread::setBigCurCmd()
 void TestCoreThread::bigCurCheck()
 {
     openOrCloseBigCur(true);//打开大电流模式
+    //    QList<int> res;
+       //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+       //    for(int i = 1 ; i <= 3 ; i ++)
+       //        for(int j = 0 ;j < 8 ; j ++){
+       //            res.append(config->getResistance(i,j));
+       //        }
+       //    for(int i = 0 ; i < 8 ; i++)
+       //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
+       //    }
+
     ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
     mTrans->snmpUpdateData(); sleep(30);
 
+    //setBigCurCmd(res);//大电流输出位电流检查
     setBigCurCmd();//大电流输出位电流检查
     openOrCloseBigCur(false);//关闭大电流模式
     ELoad_RtuSent::bulid()->switchOpenAll();
@@ -1224,9 +1232,16 @@ void TestCoreThread::openAllOutput()
 
 void TestCoreThread::resDev()
 {
-    openAllOutput(); // 打开输出位
-
     //// 这里发送恢复出厂设置命令，清除日志，清除电能等
+    ///
+    ///
+    ///
+    sTestSetCmd cmd;
+    cmd.devId = mItem->devId;
+    clearEleCmd(cmd);
+
+    setFactoryCmd(cmd);
+    setAlarmCmd(cmd, false);
 }
 
 void TestCoreThread::run()
@@ -1247,7 +1262,7 @@ void TestCoreThread::run()
         envCheck();
 
         bigCurCheck();
-        resDev();
+        //resDev();
     }  else {
         countItemsNum();
     }

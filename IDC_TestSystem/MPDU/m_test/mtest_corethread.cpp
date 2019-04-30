@@ -57,11 +57,9 @@ bool MTest_CoreThread::lineCurCmd(sTestSetCmd &it)
         snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
         snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
 
-        if(i!=1){
         snmpCmd.oid = QString("%1.%2.%3.2.%4.6.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
         snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
         snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
-        }
 
         rtuCmd.reg = ZM_RtuReg_LineCurMin+i;
         rtuCmd.value = Test_Normal_CurMin; it.rtuMin.append(rtuCmd);
@@ -141,6 +139,8 @@ bool MTest_CoreThread::outputSwCmd(sTestSetCmd &it)
 
         rtuCmd.reg = ZM_RtuReg_OutputSw+i;
         rtuCmd.value = 1; it.rtuMin.append(rtuCmd);
+        snmpCmd.oid = QString("%1.%2.%3.7.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = "ON"; it.sAlarmMax.append(snmpCmd);
     }
 
     return true;
@@ -287,4 +287,22 @@ void MTest_CoreThread::humCmd(sTestSetCmd &it)
         rtuCmd.value = Test_Normal_HumMax; it.rtuMax.append(rtuCmd);
         rtuCmd.value = Test_Abnormal_HumMax; it.rtuAlarmMax.append(rtuCmd);
     }
+}
+
+bool MTest_CoreThread::clearEleCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = ZM_RtuReg_ClearEle;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
+}
+
+bool MTest_CoreThread::setFactoryCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = ZM_RtuReg_SetFactory;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
 }

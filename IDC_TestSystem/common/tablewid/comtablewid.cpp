@@ -239,3 +239,8 @@ void ComTableWid::setItemColor(int id, int column, int alarm)
         break;
     }
 }
+
+void ComTableWid::scrollToBottomTable()
+{
+    ui->tableWidget->scrollToBottom();
+}

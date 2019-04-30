@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>300</width>
-    <height>90</height>
+    <height>92</height>
    </rect>
   </property>
   <property name="font">
@@ -20,7 +20,13 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QWidget#label{
+ border-radius: 20px; 
+ margin-top:5px;
+ background-color:#5CB85C;
+ color:white ;
+ font-weight:bold ;
+}</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -42,6 +48,9 @@
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>输入位</string>
        </property>

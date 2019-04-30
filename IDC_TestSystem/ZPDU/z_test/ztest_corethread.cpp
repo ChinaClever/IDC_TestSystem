@@ -325,3 +325,22 @@ void ZTest_CoreThread::humCmd(sTestSetCmd &it)
         rtuCmd.value = Test_Abnormal_HumMax; it.rtuAlarmMax.append(rtuCmd);
     }
 }
+
+bool ZTest_CoreThread::clearEleCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = Z_RtuReg_ClearEle;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
+}
+
+bool ZTest_CoreThread::setFactoryCmd(sTestSetCmd &it)
+{
+    sRtuSetCmd rtuCmd;
+    rtuCmd.addr  = it.devId;
+    rtuCmd.reg = Z_RtuReg_SetFactory;
+    rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
+    return true;
+}
+

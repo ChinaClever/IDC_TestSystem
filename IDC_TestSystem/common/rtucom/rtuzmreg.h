@@ -106,6 +106,8 @@ enum ZM_SetCmdEnum {
     ZM_RtuReg_SmokeData = 0x4100,//44
     ZM_RtuReg_SmokeSize = 0x01,
 
+    ZM_RtuReg_ClearEle = 0x6000,
+    ZM_RtuReg_SetFactory = 0x6001,
     ZM_RtuReg_CmdNum = 45,
 };
 
