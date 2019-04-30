@@ -1,4 +1,4 @@
-﻿#ifndef TESTCORETHREAD_H
+#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
