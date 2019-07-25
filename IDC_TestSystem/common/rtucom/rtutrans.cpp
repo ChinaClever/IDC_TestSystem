@@ -7,6 +7,7 @@ RtuTrans::RtuTrans(QObject *parent)
 
 bool RtuTrans::setValue(const sRtuSetCmd &cmd)
 {
+    qDebug()<<"send"<<cmd.addr<<cmd.reg<<cmd.value;
     return sentSetCmd(cmd.addr, cmd.reg, cmd.value, 5);
 }
 

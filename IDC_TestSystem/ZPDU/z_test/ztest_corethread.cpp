@@ -152,7 +152,7 @@ bool ZTest_CoreThread::outputCurCmd(sTestSetCmd &it)
         snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
         snmpCmd.value = QString("%1.0").arg(Test_Normal_OutputCurMax).toUtf8();  it.sMax.push_front(snmpCmd);
 
-        rtuCmd.reg = Z_RtuReg_LoopCurMax+i;
+        rtuCmd.reg = Z_RtuReg_OutputCurMax+i;
         rtuCmd.value = Test_Normal_OutputCurMax; it.rtuMax.append(rtuCmd);
         rtuCmd.value = Test_Abnormal_CurMax; it.rtuAlarmMax.append(rtuCmd);
     }

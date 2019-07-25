@@ -25,8 +25,9 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
         swObjData(tr("输出位"), mSpec->outputNum , items);
     }
 
-    eleObjData(tr("电能"),items);
+    //eleObjData(tr("电能"),items);
     temhumObjData(items);
+    sensorsObjData(items);
     bigCurObjData(items);
     return mSpec->isSnmp;
 }
@@ -250,10 +251,10 @@ void TestItems::eleUnitItem(const QString & itemStr,int num , QList<sTestItem> &
 }
 
 void TestItems::temhumObjData(QList<sTestItem> &items)
-{
+{//暂时把温湿度传感器写死为4                     2019/7/25 peng
     sTestItem item;
     int num = 2;
-    for(int k = 0 ; k < 2 ; ++k)
+    for(int k = 0 ; k < 4 ; ++k)
     {
         item.item = (k == 0 )? tr("温度检查"):tr("湿度检查");
         QString itemStr = (k == 0 )? tr("温度"):tr("湿度");
@@ -264,6 +265,31 @@ void TestItems::temhumObjData(QList<sTestItem> &items)
             items << item;
         }
     }
+}
+
+void TestItems::sensorsObjData(QList<sTestItem> &items)
+{//暂时把门禁写死为2                     2019/7/25 peng
+    sTestItem item;
+
+    int num = 2;
+    QString itemStr = tr("门禁");
+    for(int i = 0; i < num; ++i) {
+        item.id = mId++;
+        item.subItem = tr("测%1 %2").arg(itemStr).arg(i+1);
+        item.eResult = tr("%1 %2 是否正常").arg(itemStr).arg(i+1);
+        items << item;
+    }
+    itemStr = tr("烟雾");
+    item.id = mId++;
+    item.subItem = tr("测%1").arg(itemStr);
+    item.eResult = tr("%1 是否正常").arg(itemStr);
+    items << item;
+
+    itemStr = tr("水浸");
+    item.id = mId++;
+    item.subItem = tr("测%1").arg(itemStr);
+    item.eResult = tr("%1 是否正常").arg(itemStr);
+    items << item;
 }
 
 void TestItems::devInfoObjData(QList<sTestItem> &items)

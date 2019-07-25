@@ -1,4 +1,4 @@
-#ifndef RTUZMRECV_H
+﻿#ifndef RTUZMRECV_H
 #define RTUZMRECV_H
 #include "rtuzmreg.h"
 
@@ -87,7 +87,7 @@ protected:
     bool rtuRecvCrc(uchar *buf, int len, ZM_sRtuRecv *msg);
     int rtuRecvHead(uchar *ptr,  ZM_sRtuRecv *pkt);
 
-    uchar *rtuRecvData(uchar *ptr, int num, uint *value);
+    uchar *rtuRecvData(uchar *ptr, int num, uint *value1, ushort *value2);
     uchar *rtuRecvData(uchar *ptr, int num, ushort *value);
     uchar *rtuRecvData(uchar *ptr, int num, uchar *value);
 };

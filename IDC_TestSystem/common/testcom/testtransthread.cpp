@@ -27,7 +27,7 @@ void TestTransThread::timeoutDone()
     case 3: rtuStopData(); break;
     case 4: snmpStopData(); break;
     case 5: stopUpdate(); break;
-    case 6: start(); break;
+    //case 6: start(); qDebug()<<"start";break;
     default:  break;
     }
     mStep = 0;
@@ -69,7 +69,7 @@ void TestTransThread::setRtuValue(const sRtuSetCmd &cmd)
 {
     if(mRtuCmdList.isEmpty()) {
         if(mRtuLock)  mRtu->stopThread();
-        mStep = 6;
+        start();
     }
     mRtuCmdList.append(cmd);
 }
@@ -96,7 +96,7 @@ void TestTransThread::run()
 {
     while(mRtuCmdList.size()) {
         mRtuTrans->setValue(mRtuCmdList.first());
-        sleep(2);
+        sleep(3);
         mRtuCmdList.removeFirst();
     }
 

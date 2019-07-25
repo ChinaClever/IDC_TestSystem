@@ -6,7 +6,7 @@
 #define LOOP_NUM  9
 #define INPUT_NUM 10
 #define OUTPUT_NUM 42
-#define SENOR_NUM 3
+#define SENOR_NUM 4
 #define NAME_SIZE 32
 #define DEV_NUM 33
 #define ARRAY_SIZE 255 //一包数据最长

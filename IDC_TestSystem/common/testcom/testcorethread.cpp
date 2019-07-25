@@ -343,7 +343,7 @@ void TestCoreThread::loopVol()
 void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
 {
     if(alrm){
-        if(mItem->isSnmp) {
+        if(mItem->isSnmp && !cmd.sAlarmMin.isEmpty()) {
             mTrans->setSnmpValue(cmd.sAlarmMin);
             mTrans->setSnmpValue(cmd.sAlarmMax);
             mTrans->snmpUpdateData();
@@ -353,16 +353,16 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->rtuUpdateData();
         }
     } else {
-        if(!cmd.sMin.isEmpty()){
-            mTrans->setSnmpValue(cmd.sMin);
-            mTrans->setSnmpValue(cmd.sMax);
-            mTrans->snmpUpdateData();
-        }
-        else{
+//        if(!cmd.sMin.isEmpty()){
+//            mTrans->setSnmpValue(cmd.sMin);
+//            mTrans->setSnmpValue(cmd.sMax);
+//            mTrans->snmpUpdateData();
+//        }
+//        else{
             mTrans->setRtuValue(cmd.rtuMin);
             mTrans->setRtuValue(cmd.rtuMax);
             mTrans->rtuUpdateData();
-        }
+//        }
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
@@ -396,6 +396,8 @@ void TestCoreThread::lineVolAlarm()
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
     sleep(3);
+    mTrans->rtuUpdateData();//////////
+    sleep(15);//////////test rpdu RTU 2019/7/1 peng add
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -641,7 +643,8 @@ void TestCoreThread::lineCurAlarm()
     setLineCurCmd(true);
     sleep(5);
     mTrans->snmpUpdateData();
-    msleep(500);
+    //msleep(500);
+    sleep(20);//////////test rpdu RTU 2019/7/1 peng add
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -671,7 +674,8 @@ void TestCoreThread::loopCurAlarm()
     setLoopCurCmd(true);
     sleep(5);
     mTrans->snmpUpdateData();
-    msleep(500);
+    //msleep(500);
+    sleep(15);//////////test rpdu RTU 2019/7/1 peng add
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -697,9 +701,10 @@ void TestCoreThread::outputCurAlarm()
     if(num <=0) return;
 
     setOutputCurCmd(true);
-    sleep(21);
+    sleep(100);//20
     mTrans->snmpUpdateData();
-    sleep(1);
+    //sleep(1);
+    sleep(100);//////////test rpdu RTU 2019/7/1 peng add
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1017,11 +1022,11 @@ bool TestCoreThread::humAccuracy(int expect, int measured, sTestDataItem &item)
 void TestCoreThread::temCheck()
 {
     int num = mDevPacket->data.env.envNum;
-    if(num <=0) return;
+    if(num <= 0) return;
 
     sTestDataItem item;
     item.item = tr("温度检查");
-    for(int i=0; i<num; ++i)
+    for(int i = 0; i < num; ++i)
     {
         item.subItem = tr(" 温度%1 ").arg(i+1);
         int expectValue = IN_DataPackets::bulid()->getTgValue(6);
@@ -1033,11 +1038,11 @@ void TestCoreThread::temCheck()
 void TestCoreThread::humCheck()
 {
     int num = mDevPacket->data.env.envNum;
-    if(num <=0) return;
+    if(num <= 0) return;
 
     sTestDataItem item;
     item.item = tr("湿度检查");
-    for(int i=0; i<num; ++i)
+    for(int i = 0; i < num; ++i)
     {
         item.subItem = tr(" 湿度%1 ").arg(i+1);
         int expectValue = mDevPacket->data.env.hum[1-i].value;
@@ -1100,7 +1105,42 @@ void TestCoreThread::envCheck()
 {
     temCheck();
     humCheck();
+    sensorsCheck();
     //temHumAlarm();
+}
+
+void TestCoreThread::sensorsCheck()
+{//暂时把门禁写死为2                     2019/7/25 peng
+    sTestDataItem item;
+    item.item = tr("门禁检查");
+    for(int i = 0; i < 2; ++i)
+    {
+        item.subItem = tr(" 门禁%1 ").arg(i+1);
+        int measuredValue = mDevPacket->data.env.door[i];
+
+        item.expect = tr("正常或者报警");
+        item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
+        item.status = (measuredValue != 0);
+        appendResult(item);
+    }
+
+    item.item = tr("烟雾检查");
+    item.subItem = tr(" 烟雾 ");
+    int measuredValue = mDevPacket->data.env.smoke[0];
+
+    item.expect = tr("正常或者报警");
+    item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
+    item.status = (measuredValue != 0);
+    appendResult(item);
+
+    item.item = tr("水浸检查");
+    item.subItem = tr(" 水浸 ");
+    measuredValue = mDevPacket->data.env.smoke[0];
+
+    item.expect = tr("正常或者报警");
+    item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
+    item.status = (measuredValue != 0);
+    appendResult(item);
 }
 
 void TestCoreThread::openOrCloseBigCur(bool mode)
@@ -1258,7 +1298,7 @@ void TestCoreThread::run()
         powCheck();
 
         switchCtr();
-        eleCheck();
+       // eleCheck();
         envCheck();
 
         bigCurCheck();

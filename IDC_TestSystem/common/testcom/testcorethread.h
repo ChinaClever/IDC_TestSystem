@@ -172,6 +172,7 @@ private:
     void temCheck();
     void humCheck();
     void envCheck();
+    void sensorsCheck();
     bool checkOutputZeroCur(int b, sTestDataItem &item);
     void bigCurCheck();
 

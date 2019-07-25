@@ -48,6 +48,7 @@ protected:
     void temhumObjData(QList<sTestItem> &items);
     void devInfoObjData(QList<sTestItem> &items);
     void bigCurObjData(QList<sTestItem> &items);
+    void sensorsObjData(QList<sTestItem> &items);
 
 private:
     sDutSpec *mSpec;

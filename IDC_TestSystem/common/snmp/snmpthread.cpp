@@ -85,7 +85,7 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-            //qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value<<ret;
+            //qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value;
             mSetCmdList.removeFirst();
         }
     }
@@ -98,9 +98,9 @@ void SnmpThread::onResponseReceived(const qint32, const QtSnmpDataList& values )
     mValues << values;
     sentOkCmd();
 
-    //    for( const auto& value : values ) {
-    //        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
-    //    }
+//    for( const auto& value : values ) {
+//        qDebug( "%s | %s : %s\n", qPrintable( m_address ),  qPrintable( value.address() ),  qPrintable( value.data()) );
+//    }
 }
 
 void SnmpThread::onRequestFailed( const qint32 request_id ) {

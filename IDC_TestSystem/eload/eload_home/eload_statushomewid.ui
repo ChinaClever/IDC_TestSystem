@@ -289,49 +289,6 @@ border-radius:15px
         <property name="bottomMargin">
          <number>18</number>
         </property>
-        <item>
-         <widget class="QLabel" name="label_13">
-          <property name="font">
-           <font>
-            <family>微软雅黑</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <property name="text">
-           <string>状态显示</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QComboBox" name="statusBox">
-          <property name="font">
-           <font>
-            <family>微软雅黑</family>
-            <pointsize>12</pointsize>
-           </font>
-          </property>
-          <item>
-           <property name="text">
-            <string>总状态</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>负载一</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>负载二</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>负载三</string>
-           </property>
-          </item>
-         </widget>
-        </item>
        </layout>
       </item>
       <item>

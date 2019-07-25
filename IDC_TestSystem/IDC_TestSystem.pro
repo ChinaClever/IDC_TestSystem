@@ -32,6 +32,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(common/common.pri)
 include(SI-PDU/SI-PDU.pri)
 include(IP-PDU/IP-PDU.pri)
+include(RPDU/RPDU.pri)
 include(MPDU/MPDU.pri)
 include(ZPDU/ZPDU.pri)
 include(SI-BusBar/SI-BusBar.pri)
