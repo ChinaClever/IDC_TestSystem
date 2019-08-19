@@ -53,7 +53,7 @@ void SnmpThread::startRun()
     if(!isRun) {
         if(msec == 0) msec = 500 + (rand() % 1000);
         if(!m_timer->isActive()) m_timer->start(msec);
-        if(!timer->isActive()) timer->start(100);
+        if(!timer->isActive()) timer->start(2000);//100 2019-7-29
 
         makeRequest();
         clearCount();

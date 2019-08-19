@@ -65,9 +65,10 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     strArray = writeArray.toHex(); // 十六进制
     for(int i=0; i<writeArray.size(); ++i)
     strArray.insert(2+3*i, " "); // 插入空格
-    qDebug()<< "write:" << strArray;
+    //qDebug()<< "write:" << strArray;
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
+        if(rtn != 8 ) rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
 
         strArray.clear();
         readArray.append((char *)sent, rtn);
@@ -75,7 +76,7 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
         strArray = readArray.toHex(); // 十六进制
         for(int i=0; i<readArray.size(); ++i)
         strArray.insert(2+3*i, " "); // 插入空格
-        qDebug()<< "read:" << strArray;
+        //qDebug()<< "read:" << strArray;
 
         if(memcmp(sent, buf,rtn) == 0)
             ret = true;
@@ -226,7 +227,10 @@ void R_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
          data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
+    if(data.outputNum == 0)
     num = data.outputNum = rtuData.output.num;
+    else
+    num = rtuData.output.num = data.outputNum;
     for(int i=0; i<num; ++i) {
         rtuData.output.vol.value[i] = vol;
         devObjData(rtuData.output, i, data.output[i] ,false);

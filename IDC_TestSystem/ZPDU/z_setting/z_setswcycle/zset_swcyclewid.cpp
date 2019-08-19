@@ -183,7 +183,7 @@ void ZSet_SwCycleWid::rtuAllOpenOrCloseCase(int& mtimers)
         sRtuSetCmd cmd;
         cmd.addr = ui->spinBox->value();
         cmd.reg = mReg + mSelect[i];
-        cmd.value = (mtimers == 0? 1 : 0 );
+        cmd.value = (mtimers == 0? 1 : 2 );
         mRtu->setCmd(cmd);
     }
 }
@@ -202,7 +202,7 @@ void ZSet_SwCycleWid::rtuOtherCase(int& mtimers ,bool end)
         sRtuSetCmd cmd;
         cmd.addr = ui->spinBox->value();
         cmd.reg = mReg + mSelect[mtimers - 1];
-        cmd.value = 0;
+        cmd.value = 2;
         mRtu->setCmd(cmd);
     }
     if(end)

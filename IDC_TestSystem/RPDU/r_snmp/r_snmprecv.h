@@ -15,6 +15,8 @@ protected:
     void lineData(const QByteArray &data);
     void envData(const QByteArray &data);
     void outputInfo(const QByteArray &data);
+    void envMinData(const QByteArray &data);
+    void envMaxData(const QByteArray &data);
 };
 
 #endif // R_SNMPRECV_H

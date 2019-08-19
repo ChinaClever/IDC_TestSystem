@@ -397,6 +397,8 @@ void TestCoreThread::lineVolAlarm()
     setLineVolCmd(true);
     sleep(3);
     mTrans->rtuUpdateData();//////////
+    qDebug()<<"mItem->serialNum.name"<<mItem->serialNum.name;
+    if(mItem->serialNum.name == "RPDU")
     sleep(15);//////////test rpdu RTU 2019/7/1 peng add
 
     int num = mDevPacket->data.lineNum;
@@ -643,8 +645,11 @@ void TestCoreThread::lineCurAlarm()
     setLineCurCmd(true);
     sleep(5);
     mTrans->snmpUpdateData();
-    //msleep(500);
+
+    if(mItem->serialNum.name == "RPDU")
     sleep(20);//////////test rpdu RTU 2019/7/1 peng add
+    else
+    msleep(500);
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -674,8 +679,10 @@ void TestCoreThread::loopCurAlarm()
     setLoopCurCmd(true);
     sleep(5);
     mTrans->snmpUpdateData();
-    //msleep(500);
+    if(mItem->serialNum.name == "RPDU")
     sleep(15);//////////test rpdu RTU 2019/7/1 peng add
+    else
+    msleep(500);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -701,10 +708,16 @@ void TestCoreThread::outputCurAlarm()
     if(num <=0) return;
 
     setOutputCurCmd(true);
+    if(mItem->serialNum.name == "RPDU")
     sleep(100);//20
+    else
+    sleep(20);
     mTrans->snmpUpdateData();
     //sleep(1);
+    if(mItem->serialNum.name == "RPDU")
     sleep(100);//////////test rpdu RTU 2019/7/1 peng add
+    else
+    sleep(1);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -782,7 +795,7 @@ void TestCoreThread::outputSwCtr()
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
         item.subItem = tr("输出位%1 开关控制 ").arg(i+1);
-        int measuredValue = obj->cur.value;
+        int measuredValue = obj->cur.value;//根据电流判断输出位是否关闭
         swAccuracy(measuredValue, item);
     }
     setOutputSwCmd(false);

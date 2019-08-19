@@ -58,7 +58,6 @@ void TestMainWid::startTest()
 {
     int ret = mSerialNumDlg->exec();
     if( ret == QDialog::Accepted ) {
-
         mConfig->item->mode = Test_Start;
         mTrans->clearSnmpCmd();//把上一次的snmp命令清除
         mCoreThread->startThread();
