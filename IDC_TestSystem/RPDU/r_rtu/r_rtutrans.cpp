@@ -68,24 +68,29 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     qDebug()<< "write:" << strArray;
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
-
         strArray.clear();
         readArray.append((char *)sent, rtn);
-        QString strArray;
         strArray = readArray.toHex(); // 十六进制
         for(int i=0; i<readArray.size(); ++i)
         strArray.insert(2+3*i, " "); // 插入空格
-        qDebug()<< "read:" << strArray;
-
-        if(memcmp(sent, buf,rtn) == 0)
-            ret = true;
-        else if(memcmp(sent, abnormalbuf1,rtn) == 0 || memcmp(sent, abnormalbuf2,rtn) == 0)
+        qDebug()<< "read1:" << strArray;
+        if(rtn != 8 )
         {
-            ret = false;
-            qDebug() << "R sent Set Cmd Err";
+            memset(sent,0,rtn);
+            memset(mSentBuf,0,rtn);
+            sleep(5);
+            rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
+
+            strArray.clear();
+            readArray.append((char *)sent, rtn);
+            strArray = readArray.toHex(); // 十六进制
+            for(int i=0; i<readArray.size(); ++i)
+            strArray.insert(2+3*i, " "); // 插入空格
+            qDebug()<< "read2:" << strArray;
         }
-        if(0 == rtn)
-            return true;//由于RPDU不回答，暂时是正确的
+
+        if(memcmp(sent, buf,rtn) == 6)
+            ret = true;
     }
 
     return ret;
@@ -226,7 +231,10 @@ void R_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
          data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
+    if(data.outputNum == 0)
     num = data.outputNum = rtuData.output.num;
+    else
+    num = rtuData.output.num = data.outputNum;
     for(int i=0; i<num; ++i) {
         rtuData.output.vol.value[i] = vol;
         devObjData(rtuData.output, i, data.output[i] ,false);

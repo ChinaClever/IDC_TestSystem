@@ -43,7 +43,7 @@ void ZSet_SwItemWid::setClose(bool checked)
 
 int ZSet_SwItemWid::status()
 {
-    int ret = 0;
+    int ret = 2;
     if(ui->openRadio->isChecked())
         ret = 1;
     return ret;

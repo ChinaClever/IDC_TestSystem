@@ -91,8 +91,8 @@ bool R_RtuRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case R_RtuReg_LinePF: ptrShort = pkt.line.pf; break;
 
     case R_RtuReg_OutputCur: ptrShort = pkt.output.cur.value; break;
-    case R_RtuReg_OutputCurMin: ptrShort = pkt.output.cur.min; qDebug()<<"RTU cur.min";break;
-    case R_RtuReg_OutputCurMax: ptrShort = pkt.output.cur.max; qDebug()<<"RTU cur.max";break;
+    case R_RtuReg_OutputCurMin: ptrShort = pkt.output.cur.min; break;
+    case R_RtuReg_OutputCurMax: ptrShort = pkt.output.cur.max; break;
     case R_RtuReg_OutputEle: ptrShort = pkt.output.ele; ptrInt = (uint * )pkt.output.ele;break;
 
     case R_RtuReg_TemData: ptrShort = pkt.env.tem.value; break;
@@ -111,7 +111,7 @@ bool R_RtuRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
 
     default:
         ret = false;
-        qDebug() << "R_RtuRecv::rtuRecvPacket err" << reg;
+        //qDebug() << "R_RtuRecv::rtuRecvPacket err" << reg;
         break;
     }
 
