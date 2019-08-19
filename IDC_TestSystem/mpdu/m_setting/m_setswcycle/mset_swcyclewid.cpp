@@ -160,13 +160,23 @@ void MSet_SwCycleWid::sendSnmp(int& mtimers)
     }
     else
     {//全开全关
-        snmpAllOpenOrCloseCase(mtimers);
-        mCaseCount++;
-        mSnmp->start();
-        if(mtimers == 2)
+        if(1 == mtimers && !mDelayCloseSwFlag)
         {
-            updateCycleCount();
+            mDelayCloseSwFlag = true;
             return;
+        }
+        else
+        {
+            snmpAllOpenOrCloseCase(mtimers);
+            if(1 == mtimers && mDelayCloseSwFlag)
+                mDelayCloseSwFlag = false;
+            mCaseCount++;
+            mSnmp->start();
+            if(mtimers == 2)
+            {
+                updateCycleCount();
+                return;
+            }
         }
     }
     ui->textEdit->clear();
@@ -236,13 +246,23 @@ void MSet_SwCycleWid::sendRtu(int& mtimers)
     }
     else
     {//全开全关
-        rtuAllOpenOrCloseCase(mtimers);
-        mCaseCount++;
-        mRtu->start();
-        if(mtimers == 2)
+        if(1 == mtimers && !mDelayCloseSwFlag)
         {
-            updateCycleCount();
+            mDelayCloseSwFlag = true;
             return;
+        }
+        else
+        {
+            rtuAllOpenOrCloseCase(mtimers);
+            if(1 == mtimers && mDelayCloseSwFlag)
+                mDelayCloseSwFlag = false;
+            mCaseCount++;
+            mRtu->start();
+            if(mtimers == 2)
+            {
+                updateCycleCount();
+                return;
+            }
         }
     }
 
@@ -295,6 +315,7 @@ void MSet_SwCycleWid::startSend()
     mTimer->start(ui->timespinBox->value()*1000);
     ui->startBtn->setText(tr("停止"));
     mStartOrStop = false;
+    mDelayCloseSwFlag = false;
 }
 
 void MSet_SwCycleWid::stopSend()

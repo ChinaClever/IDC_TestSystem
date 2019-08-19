@@ -1,4 +1,4 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
@@ -8,6 +8,7 @@
 #include "zpdu_mainwid.h"
 #include "ip_mainwid.h"
 #include "eload_mainwid.h"
+#include "rpdu_mainwid.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,6 +34,8 @@ private slots:
     void on_zpduBtn_clicked();
     void on_eloadBtn_clicked();
 
+    void on_rpduBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -42,6 +45,7 @@ private:
     ZPDU_MainWid *mZpduWid;
     IP_MainWid *mIpWid;
     ELoad_MainWid *mELoadWid;
+    RPDU_MainWid *mRpduWid;
 };
 
 #endif // MAINWINDOW_H

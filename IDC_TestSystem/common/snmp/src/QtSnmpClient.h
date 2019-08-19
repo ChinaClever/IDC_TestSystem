@@ -24,6 +24,8 @@ public:
 
     bool isBusy() const;
 
+    void cancelWork();
+
     qint32 requestValue( const QString& );
 
     qint32 requestValues( const QStringList& oid_list );

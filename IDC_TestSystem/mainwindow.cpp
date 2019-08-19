@@ -47,6 +47,9 @@ void MainWindow::initWid()
 
     mIpWid = new IP_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mIpWid);
+
+    mRpduWid = new RPDU_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mRpduWid);
 }
 
 void MainWindow::on_sipduBtn_clicked()
@@ -77,4 +80,9 @@ void MainWindow::on_zpduBtn_clicked()
 void MainWindow::on_eloadBtn_clicked()
 {
     ui->stackedWid->setCurrentWidget(mELoadWid);
+}
+
+void MainWindow::on_rpduBtn_clicked()
+{
+    ui->stackedWid->setCurrentWidget(mRpduWid);
 }

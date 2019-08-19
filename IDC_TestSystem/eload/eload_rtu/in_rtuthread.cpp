@@ -42,7 +42,7 @@ void IN_RtuThread::sentCmdList()
     if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
         bool ret = mRtu->sentSetCmd(cmd, 10);
-        if(ret) mSecondCmdList.append(cmd);
+        //if(ret) mSecondCmdList.append(cmd);
         mCmdList.removeFirst();
     }
 }
@@ -82,11 +82,11 @@ void IN_RtuThread::workDown()
     int ret = 0;
 
     sentCmdList();
-    sentSecondCmdList();
+    //sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
-    for(int k=1; k<=mPackets->devNum; ++k)
+    for(int k = 1; k <= mPackets->devNum; ++k)
     {
         int addr = k;
         sDataPacket *dev = &(mPackets->dev[k]);

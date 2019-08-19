@@ -95,12 +95,12 @@ int RtuZmRecv::rtuRecvHead(uchar *ptr,  ZM_sRtuRecv *pkt)
     return pkt->len;
 }
 
-uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uint *value)
+uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uint *value1 , ushort *value2)
 {
     for(int i=0; i<num/4; ++i) {
-        value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
-        value[i] <<= 8; // 左移8位
-        value[i] +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
+        value2[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
+        value2[i] <<= 8; // 左移8位
+        value2[i] +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
     }
 
     return ptr;
@@ -128,7 +128,7 @@ void RtuZmRecv::devIpAddr(uchar *buf, int len, ZM_sRtuPacket &pkt)
 {
     uchar array[20] = {0};
     rtuRecvData(buf, len, array);
-    sprintf(pkt.mac, "%d.%d.%d.%d", array[1], array[0], array[3], array[2]);
+    sprintf(pkt.ip, "%d.%d.%d.%d", array[1], array[0], array[3], array[2]);
 }
 
 void RtuZmRecv::devMac(uchar *buf, int len, ZM_sRtuPacket &pkt)
@@ -198,7 +198,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_OutputCurCrMin: ptrShort = pkt.output.cur.crMin; break;
     case ZM_RtuReg_OutputCurCrMax: ptrShort = pkt.output.cur.crMax; break;
     case ZM_RtuReg_OutputPF: ptrShort = pkt.output.pf; break;
-    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele; break;
+    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele;break;
 
     case ZM_RtuReg_TemData: ptrShort = pkt.env.tem.value; break;
     case ZM_RtuReg_TemMin: ptrShort = pkt.env.tem.min; break;
@@ -223,6 +223,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     }
 
     if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
+
 
     return ret;
 }

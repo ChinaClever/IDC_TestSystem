@@ -29,11 +29,11 @@ void ZSet_LineUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
         for(int j=0; j<3; j++) {
             ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                 sRtuSetCmd cmd;
-                 cmd.addr = addr;
-                 cmd.reg =  mWid[i]->mReg + j;
-                 cmd.value = item->status();
-                 list.append(cmd);
+                sRtuSetCmd cmd;
+                cmd.addr = addr;
+                cmd.reg =  mWid[i]->mReg + j;
+                cmd.value = item->status();
+                list.append(cmd);
             }
         }
     }
@@ -44,11 +44,11 @@ void ZSet_LineUnitWid::getCmdList(int index , int addr, QList<sSnmpSetCmd> &list
         for(int j=0; j<3; j++) {
             ZSet_ThresholdItemWid *item = mWid[i]->mWid[j];
             if(item->select()) {
-                     sSnmpSetCmd cmd;
-                     cmd.oid  = QString("%1.%2.%3.2.%4.%5.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(j+1).arg(i+(i==0?0:(i>=2?-1:2))+(index==0?10:6));
-                     cmd.type = SNMP_STRING_TYPE;
-                     cmd.value.append(QString("%1.00").arg(item->status()*(index == 0 ? 1:100)));
-                     list.append(cmd);
+                sSnmpSetCmd cmd;
+                cmd.oid  = QString("%1.%2.%3.2.%4.%5.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(j+1).arg(i+(i==0?0:(i>=2?-1:2))+(index==0?10:6));
+                cmd.type = SNMP_STRING_TYPE;
+                cmd.value.append(QString("%1.00").arg(item->status()*(index == 0 ? 1:100)));
+                list.append(cmd);
             }
         }
     }

@@ -20,6 +20,7 @@ ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     gridLayout->addWidget(this);
     mSec = 0;
     isRun = false;
+    ui->modeBox->setCurrentIndex(2);
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
@@ -76,53 +77,31 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 
     double value = packets->getTgValueByIndex(mode++,index) / COM_RATE_VOL;
     QString str = QString::number(value) + " V";
-    //ui->volLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR;
     str = QString::number(value) + " A";
     qstr = "                 "+tr("总电流：")+ str;
-    //ui->curLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_POW;
     str = QString::number(value) + " KW";
     qstr += spacestr+tr("总功率：")+ str;
-    //ui->powLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_ELE;
     str = QString::number(value) + " KWh";
     qstr += spacestr+tr("总电能：")+ str;
-    //ui->eleLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index);
     str = QString::number(value) + " HZ";
-    //ui->hzLab->setText(str);
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_TEM;
     str = QString::number(value) + " ℃";
     qstr += spacestr+tr("机箱温度：")+ str;
-    //ui->temLab->setText(str);
-    str = ui->statusBox->currentText();
-    //ui->groupBox_2->setTitle(str+tr("显示区"));
     emit updateIndexSig(index,qstr);
 }
 
 void ELoad_StatusHomeWid::updateWid()
 {
-    int mode = ui->statusBox->currentIndex();
-    switch(mode)
-    {
-    case 0:
-        updateTotalShowWid();
-        break;
-    case 1:
-    case 2:
-    case 3:
-        updateIndexShowWid(mode);
-        break;
-    default:
-        updateTotalShowWid();
-        break;
-    }
+    updateTotalShowWid();
 }
 
 bool ELoad_StatusHomeWid::checkRunTime()

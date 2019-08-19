@@ -163,7 +163,7 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
     bool ok;
     int item = getItemByOid(3);
     switch (item) {
-    case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;break;
+    case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;qDebug()<<"snmp start";break;
     case 2: devTypeData(data.toHex().toInt(&ok,16), mDataPacket); break;
     case 3: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16); break;
     case 4: sprintf(mDataPacket->mac, "%s",data.data()); break;

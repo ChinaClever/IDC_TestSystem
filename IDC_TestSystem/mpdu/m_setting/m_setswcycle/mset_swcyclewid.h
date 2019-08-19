@@ -49,6 +49,8 @@ private:
     bool mStartOrStop;//开始停止标志
     QList<int> mSelect;
     QTimer* mTimer;
+    bool mDelayCloseSwFlag;//延长发送关继电器控制标志 配合mCaseCount一起控制
+    //mCaseCount==0&&false：继续 mCaseCount==1&&false：停止 mCaseCount==1&&true:继续
 };
 
 #endif // MSET_SWCYCLEWID_H

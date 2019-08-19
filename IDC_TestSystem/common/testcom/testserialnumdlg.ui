@@ -148,6 +148,11 @@
           <string>BUSBAR</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>RPDU</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
