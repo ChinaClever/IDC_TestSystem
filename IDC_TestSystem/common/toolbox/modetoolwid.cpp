@@ -12,6 +12,7 @@ ModeToolWid::ModeToolWid(QWidget *parent) :
     mConfig = nullptr;
     mSerialPortDlg = new SerialPortDlg(this);
 
+    mConfig = nullptr;
     QTimer::singleShot(300,this,SLOT(initFunSLot())); //延时初始化
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
@@ -24,8 +25,7 @@ ModeToolWid::~ModeToolWid()
 
 void ModeToolWid::initFunSLot()
 {
-    if(!mConfig){ QTimer::singleShot(100,this,SLOT(initFunSLot())); return;}//延时初始化
-
+    if(!mConfig){ QTimer::singleShot(100,this,SLOT(initFunSLot())); return ;}//延时初始化
     initSerialPort();
     initDevNum();
 

@@ -695,6 +695,9 @@ void TestCoreThread::loopCurAlarm()
     setLoopCurCmd(true);
     sleep(5);
     mTrans->snmpUpdateData();
+    if(mItem->serialNum.name == "RPDU")
+    sleep(15);//////////test rpdu RTU 2019/7/1 peng add
+    else
     msleep(500);
     for(int i=0; i<num; ++i)
     {
