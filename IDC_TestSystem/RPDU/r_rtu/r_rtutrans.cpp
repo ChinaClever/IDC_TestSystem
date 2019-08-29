@@ -73,12 +73,9 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
         strArray = readArray.toHex(); // 十六进制
         for(int i=0; i<readArray.size(); ++i)
         strArray.insert(2+3*i, " "); // 插入空格
-        //qDebug()<< "read:" << strArray;
-
-        if(memcmp(sent, buf,rtn) == 0)
-            ret = true;
-        else if(memcmp(sent, abnormalbuf1,rtn) == 0 || memcmp(sent, abnormalbuf2,rtn) == 0)
-        {
+        qDebug()<< "read1:" << strArray;
+        if(rtn != 8 )
+         {
             memset(sent,0,rtn);
             memset(mSentBuf,0,rtn);
             sleep(5);
@@ -91,7 +88,6 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
             strArray.insert(2+3*i, " "); // 插入空格
             qDebug()<< "read2:" << strArray;
         }
-
         if(memcmp(sent, buf,rtn) == 6)
             ret = true;
     }

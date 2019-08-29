@@ -414,8 +414,6 @@ void TestCoreThread::lineVolAlarm()
     setLineVolCmd(true);
     sleep(3);
     mTrans->rtuUpdateData();//////////
-    if(mItem->serialNum.name == "RPDU")
-    sleep(25);//////////test rpdu RTU 2019/7/1 peng add
 
     int num = mDevPacket->data.lineNum;
     for(int i=0; i<num; ++i)
@@ -464,7 +462,8 @@ void TestCoreThread::volCheck()
     lineVol();
     loopVol();
 
-    lineVolAlarm();
+    if(mItem->serialNum.name != "RPDU")
+        lineVolAlarm();
     //loopVolAlarm();
 }
 

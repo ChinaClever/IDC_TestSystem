@@ -100,8 +100,14 @@ void TestItems::volObjData(const QString & itemStr ,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
 
-    str =  tr("相")+ itemStr;
-    maxminObjData(str , mSpec->lineNum , items);
+    if(NULL != mItem)
+        qDebug()<<"mItem->serialNum.name"<<mItem->serialNum.name;
+
+    if(NULL != mItem && mItem->serialNum.name != "RPDU")
+    {
+        str =  tr("相")+ itemStr;
+        maxminObjData(str , mSpec->lineNum , items);
+    }
 }
 
 void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
