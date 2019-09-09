@@ -37,14 +37,16 @@ void IN_RtuThread::sentCmd(sRtuSentCom &cmd)
     mCmdList.append(cmd);
 }
 
-void IN_RtuThread::sentCmdList()
+bool IN_RtuThread::sentCmdList()
 {
+    bool ret = false;
     if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
-        bool ret = mRtu->sentSetCmd(cmd, 10);
+        ret = mRtu->sentSetCmd(cmd, 10);
         //if(ret) mSecondCmdList.append(cmd);
         mCmdList.removeFirst();
     }
+    return ret;
 }
 
 void IN_RtuThread::sentSecondCmdList()
@@ -81,7 +83,7 @@ void IN_RtuThread::workDown()
 {
     int ret = 0;
 
-    sentCmdList();
+
     //sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
@@ -104,5 +106,8 @@ void IN_RtuThread::workDown()
         } else { // 数据异常
             saveErrCmd(addr, dev->rtuCount);
         }
+
+        if(sentCmdList())//调节电流
+        sleep(10);
     }
 }

@@ -1,4 +1,4 @@
-#include "eload_dpsavelinerecord.h"
+﻿#include "eload_dpsavelinerecord.h"
 
 ELoad_DpSaveLineRecord::ELoad_DpSaveLineRecord(QObject *parent) : DpSaveLine(parent)
 {
@@ -25,7 +25,7 @@ void ELoad_DpSaveLineRecord::saveLogItem(int id)
             }
 
             item.vol = packet->data.input[i].vol.value / COM_RATE_VOL;
-            item.cur = packet->data.input[i].cur.value / COM_RATE_CUR;
+            item.cur = packet->data.input[i].cur.value / COM_RATE_CUR2;
             item.pow = packet->data.input[i].pow / COM_RATE_POW;
             item.apow = packet->data.input[i].activePow / COM_RATE_POW;
             item.pf = packet->data.input[i].pf / COM_RATE_PF;

@@ -456,14 +456,14 @@ void TestCoreThread::volCheck()
 bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item)
 {
     bool ret = false;
-    int value = expect - measured;
+    int value = expect/COM_RATE_CUR - measured;
     int min = -2*COM_RATE_CUR;
     int max =  2*COM_RATE_CUR;
     if((value > min) && (value < max)) {
         ret = true;
     }
 
-    item.expect = QString::number(expect / COM_RATE_CUR) + "A";
+    item.expect = QString::number(expect / COM_RATE_CUR2) + "A";
     item.measured = QString::number(measured / COM_RATE_CUR) + "A";
     item.status = mRtuRet|mSnmpRet? ret : false;
     appendResult(item);
