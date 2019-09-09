@@ -143,7 +143,11 @@ bool TestCoreThread::snmpTrans()
     item.expect = tr("通过SNMP能获取到设备数据");
 
     QString str = tr("SNMP通讯失败");
-    mTrans->snmpUpdateData(); sleep(10);
+    mTrans->snmpUpdateData();
+    if(mItem->serialNum.name == "RPDU")
+        sleep(20);
+    else
+        sleep(10);
     if(mDevPacket->txType == 1) {
         ret = true;
         str = tr("SNMP通讯成功");
