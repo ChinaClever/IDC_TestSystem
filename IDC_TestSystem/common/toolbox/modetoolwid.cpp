@@ -25,18 +25,21 @@ ModeToolWid::~ModeToolWid()
 
 void ModeToolWid::initFunSLot()
 {
-    if(!mConfig){ QTimer::singleShot(100,this,SLOT(initFunSLot())); return ;}//延时初始化
-    initSerialPort();
-    initDevNum();
+    if(mConfig){
+        initSerialPort();
+        initDevNum();
 
-    QString ip = mConfig->getIp();
-    if(ip.isEmpty()) ip = "192.168.1.163";
-    ui->ipLineEdit->setText(ip);
-    mConfig->item->ip = ip;
+        QString ip = mConfig->getIp();
+        if(ip.isEmpty()) ip = "192.168.1.163";
+        ui->ipLineEdit->setText(ip);
+        mConfig->item->ip = ip;
 
-    int mode = mConfig->getTestMode();
-    ui->comboBox->setCurrentIndex(mode);
-    on_comboBox_currentIndexChanged(mode);
+        int mode = mConfig->getTestMode();
+        ui->comboBox->setCurrentIndex(mode);
+        on_comboBox_currentIndexChanged(mode);
+    } else {
+        QTimer::singleShot(100,this,SLOT(initFunSLot()));
+    }
 }
 
 void ModeToolWid::sipdu()
