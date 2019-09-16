@@ -32,6 +32,7 @@ public:
     TestItems();
 
     bool bulidItems(sDutSpec *spec, QList<sTestItem> &items);
+    void init(sTestConfigItem *item) { mItem = item;}
 
 protected:
     void communication(QList<sTestItem> &items);
@@ -52,6 +53,7 @@ protected:
 
 private:
     sDutSpec *mSpec;
+    sTestConfigItem  *mItem;
 
 public:
     int mId;

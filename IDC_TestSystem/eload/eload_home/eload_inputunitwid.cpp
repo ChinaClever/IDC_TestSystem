@@ -77,7 +77,7 @@ void ELoad_InputUnitWid::updateWid()
     QString str;
     QPalette pe;
     setText(mObjData->vol.value ,mObjData->vol.alarm ,tr(" V") ,ui->volLab ,COM_RATE_VOL);//电压
-    setText(mObjData->cur.value ,mObjData->cur.alarm ,tr(" A") ,ui->curLab ,COM_RATE_CUR);//电流
+    setText(mObjData->cur.value ,mObjData->cur.alarm ,tr(" A") ,ui->curLab ,COM_RATE_CUR2);//电流
 
     str = tr("断开");
     if(mObjData->sw == 1) {
@@ -92,10 +92,12 @@ void ELoad_InputUnitWid::updateWid()
     int addr = -1,bit = -1;
     QList<bool> flag;
     ELoad_RtuSent::bulid()->getValue(addr,bit,flag);
-    if(!flag[addr*8+bit])
+    //if(!flag[addr*8+bit])
+    {
         staticSetCurUpdate();
-    else
-        autoSetCurUpdate(addr,bit,flag);
+    }
+    //else
+     //   autoSetCurUpdate(addr,bit,flag);
 }
 
 void ELoad_InputUnitWid::timeoutDone()
@@ -165,7 +167,7 @@ void ELoad_InputUnitWid::on_horizontalScrollBar_sliderReleased()
 {
     if(!mQmapIsSet[mAddr*10+mBit]) {
         mQmapIsSet[mAddr*10+mBit] = true;
-        QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
+        QTimer::singleShot(3*1000,this,SLOT(setFunSLot())); //延时初始化
         ui->horizontalScrollBar->setEnabled(false);
     }
 }

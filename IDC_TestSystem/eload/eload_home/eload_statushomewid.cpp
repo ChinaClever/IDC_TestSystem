@@ -43,16 +43,16 @@ void ELoad_StatusHomeWid::updateTotalShowWid()
     QString str = QString::number(value) + " V";
     ui->volLab->setText(str);
 
-    value = packets->getTgValue(mode++) / COM_RATE_CUR;
+    value = packets->getTgValue(mode++) / COM_RATE_CUR2;
     str = QString::number(value) + " A";
     ui->curLab->setText(str);
 
     value = packets->getTgValue(mode++) / COM_RATE_POW;
-    str = QString::number(value) + " KW";
+    str = QString::number(value) + " kW";
     ui->powLab->setText(str);
 
     value = packets->getTgValue(mode++) / COM_RATE_ELE;
-    str = QString::number(value) + " KWh";
+    str = QString::number(value) + " kWh";
     ui->eleLab->setText(str);
 
     value = packets->getTgValue(mode++);
@@ -78,7 +78,7 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
     double value = packets->getTgValueByIndex(mode++,index) / COM_RATE_VOL;
     QString str = QString::number(value) + " V";
 
-    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR;
+    value = packets->getTgValueByIndex(mode++,index) / COM_RATE_CUR2;
     str = QString::number(value) + " A";
     qstr = "                 "+tr("总电流：")+ str;
 

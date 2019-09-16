@@ -47,7 +47,7 @@ void IN_InputThresholdTableWid::setObjUnit(sObjData &unit, QStringList &list)
     value = unit.vol.max / COM_RATE_VOL;
     list << QString::number(value) + "V";
 
-    value = unit.cur.value / COM_RATE_CUR;
+    value = unit.cur.value / COM_RATE_CUR2;
     list << QString::number(value) + "A";
 
     value = unit.cur.min / COM_RATE_CUR;

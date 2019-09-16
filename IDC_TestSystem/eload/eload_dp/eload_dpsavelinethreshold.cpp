@@ -22,7 +22,7 @@ void ELoad_DpSaveLineThreshold::saveLogItem(int id)
             item.vol_min = packet->data.input[i].vol.min / COM_RATE_VOL;
             item.vol_max = packet->data.input[i].vol.max / COM_RATE_VOL;
 
-            item.cur = packet->data.input[i].cur.value / COM_RATE_CUR;
+            item.cur = packet->data.input[i].cur.value / COM_RATE_CUR2;
             item.cur_min = packet->data.input[i].cur.min / COM_RATE_CUR;
             item.cur_max = packet->data.input[i].cur.max / COM_RATE_CUR;
 

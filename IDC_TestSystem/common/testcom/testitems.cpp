@@ -41,6 +41,7 @@ void TestItems::communication(QList<sTestItem> &items)
 
     if(item.isSnmp) {
         item.id = mId++;
+        item.isModubs = false;
         item.subItem = tr("SNMP通讯测试");
         item.eResult = tr("通过SNMP能获取到设备数据");
         items << item;
@@ -48,6 +49,8 @@ void TestItems::communication(QList<sTestItem> &items)
 
     item.id = mId++;
     item.subItem = tr("Modbus通讯测试");
+    item.isSnmp = false;
+    item.isModubs = true;
     item.eResult = tr("通过Modbus能获取到设备数据");
     items << item;
 }
@@ -62,6 +65,7 @@ void TestItems::unitItem(const QString &itemStr, int num, QList<sTestItem> &item
     item.item = tr("%1检查").arg(str);
     for(int i=0; i<num; ++i) {
         item.id = mId++;
+        item.isModubs = false;
         item.subItem = tr("测%1 %2").arg(str).arg(i+1);
         item.eResult = tr("%1 %2 电流值与负载测试柜值在误差范围内").arg(str).arg(i+1);
         items << item;
@@ -78,6 +82,7 @@ void TestItems::nocurUnitItem(const QString &itemStr, int num, QList<sTestItem> 
     for(int i=0; i<num; ++i) {
         item.id = mId++;
         item.subItem = tr("测%1 %2").arg(str).arg(i+1);
+        item.isModubs = false;
         item.eResult = tr("无接负载，%1 %2 值是否为0A").arg(str).arg(i+1);
         items << item;
     }
@@ -95,8 +100,11 @@ void TestItems::volObjData(const QString & itemStr ,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
 
-    str =  tr("相")+ itemStr;
-    maxminObjData(str , mSpec->lineNum , items);
+    if(NULL != mItem && mItem->serialNum.name != "RPDU")
+    {
+        str =  tr("相")+ itemStr;
+        maxminObjData(str , mSpec->lineNum , items);
+    }
 }
 
 void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
@@ -121,6 +129,7 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
         item.isSnmp = mSpec->isSnmp;
         item.item = tr("相电流检查");
         item.id = mId++;
+        item.isModubs = false;
         item.subItem = tr("相总电流检查");
         item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
         items << item;
@@ -133,6 +142,7 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     {
         item.item = tr("回路电流检查");
         item.id = mId++;
+        item.isModubs = false;
         item.subItem = tr("回路总电流检查");
         item.eResult = tr("回路总电流值与负载测试柜值在误差范围内");
         items << item;
@@ -188,6 +198,7 @@ void TestItems::swObjData(const QString &itemStr,int num , QList<sTestItem> &ite
         item.item = tr("%1开关检查").arg(itemStr);
         for(int i=0; i<num; ++i) {
             item.id = mId++;
+            item.isModubs = false;
             item.subItem = tr("测%1 %2 断开").arg(itemStr).arg(i+1);
             item.eResult = tr("%1 %2 继电器是否断开").arg(str).arg(i+1);
             items << item;
@@ -217,6 +228,7 @@ void TestItems::powUnitItem(const QString & itemStr,int num , QList<sTestItem> &
     item.item = tr("%1检查").arg(itemStr);
     for(int i=0; i<num; ++i) {
         item.id = mId++;
+        item.isModubs = false;
         item.subItem = tr("测%1 %2 功率").arg(itemStr).arg(i+1);
         item.eResult = tr("%1 %2 功率值与负载测试柜值在误差范围内").arg(itemStr).arg(i+1);
         items << item;

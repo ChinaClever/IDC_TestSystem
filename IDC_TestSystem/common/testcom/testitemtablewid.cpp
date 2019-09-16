@@ -48,6 +48,7 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
     spdc.loopNum = packet.data.loopNum;
     spdc.outputNum = packet.data.outputNum;
 
+    mTestItems->init(mItem);
     mTestItems->bulidItems(&spdc, items);
     for( const auto& value : items ) {
         appendItem(value);

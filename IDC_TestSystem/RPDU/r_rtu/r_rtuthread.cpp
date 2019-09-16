@@ -78,7 +78,7 @@ void R_RtuThread::workDown()
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(455);
+            if(isRun) msleep(755);
             else return;
             if(!ret) break;
         }

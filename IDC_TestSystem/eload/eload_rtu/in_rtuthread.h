@@ -15,7 +15,7 @@ public:
 
 protected:
     void workDown();
-    void sentCmdList();
+    bool sentCmdList();
     void sentSecondCmdList();
     void writeErrCmd(int id);
 

@@ -57,10 +57,10 @@ void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
 
     if(unit.pow) {
         value = unit.pow / COM_RATE_POW;
-        list << QString::number(value) + "KW";
+        list << QString::number(value) + "kW";
     } else {
         value = unit.activePow / COM_RATE_POW;
-        list << QString::number(value) + "KVA";
+        list << QString::number(value) + "kVA";
     }
 
     if(unit.pf) {
@@ -71,7 +71,7 @@ void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
     }
 
     value = unit.ele / COM_RATE_ELE;
-    list << QString::number(value) + "KWh";
+    list << QString::number(value) + "kWh";
 }
 
 int LineTableWid::updateDev(sDataPacket *dev, int row)

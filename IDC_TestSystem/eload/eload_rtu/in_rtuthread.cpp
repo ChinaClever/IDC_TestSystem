@@ -37,14 +37,16 @@ void IN_RtuThread::sentCmd(sRtuSentCom &cmd)
     mCmdList.append(cmd);
 }
 
-void IN_RtuThread::sentCmdList()
+bool IN_RtuThread::sentCmdList()
 {
+    bool ret = false;
     if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
-        bool ret = mRtu->sentSetCmd(cmd, 10);
+        ret = mRtu->sentSetCmd(cmd, 10);
         //if(ret) mSecondCmdList.append(cmd);
         mCmdList.removeFirst();
     }
+    return ret;
 }
 
 void IN_RtuThread::sentSecondCmdList()
@@ -81,28 +83,36 @@ void IN_RtuThread::workDown()
 {
     int ret = 0;
 
-    sentCmdList();
     //sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
-    for(int k = 1; k <= mPackets->devNum; ++k)
+    if(mRtu->mSerial->isOpened())
     {
-        int addr = k;
-        sDataPacket *dev = &(mPackets->dev[k]);
-        ret = mRtu->transmit(addr, dev, item->msecs);
+        for(int k = 1; k <= mPackets->devNum; ++k)
+        {
+            int addr = k;
+            sDataPacket *dev = &(mPackets->dev[k]);
+            ret = mRtu->transmit(addr, dev, item->msecs);
 
-        if(isRun) msleep(455);
-        else return;
+            if(isRun) msleep(730);
+            else return;
 
-        mRtu->transgetStatus(addr, dev, item->msecs);
+            mRtu->transgetStatus(addr, dev, item->msecs);
 
 
 
-        if(ret) { // 正常收到数据
-            sentOkCmd(dev->rtuCount);
-        } else { // 数据异常
-            saveErrCmd(addr, dev->rtuCount);
+            if(ret) { // 正常收到数据
+                sentOkCmd(dev->rtuCount);
+            } else { // 数据异常
+                saveErrCmd(addr, dev->rtuCount);
+            }
+
+            if(isRun) msleep(500);
+            else return;
+
+            if(sentCmdList())
+                sleep(10);
         }
     }
 }
