@@ -113,5 +113,6 @@ void IN_RtuThread::workDown()
 
             if(sentCmdList())
                 sleep(10);
+        }
     }
 }
