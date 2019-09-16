@@ -51,9 +51,6 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
 {
     bool ret = true;//暂时，因为有时又回复，有时没有回复
     static uchar buf[SERIAL_LEN] = {0};
-    //static uchar normalbuf[5] = {0x01,0x60,0x01,0xC9,0xC0};
-    static uchar abnormalbuf1[5] = {0x01,0x83,0x03,0x01,0x31};
-    static uchar abnormalbuf2[5] = {0x01,0x90,0x02,0xCD,0xC1};
     QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf;
 
@@ -65,6 +62,7 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     strArray = writeArray.toHex(); // 十六进制
     for(int i=0; i<writeArray.size(); ++i)
     strArray.insert(2+3*i, " "); // 插入空格
+
     //qDebug()<< "write:" << strArray;
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
@@ -76,18 +74,18 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
         qDebug()<< "read1:" << strArray;
         if(rtn != 8 )
          {
-            memset(sent,0,rtn);
-            memset(mSentBuf,0,rtn);
-            sleep(5);
-            rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
-
-            strArray.clear();
-            readArray.append((char *)sent, rtn);
-            strArray = readArray.toHex(); // 十六进制
-            for(int i=0; i<readArray.size(); ++i)
-            strArray.insert(2+3*i, " "); // 插入空格
-            qDebug()<< "read2:" << strArray;
+//            memset(sent,0,rtn);
+//            memset(mSentBuf,0,rtn);
+//            sleep(15);
+//            rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
+//            strArray.clear();
+//            readArray.append((char *)sent, rtn);
+//            strArray = readArray.toHex(); // 十六进制
+//            for(int i=0; i<readArray.size(); ++i)
+//            strArray.insert(2+3*i, " "); // 插入空格
+//            qDebug()<< "read2:" << strArray;
         }
+
         if(memcmp(sent, buf,rtn) == 6)
             ret = true;
     }
