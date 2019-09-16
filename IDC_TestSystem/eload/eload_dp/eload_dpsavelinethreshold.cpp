@@ -1,4 +1,4 @@
-#include "eload_dpsavelinethreshold.h"
+﻿#include "eload_dpsavelinethreshold.h"
 
 ELoad_DpSaveLineThreshold::ELoad_DpSaveLineThreshold(QObject *parent) : DpSaveLineThreshold(parent)
 {
@@ -25,7 +25,6 @@ void ELoad_DpSaveLineThreshold::saveLogItem(int id)
             item.cur = packet->data.input[i].cur.value / COM_RATE_CUR2;
             item.cur_min = packet->data.input[i].cur.min / COM_RATE_CUR;
             item.cur_max = packet->data.input[i].cur.max / COM_RATE_CUR;
-
             insertItem(item);
             msleep(LOG_DELAY);
         }

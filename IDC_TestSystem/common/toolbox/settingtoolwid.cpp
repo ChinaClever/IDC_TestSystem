@@ -10,6 +10,7 @@ SettingToolWid::SettingToolWid(QWidget *parent) :
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
     ippdu();
+    mConfig = nullptr;
     QTimer::singleShot(500,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -20,11 +21,15 @@ SettingToolWid::~SettingToolWid()
 
 void SettingToolWid::initFunSLot()
 {
-    initLineNum();
-    initModbusTime();
-    initDevCmd();
-    initOutputNum();
-    initVersion();
+    if(mConfig) {
+        initLineNum();
+        initModbusTime();
+        initDevCmd();
+        initOutputNum();
+        initVersion();
+    } else {
+        QTimer::singleShot(500,this,SLOT(initFunSLot()));
+    }
 }
 
 void SettingToolWid::ippdu(bool hide)

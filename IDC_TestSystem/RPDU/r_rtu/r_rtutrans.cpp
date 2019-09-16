@@ -61,7 +61,6 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     //cm_PrintHex("write:" , writeArray);
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
-
         readArray.append((char *)sent, rtn);
         //cm_PrintHex("read:" , readArray);
 //        if(rtn != 8)

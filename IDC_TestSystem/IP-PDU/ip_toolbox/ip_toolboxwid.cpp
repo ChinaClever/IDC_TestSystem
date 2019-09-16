@@ -8,10 +8,10 @@
 
 IP_ToolBoxWid::IP_ToolBoxWid(QWidget *parent) :  ToolBoxWid(parent)
 {
+    mConfig = IP_ConfigFile::bulid();
     mModeToolWid = new IP_ModeToolWid();
     mStatusToolWid = new IP_StatusToolWid();
     mLogsToolWid = new IP_LogsToolWid();
     mSettingToolWid = new IP_SettingToolWid();
-    mConfig = IP_ConfigFile::bulid();
 }
 

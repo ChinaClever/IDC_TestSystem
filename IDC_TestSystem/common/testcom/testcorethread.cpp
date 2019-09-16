@@ -496,7 +496,6 @@ bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item, 
     if((value > min) && (value < max)) {
         ret = true;
     }
-
     item.measured = QString::number(measured / COM_RATE_CUR) + "A";
     item.status = mRtuRet|mSnmpRet? ret : false;
     appendResult(item);

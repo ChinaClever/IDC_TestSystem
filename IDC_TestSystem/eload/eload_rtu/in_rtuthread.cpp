@@ -114,5 +114,8 @@ void IN_RtuThread::workDown()
             if(sentCmdList())
                 sleep(10);
         }
+
+        if(sentCmdList())//调节电流
+        sleep(10);
     }
 }
