@@ -83,29 +83,35 @@ void IN_RtuThread::workDown()
 {
     int ret = 0;
 
-
     //sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
 
-    for(int k = 1; k <= mPackets->devNum; ++k)
+    if(mRtu->mSerial->isOpened())
     {
-        int addr = k;
-        sDataPacket *dev = &(mPackets->dev[k]);
-        ret = mRtu->transmit(addr, dev, item->msecs);
-        if(isRun) msleep(2500);
-        else return;
+        for(int k = 1; k <= mPackets->devNum; ++k)
+        {
+            int addr = k;
+            sDataPacket *dev = &(mPackets->dev[k]);
+            ret = mRtu->transmit(addr, dev, item->msecs);
 
-        mRtu->transgetStatus(addr, dev, item->msecs);
-        if(ret) { // 正常收到数据
-            sentOkCmd(dev->rtuCount);
-        } else { // 数据异常
-            saveErrCmd(addr, dev->rtuCount);
-        }
-        if(isRun) msleep(2500);
-        else return;
+            if(isRun) msleep(730);
+            else return;
 
-        if(sentCmdList())//调节电流
-            sleep(10);
+            mRtu->transgetStatus(addr, dev, item->msecs);
+
+
+
+            if(ret) { // 正常收到数据
+                sentOkCmd(dev->rtuCount);
+            } else { // 数据异常
+                saveErrCmd(addr, dev->rtuCount);
+            }
+
+            if(isRun) msleep(500);
+            else return;
+
+            if(sentCmdList())
+                sleep(10);
     }
 }

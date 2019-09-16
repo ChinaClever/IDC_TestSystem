@@ -31,6 +31,7 @@ bool cm_isIPaddress(const QString& ip);
 
 QString cm_ByteArrayToHexStr(const QByteArray &array);
 QString cm_ByteArrayToUcharStr(const QByteArray &array);
+void cm_PrintHex(const QString &str, QByteArray &witeArray);
 
 void btnBlue_style_sheet(QWidget *target);
 void groupBox_background_icon(QWidget *target);

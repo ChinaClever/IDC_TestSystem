@@ -44,6 +44,7 @@ protected:
 private slots:
     void serialReadSlot(void);
     void timeoutDone();
+    void recvSlot();
 
 private:
     bool isOpen;
@@ -51,7 +52,8 @@ private:
 
     QTimer *timer;
     QReadWriteLock  mRwLock;
-    QByteArray mWriteArray, mSerialData;
+    QByteArray mSerialData;
+    QList<QByteArray> mWriteArrays;
 };
 
 #endif // SERIALPORT_H

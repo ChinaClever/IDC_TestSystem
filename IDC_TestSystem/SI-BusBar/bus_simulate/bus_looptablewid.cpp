@@ -52,16 +52,16 @@ void BUS_LoopTableWid::setObjUnit(sObjData &unit, QStringList &list)
     list << QString::number(value) + "A";
 
     value = unit.pow / COM_RATE_POW;
-    list << QString::number(value) + "KVA";
+    list << QString::number(value) + "kVA";
 
     value = unit.activePow / COM_RATE_POW;
-    list << QString::number(value) + "KW";
+    list << QString::number(value) + "kW";
 
     value = unit.pf / COM_RATE_PF;
     list << QString::number(value);
 
     value = unit.ele / COM_RATE_ELE;
-    list << QString::number(value) + "KWh";
+    list << QString::number(value) + "kWh";
 
     value = unit.wave;
     //    list << QString::number(value);

@@ -148,7 +148,8 @@ bool IN_RtuRecv::recvPacket(uchar *buf, int len, IN_sRtuRecv *pkt)
         ret =  rtuRecvCrc(buf, len, pkt);
         if(ret) {
             int rtn = rtuRecvLen(buf, len); //判断回收的数据是否完全
-            if(rtn == 0) {
+            if(rtn == 0)
+            {
                 uchar *ptr=buf;
                 ptr += rtuRecvHead(ptr, pkt); //指针偏移
 

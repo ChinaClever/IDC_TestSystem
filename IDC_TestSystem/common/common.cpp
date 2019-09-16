@@ -170,6 +170,11 @@ QString cm_ByteArrayToHexStr(const QByteArray &array)
     return strArray;
 }
 
+void cm_PrintHex(const QString &str, QByteArray &witeArray)
+{
+    qDebug()<< str << cm_ByteArrayToHexStr(witeArray);
+}
+
 /**
  * @brief 转十进制
  * @param array

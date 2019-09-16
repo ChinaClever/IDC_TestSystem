@@ -57,35 +57,25 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     QByteArray writeArray, readArray;
     writeArray.append((char *)buf, len);
-
-    QString strArray;
-    strArray = writeArray.toHex(); // 十六进制
-    for(int i=0; i<writeArray.size(); ++i)
-    strArray.insert(2+3*i, " "); // 插入空格
-
     //qDebug()<< "write:" << strArray;
+    //cm_PrintHex("write:" , writeArray);
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
-        strArray.clear();
         readArray.append((char *)sent, rtn);
-        strArray = readArray.toHex(); // 十六进制
-        for(int i=0; i<readArray.size(); ++i)
-        strArray.insert(2+3*i, " "); // 插入空格
-        qDebug()<< "read1:" << strArray;
-        if(rtn != 8 )
-         {
+        //cm_PrintHex("read:" , readArray);
+//        if(rtn != 8)
+//         {
 //            memset(sent,0,rtn);
 //            memset(mSentBuf,0,rtn);
-//            sleep(15);
+//            sleep(5);
 //            rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
 //            strArray.clear();
 //            readArray.append((char *)sent, rtn);
 //            strArray = readArray.toHex(); // 十六进制
 //            for(int i=0; i<readArray.size(); ++i)
 //            strArray.insert(2+3*i, " "); // 插入空格
-//            qDebug()<< "read2:" << strArray;
-        }
-
+//            qDebug()<< "read2:" << strArray<<mSerial;
+//        }
         if(memcmp(sent, buf,rtn) == 6)
             ret = true;
     }

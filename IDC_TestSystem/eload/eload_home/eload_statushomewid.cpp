@@ -48,11 +48,11 @@ void ELoad_StatusHomeWid::updateTotalShowWid()
     ui->curLab->setText(str);
 
     value = packets->getTgValue(mode++) / COM_RATE_POW;
-    str = QString::number(value) + " KW";
+    str = QString::number(value) + " kW";
     ui->powLab->setText(str);
 
     value = packets->getTgValue(mode++) / COM_RATE_ELE;
-    str = QString::number(value) + " KWh";
+    str = QString::number(value) + " kWh";
     ui->eleLab->setText(str);
 
     value = packets->getTgValue(mode++);

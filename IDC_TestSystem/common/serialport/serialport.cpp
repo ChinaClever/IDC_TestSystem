@@ -7,6 +7,7 @@
 #include "serialport.h"
 #include <QSerialPortInfo>
 #include <QApplication>
+#include "common.h"
 #define SERIAL_READ_TIMEOUT  100  // 100MS
 
 SerialPort::SerialPort(QObject *parent) : QThread(parent)
@@ -112,19 +113,21 @@ bool SerialPort::isContains(const QString &name)
     return getList().contains(name);
 }
 
+void SerialPort::recvSlot()
+{
+    recv(mSerialData);
+}
 
 void SerialPort::timeoutDone()
 {
     if(isOpen) {
-    QWriteLocker locker(&mRwLock);
-        if(mWriteArray.size()) {
+        QWriteLocker locker(&mRwLock);
+        if(mWriteArrays.size()) {
             int ret = write();
             if(ret) {
-                mWriteArray.clear();
                 mSerialData.clear();
+                QTimer::singleShot(400,this,SLOT(recvSlot()));
             }
-        } else {
-            recv(mSerialData);
         }
     }
 }
@@ -134,9 +137,11 @@ int SerialPort::write()
     int len=0;
 
     if(isOpen) {
-        len = mSerial->write(mWriteArray);
+        msleep(100);
+        len = mSerial->write(mWriteArrays.first());
         if(len > 0) {
             mSerial->flush();
+            mWriteArrays.removeFirst();
         }
     }
 
@@ -151,8 +156,8 @@ int SerialPort::write()
  */
 int SerialPort::write(const QByteArray &array)
 {
-    mWriteArray = array;
-    return mWriteArray.size();
+    mWriteArrays << array;
+    return mWriteArrays.size();
 }
 
 int SerialPort::write(uchar *sent, int len)
@@ -248,7 +253,8 @@ void SerialPort::serialReadSlot(void)
  */
 int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray, int msecs)
 {
-
+    //QWriteLocker locker(&mRwLock);
+    msleep(100);
     int ret = write(witeArray);
     if(ret > 0) {
         ret = read(readArray, msecs);
@@ -276,25 +282,13 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
     QByteArray witeArray, readArray;
     witeArray.append((char *)sent, len);
 
-    QString strArray;
-    strArray = witeArray.toHex(); // 十六进制
-    for(int i=0; i<witeArray.size(); ++i)
-    strArray.insert(2+3*i, " "); // 插入空格
-    //qDebug()<< "write:" << strArray;
-
+    //cm_PrintHex("write:" , witeArray);
     int ret = transmit(witeArray, readArray, msecs);
     if(ret > 0) {
         for(int i=0; i<ret; ++i){
             recv[i] = readArray.at(i);
         }
-
-        readArray.clear();
-        readArray.append((char *)recv,ret);
-        strArray = "";
-        strArray = readArray.toHex(); // 十六进制
-        for(int i=0; i<readArray.size(); ++i)
-        strArray.insert(2+3*i, " "); // 插入空格
-        //qDebug()<< "read:" << strArray;
+        cm_PrintHex("read:" , readArray);
     }
     return ret;
 }

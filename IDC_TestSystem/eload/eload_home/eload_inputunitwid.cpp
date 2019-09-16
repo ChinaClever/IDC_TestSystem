@@ -89,13 +89,15 @@ void ELoad_InputUnitWid::updateWid()
     ui->swLab->setText(str);
     ui->swLab->setPalette(pe);
 
-    //int addr = -1,bit = -1;
-    //QList<bool> flag;
-    //ELoad_RtuSent::bulid()->getValue(addr,bit,flag);
+    int addr = -1,bit = -1;
+    QList<bool> flag;
+    ELoad_RtuSent::bulid()->getValue(addr,bit,flag);
     //if(!flag[addr*8+bit])
+    {
         staticSetCurUpdate();
+    }
     //else
-    //    autoSetCurUpdate(addr,bit,flag);
+     //   autoSetCurUpdate(addr,bit,flag);
 }
 
 void ELoad_InputUnitWid::timeoutDone()
@@ -165,7 +167,7 @@ void ELoad_InputUnitWid::on_horizontalScrollBar_sliderReleased()
 {
     if(!mQmapIsSet[mAddr*10+mBit]) {
         mQmapIsSet[mAddr*10+mBit] = true;
-        QTimer::singleShot(5*1000,this,SLOT(setFunSLot())); //延时初始化
+        QTimer::singleShot(3*1000,this,SLOT(setFunSLot())); //延时初始化
         ui->horizontalScrollBar->setEnabled(false);
     }
 }

@@ -21,7 +21,7 @@ public:
     QByteArray getRecvCmd();
     int transCmd(uchar *pBuff, int nCount, int msec);
     void transgetStatus(int addr, sDataPacket *packet, int msecs);
-
+    SerialPort *mSerial;
 protected:
     void getAlarm(sDataUnit &data);
     void objData(IN_sRtuLine *data, sObjData *obj);
@@ -40,7 +40,7 @@ private:
     IN_sRtuRecv *mRtuPkt;
     IN_RtuRecv *mRtuRecv;
     IN_RtuSent *mRtuSent;
-    SerialPort *mSerial;
+
     int mCount;
 };
 

@@ -130,7 +130,7 @@ private:
     void loopVolAlarm();
     void volCheck();
 
-    bool curAccuracy(int expect, int measured, sTestDataItem &item);
+    bool curAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
     void lineNoCur();
     void loopNoCur();
     void outputNoCur();
