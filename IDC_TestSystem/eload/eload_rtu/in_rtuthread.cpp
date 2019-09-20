@@ -112,7 +112,10 @@ void IN_RtuThread::workDown()
             else return;
 
             if(sentCmdList())
-                sleep(10);
+            {
+                if(isRun) msleep(500);
+                else return;
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ public slots:
     void startSlot();
     void progressSlot();
     void resultSlot();
+    void startTimerSLot();
 
 private:
     Ui::TestResultWid *ui;

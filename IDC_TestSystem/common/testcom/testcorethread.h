@@ -1,4 +1,4 @@
-#ifndef TESTCORETHREAD_H
+﻿#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -148,7 +148,7 @@ private:
     void outputCurAlarm();
     void curAlarmCheck();
 
-    bool swAccuracy(int measured, sTestDataItem &item);
+    bool swAccuracy(int measured, sTestDataItem &item, uchar sw, bool isOpen);
     void setOutputSwCmd(bool alrm);
     void outputSwCtr();
     void switchCtr();

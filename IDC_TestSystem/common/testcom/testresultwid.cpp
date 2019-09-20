@@ -63,12 +63,18 @@ void TestResultWid::startSlot()
     ui->statusLab->clear();
     ui->progressBar->setValue(0);
 
-    timer->start(200);
+    //timer->start(200);
+    QTimer::singleShot(30000,this,SLOT(startTimerSLot()));
     ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                               "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
     this->setStyleSheet("color:black;");
 
+}
+
+void TestResultWid::startTimerSLot()
+{
+    timer->start(200);
 }
 
 void TestResultWid::resultSlot()

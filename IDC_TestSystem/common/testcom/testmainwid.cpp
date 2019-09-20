@@ -80,12 +80,15 @@ void TestMainWid::continueTest()
 
 void TestMainWid::overSlot()
 {
-    mConfig->item->mode = Test_Over;
-    mTrans->stopUpdateData();
-    mResultWid->resultSlot();
-    mDataSave->saveTestData();
-    mWebSocket->saveTestData();
-    mSerialNumDlg->getSerialNum();
+    if(mConfig->item->mode != Test_Over)//避免重复点击结束按钮
+    {
+        mConfig->item->mode = Test_Over;
+        mTrans->stopUpdateData();
+        mResultWid->resultSlot();
+        mDataSave->saveTestData();
+        mWebSocket->saveTestData();
+        mSerialNumDlg->getSerialNum();
+    }
 }
 
 void TestMainWid::overTest()

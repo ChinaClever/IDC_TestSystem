@@ -203,6 +203,13 @@ void TestItems::swObjData(const QString &itemStr,int num , QList<sTestItem> &ite
             item.eResult = tr("%1 %2 继电器是否断开").arg(str).arg(i+1);
             items << item;
         }
+        for(int i=0; i<num; ++i) {
+            item.id = mId++;
+            item.isModubs = false;
+            item.subItem = tr("测%1 %2 接通").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 继电器是否接通").arg(str).arg(i+1);
+            items << item;
+        }
     }
 }
 

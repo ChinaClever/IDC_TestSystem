@@ -75,7 +75,7 @@
             <string notr="true">color: rgb(255, 255, 255);</string>
            </property>
            <property name="text">
-            <string>数据中心机房运行模拟测试系统</string>
+            <string>数据中心机房运行模拟测试系统 V1.0</string>
            </property>
           </widget>
          </item>
