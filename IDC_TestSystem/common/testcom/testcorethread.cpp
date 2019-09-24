@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -270,7 +270,7 @@ bool TestCoreThread::devLoopNumCheck()
     item.subItem = tr("回路数量测试");
     item.expect = tr("共%1回路").arg(mItem->serialNum.loop);
     item.measured = tr("共%1回路").arg(mDevPacket->data.loopNum);
-    mDevPacket->data.loopNum = 0;
+    mDevPacket->data.loopNum = 0;   //////============
 
     if(item.expect == item.measured) {
         ret = true;
