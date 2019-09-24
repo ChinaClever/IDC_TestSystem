@@ -120,7 +120,7 @@ struct sDataPacket
 {
     uchar id;  // 设备号
     uint devType; //设备类型
-    uchar devSpec; // 设备规格 A\B\C\D 0\1\2\3
+    uchar devSpec; // 设备规格 A\B\C\D M\N\S\W 0\1\2\3
     uchar txType; // 通讯类型 0  1:SNMP  2：Zebra
 
     uchar alarm; // 工作状态 ==0 正常

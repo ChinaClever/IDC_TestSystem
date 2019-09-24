@@ -124,16 +124,16 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
 
 
     sTestItem item;
-    if(mSpec->lineNum > 1)
-    {
-        item.isSnmp = mSpec->isSnmp;
-        item.item = tr("相电流检查");
-        item.id = mId++;
-        item.isModubs = false;
-        item.subItem = tr("相总电流检查");
-        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
-        items << item;
-    }
+//    if(mSpec->lineNum > 1)//暂时不需要相总电流，误差有点大
+//    {
+//        item.isSnmp = mSpec->isSnmp;
+//        item.item = tr("相电流检查");
+//        item.id = mId++;
+//        item.isModubs = false;
+//        item.subItem = tr("相总电流检查");
+//        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
+//        items << item;
+//    }
 
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);

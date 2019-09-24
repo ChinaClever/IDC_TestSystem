@@ -118,7 +118,7 @@ private:
     bool devOutputNumCheck();
     void devInfoCheck();
 
-    bool volAccuracy(int expect, int measured, sTestDataItem &item);
+    bool volAccuracy(int &expect, int &measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
@@ -131,6 +131,7 @@ private:
     void volCheck();
 
     bool curAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
+    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
     void lineNoCur();
     void loopNoCur();
     void outputNoCur();

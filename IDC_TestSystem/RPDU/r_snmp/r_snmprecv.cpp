@@ -35,7 +35,7 @@ void R_SnmpRecv::devInfo(const QByteArray &data)
     case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;break;
     case 2: {
         std::string str = data.toStdString();
-        int value = (str == "A")?1:(str == "B"?2:(str == "C"?3:0));
+        int value = (str == "A" || str == "M")?1:(str == "B" || str == "N"?2:(str == "C" || str == "S"?3:0));
         devTypeData(value , mDataPacket);
     }
         break;
