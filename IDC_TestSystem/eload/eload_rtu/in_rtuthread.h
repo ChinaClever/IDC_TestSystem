@@ -1,4 +1,4 @@
-﻿#ifndef IN_RTUTHREAD_H
+#ifndef IN_RTUTHREAD_H
 #define IN_RTUTHREAD_H
 
 #include "rtuthread.h"
@@ -16,7 +16,6 @@ public:
 protected:
     void workDown();
     bool sentCmdList();
-    void sentSecondCmdList();
     void writeErrCmd(int id);
 
 protected slots:

@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -43,20 +43,11 @@ bool IN_RtuThread::sentCmdList()
     if(!mCmdList.isEmpty()) {
         sRtuSentCom cmd = mCmdList.first();
         ret = mRtu->sentSetCmd(cmd, 10);
-        //if(ret) mSecondCmdList.append(cmd);
         mCmdList.removeFirst();
     }
     return ret;
 }
 
-void IN_RtuThread::sentSecondCmdList()
-{
-    if(!mSecondCmdList.isEmpty()) {
-        sRtuSentCom cmd = mSecondCmdList.first();
-        mRtu->sentSetCmd(cmd, 10);
-        mSecondCmdList.removeFirst();
-    }
-}
 
 void IN_RtuThread::writeErrCmd(int id)
 {
@@ -81,41 +72,33 @@ void IN_RtuThread::writeErrCmd(int id)
  */
 void IN_RtuThread::workDown()
 {
-    int ret = 0;
+    int ret = 0, count=0;
 
-    //sentSecondCmdList();
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
-
     if(mRtu->mSerial->isOpened())
     {
-        for(int k = 1; k <= mPackets->devNum; ++k)
+        for(int k = 1; k <= mPackets->devNum;  )
         {
             int addr = k;
             sDataPacket *dev = &(mPackets->dev[k]);
-            ret = mRtu->transmit(addr, dev, item->msecs);
 
-            if(isRun) msleep(730);
-            else return;
-
-            mRtu->transgetStatus(addr, dev, item->msecs);
-
-
-
-            if(ret) { // 正常收到数据
-                sentOkCmd(dev->rtuCount);
-            } else { // 数据异常
-                saveErrCmd(addr, dev->rtuCount);
-            }
-
-            if(isRun) msleep(500);
-            else return;
-
-            if(sentCmdList())
-            {
-                if(isRun) msleep(500);
-                else return;
+            if(mCmdList.size()) {
+                sentCmdList();
+            } else if(count++%2) {
+                mRtu->transgetStatus(addr, dev, item->msecs);
+            } else {
+                ret = mRtu->transmit(addr, dev, item->msecs);
+                if(ret) { // 正常收到数据
+                    sentOkCmd(dev->rtuCount);
+                } else { // 数据异常
+                    saveErrCmd(addr, dev->rtuCount);
+                } k++;
             }
         }
+
+        if(isRun) msleep(630);
+        else return;
     }
+
 }
