@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SI_SetMainWid</class>
+ <widget class="QWidget" name="SI_SetMainWid">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <pointsize>12</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="font">
+      <font>
+       <family>微软雅黑</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>SI 设备设置</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="0">
+       <widget class="QGroupBox" name="volBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>电压设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QGroupBox" name="temBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>温度设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QGroupBox" name="humBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>湿度设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QGroupBox" name="curBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>电流设置</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="addrBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>设备地址</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QGroupBox" name="eleBox">
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QGroupBox{
+border:2px solid rgb(15,80,232);
+border-radius:15px
+}</string>
+        </property>
+        <property name="title">
+         <string>设备电能</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

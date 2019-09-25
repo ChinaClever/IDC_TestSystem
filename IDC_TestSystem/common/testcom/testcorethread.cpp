@@ -691,7 +691,7 @@ void TestCoreThread::curCheck()
     sleep(10);if(mDevPacket->data.lineNum == 1) sleep(10);
     mTrans->snmpUpdateData();
     sleep(15);
-
+    if(mDevPacket->devSpec == 3) sleep(10);
     //qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
