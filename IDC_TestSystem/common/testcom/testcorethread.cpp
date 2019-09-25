@@ -580,10 +580,9 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(10);
+    sleep(10);if(mDevPacket->data.lineNum == 1) sleep(10);
     mTrans->snmpUpdateData();
     sleep(15);
-    if(mDevPacket->devSpec == 3) sleep(10);
 
     lineNoCur();
     loopNoCur();
@@ -591,7 +590,7 @@ void TestCoreThread::curCheck()
         outputNoCur();
 
     ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(15);
+    sleep(15);if(mDevPacket->data.lineNum == 1) sleep(10);
     mTrans->snmpUpdateData();
     sleep(10);
 
