@@ -1,4 +1,4 @@
-#ifndef TESTCORETHREAD_H
+﻿#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -118,7 +118,7 @@ private:
     bool devOutputNumCheck();
     void devInfoCheck();
 
-    bool volAccuracy(int expect, int measured, sTestDataItem &item);
+    bool volAccuracy(int &expect, int &measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
@@ -131,6 +131,7 @@ private:
     void volCheck();
 
     bool curAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
+    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
     void lineNoCur();
     void loopNoCur();
     void outputNoCur();
@@ -148,7 +149,7 @@ private:
     void outputCurAlarm();
     void curAlarmCheck();
 
-    bool swAccuracy(int measured, sTestDataItem &item);
+    bool swAccuracy(int measured, sTestDataItem &item, uchar sw, bool isOpen);
     void setOutputSwCmd(bool alrm);
     void outputSwCtr();
     void switchCtr();

@@ -8,6 +8,7 @@
  */
 #include "sysconfigfile.h"
 #include <QtCore>
+#include <QApplication>
 
 extern QString cm_pathOfData(const QString& name);
 static QSettings *pConfigIni = NULL;
@@ -102,4 +103,5 @@ void sys_configFile_writeParam(QString name, QString value, QString strGroup)
     sys_configFile_open();
     sys_configFile_write(name, value, strGroup);
     sys_configFile_close();
+    QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
 }

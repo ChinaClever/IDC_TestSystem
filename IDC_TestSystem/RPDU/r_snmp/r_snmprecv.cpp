@@ -35,7 +35,7 @@ void R_SnmpRecv::devInfo(const QByteArray &data)
     case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;break;
     case 2: {
         std::string str = data.toStdString();
-        int value = (str == "A")?1:(str == "B"?2:(str == "C"?3:0));
+        int value = (str == "A" || str == "M")?1:(str == "B" || str == "N"?2:(str == "C" || str == "S"?3:0));
         devTypeData(value , mDataPacket);
     }
         break;
@@ -98,7 +98,7 @@ void R_SnmpRecv::envData(const QByteArray &data)
     case 9: env->door[0] = data.toStdString()=="None."?0:(data.toStdString()=="Closed."?1:2); break;
     case 10: env->door[1] = data.toStdString()=="None."?0:(data.toStdString()=="Closed."?1:2); break;
     case 11: env->smoke[0] = data.toStdString()=="None."?0:(data.toStdString()=="Normal."?1:2);break;
-    case 12: env->water[0] = data.toStdString()=="None."?0:(data.toStdString()=="Normal."?1:2); break;
+    case 12: env->water[0] = data.toStdString()=="None."?0:(data.toStdString()=="Normal."?1:2);break;
 
     default: qDebug() << "R_SNMP_Recv::envData" << item; break;
     }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -107,8 +107,8 @@ int TestDataSave::bulidHead(sSerialNumItem *item)
 int TestDataSave::bulidProgressLog(int id, sTestProgress &arg)
 {
     QStringList list;
-    int ok = (arg.okNum * 100.0) / arg.allNum;
-    int err = (arg.errNum * 100.0) / arg.allNum;
+    int ok = arg.allNum ? (arg.okNum * 100.0) / arg.allNum : 0;
+    int err = arg.allNum ? (arg.errNum * 100.0) / arg.allNum : 0;
 
     QString str = tr("通过");
     if(arg.errNum) str = tr("未通过");

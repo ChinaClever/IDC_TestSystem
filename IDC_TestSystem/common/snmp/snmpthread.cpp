@@ -49,6 +49,7 @@ void SnmpThread::startRun()
         m_address = addr;
         m_snmp_client->setAgentAddress(QHostAddress(addr));
     }
+    //m_snmp_client->cancelWork();
 
     if(!isRun) {
         if(msec == 0) msec = 500 + (rand() % 1000);

@@ -59,14 +59,13 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
 void TestItemTableWid::startSlot()
 {
     delTable();
+
     if(mPackets) {
        int ret = updateWid(mPackets->dev[mItem->devId]);
        if(!ret) {
-           if(mCount++ % 10)
+           if(mCount++ % 50)
                QTimer::singleShot(3*1000,this,SLOT(startSlot()));
-       }
-       else
-       {
+       } else {
            emit allNumsSig(mTestItems->mId);
        }
     }

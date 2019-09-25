@@ -57,25 +57,11 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     QByteArray writeArray, readArray;
     writeArray.append((char *)buf, len);
-    //qDebug()<< "write:" << strArray;
     //cm_PrintHex("write:" , writeArray);
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
         readArray.append((char *)sent, rtn);
         //cm_PrintHex("read:" , readArray);
-//        if(rtn != 8)
-//         {
-//            memset(sent,0,rtn);
-//            memset(mSentBuf,0,rtn);
-//            sleep(5);
-//            rtn = mSerial->transmit(buf, len, sent, msecs+5);//修改两次 2019/7/30
-//            strArray.clear();
-//            readArray.append((char *)sent, rtn);
-//            strArray = readArray.toHex(); // 十六进制
-//            for(int i=0; i<readArray.size(); ++i)
-//            strArray.insert(2+3*i, " "); // 插入空格
-//            qDebug()<< "read2:" << strArray<<mSerial;
-//        }
         if(memcmp(sent, buf,rtn) == 6)
             ret = true;
     }
@@ -118,7 +104,7 @@ int R_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
 {
     ushort *array = r_reg_array(cmd);
     int ret = transData(addr, array[0], array[1], mRtuPkt, msecs);
-    if(ret)  {devDataPacket(mRtuPkt, pkt);}
+    if(ret) { devDataPacket(mRtuPkt, pkt);}
     else pkt->id = addr;
 
     return ret;
@@ -206,23 +192,20 @@ void R_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
 {
     int vol = 220;
 
-    int num = data.lineNum = rtuData.line.num;
-    for(int i=0; i<num; ++i) {
+    data.lineNum = rtuData.line.num > data.lineNum ? rtuData.line.num : data.lineNum;
+    for(int i=0; i<data.lineNum; ++i) {
         devObjData(rtuData.line, i, data.line[i] , true);
         vol = rtuData.line.vol.value[0];
     }
 
-    num = data.loopNum = rtuData.loop.num;
+    int num = data.loopNum = rtuData.loop.num;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);
-         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
+        data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
-    if(data.outputNum == 0)
-    num = data.outputNum = rtuData.output.num;
-    else
-    num = rtuData.output.num = data.outputNum;
-    for(int i=0; i<num; ++i) {
+    if(data.outputNum < rtuData.output.num) data.outputNum = rtuData.output.num;
+    for(int i=0; i<data.outputNum; ++i) {
         rtuData.output.vol.value[i] = vol;
         devObjData(rtuData.output, i, data.output[i] ,false);
         data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;

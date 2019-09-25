@@ -137,7 +137,7 @@ int SerialPort::write()
     int len=0;
 
     if(isOpen) {
-        msleep(100);
+        msleep(200);
         len = mSerial->write(mWriteArrays.first());
         if(len > 0) {
             mSerial->flush();
@@ -288,7 +288,7 @@ int SerialPort::transmit(uchar *sent, int len, uchar *recv, int msecs)
         for(int i=0; i<ret; ++i){
             recv[i] = readArray.at(i);
         }
-        cm_PrintHex("read:" , readArray);
+        //cm_PrintHex("read:" , readArray);
     }
     return ret;
 }

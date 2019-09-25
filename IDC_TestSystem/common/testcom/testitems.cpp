@@ -124,16 +124,16 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
 
 
     sTestItem item;
-    if(mSpec->lineNum > 1)
-    {
-        item.isSnmp = mSpec->isSnmp;
-        item.item = tr("相电流检查");
-        item.id = mId++;
-        item.isModubs = false;
-        item.subItem = tr("相总电流检查");
-        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
-        items << item;
-    }
+    //    if(mSpec->lineNum > 1)//暂时不需要相总电流，误差有点大
+    //    {
+    //        item.isSnmp = mSpec->isSnmp;
+    //        item.item = tr("相电流检查");
+    //        item.id = mId++;
+    //        item.isModubs = false;
+    //        item.subItem = tr("相总电流检查");
+    //        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
+    //        items << item;
+    //    }
 
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
@@ -203,6 +203,13 @@ void TestItems::swObjData(const QString &itemStr,int num , QList<sTestItem> &ite
             item.eResult = tr("%1 %2 继电器是否断开").arg(str).arg(i+1);
             items << item;
         }
+        for(int i=0; i<num; ++i) {
+            item.id = mId++;
+            item.isModubs = false;
+            item.subItem = tr("测%1 %2 接通").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 继电器是否接通").arg(str).arg(i+1);
+            items << item;
+        }
     }
 }
 
@@ -266,6 +273,17 @@ void TestItems::temhumObjData(QList<sTestItem> &items)
 {//暂时把温湿度传感器写死为4                     2019/7/25 peng
     sTestItem item;
     int num = 4;
+    int outputNum = mSpec->outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mSpec->spec == 1 && mSpec->lineNum == 1)
+            outputNum = 8;
+        else if((mSpec->spec == 1 && mSpec->lineNum == 2)||
+                (mSpec->spec == 1 && mSpec->lineNum == 3))
+            outputNum = 24;
+    }
+    if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 2;
     for(int k = 0 ; k < 2 ; ++k)
     {
         item.item = (k == 0 )? tr("温度检查"):tr("湿度检查");
@@ -281,30 +299,44 @@ void TestItems::temhumObjData(QList<sTestItem> &items)
 
 void TestItems::sensorsObjData(QList<sTestItem> &items)
 {//暂时把门禁写死为2                     2019/7/25 peng
-    sTestItem item;
 
     int num = 2;
-    item.item = tr("门禁检查");
-    QString itemStr = tr("门禁");
-    for(int i = 0; i < num; ++i) {
+    int outputNum = mSpec->outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mSpec->spec == 1 && mSpec->lineNum == 1)
+            outputNum = 8;
+        else if((mSpec->spec == 1 && mSpec->lineNum == 2)||
+                (mSpec->spec == 1 && mSpec->lineNum == 3))
+            outputNum = 24;
+    }
+    if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 0;
+    if(num)
+    {
+        sTestItem item;
+        item.item = tr("门禁检查");
+        QString itemStr = tr("门禁");
+        for(int i = 0; i < num; ++i) {
+            item.id = mId++;
+            item.subItem = tr("测%1 %2").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 是否正常").arg(itemStr).arg(i+1);
+            items << item;
+        }
+        item.item = tr("烟雾检查");
+        itemStr = tr("烟雾");
         item.id = mId++;
-        item.subItem = tr("测%1 %2").arg(itemStr).arg(i+1);
-        item.eResult = tr("%1 %2 是否正常").arg(itemStr).arg(i+1);
+        item.subItem = tr("测%1").arg(itemStr);
+        item.eResult = tr("%1 是否正常").arg(itemStr);
+        items << item;
+
+        item.item = tr("水浸检查");
+        itemStr = tr("水浸");
+        item.id = mId++;
+        item.subItem = tr("测%1").arg(itemStr);
+        item.eResult = tr("%1 是否正常").arg(itemStr);
         items << item;
     }
-    item.item = tr("烟雾检查");
-    itemStr = tr("烟雾");
-    item.id = mId++;
-    item.subItem = tr("测%1").arg(itemStr);
-    item.eResult = tr("%1 是否正常").arg(itemStr);
-    items << item;
-
-    item.item = tr("水浸检查");
-    itemStr = tr("水浸");
-    item.id = mId++;
-    item.subItem = tr("测%1").arg(itemStr);
-    item.eResult = tr("%1 是否正常").arg(itemStr);
-    items << item;
 }
 
 void TestItems::devInfoObjData(QList<sTestItem> &items)

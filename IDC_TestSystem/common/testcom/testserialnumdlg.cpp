@@ -129,9 +129,8 @@ void TestSerialNumDlg::on_okBtn_clicked()
 {
     bool ret = inputCheck();
     if(ret) {
-        this->close();
-        mTestConfig->saveConfig(mItem);
         this->accept();
+        mTestConfig->saveConfig(mItem);
     }
 }
 

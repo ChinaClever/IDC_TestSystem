@@ -233,7 +233,7 @@ QProgressBar {
             </font>
            </property>
            <property name="text">
-            <string>测试结束</string>
+            <string>未启动</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -250,7 +250,7 @@ QProgressBar {
          <item>
           <widget class="QLabel" name="itemNumLab">
            <property name="text">
-            <string>通过</string>
+            <string>请开始</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

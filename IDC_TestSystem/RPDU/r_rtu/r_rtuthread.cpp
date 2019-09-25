@@ -64,6 +64,7 @@ void R_RtuThread::writeErrCmd(int id)
 void R_RtuThread::workDown()
 {
     int ret = 0;
+    int tempret = 1;
 
     sConfigItem *item = R_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
@@ -80,10 +81,10 @@ void R_RtuThread::workDown()
             }
             if(isRun) msleep(755);
             else return;
-            if(!ret) break;
+            if(!ret) tempret = ret;
         }
 
-        if(ret) { // 正常收到数据
+        if(tempret) { // 正常收到数据
             sentOkCmd(dev->rtuCount);
         } else { // 数据异常
             saveErrCmd(addr, dev->rtuCount);

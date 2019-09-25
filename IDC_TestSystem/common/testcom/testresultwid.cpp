@@ -13,10 +13,9 @@ TestResultWid::TestResultWid(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    initStytleSheet();
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),this, SLOT(progressSlot()));
-
-   initStytleSheet();
 }
 
 TestResultWid::~TestResultWid()
@@ -54,16 +53,17 @@ void TestResultWid::startSlot()
     QString batch = mItem->serialNum.batch;
     QString sn = mItem->serialNum.sn;
     mItem->progress.errNum = mItem->progress.finishNum = mItem->progress.okNum = 0;
+    mItem->progress.allNum = 2;
 
     QString str = tr("产品:%1  批次：%2").arg(name).arg(batch);
     ui->titleTab->setText(str);
     ui->snLab->setText(sn);
 
-    ui->itemNumLab->clear();
-    ui->statusLab->clear();
+    ui->statusLab->setText(tr("正在计算测试项"));
+    ui->itemNumLab->setText(tr("已启动测试功能，请等待！！！"));
     ui->progressBar->setValue(0);
 
-    timer->start(200);
+    QTimer::singleShot(30000,this,SLOT(startTimerSLot()));
     ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                               "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
@@ -71,18 +71,18 @@ void TestResultWid::startSlot()
 
 }
 
+void TestResultWid::startTimerSLot()
+{
+    timer->start(200);
+}
+
 void TestResultWid::resultSlot()
 {
-    bool p = true;
-    if(mItem->progress.errNum)  p = false;
-
-    //QString str = tr("通过");
-    if(p) {
+    if(!mItem->progress.errNum) {
         ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                                   "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}}");
     } else {
-        //str = tr("失败");
         ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:red;}"
                                   "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
@@ -91,8 +91,6 @@ void TestResultWid::resultSlot()
     }
 
     timer->stop();
-    //ui->resultLab->setText(str);
-
     mItem->progress.allNum = mItem->progress.finishNum;
     progressSlot();
     ui->statusLab->setText(tr("测试结束!!!"));
@@ -101,18 +99,17 @@ void TestResultWid::resultSlot()
 void TestResultWid::progressSlot()
 {
     sTestProgress *arg = &(mItem->progress);
-
     int progress = (arg->finishNum * 100.0) / arg->allNum;
     ui->progressBar->setValue(progress);
     ui->statusLab->setText(arg->status);
 
     QPalette pe;
     pe.setColor(QPalette::WindowText,Qt::black);
-    int ok = (arg->okNum * 100.0) / arg->allNum;
     if(arg->errNum)  pe.setColor(QPalette::WindowText,Qt::red);
+
+    int ok = (arg->okNum * 100.0) / arg->allNum;
     QString str = tr("测试项目数:%1  失败项目数：%2  项目测试通过率：%3%").arg(arg->allNum).arg(arg->errNum).arg(ok);
     ui->itemNumLab->setText(str);
     ui->itemNumLab->setPalette(pe);
-
 }
 
