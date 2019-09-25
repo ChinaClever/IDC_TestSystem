@@ -52,9 +52,10 @@ void TestCoreThread::updateData()
 
 void TestCoreThread::stopThread()
 {
+    emit overSig();
+    QThread::exit(0);
     quit();
     terminate();
-    emit overSig();
 }
 
 void TestCoreThread::conditionExec(bool s)
