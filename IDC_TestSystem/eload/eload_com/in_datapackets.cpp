@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -137,3 +137,13 @@ sObjData *IN_DataPackets::getObjData(int id)
     return &(data->input[id%8]);
 }
 
+
+int IN_DataPackets::getTgCur(int s, int e)
+{
+    int ret = 0;
+    for(int i=s; i<e; ++i) {
+        sObjData *obj = getObjData(i+8);
+        ret += obj->cur.value;
+    }
+    return ret;
+}

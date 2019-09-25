@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -112,7 +112,7 @@ bool IN_RtuTrans::sentSetCmd(sRtuSentCom &cmd, int msecs)
 int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
 {
     char offLine = 0;
-    QMutexLocker locker(mMutex);msleep(300);
+    QMutexLocker locker(mMutex);
     uchar *sent = mSentBuf, *recv = mRecvBuf;
 
     int rtn = mSentLen = mRtuSent->sentDataBuff(addr, sent); // 把数据打包成通讯格式的数据
@@ -129,7 +129,6 @@ int IN_RtuTrans::transData(int addr, IN_sRtuRecv *pkt, int msecs)
             }
         }
     }
-    msleep(300);
     return offLine;
 }
 
@@ -212,7 +211,7 @@ int IN_RtuTrans::transmit(int addr, sDataPacket *packet, int msecs)
 
 void IN_RtuTrans::transgetStatus(int addr, sDataPacket *packet, int msecs)
 {
-    QMutexLocker locker(mMutex);msleep(300);
+    QMutexLocker locker(mMutex);
     static uchar sent[8] , recv[8];
 
     int rtn = mSentLen = mRtuSent->sentGetStatusBuff(addr, sent);

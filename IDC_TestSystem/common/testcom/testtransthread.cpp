@@ -1,4 +1,4 @@
-﻿#include "testtransthread.h"
+#include "testtransthread.h"
 
 TestTransThread::TestTransThread(QObject *parent) : QThread(parent)
 {
@@ -45,7 +45,7 @@ bool TestTransThread::rtuUpdate(int s)
     if(!mRtuLock) {
         mRtuLock = true;
         mRtu->startThread();
-        if(s) QTimer::singleShot(s *3500,this,SLOT(rtuStopData()));
+        if(s) QTimer::singleShot(s *4500,this,SLOT(rtuStopData()));
     } else {
         ret = false;
     }

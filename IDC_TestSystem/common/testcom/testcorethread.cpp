@@ -33,7 +33,7 @@ void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTrans
 void TestCoreThread::startThread()
 {
     mItemId = 1;
-    mDevPacket = &(mPackets->dev[mItem->devId]);    
+    mDevPacket = &(mPackets->dev[mItem->devId]);
     mDevPacket->data.lineNum = 0;
     mDevPacket->data.loopNum = 0;
     mDevPacket->data.outputNum = 0;
@@ -89,30 +89,6 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     msleep(300);
 }
 
-void TestCoreThread::countItemsNum()
-{
-    sTestProgress *p = &(mItem->progress);
-    //    int num = 1;
-    //    if(mItem->isSnmp) num++;
-
-    //    int lineNum = mDevPacket->data.lineNum;
-    //    int loopNum = mDevPacket->data.loopNum;
-    //    int outputNum = mDevPacket->data.outputNum;
-
-    //    num += (lineNum * 9) + 1;
-    //    num += (loopNum * 7) + 1;
-
-    //    int size = 7;
-    //    switch(mDevPacket->devSpec) {
-    //    case 1:  size = 0; break;
-    //    case 2:  size = 6; break;
-    //    case 3:  size = 1; break;
-    //    default: break;
-    //    }
-    //    num += (outputNum * size);
-    //    p->allNum = num;
-    p->allNum = 2;
-}
 
 void TestCoreThread::allNumsSlot(int nums)
 {  
@@ -148,10 +124,8 @@ bool TestCoreThread::snmpTrans()
 
     QString str = tr("SNMP通讯失败");
     mTrans->snmpUpdateData();
-    if(mItem->serialNum.name == "RPDU")
-        sleep(20);
-    else
-        sleep(10);
+    snmpTransDelay();
+
     if(mDevPacket->txType == 1) {
         ret = true;
         str = tr("SNMP通讯成功");
@@ -159,7 +133,7 @@ bool TestCoreThread::snmpTrans()
 
     item.status = ret;
     item.measured = str;
-    //    mTrans->snmpStop();
+    // mTrans->snmpStop();
 
     return appendResult(item);
 }
@@ -174,7 +148,8 @@ bool TestCoreThread::rtuTrans()
     item.expect = tr("通过Modbus能获取到设备数据");
 
     QString str = tr("Modbus通讯失败");
-    mTrans->rtuUpdateData(); sleep(28);//rpdu23 zpdu20 必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
+    mTrans->rtuUpdateData();
+    rtuTransDelay();//rpdu23 zpdu20 必须延长时间，不然读不到modbus标志位以及后面修改阈值也读不到值
     if(mDevPacket->txType == 2) {
         ret = true;
         str = tr("Modbus通讯成功");
@@ -223,6 +198,11 @@ bool TestCoreThread::devSpecCheck()
     return appendResult(item);
 }
 
+int TestCoreThread::getLineNum()
+{
+    return mDevPacket->data.lineNum;
+}
+
 bool TestCoreThread::devLineNumCheck()
 {
     bool ret = false;
@@ -231,16 +211,7 @@ bool TestCoreThread::devLineNumCheck()
     item.item = tr("设备基本检查");
     item.subItem = tr("相数量测试");
     item.expect = tr("共%1相").arg(mItem->serialNum.line);
-
-    int line = mDevPacket->data.lineNum;
-
-    if(mItem->serialNum.name == "RPDU")
-     {
-        line = line == 2 ? line-1 : line;
-        item.measured = tr("共%1相").arg(line);
-    }
-    else
-        item.measured = tr("共%1相").arg(line);
+    item.measured = tr("共%1相").arg(getLineNum());
 
     if(item.expect == item.measured) {
         ret = true;
@@ -251,34 +222,23 @@ bool TestCoreThread::devLineNumCheck()
     return appendResult(item);
 }
 
+int TestCoreThread::getLoopNum()
+{
+    return mDevPacket->data.loopNum;
+}
 
 bool TestCoreThread::devLoopNumCheck()
 {
     bool ret = false;
     sTestDataItem item;
 
-    if(mItem->serialNum.name == "RPDU")
-    {
-        int count = 0;
-        if(mDevPacket->data.lineNum < 3)
-        {
-            for(int i = 0 ; i < 3 ; i++)
-            if(mDevPacket->data.line[i].vol.value != 0) count++;
-        }
-        else
-            count = 3;
-        mDevPacket->data.loopNum = count;
-    }
     item.item = tr("设备基本检查");
     item.subItem = tr("回路数量测试");
     item.expect = tr("共%1回路").arg(mItem->serialNum.loop);
-    item.measured = tr("共%1回路").arg(mDevPacket->data.loopNum);
-    mDevPacket->data.loopNum = 0;   //////============
-
+    item.measured = tr("共%1回路").arg(getLoopNum());
     if(item.expect == item.measured) {
         ret = true;
     }
-
     item.status = ret;
 
     return appendResult(item);
@@ -294,7 +254,6 @@ bool TestCoreThread::devOutputNumCheck()
     item.subItem = tr("输出位数量测试");
     item.expect = tr("共%1输出位").arg(mItem->serialNum.output);
     item.measured = tr("共%1输出位").arg(mDevPacket->data.outputNum);
-
     if(item.expect == item.measured) {
         ret = true;
     }
@@ -321,26 +280,20 @@ bool TestCoreThread::transmission(bool& snmpRet)
     return ret;
 }
 
-bool TestCoreThread::volAccuracy(int &expect, int &measured, sTestDataItem &item)
+bool TestCoreThread::volAccuracy(int expect, int measured, sTestDataItem &item)
 {
     bool ret = false;
-    for(int i = 0; i < 5; i++)
-    {
-        int value = expect - measured;
-        int min = -3*COM_RATE_VOL;
-        int max =  3*COM_RATE_VOL;
-        if((value >= min) && (value <= max)) {
-            ret = true;
-            break;
-        } else {
-            sleep(3);
-        }
+    int value = expect - measured;
+    int min = -3*COM_RATE_VOL;
+    int max =  3*COM_RATE_VOL;
+    if((value >= min) && (value <= max)) {
+        ret = true;
     }
+
     item.expect = QString::number(expect / COM_RATE_VOL) + "V";
     item.measured = QString::number(measured / COM_RATE_VOL) + "V";
     item.status = ret;
     appendResult(item);
-
 
     return ret;
 }
@@ -355,7 +308,6 @@ void TestCoreThread::lineVol()
         item.subItem = tr(" L%1 电压检查").arg(i+1);
         int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i+1);
         int measuredValue = mDevPacket->data.line[i].vol.value;
-        //qDebug()<<mDevPacket->data.line[0].vol.value<<mDevPacket->data.line[1].vol.value<<mDevPacket->data.line[2].vol.value;
         volAccuracy(expectValue, measuredValue, item);
     }
 }
@@ -388,20 +340,20 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->rtuUpdateData();
         }
     } else {
-//        if(!cmd.sMin.isEmpty()){
-//            mTrans->setSnmpValue(cmd.sMin);
-//            mTrans->setSnmpValue(cmd.sMax);
-//            mTrans->snmpUpdateData();
-//        }
-//        else{
-            mTrans->setRtuValue(cmd.rtuMin);
-            mTrans->setRtuValue(cmd.rtuMax);
-            mTrans->rtuUpdateData();
-//        }
+        //        if(!cmd.sMin.isEmpty()){
+        //            mTrans->setSnmpValue(cmd.sMin);
+        //            mTrans->setSnmpValue(cmd.sMax);
+        //            mTrans->snmpUpdateData();
+        //        }
+        //        else{
+        mTrans->setRtuValue(cmd.rtuMin);
+        mTrans->setRtuValue(cmd.rtuMax);
+        mTrans->rtuUpdateData();
+        //        }
         //        mTrans->rtuStop();
         //        if(mItem->isSnmp) mTrans->snmpStop();
     }
-    sleep(10);
+    sleep(14);
 }
 
 void TestCoreThread::setLineVolCmd(bool alrm)
@@ -430,9 +382,6 @@ void TestCoreThread::lineVolAlarm()
     sTestDataItem item;
     item.item = tr("相电压告警检查");
     setLineVolCmd(true);
-    sleep(3);
-    mTrans->rtuUpdateData();//////////
-
     int num = mDevPacket->data.lineNum;
     for(int i = 0; i < num; ++i)
     {
@@ -480,68 +429,39 @@ void TestCoreThread::volCheck()
     lineVol();
     loopVol();
 
-    if(mItem->serialNum.name != "RPDU")
-        lineVolAlarm();
-    //loopVolAlarm();
+    lineVolAlarm();
+    loopVolAlarm();
 }
 
 
-bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item, bool flag)
+bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item, double f)
 {
     bool ret = false;
-    int value = 0;
-    if(flag)//flag true cur/100 or false cur/10
-    {
-        value = expect/COM_RATE_CUR - measured;
-        item.expect = QString::number(expect / COM_RATE_CUR2) + "A";
-    }
-    else
-    {
-        value = expect - measured;
-        item.expect = QString::number(expect / COM_RATE_CUR) + "A";
-    }
+    if(f>10) expect /= COM_RATE_CUR;
+    int value = expect - measured;
+    item.expect = QString::number(expect / COM_RATE_CUR) + "A";
+
     int min = -2*COM_RATE_CUR;
     int max =  2*COM_RATE_CUR;
-    if( expect != 0 && measured != 0 )
-    {
+    if( expect != 0 && measured != 0 ) {
         if((value > min) && (value < max)) {
             ret = true;
         }
-    }
-    else
+    }  else
         ret = false;
     item.measured = QString::number(measured / COM_RATE_CUR) + "A";
-    item.status = mRtuRet|mSnmpRet? ret : false;
+    item.status = mRtuRet|mSnmpRet ? ret : false;
     appendResult(item);
 
     return ret;
 }
 
-bool TestCoreThread::curNoCurAccuracy(int expect, int measured, sTestDataItem &item, bool flag)
+bool TestCoreThread::curNoCurAccuracy(int expect, int measured, sTestDataItem &item, double f)
 {
     bool ret = false;
-    int value = 0;
-    if(flag)//flag true cur/100 or false cur/10
-    {
-        value = expect/COM_RATE_CUR - measured;
-        item.expect = QString::number(expect / COM_RATE_CUR2) + "A";
-    }
-    else
-    {
-        value = expect - measured;
-        item.expect = QString::number(expect / COM_RATE_CUR) + "A";
-    }
-    int min = -2*COM_RATE_CUR;
-    int max =  2*COM_RATE_CUR;
-    if( (expect == 0 && measured == 0) || (expect != 0 && measured != 0) )
-    {
-        if((value > min) && (value < max)) {
-            ret = true;
-        }
-    }
-    else
-        ret = false;
-    item.measured = QString::number(measured / COM_RATE_CUR) + "A";
+    if((expect == 0 && measured == 0))  ret = true;
+    item.expect = QString::number(expect) + "A";
+    item.measured = QString::number(measured / f) + "A";
     item.status = mRtuRet|mSnmpRet? ret : false;
     appendResult(item);
 
@@ -554,14 +474,10 @@ void TestCoreThread::lineNoCur()
     item.item = tr("相电流检查");
 
     int num = mDevPacket->data.lineNum;
-    for(int i = 0; i < num; ++i)
-    {
+    for(int i = 0; i < num; ++i) {
         item.subItem = tr("空载, L%1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.line[i].cur.value;
-        if(mItem->serialNum.name != "RPDU")
-            curNoCurAccuracy(0, measuredValue, item);
-        else
-            curNoCurAccuracy(0, measuredValue, item, true);
+        curNoCurAccuracy(0, measuredValue, item);
     }
 }
 
@@ -571,8 +487,7 @@ void TestCoreThread::loopNoCur()
     item.item = tr("回路电流检查");
 
     int num = mDevPacket->data.loopNum;
-    for(int i = 0; i < num; ++i)
-    {
+    for(int i = 0; i < num; ++i) {
         item.subItem = tr(" C%1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.loop[i].cur.value;
         curNoCurAccuracy(0, measuredValue, item);
@@ -585,17 +500,26 @@ void TestCoreThread::outputNoCur()
     item.item = tr("输出位电流检查");
 
     int num = mDevPacket->data.outputNum;
-    for(int i = 0; i < num; ++i)
-    {
+    for(int i = 0; i < num; ++i) {
         item.subItem = tr("空载输出位 %1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.output[i].cur.value;
-        if(mItem->serialNum.name != "RPDU")
-            curNoCurAccuracy(0, measuredValue, item);
-        else
-            curNoCurAccuracy(0, measuredValue, item, true);
+        curNoCurAccuracy(0, measuredValue, item);
     }
 }
 
+int TestCoreThread::getLinePorts()
+{
+    int num = mDevPacket->data.lineNum;
+    int outputNum = mDevPacket->data.outputNum;
+
+    if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+        outputNum = 8;
+    else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+            (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+        outputNum = 24;
+
+    return outputNum / num;
+}
 
 void TestCoreThread::lineCur()
 {
@@ -603,43 +527,14 @@ void TestCoreThread::lineCur()
     item.item = tr("相电流检查");
     int num = mDevPacket->data.lineNum;
     if( num <= 0 ) return;
-//    if(num > 1)//暂时不需要相总电流，误差有点大
-//    {
-//        item.subItem = tr(" 相总电流");
 
-//        int expect = IN_DataPackets::bulid()->getTgValue(2) ;
-//        int measuredValue = 0;
-//        for(int i = 0; i < num; ++i) {
-//            measuredValue += mDevPacket->data.line[i].cur.value;
-//        }
-//        if(mItem->serialNum.name != "RPDU")
-//            curAccuracy(expect, measuredValue, item);
-//        else
-//            curAccuracy(expect, measuredValue, item, true);
-//    }
-    int outputNum = mDevPacket->data.outputNum;
-    if(mItem->serialNum.name == "RPDU")
-    {
-        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
-            outputNum = 8;
-        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
-                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
-            outputNum = 24;
-    }
-    int loop = outputNum / num;
-    for(int i = 0; i < num; ++i)
-    {
+    int loop = getLinePorts();
+    for(int i = 0; i < num; ++i) {
         item.subItem = tr(" L%1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.line[i].cur.value;
-        int expect = 0;
-        for(int j = i*loop ; j < (i+1)*loop ; j++)
-            expect += IN_DataPackets::bulid()->getObjData(j+8)->cur.value;
-        if(mItem->serialNum.name != "RPDU")
-            curAccuracy(expect, measuredValue, item);
-        else
-            curAccuracy(expect, measuredValue, item, true);
+        int expect = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
+        curAccuracy(expect, measuredValue, item, COM_RATE_CUR2);
     }
-
 }
 
 void TestCoreThread::loopCur()
@@ -647,8 +542,7 @@ void TestCoreThread::loopCur()
     sTestDataItem item;
     item.item = tr("回路电流检查");
     int num = mDevPacket->data.loopNum;
-    if(num > 1)
-    {
+    if(num > 1) {
         item.subItem = tr(" 回路总电流");
 
         int expect = IN_DataPackets::bulid()->getTgValue(2) ;
@@ -678,10 +572,7 @@ void TestCoreThread::outputCur()
         item.subItem = tr("小电流输出位 %1 电流值").arg(i+1);
         int measuredValue = mDevPacket->data.output[i].cur.value;
         int expect = IN_DataPackets::bulid()->getObjData(i+8)->cur.value;
-        if(mItem->serialNum.name != "RPDU")
-            curAccuracy(expect, measuredValue, item);
-        else
-            curAccuracy(expect, measuredValue, item , true);
+        curAccuracy(expect, measuredValue, item , COM_RATE_CUR2);
     }
 }
 
@@ -693,22 +584,22 @@ void TestCoreThread::curCheck()
     mTrans->snmpUpdateData();
     sleep(15);
     if(mDevPacket->devSpec == 3) sleep(10);
-    //qDebug()<<"no cur start";
+
     lineNoCur();
     loopNoCur();
     if( mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
         outputNoCur();
-    //qDebug()<<"no cur end";
+
     ELoad_RtuSent::bulid()->switchOpenAll();
     sleep(15);
     mTrans->snmpUpdateData();
     sleep(10);
-    //qDebug()<<"cur start";
+
     lineCur();
     loopCur();
     if( mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
         outputCur();
-    //qDebug()<<"cur end";
+
 }
 
 
@@ -752,9 +643,9 @@ void TestCoreThread::lineCurAlarm()
     mTrans->snmpUpdateData();
 
     if(mItem->serialNum.name == "RPDU")
-    sleep(50);//////////test rpdu RTU 2019/7/1 peng add
+        sleep(50);//////////test rpdu RTU 2019/7/1 peng add
     else
-    msleep(500);
+        msleep(500);
 
     int num = mDevPacket->data.lineNum;
     for(int i = 0; i < num; ++i)
@@ -785,9 +676,9 @@ void TestCoreThread::loopCurAlarm()
     sleep(5);
     mTrans->snmpUpdateData();
     if(mItem->serialNum.name == "RPDU")
-    sleep(15);//////////test rpdu RTU 2019/7/1 peng add
+        sleep(15);//////////test rpdu RTU 2019/7/1 peng add
     else
-    msleep(500);
+        msleep(500);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -814,15 +705,15 @@ void TestCoreThread::outputCurAlarm()
 
     setOutputCurCmd(true);
     if(mItem->serialNum.name == "RPDU")
-    sleep(100);//20
+        sleep(100);//20
     else
-    sleep(20);
+        sleep(20);
     mTrans->snmpUpdateData();
     //sleep(1);
     if(mItem->serialNum.name == "RPDU")
-    sleep(50);//////////test rpdu RTU 2019/7/1 peng add
+        sleep(50);//////////test rpdu RTU 2019/7/1 peng add
     else
-    sleep(1);
+        sleep(1);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -843,7 +734,7 @@ void TestCoreThread::curAlarmCheck()
 {
     lineCurAlarm();
     if(mItem->serialNum.name != "RPDU")
-    loopCurAlarm();
+        loopCurAlarm();
     if(mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
         outputCurAlarm();
 }
@@ -1047,7 +938,7 @@ bool TestCoreThread::outputPow()
         if(mItem->serialNum.name != "RPDU")
             measuredValue = mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value*mDevPacket->data.output[i].pf/1000;
         else
-           measuredValue = mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+            measuredValue = mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
         int expect = 0;
         if(IN_DataPackets::bulid()->getObjData(i+8)->pf != 0)
             expect = (double)IN_DataPackets::bulid()->getObjData(i+8)->pow/IN_DataPackets::bulid()->getObjData(i+8)->pf*COM_RATE_CUR2;
@@ -1242,10 +1133,10 @@ void TestCoreThread::temCheck()
     sTestDataItem item;
     item.item = tr("温度检查");
     int avgValue = 0 , sum = 0 ,count = 0;
-    for(int i = 0; i < num; ++i)      
+    for(int i = 0; i < num; ++i)
     {
         if(mDevPacket->data.env.tem[i].value)
-             sum += mDevPacket->data.env.tem[i].value;
+            sum += mDevPacket->data.env.tem[i].value;
         else
             count++;
     }
@@ -1456,9 +1347,9 @@ void TestCoreThread::bigCurPowCheck(int i , int addr)
     item.item = tr("大电流输出位功率检查");//大电流输出位功率检查
     item.subItem = tr("大电流输出位 %1 功率值").arg(i+1);
 
-//    sDevData *devData = &(mDevPacket->data);
-//    int measuredValue = devData->output[i].cur.value * devData->line[0].vol.value * devData->output[i].pf/1000;
-//    int expect = IN_DataPackets::bulid()->getTgValueByIndex( 3 , addr);
+    //    sDevData *devData = &(mDevPacket->data);
+    //    int measuredValue = devData->output[i].cur.value * devData->line[0].vol.value * devData->output[i].pf/1000;
+    //    int expect = IN_DataPackets::bulid()->getTgValueByIndex( 3 , addr);
 
     int measuredValue = 0;
     if(mItem->serialNum.name != "RPDU")
@@ -1494,7 +1385,7 @@ void TestCoreThread::setBigCurCmd()
             if(mItem->serialNum.name != "RPDU")
                 curAccuracy(expect, measuredValue, item);
             else
-                curAccuracy(expect, measuredValue, item, true);
+                curAccuracy(expect, measuredValue, item, COM_RATE_CUR2);
         }
         bigCurPowCheck(i , addr);
 
@@ -1523,14 +1414,14 @@ void TestCoreThread::bigCurCheck()
 {
     openOrCloseBigCur(true);//打开大电流模式
     //    QList<int> res;
-       //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-       //    for(int i = 1 ; i <= 3 ; i ++)
-       //        for(int j = 0 ;j < 8 ; j ++){
-       //            res.append(config->getResistance(i,j));
-       //        }
-       //    for(int i = 0 ; i < 8 ; i++)
-       //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
-       //    }
+    //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+    //    for(int i = 1 ; i <= 3 ; i ++)
+    //        for(int j = 0 ;j < 8 ; j ++){
+    //            res.append(config->getResistance(i,j));
+    //        }
+    //    for(int i = 0 ; i < 8 ; i++)
+    //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
+    //    }
 
     ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
     ELoad_RtuSent::bulid()->switchOpenCtr( 1 , 0 );
@@ -1582,14 +1473,13 @@ void TestCoreThread::run()
         powCheck();
 
         switchCtr();
-       // eleCheck();
+        // eleCheck();
         envCheck();
 
         if(mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
-        bigCurCheck();
+            bigCurCheck();
         //resDev();
-    }  else {
-        countItemsNum();
     }
+
     emit overSig();
 }

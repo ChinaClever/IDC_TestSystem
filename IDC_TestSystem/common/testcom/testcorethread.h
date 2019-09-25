@@ -1,4 +1,4 @@
-﻿#ifndef TESTCORETHREAD_H
+#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -98,6 +98,14 @@ protected slots:
 
 protected:
     void run();
+    virtual void snmpTransDelay() {sleep(10);}
+    virtual void rtuTransDelay() {sleep(20);}
+    virtual int getLineNum();
+    virtual int getLoopNum();
+    virtual int getLinePorts();
+
+    virtual void lineVolAlarm();
+    virtual bool devSpecCheck();
 
 private:
     void stopThread();
@@ -105,20 +113,18 @@ private:
     void conditionExec(bool s);
     void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
-    void countItemsNum();
 
     /********检查通讯***************/
     bool snmpTrans();
     bool rtuTrans();
     bool transmission(bool& snmpRet);  // 通讯
 
-    bool devSpecCheck();
     bool devLineNumCheck();
     bool devLoopNumCheck();
     bool devOutputNumCheck();
     void devInfoCheck();
 
-    bool volAccuracy(int &expect, int &measured, sTestDataItem &item);
+    bool volAccuracy(int expect, int measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
@@ -126,12 +132,11 @@ private:
     void setLineVolCmd(bool alrm);
     void setLoopVolCmd(bool alrm);
 
-    void lineVolAlarm();
     void loopVolAlarm();
     void volCheck();
 
-    bool curAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
-    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
+    bool curAccuracy(int expect, int measured, sTestDataItem &item , double f=COM_RATE_CUR);//flag true cur/100 or false cur/10
+    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , double f=COM_RATE_CUR);
     void lineNoCur();
     void loopNoCur();
     void outputNoCur();
@@ -187,7 +192,7 @@ private:
     void openAllOutput();
     void resDev();
 
-private:
+protected:
     int mItemId;
     sTestConfigItem  *mItem;
     TestTransThread *mTrans;

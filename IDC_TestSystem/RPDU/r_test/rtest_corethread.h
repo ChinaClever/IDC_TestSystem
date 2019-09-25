@@ -1,4 +1,4 @@
-﻿#ifndef RTEST_CORETHREAD_H
+#ifndef RTEST_CORETHREAD_H
 #define RTEST_CORETHREAD_H
 
 #include "rtest_transthread.h"
@@ -8,6 +8,15 @@ class RTest_CoreThread : public TestCoreThread
     Q_OBJECT
 public:
     explicit RTest_CoreThread(QObject *parent = nullptr);
+
+
+protected:
+    virtual void snmpTransDelay() {sleep(30);}
+    virtual void rtuTransDelay() {sleep(30);}
+    virtual int getLineNum();
+    virtual int getLoopNum();
+    virtual void lineVolAlarm() {}
+    virtual int getLinePorts();
 
     bool lineVolCmd(sTestSetCmd &it);
     bool loopVolCmd(sTestSetCmd &it);
