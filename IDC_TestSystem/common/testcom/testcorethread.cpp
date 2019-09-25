@@ -33,7 +33,10 @@ void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTrans
 void TestCoreThread::startThread()
 {
     mItemId = 1;
-    mDevPacket = &(mPackets->dev[mItem->devId]);
+    mDevPacket = &(mPackets->dev[mItem->devId]);    
+    mDevPacket->data.lineNum = 0;
+    mDevPacket->data.loopNum = 0;
+    mDevPacket->data.outputNum = 0;
     start();
 }
 
@@ -52,7 +55,6 @@ void TestCoreThread::stopThread()
     quit();
     terminate();
     emit overSig();
-    QThread::exit(0);
 }
 
 void TestCoreThread::conditionExec(bool s)
@@ -326,7 +328,7 @@ bool TestCoreThread::volAccuracy(int &expect, int &measured, sTestDataItem &item
         int value = expect - measured;
         int min = -3*COM_RATE_VOL;
         int max =  3*COM_RATE_VOL;
-        if((value > min) && (value < max)) {
+        if((value >= min) && (value <= max)) {
             ret = true;
             break;
         } else {
@@ -624,7 +626,6 @@ void TestCoreThread::lineCur()
             outputNum = 24;
     }
     int loop = outputNum / num;
-    qDebug()<<"num:"<<num<<"outputNum:"<<outputNum<<"loop:"<<loop;
     for(int i = 0; i < num; ++i)
     {
         item.subItem = tr(" L%1 电流值").arg(i+1);
@@ -690,6 +691,7 @@ void TestCoreThread::curCheck()
     sleep(10);
     mTrans->snmpUpdateData();
     sleep(15);
+    if(mDevPacket->devSpec == 3) sleep(10);
     //qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
@@ -907,7 +909,8 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
         mTrans->setSnmpValue(cmd.sAlarmMin);
         mTrans->snmpUpdateData();
         sleep(10);
-    } else{
+    }
+    else{
         mTrans->setSnmpValue(cmd.sAlarmMax);
         mTrans->snmpUpdateData();
     }
@@ -923,6 +926,7 @@ void TestCoreThread::outputSwCtr()
     if(num <= 0) return;
 
     setOutputSwCmd(true); sleep(26*(num/8));
+    if(num/8 == 1) sleep(10);//水平8位需要延时长点
     mTrans->snmpUpdateData(); sleep(10);
 
     for(int i = 0; i < num; ++i)
@@ -935,6 +939,7 @@ void TestCoreThread::outputSwCtr()
     }
     ELoad_RtuSent::bulid()->switchOpenAll();
     setOutputSwCmd(false);sleep(26*(num/8));
+    if(num/8 == 1) sleep(10);//水平8位需要延时长点
     mTrans->snmpUpdateData(); sleep(10);
     for(int i = 0; i < num; ++i)
     {
@@ -1221,6 +1226,18 @@ void TestCoreThread::temCheck()
     int num = mDevPacket->data.env.envNum;
     if(num <= 0) return;
 
+    int outputNum = mDevPacket->data.outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+            outputNum = 8;
+        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+            outputNum = 24;
+    }
+    if(mDevPacket->data.lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 2;
+
     sTestDataItem item;
     item.item = tr("温度检查");
     int avgValue = 0 , sum = 0 ,count = 0;
@@ -1247,6 +1264,19 @@ void TestCoreThread::humCheck()
 {
     int num = mDevPacket->data.env.envNum;
     if(num <= 0) return;
+
+    int outputNum = mDevPacket->data.outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+            outputNum = 8;
+        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+            outputNum = 24;
+    }
+    if(mDevPacket->data.lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 2;
+
 
     sTestDataItem item;
     item.item = tr("湿度检查");
@@ -1329,36 +1359,52 @@ void TestCoreThread::envCheck()
 
 void TestCoreThread::sensorsCheck()
 {//暂时把门禁写死为2                     2019/7/25 peng
-    sTestDataItem item;
-    item.item = tr("门禁检查");
-    for(int i = 0; i < 2; ++i)
+    int num = 2;
+    int outputNum = mDevPacket->data.outputNum;
+    if(mItem->serialNum.name == "RPDU")
     {
-        item.subItem = tr(" 门禁%1 ").arg(i+1);
-        int measuredValue = mDevPacket->data.env.door[i];
+        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+            outputNum = 8;
+        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+            outputNum = 24;
+    }
+    if(mDevPacket->data.lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 0;
+
+    if(num)
+    {
+        sTestDataItem item;
+        item.item = tr("门禁检查");
+        for(int i = 0; i < num; ++i)
+        {
+            item.subItem = tr(" 门禁%1 ").arg(i+1);
+            int measuredValue = mDevPacket->data.env.door[i];
+
+            item.expect = tr("正常或者报警");
+            item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
+            item.status = (measuredValue != 0);
+            appendResult(item);
+        }
+
+        item.item = tr("烟雾检查");
+        item.subItem = tr(" 烟雾 ");
+        int measuredValue = mDevPacket->data.env.smoke[0];
+
+        item.expect = tr("正常或者报警");
+        item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
+        item.status = (measuredValue != 0);
+        appendResult(item);
+
+        item.item = tr("水浸检查");
+        item.subItem = tr(" 水浸 ");
+        measuredValue = mDevPacket->data.env.water[0];
 
         item.expect = tr("正常或者报警");
         item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
         item.status = (measuredValue != 0);
         appendResult(item);
     }
-
-    item.item = tr("烟雾检查");
-    item.subItem = tr(" 烟雾 ");
-    int measuredValue = mDevPacket->data.env.smoke[0];
-
-    item.expect = tr("正常或者报警");
-    item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
-    item.status = (measuredValue != 0);
-    appendResult(item);
-
-    item.item = tr("水浸检查");
-    item.subItem = tr(" 水浸 ");
-    measuredValue = mDevPacket->data.env.water[0];
-
-    item.expect = tr("正常或者报警");
-    item.measured = measuredValue == 0?tr("未接入"):(measuredValue == 1?tr("正常"):tr("报警"));
-    item.status = (measuredValue != 0);
-    appendResult(item);
 }
 
 void TestCoreThread::openOrCloseBigCur(bool mode)
@@ -1499,7 +1545,7 @@ void TestCoreThread::openAllOutput()
 {
     if((mDevPacket->devSpec != 1) && (mDevPacket->devSpec != 2)) {
         setOutputSwCmd(false); /// 打开PDU所有输出位
-        sleep(2);
+        sleep(10);
     }
 }
 
