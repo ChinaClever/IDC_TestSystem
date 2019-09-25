@@ -27,7 +27,7 @@ void TestTransThread::timeoutDone()
     case 3: rtuStopData(); break;
     case 4: snmpStopData(); break;
     case 5: stopUpdate(); break;
-    //case 6: start(); qDebug()<<"start";break;
+        //case 6: start(); qDebug()<<"start";break;
     default:  break;
     }
     mStep = 0;
@@ -36,7 +36,7 @@ void TestTransThread::timeoutDone()
 void TestTransThread::snmpUpdate(int s)
 {
     mSnmp->startRun();
-    if(s) QTimer::singleShot(s *3000,this,SLOT(snmpStopData()));
+    if(s) QTimer::singleShot(s *5000,this,SLOT(snmpStopData()));
 }
 
 bool TestTransThread::rtuUpdate(int s)
@@ -45,7 +45,7 @@ bool TestTransThread::rtuUpdate(int s)
     if(!mRtuLock) {
         mRtuLock = true;
         mRtu->startThread();
-        if(s) QTimer::singleShot(s *4500,this,SLOT(rtuStopData()));
+        if(s) QTimer::singleShot(s *5500,this,SLOT(rtuStopData()));
     } else {
         ret = false;
     }
@@ -96,7 +96,7 @@ void TestTransThread::run()
 {
     while(mRtuCmdList.size()) {
         mRtuTrans->setValue(mRtuCmdList.first());
-        sleep(3);//sleep(1)
+        delay();
         mRtuCmdList.removeFirst();
     }
 

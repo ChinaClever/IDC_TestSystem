@@ -100,6 +100,9 @@ protected:
     void run();
     virtual void snmpTransDelay() {sleep(10);}
     virtual void rtuTransDelay() {sleep(20);}
+    virtual void lineCurAlarmDelay() {msleep(600);}
+    virtual void outputCurAlarmDelay() {sleep(20);}
+    virtual void outputCurAlarmDelay2() {sleep(1);}
     virtual int getLineNum();
     virtual int getLoopNum();
     virtual int getLinePorts();

@@ -498,7 +498,6 @@ void TestCoreThread::outputNoCur()
 {
     sTestDataItem item;
     item.item = tr("输出位电流检查");
-
     int num = mDevPacket->data.outputNum;
     for(int i = 0; i < num; ++i) {
         item.subItem = tr("空载输出位 %1 电流值").arg(i+1);
@@ -579,26 +578,25 @@ void TestCoreThread::outputCur()
 
 void TestCoreThread::curCheck()
 {
-    ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(10);if(mDevPacket->data.lineNum == 1) sleep(10);
-    mTrans->snmpUpdateData();
-    sleep(15);
+    ELoad_RtuSent::bulid()->switchCloseAll(); sleep(10);
+    if(mDevPacket->data.lineNum == 1) sleep(10);
+    mTrans->snmpUpdateData(); sleep(15);
 
     lineNoCur();
     loopNoCur();
-    if( mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
+    if(mDevPacket->devSpec!=3 && mDevPacket->devSpec!=1) {
         outputNoCur();
+    }
 
-    ELoad_RtuSent::bulid()->switchOpenAll();
-    sleep(15);if(mDevPacket->data.lineNum == 1) sleep(10);
-    mTrans->snmpUpdateData();
-    sleep(10);
+    ELoad_RtuSent::bulid()->switchOpenAll(); sleep(15);
+    if(mDevPacket->data.lineNum == 1) sleep(10);
+    mTrans->snmpUpdateData(); sleep(10);
 
     lineCur();
     loopCur();
-    if( mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
+    if(mDevPacket->devSpec!=3 && mDevPacket->devSpec!= 1) {
         outputCur();
-
+    }
 }
 
 
@@ -637,14 +635,9 @@ void TestCoreThread::lineCurAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电流告警检查");
-    setLineCurCmd(true);
-    sleep(20);
+    setLineCurCmd(true); sleep(20);
     mTrans->snmpUpdateData();
-
-    if(mItem->serialNum.name == "RPDU")
-        sleep(50);//////////test rpdu RTU 2019/7/1 peng add
-    else
-        msleep(500);
+    lineCurAlarmDelay();
 
     int num = mDevPacket->data.lineNum;
     for(int i = 0; i < num; ++i)
@@ -671,13 +664,8 @@ void TestCoreThread::loopCurAlarm()
     int num = mDevPacket->data.loopNum;
     if(num <= 0) return;
 
-    setLoopCurCmd(true);
-    sleep(5);
-    mTrans->snmpUpdateData();
-    if(mItem->serialNum.name == "RPDU")
-        sleep(15);//////////test rpdu RTU 2019/7/1 peng add
-    else
-        msleep(500);
+    setLoopCurCmd(true); sleep(5);
+    mTrans->snmpUpdateData(); msleep(500);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -703,16 +691,10 @@ void TestCoreThread::outputCurAlarm()
     if(num <= 0) return;
 
     setOutputCurCmd(true);
-    if(mItem->serialNum.name == "RPDU")
-        sleep(100);//20
-    else
-        sleep(20);
+    outputCurAlarmDelay();
     mTrans->snmpUpdateData();
-    //sleep(1);
-    if(mItem->serialNum.name == "RPDU")
-        sleep(50);//////////test rpdu RTU 2019/7/1 peng add
-    else
-        sleep(1);
+    outputCurAlarmDelay2();
+
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -743,40 +725,18 @@ bool TestCoreThread::swAccuracy(int measured, sTestDataItem &item , uchar sw , b
 {
     bool ret = false;
     QString str = tr("断开");
-    if(mDevPacket->devSpec == 0)//D
-    {
-        if(isOpen)
-        {
-            if(measured || sw) {
-                str = tr("接通");
-            } else {
-                ret = true;
-            }
+    if(mDevPacket->devSpec == 3) measured = 0;
+
+    if(isOpen) {
+        if(measured || sw) {
+            str = tr("接通");
+        } else {
+            ret = true;
         }
-        else
-        {
-            if(measured || sw) {
-                str = tr("接通");
-                ret = true;
-            }
-        }
-    }
-    else if(mDevPacket->devSpec == 3)//C
-    {
-        if(isOpen)
-        {
-            if(sw) {
-                str = tr("接通");
-            } else {
-                ret = true;
-            }
-        }
-        else
-        {
-            if(sw) {
-                str = tr("接通");
-                ret = true;
-            }
+    } else  {
+        if(measured || sw) {
+            str = tr("接通");
+            ret = true;
         }
     }
 
@@ -793,19 +753,34 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    outputSwCmd(cmd);////////////////////////////////暂时注释关闭开关位，正式需要
+    outputSwCmd(cmd);
 
     if(alrm){
-        //setAlarmCmd(cmd, alrm);/////////////////////////暂时注释用串口打开开关位
         mTrans->setSnmpValue(cmd.sAlarmMin);
         mTrans->snmpUpdateData();
         sleep(10);
-    }
-    else{
+    } else{
         mTrans->setSnmpValue(cmd.sAlarmMax);
         mTrans->snmpUpdateData();
     }
 }
+
+
+////////////////////////===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void TestCoreThread::outputSwCtr()

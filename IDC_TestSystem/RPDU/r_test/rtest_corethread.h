@@ -13,6 +13,9 @@ public:
 protected:
     virtual void snmpTransDelay() {sleep(30);}
     virtual void rtuTransDelay() {sleep(30);}
+    virtual void lineCurAlarmDelay() {sleep(50);}
+    virtual void outputCurAlarmDelay() {sleep(100);}
+    virtual void outputCurAlarmDelay2() {sleep(50);}
     virtual int getLineNum();
     virtual int getLoopNum();
     virtual void lineVolAlarm() {}

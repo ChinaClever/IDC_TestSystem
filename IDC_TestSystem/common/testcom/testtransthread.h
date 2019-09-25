@@ -1,4 +1,4 @@
-﻿#ifndef TESTTRANSTHREAD_H
+#ifndef TESTTRANSTHREAD_H
 #define TESTTRANSTHREAD_H
 
 #include "rtuthread.h"
@@ -24,6 +24,9 @@ public:
     void setSnmpValue(QList<sSnmpSetCmd> &cmd);
 
     void clearSnmpCmd();//把上一次的snmp命令清除
+
+protected:
+    virtual void delay() {msleep(750);}
 
 protected slots:
     void run();
