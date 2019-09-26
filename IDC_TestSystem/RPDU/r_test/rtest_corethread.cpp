@@ -70,7 +70,7 @@ bool RTest_CoreThread::lineCurCmd(sTestSetCmd &it)
 //        snmpCmd.value = QString("%1.0").arg(Test_Normal_LineCurMax).toUtf8();  it.sMax.push_front(snmpCmd);
 
         rtuCmd.reg = R_RtuReg_LineCurMax+i;
-        rtuCmd.value = Test_Normal_LineCurMax*COM_RATE_CUR; it.rtuMax.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_CurMax*COM_RATE_CUR; it.rtuMax.append(rtuCmd);
         rtuCmd.value = Test_Abnormal_CurMax*COM_RATE_CUR; it.rtuAlarmMax.append(rtuCmd);
     }
 

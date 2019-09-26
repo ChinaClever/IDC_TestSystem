@@ -688,9 +688,9 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll();
-    sleep(10);if(mDevPacket->data.lineNum == 1) sleep(10);
+    sleep(10);if(mDevPacket->data.lineNum == 1) sleep(20);//10
     mTrans->snmpUpdateData();
-    sleep(15);
+    sleep(20);//15
     //qDebug()<<"no cur start";
     lineNoCur();
     loopNoCur();
