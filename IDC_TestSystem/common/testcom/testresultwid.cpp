@@ -63,7 +63,7 @@ void TestResultWid::startSlot()
     ui->itemNumLab->setText(tr("已启动测试功能，请等待！！！"));
     ui->progressBar->setValue(0);
 
-    QTimer::singleShot(30000,this,SLOT(startTimerSLot()));
+    QTimer::singleShot(35000,this,SLOT(startTimerSLot()));
     ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                               "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );

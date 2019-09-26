@@ -439,7 +439,7 @@ bool TestCoreThread::curAccuracy(int expect, int measured, sTestDataItem &item, 
     bool ret = false;
     if(f>10) expect /= COM_RATE_CUR;
     int value = expect - measured;
-    item.expect = QString::number(expect / COM_RATE_CUR) + "A";
+    item.expect = QString::number(expect/COM_RATE_CUR) + "A";
 
     int min = -2*COM_RATE_CUR;
     int max =  2*COM_RATE_CUR;
@@ -579,8 +579,7 @@ void TestCoreThread::outputCur()
 void TestCoreThread::curCheck()
 {
     ELoad_RtuSent::bulid()->switchCloseAll(); sleep(10);
-    if(mDevPacket->data.lineNum == 1) sleep(10);
-    mTrans->snmpUpdateData(); sleep(15);
+    mTrans->snmpUpdateData(); curCheckDelay();
 
     lineNoCur();
     loopNoCur();
@@ -589,8 +588,7 @@ void TestCoreThread::curCheck()
     }
 
     ELoad_RtuSent::bulid()->switchOpenAll(); sleep(15);
-    if(mDevPacket->data.lineNum == 1) sleep(10);
-    mTrans->snmpUpdateData(); sleep(10);
+    mTrans->snmpUpdateData(); curCheckDelay();
 
     lineCur();
     loopCur();
@@ -774,12 +772,12 @@ void TestCoreThread::outputSwCtr()
 
     setOutputSwCmd(true);
     outputSwCtrDelay();
-    for(int i = 0; i < num; ++i)
+    for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
         item.subItem = tr("输出位%1 开关控制 ").arg(i+1);
         int measuredValue = obj->cur.value;//根据电流判断输出位是否断开
-        swAccuracy(measuredValue, item , obj->sw , true);
+        swAccuracy(measuredValue, item , obj->sw , true); sleep(1);
     }
 
     ELoad_RtuSent::bulid()->switchOpenAll();
@@ -790,7 +788,7 @@ void TestCoreThread::outputSwCtr()
         sObjData *obj = &(mDevPacket->data.output[i]);
         item.subItem = tr("输出位%1 开关控制 ").arg(i+1);
         int measuredValue = obj->cur.value;//根据电流判断输出位是否接通
-        swAccuracy(measuredValue, item , obj->sw , false);
+        swAccuracy(measuredValue, item , obj->sw , false); sleep(1);
     }
 }
 
@@ -885,12 +883,11 @@ bool TestCoreThread::outputPow()
 
 void TestCoreThread::powCheck()
 {
-    bool ret = true;
     linePow();
     loopPow();
 
     if(mDevPacket->devSpec!=3) {
-        ret = outputPow();
+        outputPow();
     }
 }
 
@@ -1288,7 +1285,6 @@ void TestCoreThread::setBigCurCmd()
     }
 }
 
-
 void TestCoreThread::bigCurCheck()
 {
     openOrCloseBigCur(true);//打开大电流模式
@@ -1304,7 +1300,7 @@ void TestCoreThread::bigCurCheck()
 
     ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
     ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);
-    mTrans->snmpUpdateData(); sleep(10);//sleep(30);
+    mTrans->snmpUpdateData(); sleep(30);
 
     //setBigCurCmd(res);//大电流输出位电流检查
     setBigCurCmd();//大电流输出位电流检查

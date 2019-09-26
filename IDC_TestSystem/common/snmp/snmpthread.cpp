@@ -52,7 +52,7 @@ void SnmpThread::startRun()
     //m_snmp_client->cancelWork();
 
     if(!isRun) {
-        if(msec == 0) msec = 500 + (rand() % 500);
+        if(msec == 0) msec = 2000 + (rand() % 500);
         if(!m_timer->isActive()) m_timer->start(msec);
         if(!timer->isActive()) timer->start(getDelay());//100 2019-7-29
 
@@ -86,7 +86,6 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-            //qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value;
             mSetCmdList.removeFirst();
         }
     }
@@ -210,6 +209,8 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
+    if(mSetCmdList.size()) return;
+
     if(mPackets && isRun) {
         bool ret = requestSubValues(mId);
         if(!ret) {
@@ -232,9 +233,8 @@ void SnmpThread::run()
 {
     isRun = true;
     while(isRun)
-    {
-        msleep(100);
-        QMutexLocker locker(mMutex);
+    {        
+        QMutexLocker locker(mMutex); msleep(100);
         for( const auto& value : mValues ) {
             workDown(m_address, value.address(), value.data());
         }

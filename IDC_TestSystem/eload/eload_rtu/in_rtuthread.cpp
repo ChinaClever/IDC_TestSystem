@@ -72,7 +72,7 @@ void IN_RtuThread::writeErrCmd(int id)
  */
 void IN_RtuThread::workDown()
 {
-    int ret = 0, count=0;
+    int ret = 0, count=1;
 
     sConfigItem *item = ELoad_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
@@ -97,7 +97,7 @@ void IN_RtuThread::workDown()
             }
         }
 
-        if(isRun) msleep(630);
+        if(isRun) msleep(680);
         else return;
     }
 

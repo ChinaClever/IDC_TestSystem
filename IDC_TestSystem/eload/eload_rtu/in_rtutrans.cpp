@@ -53,13 +53,13 @@ int IN_RtuTrans::sendData(uchar *pBuff, int nCount, int msec)
 
 int IN_RtuTrans::transCmd(uchar *pBuff, int nCount, int msec)
 {
-    QMutexLocker locker(mMutex); msleep(300);
+    QMutexLocker locker(mMutex); msleep(400);
     uchar *sent = mSentBuf;//recv
     int rtn = 0;
     if(mSerial) {
     rtn = mSerial->transmit(pBuff, nCount, sent, msec);
     }
-    //msleep(300);
+    msleep(400);
     return rtn;
 }
 

@@ -21,7 +21,8 @@ protected:
     virtual int getEnvs();
     virtual void temHumAlarm(){}
     virtual int getDoors();
-    virtual int bigCurDelay() {sleep(20);}
+    virtual void bigCurDelay() {sleep(20);}
+    virtual void curCheckDelay();
 
     virtual int getLineNum();
     virtual int getLoopNum();

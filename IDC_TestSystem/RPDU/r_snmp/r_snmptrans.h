@@ -16,7 +16,7 @@ protected:
     QStringList getRequestValues(int){QStringList list; return list;}
     int getRequestSubValues(int id, QStringList &oid) { return mSnmpSend->requestSubOid(id, oid);}
     void workDown(const QString &ip, const QByteArray &oid, const QByteArray &data);
-    virtual int getDelay() {return 1700;}
+    virtual int getDelay() {return 1500;}
 
 private:
     R_SnmpSend *mSnmpSend;

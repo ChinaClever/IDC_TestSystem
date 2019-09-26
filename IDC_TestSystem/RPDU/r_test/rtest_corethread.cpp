@@ -54,7 +54,7 @@ void RTest_CoreThread::outputSwCtrDelay()
 {
     int num = mDevPacket->data.outputNum;
 
-    sleep(36*(num/8));
+    sleep(40*(num/8));
     if(num/8 == 1) sleep(10);//水平8位需要延时长点
 }
 
@@ -98,6 +98,11 @@ int RTest_CoreThread::getDoors()
     return num;
 }
 
+void RTest_CoreThread::curCheckDelay()
+{
+    if(mDevPacket->data.lineNum == 1) sleep(10);
+    sleep(35);
+}
 
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)
 {

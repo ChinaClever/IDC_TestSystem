@@ -109,7 +109,8 @@ protected:
     virtual int getLinePorts();
     virtual int getOutputPow(int id);
     virtual int getEnvs();
-    virtual int bigCurDelay() {sleep(5);}
+    virtual void bigCurDelay() {sleep(5);}
+    virtual void curCheckDelay() {sleep(5);}
 
     virtual void lineVolAlarm();
     virtual bool devSpecCheck();
