@@ -147,8 +147,7 @@ bool SnmpThread::requestSubValues(int id)
 void SnmpThread::setAllOffLine()
 {
     if(mPackets) {
-        for(int i=0; i<=mPackets->devNum; ++i)
-        {
+        for(int i=0; i<=mPackets->devNum; ++i) {
             sDataPacket *packet = &(mPackets->dev[i]);
             packet->offLine = 0;
         }
@@ -209,7 +208,9 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
+    if(mValues.size()) return;
     if(mSetCmdList.size()) return;
+    if(m_snmp_client->isBusy()) return;
 
     if(mPackets && isRun) {
         bool ret = requestSubValues(mId);
@@ -234,7 +235,8 @@ void SnmpThread::run()
     isRun = true;
     while(isRun)
     {        
-        QMutexLocker locker(mMutex); msleep(100);
+        msleep(100);
+        QMutexLocker locker(mMutex);
         for( const auto& value : mValues ) {
             workDown(m_address, value.address(), value.data());
         }
