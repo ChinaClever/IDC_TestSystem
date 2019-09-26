@@ -95,8 +95,8 @@ void TestTransThread::clearSnmpCmd()
 void TestTransThread::run()
 {
     while(mRtuCmdList.size()) {
-        mRtuTrans->setValue(mRtuCmdList.first());
         delay();
+        mRtuTrans->setValue(mRtuCmdList.first());
         mRtuCmdList.removeFirst();
     }
 

@@ -1,4 +1,4 @@
-﻿#ifndef TESTITEMS_H
+#ifndef TESTITEMS_H
 #define TESTITEMS_H
 #include "testresultwid.h"
 #include "comtablewid.h"
@@ -50,6 +50,8 @@ protected:
     void devInfoObjData(QList<sTestItem> &items);
     void bigCurObjData(QList<sTestItem> &items);
     void sensorsObjData(QList<sTestItem> &items);
+    int getEnvs();
+    int getDoors();
 
 private:
     sDutSpec *mSpec;

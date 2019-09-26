@@ -16,6 +16,13 @@ protected:
     virtual void lineCurAlarmDelay() {sleep(50);}
     virtual void outputCurAlarmDelay() {sleep(100);}
     virtual void outputCurAlarmDelay2() {sleep(50);}
+    virtual void outputSwCtrDelay();
+    virtual int getOutputPow(int id);
+    virtual int getEnvs();
+    virtual void temHumAlarm(){}
+    virtual int getDoors();
+    virtual int bigCurDelay() {sleep(20);}
+
     virtual int getLineNum();
     virtual int getLoopNum();
     virtual void lineVolAlarm() {}

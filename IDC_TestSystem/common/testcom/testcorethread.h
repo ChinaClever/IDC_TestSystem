@@ -103,12 +103,20 @@ protected:
     virtual void lineCurAlarmDelay() {msleep(600);}
     virtual void outputCurAlarmDelay() {sleep(20);}
     virtual void outputCurAlarmDelay2() {sleep(1);}
+    virtual void outputSwCtrDelay() {sleep(5);}
     virtual int getLineNum();
     virtual int getLoopNum();
     virtual int getLinePorts();
+    virtual int getOutputPow(int id);
+    virtual int getEnvs();
+    virtual int bigCurDelay() {sleep(5);}
 
     virtual void lineVolAlarm();
     virtual bool devSpecCheck();
+    virtual int getDoors() {return 2;}
+
+
+    virtual void temHumAlarm();
 
 private:
     void stopThread();
@@ -120,7 +128,7 @@ private:
     /********检查通讯***************/
     bool snmpTrans();
     bool rtuTrans();
-    bool transmission(bool& snmpRet);  // 通讯
+    bool transmission();  // 通讯
 
     bool devLineNumCheck();
     bool devLoopNumCheck();
@@ -178,17 +186,17 @@ private:
 
     bool temAccuracy(int expect, int measured, sTestDataItem &item);
     bool humAccuracy(int expect, int measured, sTestDataItem &item);
+    int getAvgValue(sDataUnit *unit, int num);
+    void setTemHumAlarmCmd(bool alrm);
     void temCheck();
     void humCheck();
     void envCheck();
     void sensorsCheck();
+
+
     bool checkOutputZeroCur(int b, sTestDataItem &item);
     void bigCurCheck();
-
-    void temHumAlarm();
-    void setTemHumAlarmCmd(bool alrm);
     void openOrCloseBigCur(bool mode);//mode:ture打开 false关闭
-    void closeOtherOutput(sTestSetCmd& cmd);
     void setBigCurCmd();
     void bigCurPowCheck(int i, int addr);
 
@@ -201,8 +209,6 @@ protected:
     TestTransThread *mTrans;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
-    bool mRtuRet;
-    bool mSnmpRet;
 };
 
 #endif // TESTCORETHREAD_H

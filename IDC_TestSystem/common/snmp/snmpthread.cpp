@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -52,9 +52,9 @@ void SnmpThread::startRun()
     //m_snmp_client->cancelWork();
 
     if(!isRun) {
-        if(msec == 0) msec = 500 + (rand() % 1000);
+        if(msec == 0) msec = 500 + (rand() % 500);
         if(!m_timer->isActive()) m_timer->start(msec);
-        if(!timer->isActive()) timer->start(2000);//100 2019-7-29
+        if(!timer->isActive()) timer->start(getDelay());//100 2019-7-29
 
         makeRequest();
         clearCount();

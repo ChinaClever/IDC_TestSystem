@@ -1,4 +1,4 @@
-﻿#ifndef SNMP_H
+#ifndef SNMP_H
 #define SNMP_H
 
 #include <QThread>
@@ -47,6 +47,7 @@ protected:
     virtual QStringList getRequestValues(int id) = 0;
     virtual int getRequestSubValues(int id, QStringList &oid) = 0;
     virtual void workDown(const QString &ip, const QByteArray &oid, const QByteArray &data)=0;
+    virtual int getDelay() {return 300;}
 
 private:
     void run();

@@ -31,8 +31,8 @@ protected:
 protected slots:
     void run();
     void rtuStopData();
-    bool rtuUpdate(int s=10);
-    void snmpUpdate(int s=10);
+    bool rtuUpdate(int s=15);
+    void snmpUpdate(int s=15);
     void stopUpdate() {rtuStopData(); snmpStopData();}
     void snmpStopData() {mSnmp->stopRun();}
     void timeoutDone();

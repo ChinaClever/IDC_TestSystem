@@ -19,6 +19,8 @@ public:
     int getTgValueByIndex(int mode,int index);
 
     int getTgCur(int s, int e);
+    int getApPow(int id);
+    int getTgPow(int i, int addr);
 
 };
 

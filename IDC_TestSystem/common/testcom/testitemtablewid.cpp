@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -63,10 +63,10 @@ void TestItemTableWid::startSlot()
     if(mPackets) {
        int ret = updateWid(mPackets->dev[mItem->devId]);
        if(!ret) {
-           if(mCount++ % 50)
+           if(mCount++ % 13)
                QTimer::singleShot(3*1000,this,SLOT(startSlot()));
        } else {
-           emit allNumsSig(mTestItems->mId);
+           emit allNumsSig(mTestItems->mId); mCount=1;
        }
     }
 }

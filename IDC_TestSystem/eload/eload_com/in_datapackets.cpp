@@ -61,7 +61,7 @@ int IN_DataPackets::getTgValue(int mode)
                 break;
 
             case 5:
-                 value = getDev(i)->hz;
+                value = getDev(i)->hz;
                 if(value > ret) ret = value;
                 break;
 
@@ -146,4 +146,26 @@ int IN_DataPackets::getTgCur(int s, int e)
         ret += obj->cur.value;
     }
     return ret;
+}
+
+int IN_DataPackets::getApPow(int i)
+{
+    i += 8;
+    int  expect = getObjData(i)->pow;
+    if(getObjData(i)->pf != 0)
+        expect = (double)getObjData(i)->pow/getObjData(i)->pf*COM_RATE_CUR2;
+
+    return expect;
+
+}
+
+int IN_DataPackets::getTgPow(int i , int addr)
+{
+    int expect = 0; i += 8;
+    if(getObjData(i)->pf != 0)
+        expect = (double)getTgValueByIndex(3 ,addr)/getObjData(i)->pf*COM_RATE_CUR2;
+    else
+        expect = getTgValueByIndex(3 ,addr);
+
+    return expect;
 }

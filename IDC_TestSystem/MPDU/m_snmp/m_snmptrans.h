@@ -1,4 +1,4 @@
-﻿#ifndef M_SNMPTRANS_H
+#ifndef M_SNMPTRANS_H
 #define M_SNMPTRANS_H
 
 #include "m_snmprecv.h"
@@ -16,6 +16,7 @@ protected:
     QStringList getRequestValues(int){QStringList list; return list;}
     int getRequestSubValues(int id, QStringList &oid) { return mSnmpSend->requestSubOid(id, oid);}
     void workDown(const QString &ip, const QByteArray &oid, const QByteArray &data);
+    virtual int getDelay() {return 400;}
 
 private:
     M_SnmpSend *mSnmpSend;

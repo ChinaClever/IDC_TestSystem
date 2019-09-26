@@ -126,7 +126,7 @@ void SerialPort::timeoutDone()
             int ret = write();
             if(ret) {
                 mSerialData.clear();
-                QTimer::singleShot(400,this,SLOT(recvSlot()));
+                QTimer::singleShot(260,this,SLOT(recvSlot()));
             }
         }
     }

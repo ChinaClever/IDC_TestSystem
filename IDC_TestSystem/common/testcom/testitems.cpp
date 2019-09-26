@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -8,11 +8,14 @@
 
 TestItems::TestItems()
 {
+    mItem = nullptr;
     mSpec = nullptr;
 }
 
 bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
 {
+    if(!mItem) return false;
+
     mId = 1;
     mSpec = spec;
 
@@ -36,7 +39,6 @@ void TestItems::communication(QList<sTestItem> &items)
 {
     sTestItem item;
     item.isSnmp = mSpec->isSnmp;
-
     item.item = tr("通讯检查");
 
     if(item.isSnmp) {
@@ -92,15 +94,13 @@ void TestItems::volObjData(const QString & itemStr ,QList<sTestItem> &items)
 {
 
     QString str;
-
     str =  tr("相")+ itemStr;
     unitItem(str, mSpec->lineNum, items);
-
 
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
 
-    if(NULL != mItem && mItem->serialNum.name != "RPDU")
+    if(mItem->serialNum.name != "RPDU")
     {
         str =  tr("相")+ itemStr;
         maxminObjData(str , mSpec->lineNum , items);
@@ -116,30 +116,16 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     nocurUnitItem(str, mSpec->loopNum, items);
 
-    if(mSpec->spec != 3)
-    {
+    if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
         nocurUnitItem(str, mSpec->outputNum, items);
     }
 
-
     sTestItem item;
-    //    if(mSpec->lineNum > 1)//暂时不需要相总电流，误差有点大
-    //    {
-    //        item.isSnmp = mSpec->isSnmp;
-    //        item.item = tr("相电流检查");
-    //        item.id = mId++;
-    //        item.isModubs = false;
-    //        item.subItem = tr("相总电流检查");
-    //        item.eResult = tr("相总电流值与负载测试柜值在误差范围内");
-    //        items << item;
-    //    }
-
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
 
-    if(mSpec->loopNum > 1)
-    {
+    if(mSpec->loopNum > 1) {
         item.item = tr("回路电流检查");
         item.id = mId++;
         item.isModubs = false;
@@ -151,8 +137,7 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
 
-    if(mSpec->spec != 3)
-    {
+    if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
         unitItem(str, mSpec->outputNum, items);
     }
@@ -163,8 +148,7 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     maxminObjData(str, mSpec->loopNum, items);
 
-    if(mSpec->spec != 3)
-    {
+    if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
         maxminObjData(str, mSpec->outputNum, items);
     }
@@ -222,8 +206,7 @@ void TestItems::powObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("回路") + itemStr;
     powUnitItem(str, mSpec->loopNum, items);
 
-    if(mSpec->spec != 3)
-    {
+    if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
         powUnitItem(str, mSpec->outputNum, items);
     }
@@ -269,9 +252,9 @@ void TestItems::eleUnitItem(const QString & itemStr,int num , QList<sTestItem> &
     }
 }
 
-void TestItems::temhumObjData(QList<sTestItem> &items)
-{//暂时把温湿度传感器写死为4                     2019/7/25 peng
-    sTestItem item;
+
+int TestItems::getEnvs()
+{
     int num = 4;
     int outputNum = mSpec->outputNum;
     if(mItem->serialNum.name == "RPDU")
@@ -284,7 +267,16 @@ void TestItems::temhumObjData(QList<sTestItem> &items)
     }
     if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
         num = 2;
-    for(int k = 0 ; k < 2 ; ++k)
+
+    return num;
+}
+
+//暂时把温湿度传感器写死为4                     2019/7/25 peng
+void TestItems::temhumObjData(QList<sTestItem> &items)
+{
+    sTestItem item;
+    int num = getEnvs();
+    for(int k=0; k<2; ++k)
     {
         item.item = (k == 0 )? tr("温度检查"):tr("湿度检查");
         QString itemStr = (k == 0 )? tr("温度"):tr("湿度");
@@ -297,9 +289,8 @@ void TestItems::temhumObjData(QList<sTestItem> &items)
     }
 }
 
-void TestItems::sensorsObjData(QList<sTestItem> &items)
-{//暂时把门禁写死为2                     2019/7/25 peng
-
+int TestItems::getDoors()
+{
     int num = 2;
     int outputNum = mSpec->outputNum;
     if(mItem->serialNum.name == "RPDU")
@@ -312,8 +303,15 @@ void TestItems::sensorsObjData(QList<sTestItem> &items)
     }
     if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
         num = 0;
-    if(num)
-    {
+
+    return num;
+}
+
+//暂时把门禁写死为2                     2019/7/25 peng
+void TestItems::sensorsObjData(QList<sTestItem> &items)
+{
+    int num = getDoors();
+    if(num) {
         sTestItem item;
         item.item = tr("门禁检查");
         QString itemStr = tr("门禁");

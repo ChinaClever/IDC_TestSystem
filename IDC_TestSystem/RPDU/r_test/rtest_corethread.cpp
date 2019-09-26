@@ -50,6 +50,55 @@ int RTest_CoreThread::getLinePorts()
     return outputNum / num;
 }
 
+void RTest_CoreThread::outputSwCtrDelay()
+{
+    int num = mDevPacket->data.outputNum;
+
+    sleep(36*(num/8));
+    if(num/8 == 1) sleep(10);//水平8位需要延时长点
+}
+
+int RTest_CoreThread::getOutputPow(int id)
+{
+    return mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+}
+
+int RTest_CoreThread::getEnvs()
+{
+    int num=4, outputNum = mDevPacket->data.outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+            outputNum = 8;
+        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+            outputNum = 24;
+    }
+    if(mDevPacket->data.lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 2;
+
+    return num;
+}
+
+int RTest_CoreThread::getDoors()
+{
+    int num = 2;
+    int outputNum = mDevPacket->data.outputNum;
+    if(mItem->serialNum.name == "RPDU")
+    {
+        if(mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 1)
+            outputNum = 8;
+        else if((mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 2)||
+                (mDevPacket->devSpec == 1 && mDevPacket->data.lineNum == 3))
+            outputNum = 24;
+    }
+    if(mDevPacket->data.lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+        num = 0;
+
+    return num;
+}
+
+
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)
 {
     sRtuSetCmd rtuCmd;
