@@ -1,4 +1,4 @@
-﻿/*
+/*
  * 对串口的常用操作：打开、读、写、关闭
  *
  *  Created on: 2018年1月1日
@@ -126,7 +126,7 @@ void SerialPort::timeoutDone()
             int ret = write();
             if(ret) {
                 mSerialData.clear();
-                QTimer::singleShot(400,this,SLOT(recvSlot()));
+                QTimer::singleShot(380,this,SLOT(recvSlot()));
             }
         }
     }
@@ -254,7 +254,6 @@ void SerialPort::serialReadSlot(void)
 int SerialPort::transmit(const QByteArray &witeArray, QByteArray &readArray, int msecs)
 {
     //QWriteLocker locker(&mRwLock);
-    msleep(100);
     int ret = write(witeArray);
     if(ret > 0) {
         ret = read(readArray, msecs);

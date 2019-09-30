@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -53,7 +53,9 @@ int TestItemTableWid::updateWid(sDataPacket &packet)
     for( const auto& value : items ) {
         appendItem(value);
     }
-    return spdc.lineNum;
+
+    return packet.txType & 0x02;
+    // return spdc.lineNum;
 }
 
 void TestItemTableWid::startSlot()
@@ -63,10 +65,10 @@ void TestItemTableWid::startSlot()
     if(mPackets) {
        int ret = updateWid(mPackets->dev[mItem->devId]);
        if(!ret) {
-           if(mCount++ % 50)
+           if(mCount++ % 30)
                QTimer::singleShot(3*1000,this,SLOT(startSlot()));
        } else {
-           emit allNumsSig(mTestItems->mId);
+           emit allNumsSig(mTestItems->mId); mCount=1;
        }
     }
 }

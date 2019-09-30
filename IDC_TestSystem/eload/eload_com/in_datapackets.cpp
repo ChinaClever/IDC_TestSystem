@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -61,7 +61,7 @@ int IN_DataPackets::getTgValue(int mode)
                 break;
 
             case 5:
-                 value = getDev(i)->hz;
+                value = getDev(i)->hz;
                 if(value > ret) ret = value;
                 break;
 
@@ -137,3 +137,35 @@ sObjData *IN_DataPackets::getObjData(int id)
     return &(data->input[id%8]);
 }
 
+
+int IN_DataPackets::getTgCur(int s, int e)
+{
+    int ret = 0;
+    for(int i=s; i<e; ++i) {
+        sObjData *obj = getObjData(i+8);
+        ret += obj->cur.value;
+    }
+    return ret;
+}
+
+int IN_DataPackets::getApPow(int i)
+{
+    i += 8;
+    int  expect = getObjData(i)->pow;
+    if(getObjData(i)->pf != 0)
+        expect = (double)getObjData(i)->pow/getObjData(i)->pf*COM_RATE_CUR2;
+
+    return expect;
+
+}
+
+int IN_DataPackets::getTgPow(int i , int addr)
+{
+    int expect = 0; i += 8;
+    if(getObjData(i)->pf != 0)
+        expect = (double)getTgValueByIndex(3 ,addr)/getObjData(i)->pf*COM_RATE_CUR2;
+    else
+        expect = getTgValueByIndex(3 ,addr);
+
+    return expect;
+}

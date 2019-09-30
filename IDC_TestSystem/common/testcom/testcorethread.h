@@ -1,4 +1,4 @@
-﻿#ifndef TESTCORETHREAD_H
+#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -90,6 +90,7 @@ public:
     virtual bool setFactoryCmd(sTestSetCmd &it)=0;
 
 
+
 signals:
     void overSig();
 
@@ -98,6 +99,27 @@ protected slots:
 
 protected:
     void run();
+    virtual int snmpTransDelay() {return 10;}
+    virtual int rtuTransDelay() {return 30;}
+    virtual void lineCurAlarmDelay() {msleep(600);}
+    virtual int outputCurAlarmDelay() {return 3;}
+    virtual int outputSwCtrDelay() {return 3;}
+    virtual int getLineNum();
+    virtual int getLoopNum();
+    virtual int getLinePorts();
+    virtual int getOutputPow(int id);
+    virtual int getEnvs();
+    virtual int bigCurDelay() {return 5;}
+    virtual void curCheckDelay() {sleep(5);}
+    virtual bool curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item);
+
+    virtual void lineVolAlarm();
+    virtual bool devSpecCheck();
+    virtual int getDoors() {return 2;}
+
+
+    virtual void temHumAlarm();
+    bool curAcc(int expect, int measured, sTestDataItem &item, double f);
 
 private:
     void stopThread();
@@ -105,20 +127,18 @@ private:
     void conditionExec(bool s);
     void updateProgress(bool status, QString &str);
     bool appendResult(sTestDataItem &item);
-    void countItemsNum();
 
     /********检查通讯***************/
     bool snmpTrans();
     bool rtuTrans();
-    bool transmission(bool& snmpRet);  // 通讯
+    bool transmission();  // 通讯
 
-    bool devSpecCheck();
     bool devLineNumCheck();
     bool devLoopNumCheck();
     bool devOutputNumCheck();
     void devInfoCheck();
 
-    bool volAccuracy(int &expect, int &measured, sTestDataItem &item);
+    bool volAccuracy(int expect, int measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
@@ -126,12 +146,13 @@ private:
     void setLineVolCmd(bool alrm);
     void setLoopVolCmd(bool alrm);
 
-    void lineVolAlarm();
     void loopVolAlarm();
     void volCheck();
 
-    bool curAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
-    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , bool flag=false);//flag true cur/100 or false cur/10
+
+    bool curAccuracy(int expect, int measured, sTestDataItem &item , double f=COM_RATE_CUR);//flag true cur/100 or false cur/10
+    bool curNoCurAccuracy(int expect, int measured, sTestDataItem &item , double f=COM_RATE_CUR);
+    bool curThresholdAccuracy(ushort expect, ushort &measured, sTestDataItem &item);
     void lineNoCur();
     void loopNoCur();
     void outputNoCur();
@@ -149,7 +170,7 @@ private:
     void outputCurAlarm();
     void curAlarmCheck();
 
-    bool swAccuracy(int measured, sTestDataItem &item, uchar sw, bool isOpen);
+    bool swAccuracy(int measured, sTestDataItem &item, uchar &sw, bool isOpen);
     void setOutputSwCmd(bool alrm);
     void outputSwCtr();
     void switchCtr();
@@ -170,31 +191,29 @@ private:
 
     bool temAccuracy(int expect, int measured, sTestDataItem &item);
     bool humAccuracy(int expect, int measured, sTestDataItem &item);
+    int getAvgValue(sDataUnit *unit, int num);
+    void setTemHumAlarmCmd(bool alrm);
     void temCheck();
     void humCheck();
     void envCheck();
     void sensorsCheck();
-    bool checkOutputZeroCur(int b, sTestDataItem &item);
-    void bigCurCheck();
 
-    void temHumAlarm();
-    void setTemHumAlarmCmd(bool alrm);
+
+    bool checkOutputZeroCur(int b, sTestDataItem &item ,bool flag=false);
+    void bigCurCheck();
     void openOrCloseBigCur(bool mode);//mode:ture打开 false关闭
-    void closeOtherOutput(sTestSetCmd& cmd);
     void setBigCurCmd();
     void bigCurPowCheck(int i, int addr);
 
-    void openAllOutput();
+    void initSwitch();
     void resDev();
 
-private:
+protected:
     int mItemId;
     sTestConfigItem  *mItem;
     TestTransThread *mTrans;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
-    bool mRtuRet;
-    bool mSnmpRet;
 };
 
 #endif // TESTCORETHREAD_H

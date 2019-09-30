@@ -1,4 +1,4 @@
-﻿#ifndef RTEST_TRANSTHREAD_H
+#ifndef RTEST_TRANSTHREAD_H
 #define RTEST_TRANSTHREAD_H
 #include "testcorethread.h"
 
@@ -8,7 +8,8 @@ class RTest_TransThread : public TestTransThread
 public:
     explicit RTest_TransThread(QObject *parent = nullptr);
 
-signals:
+protected:
+    virtual void delay() {sleep(3);}
 
 public slots:
      void initFunSLot();

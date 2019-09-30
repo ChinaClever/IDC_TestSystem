@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -52,9 +52,9 @@ void SnmpThread::startRun()
     //m_snmp_client->cancelWork();
 
     if(!isRun) {
-        if(msec == 0) msec = 500 + (rand() % 1000);
+        if(msec == 0) msec = 2000 + (rand() % 500);
         if(!m_timer->isActive()) m_timer->start(msec);
-        if(!timer->isActive()) timer->start(2000);//100 2019-7-29
+        if(!timer->isActive()) timer->start(getDelay());//100 2019-7-29
 
         makeRequest();
         clearCount();
@@ -86,7 +86,6 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-            //qDebug()<<"setSlot"<<cmd.oid<<cmd.type<<cmd.value;
             mSetCmdList.removeFirst();
         }
     }
@@ -148,8 +147,7 @@ bool SnmpThread::requestSubValues(int id)
 void SnmpThread::setAllOffLine()
 {
     if(mPackets) {
-        for(int i=0; i<=mPackets->devNum; ++i)
-        {
+        for(int i=0; i<=mPackets->devNum; ++i) {
             sDataPacket *packet = &(mPackets->dev[i]);
             packet->offLine = 0;
         }
@@ -210,6 +208,10 @@ void SnmpThread::saveErrCmd()
 
 void SnmpThread::makeRequest()
 {
+    if(mValues.size()) return;
+    //if(mSetCmdList.size()) return;
+    if(m_snmp_client->isBusy()) return;
+
     if(mPackets && isRun) {
         bool ret = requestSubValues(mId);
         if(!ret) {
@@ -232,7 +234,7 @@ void SnmpThread::run()
 {
     isRun = true;
     while(isRun)
-    {
+    {        
         msleep(100);
         QMutexLocker locker(mMutex);
         for( const auto& value : mValues ) {

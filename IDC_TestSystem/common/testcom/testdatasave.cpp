@@ -84,7 +84,7 @@ int TestDataSave::bulidHead(sSerialNumItem *item)
     list <<"" << QString::number(id++) << tr("测试日期") << item->date.toString("yyyy-MM-dd");
     mList << list; list.clear();
 
-    list <<"" << QString::number(id++) << tr("完成时间")  << QTime::currentTime().toString("hh:mm:ss");
+    list <<"" << QString::number(id++) << tr("日志记录时间")  << QTime::currentTime().toString("hh:mm:ss");
     mList << list; list.clear();
 
     list <<"" << QString::number(id++) << tr("操作员") << item->op;
@@ -115,6 +115,11 @@ int TestDataSave::bulidProgressLog(int id, sTestProgress &arg)
     list <<"" << QString::number(id++) << tr("测试结果") << str;
     mList << list; list.clear();
 
+    QTime t(0,0);
+    t = t.addSecs(arg.startTime.secsTo(arg.endTime));
+    list <<"" << QString::number(id++) << tr("测试耗时") << t.toString("hh:mm:ss");
+    mList << list; list.clear();
+
     list <<"" << QString::number(id++) << tr("测试项目数") << QString::number(arg.allNum);
     mList << list; list.clear();
 
@@ -133,6 +138,12 @@ int TestDataSave::bulidProgressLog(int id, sTestProgress &arg)
     list <<"" << QString::number(id++) << tr("测试项目失败率") << QString::number(err) + "%";
     mList << list; list.clear();
 
+    list <<"" << QString::number(id++) << tr("测试开始时间") << arg.startTime.toString("hh:mm:ss");
+    mList << list; list.clear();
+
+    list <<"" << QString::number(id++) << tr("测试结束时间") << arg.endTime.toString("hh:mm:ss");
+    mList << list; list.clear();
+
     list << ""; mList << list; list.clear();
     return id;
 }
@@ -140,6 +151,6 @@ int TestDataSave::bulidProgressLog(int id, sTestProgress &arg)
 void TestDataSave::bulidTestData(QList<QStringList> &list)
 {
     QStringList header;
-    header<<tr("编号") <<tr("状态") << tr("检查项目") << tr("测试项目描述") << tr("期望值") << tr("实测值") << tr("结果");
+    header<<tr("编号") <<tr("时间") <<tr("状态") << tr("检查项目") << tr("测试项目描述") << tr("期望值") << tr("实测值") << tr("结果");
     mList << header << list;
 }

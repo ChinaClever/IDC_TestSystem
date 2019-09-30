@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -55,12 +55,12 @@ bool R_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     uchar *sent = mSentBuf;
 
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
-    QByteArray writeArray, readArray;
-    writeArray.append((char *)buf, len);
+    // QByteArray writeArray, readArray;
+    // writeArray.append((char *)buf, len);
     //cm_PrintHex("write:" , writeArray);
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs+5);
-        readArray.append((char *)sent, rtn);
+        //readArray.append((char *)sent, rtn);
         //cm_PrintHex("read:" , readArray);
         if(memcmp(sent, buf,rtn) == 6)
             ret = true;
@@ -192,7 +192,7 @@ void R_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
 {
     int vol = 220;
 
-    data.lineNum = rtuData.line.num > data.lineNum ? rtuData.line.num : data.lineNum;
+    if(rtuData.line.num) data.lineNum = rtuData.line.num;
     for(int i=0; i<data.lineNum; ++i) {
         devObjData(rtuData.line, i, data.line[i] , true);
         vol = rtuData.line.vol.value[0];
@@ -204,7 +204,7 @@ void R_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
-    if(data.outputNum < rtuData.output.num) data.outputNum = rtuData.output.num;
+    if(rtuData.output.num) data.outputNum = rtuData.output.num;
     for(int i=0; i<data.outputNum; ++i) {
         rtuData.output.vol.value[i] = vol;
         devObjData(rtuData.output, i, data.output[i] ,false);
@@ -220,7 +220,7 @@ void R_RtuTrans::devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet)
     packet->offLine = pkt->offLine;
     packet->devSpec = pkt->data.devSpec;
     //strcpy(packet->ip, pkt->data.ip);
-    packet->txType = 2;
+    //packet->txType |= 0x2;
 
     devData(pkt->data, packet->data);
 }

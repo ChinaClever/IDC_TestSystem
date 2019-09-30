@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -64,7 +64,6 @@ void R_RtuThread::writeErrCmd(int id)
 void R_RtuThread::workDown()
 {
     int ret = 0;
-    int tempret = 1;
 
     sConfigItem *item = R_ConfigFile::bulid()->item;
     mPackets->devNum = item->devNum;
@@ -79,12 +78,13 @@ void R_RtuThread::workDown()
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(755);
+            if(i == 3&&ret) dev->txType |= 0x02;
+            if(isRun) msleep(555);
             else return;
-            if(!ret) tempret = ret;
         }
 
-        if(tempret) { // 正常收到数据
+
+        if(ret) { // 正常收到数据
             sentOkCmd(dev->rtuCount);
         } else { // 数据异常
             saveErrCmd(addr, dev->rtuCount);

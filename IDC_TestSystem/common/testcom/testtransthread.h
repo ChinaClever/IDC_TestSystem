@@ -1,4 +1,4 @@
-﻿#ifndef TESTTRANSTHREAD_H
+#ifndef TESTTRANSTHREAD_H
 #define TESTTRANSTHREAD_H
 
 #include "rtuthread.h"
@@ -25,11 +25,14 @@ public:
 
     void clearSnmpCmd();//把上一次的snmp命令清除
 
+protected:
+    virtual void delay() {msleep(750);}
+
 protected slots:
     void run();
     void rtuStopData();
-    bool rtuUpdate(int s=10);
-    void snmpUpdate(int s=10);
+    bool rtuUpdate(int s=15);
+    void snmpUpdate(int s=15);
     void stopUpdate() {rtuStopData(); snmpStopData();}
     void snmpStopData() {mSnmp->stopRun();}
     void timeoutDone();

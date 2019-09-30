@@ -32,7 +32,7 @@ void R_SnmpRecv::devInfo(const QByteArray &data)
     bool ok;
     int item = getItemByOid(3);
     switch (item) {
-    case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;break;
+    case 1: sprintf(mDataPacket->name, "%s",data.data()); break;
     case 2: {
         std::string str = data.toStdString();
         int value = (str == "A" || str == "M")?1:(str == "B" || str == "N"?2:(str == "C" || str == "S"?3:0));
@@ -42,7 +42,7 @@ void R_SnmpRecv::devInfo(const QByteArray &data)
     case 3: case 4: case 5:lineData(data);break;
     case 6: envData(data);break;
     case 7: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16);break;
-    case 8: case 9:case 10:case 11:case 12:case 13:case 19: case 20:outputInfo(data);break;
+    case 8: case 9:case 10:case 11:case 12:case 13:case 19: case 20:outputInfo(data); mDataPacket->txType |= 0x1; break;
     default:
         break;
     }

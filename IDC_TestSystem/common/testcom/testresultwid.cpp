@@ -53,7 +53,8 @@ void TestResultWid::startSlot()
     QString batch = mItem->serialNum.batch;
     QString sn = mItem->serialNum.sn;
     mItem->progress.errNum = mItem->progress.finishNum = mItem->progress.okNum = 0;
-    mItem->progress.allNum = 2;
+    mItem->progress.allNum = 3;
+    mItem->progress.startTime = QTime::currentTime();
 
     QString str = tr("产品:%1  批次：%2").arg(name).arg(batch);
     ui->titleTab->setText(str);
@@ -63,7 +64,7 @@ void TestResultWid::startSlot()
     ui->itemNumLab->setText(tr("已启动测试功能，请等待！！！"));
     ui->progressBar->setValue(0);
 
-    QTimer::singleShot(30000,this,SLOT(startTimerSLot()));
+    QTimer::singleShot(50*1000,this,SLOT(startTimerSLot()));
     ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
                               "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
@@ -93,13 +94,17 @@ void TestResultWid::resultSlot()
     timer->stop();
     mItem->progress.allNum = mItem->progress.finishNum;
     progressSlot();
-    ui->statusLab->setText(tr("测试结束!!!"));
+    QTime t(0,0,0,0);
+    mItem->progress.endTime = QTime::currentTime();
+    t = t.addSecs(mItem->progress.startTime.secsTo(mItem->progress.endTime));
+    ui->statusLab->setText(tr("测试结束!!! 测试耗时%1").arg(t.toString("hh:mm:ss")));
 }
 
 void TestResultWid::progressSlot()
 {
     sTestProgress *arg = &(mItem->progress);
     int progress = (arg->finishNum * 100.0) / arg->allNum;
+    if(progress > 100) return;
     ui->progressBar->setValue(progress);
     ui->statusLab->setText(arg->status);
 
