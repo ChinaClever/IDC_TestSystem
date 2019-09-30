@@ -220,7 +220,7 @@ void R_RtuTrans::devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet)
     packet->offLine = pkt->offLine;
     packet->devSpec = pkt->data.devSpec;
     //strcpy(packet->ip, pkt->data.ip);
-    packet->txType = 2;
+    //packet->txType |= 0x2;
 
     devData(pkt->data, packet->data);
 }

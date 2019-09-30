@@ -57,7 +57,7 @@ int IN_RtuTrans::transCmd(uchar *pBuff, int nCount, int msec)
     uchar *sent = mSentBuf;//recv
     int rtn = 0;
     if(mSerial) {
-    rtn = mSerial->transmit(pBuff, nCount, sent, msec);
+        rtn = mSerial->transmit(pBuff, nCount, sent, msec);
     }
     msleep(400);
     return rtn;

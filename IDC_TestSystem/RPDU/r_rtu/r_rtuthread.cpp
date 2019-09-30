@@ -78,9 +78,11 @@ void R_RtuThread::workDown()
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
+            if(i == 3&&ret) dev->txType |= 0x02;
             if(isRun) msleep(555);
             else return;
         }
+
 
         if(ret) { // 正常收到数据
             sentOkCmd(dev->rtuCount);

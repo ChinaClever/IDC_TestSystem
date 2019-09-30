@@ -7,6 +7,7 @@
 #include "rtest_corethread.h"
 #include "r_snmp/r_snmptrans.h"
 #include "r_rtu/r_rturegenum.h"
+#include "eload_com/in_datapackets.h"
 
 RTest_CoreThread::RTest_CoreThread(QObject *parent) : TestCoreThread(parent)
 {
@@ -50,12 +51,30 @@ int RTest_CoreThread::getLinePorts()
     return outputNum / num;
 }
 
-void RTest_CoreThread::outputSwCtrDelay()
+int RTest_CoreThread::outputSwCtrDelay()
 {
-    int num = mDevPacket->data.outputNum;
+//    int num = mDevPacket->data.outputNum;
 
-    sleep(40*(num/8));
-    if(num/8 == 1) sleep(10);//水平8位需要延时长点
+//    sleep(15*(num/8));
+//    if(num/8 == 1) sleep(10);//水平8位需要延时长点
+    return 60;
+}
+
+bool RTest_CoreThread::curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item)
+{
+    bool ret = false;
+    ushort expect = 0;
+    int count = 0;
+    int t = bigCurDelay();
+    for(int i=0; i< t; ++i){
+        sleep(1);
+        expect = IN_DataPackets::bulid()->getTgValueByIndex(2, index+1);
+        ret = curAcc(expect, *measured, item, COM_RATE_CUR2);
+        if(ret && count == 6) break;
+        else if(ret) count++;
+    }
+
+    return ret;
 }
 
 int RTest_CoreThread::getOutputPow(int id)
@@ -101,7 +120,7 @@ int RTest_CoreThread::getDoors()
 void RTest_CoreThread::curCheckDelay()
 {
     if(mDevPacket->data.lineNum == 1) sleep(10);
-    sleep(35);
+    sleep(45);
 }
 
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)

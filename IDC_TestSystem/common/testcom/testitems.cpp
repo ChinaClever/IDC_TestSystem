@@ -22,8 +22,9 @@ bool TestItems::bulidItems(sDutSpec *spec, QList<sTestItem> &items)
     communication(items);
     devInfoObjData(items);
     volObjData(tr("电压"),items);
-    curObjData(tr("电流"),items);
     powObjData(tr("功率"),items);
+    curObjData(tr("电流"),items);
+
     if(mSpec->spec != 1) {
         swObjData(tr("输出位"), mSpec->outputNum , items);
     }
@@ -110,17 +111,6 @@ void TestItems::volObjData(const QString & itemStr ,QList<sTestItem> &items)
 void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
 {
     QString str;
-    str = tr("相") + itemStr;
-    nocurUnitItem(str, mSpec->lineNum, items);
-
-    str = tr("回路") + itemStr;
-    nocurUnitItem(str, mSpec->loopNum, items);
-
-    if(mSpec->spec != 3) {
-        str = tr("输出位")+ itemStr;
-        nocurUnitItem(str, mSpec->outputNum, items);
-    }
-
     sTestItem item;
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
@@ -143,6 +133,17 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     }
 
     str = tr("相") + itemStr;
+    nocurUnitItem(str, mSpec->lineNum, items);
+
+    str = tr("回路") + itemStr;
+    nocurUnitItem(str, mSpec->loopNum, items);
+
+    if(mSpec->spec != 3) {
+        str = tr("输出位")+ itemStr;
+        nocurUnitItem(str, mSpec->outputNum, items);
+    }
+
+    str = tr("相") + itemStr;
     maxminObjData(str, mSpec->lineNum, items);
 
     str = tr("回路") + itemStr;
@@ -152,6 +153,8 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
         str = tr("输出位")+ itemStr;
         maxminObjData(str, mSpec->outputNum, items);
     }
+
+
 }
 
 void TestItems::maxminObjData(const QString &itemStr,int num , QList<sTestItem> &items)
@@ -164,7 +167,9 @@ void TestItems::maxminObjData(const QString &itemStr,int num , QList<sTestItem> 
         item.subItem = tr("%1 %2 下限告警测试").arg(str).arg(i+1);
         item.eResult = tr("%1 %2 最小值大于实际值").arg(str).arg(i+1);
         items << item;
+    }
 
+    for(int i=0; i<num; ++i) {
         item.id = mId++;
         item.subItem = tr("%1 %2 上限告警测试").arg(str).arg(i+1);
         item.eResult = tr("%1 %2 最大值小于实际值").arg(str).arg(i+1);
@@ -183,15 +188,15 @@ void TestItems::swObjData(const QString &itemStr,int num , QList<sTestItem> &ite
         for(int i=0; i<num; ++i) {
             item.id = mId++;
             item.isModubs = false;
-            item.subItem = tr("测%1 %2 断开").arg(itemStr).arg(i+1);
-            item.eResult = tr("%1 %2 继电器是否断开").arg(str).arg(i+1);
+            item.subItem = tr("测%1 %2 关").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 继电器是否关闭").arg(str).arg(i+1);
             items << item;
         }
         for(int i=0; i<num; ++i) {
             item.id = mId++;
             item.isModubs = false;
-            item.subItem = tr("测%1 %2 接通").arg(itemStr).arg(i+1);
-            item.eResult = tr("%1 %2 继电器是否接通").arg(str).arg(i+1);
+            item.subItem = tr("测%1 %2 开").arg(itemStr).arg(i+1);
+            item.eResult = tr("%1 %2 继电器是否打开").arg(str).arg(i+1);
             items << item;
         }
     }

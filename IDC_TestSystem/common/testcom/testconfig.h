@@ -33,6 +33,7 @@ struct sTestProgress
     int errNum;
     int finishNum;
     QString status;
+    QTime startTime, endTime;
 };
 
 

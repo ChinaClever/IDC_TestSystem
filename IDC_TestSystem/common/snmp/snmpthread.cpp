@@ -209,7 +209,7 @@ void SnmpThread::saveErrCmd()
 void SnmpThread::makeRequest()
 {
     if(mValues.size()) return;
-    if(mSetCmdList.size()) return;
+    //if(mSetCmdList.size()) return;
     if(m_snmp_client->isBusy()) return;
 
     if(mPackets && isRun) {

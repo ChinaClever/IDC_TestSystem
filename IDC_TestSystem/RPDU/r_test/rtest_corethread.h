@@ -11,17 +11,16 @@ public:
 
 
 protected:
-    virtual void snmpTransDelay() {sleep(30);}
-    virtual void rtuTransDelay() {sleep(30);}
-    virtual void lineCurAlarmDelay() {sleep(50);}
-    virtual void outputCurAlarmDelay() {sleep(100);}
-    virtual void outputCurAlarmDelay2() {sleep(50);}
-    virtual void outputSwCtrDelay();
+    virtual int snmpTransDelay() {return 15;}
+    virtual int rtuTransDelay() {return 40;}
+    virtual void lineCurAlarmDelay() {sleep(10);}
+    virtual int outputCurAlarmDelay() {return 30;}
+    virtual int outputSwCtrDelay();
     virtual int getOutputPow(int id);
     virtual int getEnvs();
     virtual void temHumAlarm(){}
     virtual int getDoors();
-    virtual void bigCurDelay() {sleep(20);}
+    virtual int bigCurDelay() {return 21;}
     virtual void curCheckDelay();
 
     virtual int getLineNum();
@@ -50,6 +49,7 @@ protected:
 
     bool clearEleCmd(sTestSetCmd &it);
     bool setFactoryCmd(sTestSetCmd &it);
+    virtual bool curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item);
 };
 
 #endif // RTEST_CORETHREAD_H
