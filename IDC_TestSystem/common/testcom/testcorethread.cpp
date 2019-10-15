@@ -351,7 +351,6 @@ void TestCoreThread::loopVol()
         item.subItem = tr(" C%1 电压检查").arg(i+1);
         int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i/2+1);
         //volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value, item);
-        qDebug()<<"mDevPacket->data.loop[i].vol.value"<<mDevPacket->data.loop[i].vol.value;
         volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value, item);
     }
 }
@@ -376,8 +375,6 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->setRtuValue(cmd.rtuMin);
             mTrans->setRtuValue(cmd.rtuMax);
         }
-        //        mTrans->rtuStop();
-        //        if(mItem->isSnmp) mTrans->snmpStop();
     }
     sleep(14);
 }
@@ -456,7 +453,6 @@ void TestCoreThread::loopVolAlarm()
 
 void TestCoreThread::volCheck()
 {
-    //updateData();
     lineVol();
     loopVol();
 
