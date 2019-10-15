@@ -1,4 +1,4 @@
-#ifndef CONFIGBASH
+﻿#ifndef CONFIGBASH
 #define CONFIGBASH
 #include "sysconfigfile.h"
 #include "serialportdlg.h"

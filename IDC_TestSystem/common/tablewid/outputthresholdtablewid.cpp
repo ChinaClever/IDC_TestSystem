@@ -28,19 +28,19 @@ void OutputThresholdTableWid::setAlarm(sObjData &unit, int row)
 
 void OutputThresholdTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
-   double value = unit.cur.value / COM_RATE_CUR;
+   double value = unit.cur.value * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 
-   value = unit.cur.min / COM_RATE_CUR;
+   value = unit.cur.min * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 
-   value = unit.cur.crMin / COM_RATE_CUR;
+   value = unit.cur.crMin * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 
-   value = unit.cur.crMax / COM_RATE_CUR;
+   value = unit.cur.crMax * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 
-   value = unit.cur.max / COM_RATE_CUR;
+   value = unit.cur.max * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 }
 

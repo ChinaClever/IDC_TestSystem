@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -80,6 +80,11 @@ bool RTest_CoreThread::curBigAccuracy(ushort index, ushort *measured, sTestDataI
 int RTest_CoreThread::getOutputPow(int id)
 {
     return mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+}
+
+int RTest_CoreThread::getLinePow(int id)
+{
+    return mDevPacket->data.line[id].cur.value*mDevPacket->data.line[id].vol.value/COM_RATE_CUR;
 }
 
 int RTest_CoreThread::getEnvs()

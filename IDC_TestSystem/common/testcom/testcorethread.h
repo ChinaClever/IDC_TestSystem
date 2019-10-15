@@ -1,4 +1,4 @@
-#ifndef TESTCORETHREAD_H
+﻿#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -102,11 +102,14 @@ protected:
     virtual int snmpTransDelay() {return 10;}
     virtual int rtuTransDelay() {return 30;}
     virtual void lineCurAlarmDelay() {msleep(600);}
-    virtual int outputCurAlarmDelay() {return 3;}
-    virtual int outputSwCtrDelay() {return 3;}
+    virtual int lineVolAlarmDelay() {return 10;}
+    virtual int outputCurAlarmDelay() {return 10;}
+    virtual int outputSwCtrDelay() {return 30;}
     virtual int getLineNum();
     virtual int getLoopNum();
     virtual int getLinePorts();
+    virtual int getLoopPorts();
+    virtual int getLinePow(int id);
     virtual int getOutputPow(int id);
     virtual int getEnvs();
     virtual int bigCurDelay() {return 5;}
@@ -138,7 +141,7 @@ private:
     bool devOutputNumCheck();
     void devInfoCheck();
 
-    bool volAccuracy(int expect, int measured, sTestDataItem &item);
+    bool volAccuracy(int expect, ushort &measured, sTestDataItem &item);
     void lineVol(); // 相电压
     void loopVol(); // 回路电压
 
@@ -170,7 +173,7 @@ private:
     void outputCurAlarm();
     void curAlarmCheck();
 
-    bool swAccuracy(int measured, sTestDataItem &item, uchar &sw, bool isOpen);
+    bool swAccuracy(ushort &measured, sTestDataItem &item, uchar &sw, bool isOpen);
     void setOutputSwCmd(bool alrm);
     void outputSwCtr();
     void switchCtr();
@@ -207,6 +210,7 @@ private:
 
     void initSwitch();
     void resDev();
+    double autoRate(int vol);
 
 protected:
     int mItemId;
@@ -214,6 +218,7 @@ protected:
     TestTransThread *mTrans;
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
+    double mRate;
 };
 
 #endif // TESTCORETHREAD_H

@@ -84,7 +84,7 @@ void ELoad_StatusHomeWid::updateIndexShowWid(int index)
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_POW;
     str = QString::number(value) + " KW";
-    qstr += spacestr+tr("总功率：")+ str;
+    qstr += spacestr+tr("有功功率：")+ str;
 
     value = packets->getTgValueByIndex(mode++,index) / COM_RATE_ELE;
     str = QString::number(value) + " KWh";

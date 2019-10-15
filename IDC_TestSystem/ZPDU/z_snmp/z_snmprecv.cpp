@@ -6,6 +6,18 @@ Z_SnmpRecv::Z_SnmpRecv()
     mPackets = Z_DataPackets::bulid()->packets;
 }
 
+void Z_SnmpRecv::getBreakerManagerOPNum(sObjData *obj,const QByteArray &data)
+{
+    char string[64];
+    sprintf(string, "%s", data.data());
+    QString str(string);
+    QStringList strlist = str.split("-");
+    if(strlist.size() == 2)
+        obj->num =strlist.at(1).toInt()-strlist.at(0).toInt()+1;
+    else
+        obj->num = 0;
+}
+
 void Z_SnmpRecv::devTypeData(int value, sDataPacket *pkt)
 {
     int line=3, loop=6;

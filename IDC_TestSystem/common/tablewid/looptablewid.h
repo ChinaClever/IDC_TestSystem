@@ -1,4 +1,4 @@
-#ifndef LOOPTABLEWID_H
+﻿#ifndef LOOPTABLEWID_H
 #define LOOPTABLEWID_H
 
 #include "outputtablewid.h"
@@ -12,6 +12,7 @@ public:
 protected:
     void initWid();
     int updateDev(sDataPacket *dev, int row);
+    double autoRate(int vol);
 };
 
 #endif // LOOPTABLEWID_H

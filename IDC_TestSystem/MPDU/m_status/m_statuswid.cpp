@@ -1,4 +1,4 @@
-#include "m_statuswid.h"
+﻿#include "m_statuswid.h"
 #include "ui_m_statuswid.h"
 
 M_StatusWid::M_StatusWid(QWidget *parent) :

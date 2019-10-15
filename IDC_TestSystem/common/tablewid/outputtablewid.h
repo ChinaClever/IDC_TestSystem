@@ -1,4 +1,4 @@
-#ifndef OUTPUTTABLEWID_H
+﻿#ifndef OUTPUTTABLEWID_H
 #define OUTPUTTABLEWID_H
 
 #include "linetablewid.h"
@@ -12,6 +12,7 @@ public:
 protected:
     void initWid();
     int updateDev(sDataPacket *dev, int row);
+    double autoRate(int vol);
 };
 
 #endif // OUTPUTTABLEWID_H

@@ -41,6 +41,7 @@ struct sDataUnit {
 struct sObjData
 {
     int id;
+    int num;//记录MPDU回路位数
     char name[NAME_SIZE];
 
     sDataUnit vol; // 电压

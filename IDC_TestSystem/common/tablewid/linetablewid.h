@@ -1,4 +1,4 @@
-#ifndef LINETABLEWID_H
+﻿#ifndef LINETABLEWID_H
 #define LINETABLEWID_H
 
 #include "comtablewid.h"
@@ -18,6 +18,11 @@ protected:
     virtual void setObjUnit(sObjData &unit, QStringList &list);
     virtual int updateDev(sDataPacket *dev, int row);
     virtual void updateData();
+
+    double autoRate(int vol);
+
+protected:
+    double mRate;
 };
 
 #endif // LINETABLEWID_H

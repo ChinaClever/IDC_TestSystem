@@ -160,6 +160,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
 {
     bool ret = true;
     ushort *ptrShort = nullptr;
+    uint *ptrInt = nullptr;
 
     switch (reg) {
     case ZM_RtuReg_DevType: devTypeData(buf, len, pkt); break;
@@ -182,7 +183,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
 
     case ZM_RtuReg_LinePow: ptrShort = pkt.line.pow; break;
     case ZM_RtuReg_LinePF: ptrShort = pkt.line.pf; break;
-    case ZM_RtuReg_LineEle: ptrShort = pkt.line.ele; break;
+    case ZM_RtuReg_LineEle: ptrShort = pkt.line.ele; ptrInt = (uint * )pkt.line.ele;break;
 
     case ZM_RtuReg_LoopCur: ptrShort = pkt.loop.cur.value; break;
     case ZM_RtuReg_LoopCurMin: ptrShort = pkt.loop.cur.min; break;
@@ -190,7 +191,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_LoopCurCrMin: ptrShort = pkt.loop.cur.crMin; break;
     case ZM_RtuReg_LoopCurCrMax: ptrShort = pkt.loop.cur.crMax; break;
     case ZM_RtuReg_LoopVol: ptrShort = pkt.loop.vol.value; break;
-    case ZM_RtuReg_LoopEle: ptrShort = pkt.loop.ele; break;
+    case ZM_RtuReg_LoopEle: ptrShort = pkt.loop.ele; ptrInt = (uint * )pkt.loop.ele;break;
 
     case ZM_RtuReg_OutputCur: ptrShort = pkt.output.cur.value; break;
     case ZM_RtuReg_OutputCurMin: ptrShort = pkt.output.cur.min; break;
@@ -198,7 +199,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_OutputCurCrMin: ptrShort = pkt.output.cur.crMin; break;
     case ZM_RtuReg_OutputCurCrMax: ptrShort = pkt.output.cur.crMax; break;
     case ZM_RtuReg_OutputPF: ptrShort = pkt.output.pf; break;
-    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele;break;
+    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele; ptrInt = (uint * )pkt.output.ele;break;
 
     case ZM_RtuReg_TemData: ptrShort = pkt.env.tem.value; break;
     case ZM_RtuReg_TemMin: ptrShort = pkt.env.tem.min; break;
@@ -222,7 +223,8 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
         break;
     }
 
-    if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
+    if(ptrShort&&ptrInt){rtuRecvData(buf, len, ptrInt , ptrShort);}
+    else if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
 
 
     return ret;

@@ -22,12 +22,23 @@ void OutputTableWid::initWid()
     initTableWid(header, 1, title);
 }
 
+double OutputTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
 
 int OutputTableWid::updateDev(sDataPacket *dev, int row)
 {
     if(dev->offLine)
     {
         int line = dev->data.outputNum;
+        autoRate(dev->data.line[0].vol.value);
         for(int i=0; i<line; ++i)
         {
             QStringList list;

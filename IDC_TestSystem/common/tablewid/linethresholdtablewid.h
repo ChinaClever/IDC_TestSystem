@@ -1,4 +1,4 @@
-#ifndef LINETHRESHOLDTABLEWID_H
+﻿#ifndef LINETHRESHOLDTABLEWID_H
 #define LINETHRESHOLDTABLEWID_H
 
 #include "linetablewid.h"
@@ -13,6 +13,7 @@ protected:
     void initWid();
     void setAlarm(sObjData &unit,int row);
     void setObjUnit(sObjData &unit, QStringList &list);
+    double autoRate(int vol);
 };
 
 #endif // LINETHRESHOLDTABLEWID_H

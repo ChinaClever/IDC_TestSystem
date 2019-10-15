@@ -44,7 +44,7 @@ enum ZM_SetCmdEnum {
     ZM_RtuReg_LinePF = 0x1300,//16
     ZM_RtuReg_LinePFSize = 0x02 + 1,
     ZM_RtuReg_LineEle = 0x1400,//17
-    ZM_RtuReg_LineEleSize = 0x03,
+    ZM_RtuReg_LineEleSize = 0x06,
 
     ZM_RtuReg_LoopCur = 0x1500,//18
     ZM_RtuReg_LoopCurSize = 0x05 + 1,

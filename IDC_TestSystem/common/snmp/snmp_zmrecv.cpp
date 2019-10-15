@@ -56,11 +56,19 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
 
     int item = getItemByOid(3);
     switch (item) {
-    case 1: obj->cur.value = data.toDouble() * 10;/*if(id==0)qDebug()<<"output cur.value"<<id<<obj->cur.value;*/break;
-    case 2: obj->cur.min = data.toDouble() * 10 ; break;
-    case 3: obj->cur.crMin = data.toDouble() * 10; break;
-    case 4: obj->cur.crMax = data.toDouble() * 10 ; break;
-    case 5: obj->cur.max = data.toDouble() * 10; break;
+    case 1:
+        obj->cur.value = data.toDouble() * 100;
+        obj->vol.value =(&(mDataPacket->data.line[id/8]))->vol.value;
+        if(obj->pf)
+        {
+            obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
+        }
+        obj->activePow = obj->cur.value*obj->vol.value/(10*100.0);
+        break;
+    case 2: obj->cur.min = data.toDouble() * 100 ; break;
+    case 3: obj->cur.crMin = data.toDouble() * 100; break;
+    case 4: obj->cur.crMax = data.toDouble() * 100 ; break;
+    case 5: obj->cur.max = data.toDouble() * 100; break;
     default: qDebug() << "SNMP_ZmRecv::outputCur" << item; break;
     }
 }
@@ -113,22 +121,22 @@ void SNMP_ZmRecv::lineData(const QByteArray &data)
 
     int item = getItemByOid(4);
     switch (item) {
-    case 1: obj->cur.value = data.toDouble() * 10;/*qDebug()<<"line cur.value"<<id<<obj->cur.value;*/break;
-    case 2: obj->vol.value = data.toDouble() ;
+    case 1: obj->cur.value = data.toDouble() * 100;/*qDebug()<<"line cur.value"<<id<<obj->cur.value;*/break;
+    case 2: obj->vol.value = data.toDouble() * 10;
             if(obj->vol.value) obj->sw=1; else obj->sw=0;break;
-    case 3: obj->pow = data.toDouble(); break;
+    case 3: obj->pow = data.toDouble()*1000; break;
     case 4: obj->pf = data.toDouble()*100 ; break;
     case 5: obj->ele = data.toDouble()*10 ; break;
 
-    case 6: obj->cur.min = data.toDouble() * 10 ; break;
-    case 7: obj->cur.crMin = data.toDouble() * 10; break;
-    case 8: obj->cur.crMax = data.toDouble() * 10 ; break;
-    case 9: obj->cur.max = data.toDouble() * 10; break;
+    case 6: obj->cur.min = data.toDouble() * 100 ; break;
+    case 7: obj->cur.crMin = data.toDouble() * 100; break;
+    case 8: obj->cur.crMax = data.toDouble() * 100 ; break;
+    case 9: obj->cur.max = data.toDouble() * 100; break;
 
-    case 10: obj->vol.min = data.toDouble() ; break;
-    case 11: obj->vol.crMin = data.toDouble() ; break;
-    case 12: obj->vol.crMax = data.toDouble() ; break;
-    case 13: obj->vol.max = data.toDouble() ; break;
+    case 10: obj->vol.min = data.toDouble() *10; break;
+    case 11: obj->vol.crMin = data.toDouble() *10; break;
+    case 12: obj->vol.crMax = data.toDouble() *10; break;
+    case 13: obj->vol.max = data.toDouble() *10; break;
     default: qDebug() << "SNMP_ZmRecv::lineData" << item; break;
     }
 
@@ -141,17 +149,24 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
 
     int item = getItemByOid(4);
     switch (item) {
-    case 1: obj->sw = data.toStdString()=="opened"?0:1; break;
-    case 2:                         break;
-    case 3: obj->cur.value = data.toDouble()*10; break;
-    case 4: obj->vol.value = data.toDouble(); break;
-    case 5: obj->ele = data.toDouble()*10 ; break;
-    case 6: obj->activePow = data.toDouble();break;
+    case 1:{
+        char string[64];
+        sprintf(string, "%s", data.data());
 
-    case 7: obj->cur.min = data.toDouble()*10 ; break;
-    case 8: obj->cur.crMin = data.toDouble()*10; break;
-    case 9: obj->cur.crMax = data.toDouble()*10 ; break;
-    case 10: obj->cur.max = data.toDouble()*10; break;
+        QString str(string);
+        obj->sw = str==QString("Breaker %1 Closed").arg(id+1)||str=="closed"?1:((str == "--")?3:0);
+    }
+        break;
+    case 2: getBreakerManagerOPNum(obj , data);break;
+    case 3: obj->cur.value = data.toDouble()*100; break;
+    case 4: obj->vol.value = data.toDouble()*10; break;
+    case 5: obj->ele = data.toDouble()*10 ; break;
+    case 6: obj->activePow = data.toDouble()*1000;break;
+
+    case 7: obj->cur.min = data.toDouble()*100 ; break;
+    case 8: obj->cur.crMin = data.toDouble()*100; break;
+    case 9: obj->cur.crMax = data.toDouble()*100 ; break;
+    case 10: obj->cur.max = data.toDouble()*100; break;
     default: qDebug() << "SNMP_ZmRecv::loopData" << item; break;
     }
 }
@@ -162,9 +177,25 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
 {
     bool ok;
     int item = getItemByOid(3);
+    static int count = 0;
     switch (item) {
-    case 1: sprintf(mDataPacket->name, "%s",data.data()); mDataPacket->txType = 1 ;qDebug()<<"snmp start";break;
-    case 2: devTypeData(data.toHex().toInt(&ok,16), mDataPacket); break;
+    case 1:{
+        sprintf(mDataPacket->name, "%s",data.data());
+        if(count == 1){
+            mDataPacket->txType |= 0x01;
+            count = 0;
+        }
+        else count++;
+    }
+        break;
+    case 2:{
+        char string[64];
+        sprintf(string, "%s", data.data());
+        QString str(string);
+        int value = (str == "A type"||str == "A")?1:(str == "B type"||str == "B"?2:(str == "C type"||str == "C"?3:0));
+        devTypeData(value, mDataPacket);
+        break;
+    }
     case 3: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16); break;
     case 4: sprintf(mDataPacket->mac, "%s",data.data()); break;
     case 5: sprintf(mDataPacket->versionStr, "%s",data.data()); break;

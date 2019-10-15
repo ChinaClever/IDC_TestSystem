@@ -21,12 +21,23 @@ void LoopTableWid::initWid()
     initTableWid(header, 1, title);
 }
 
+double LoopTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
 
 int LoopTableWid::updateDev(sDataPacket *dev, int row)
 {
     if(dev->offLine)
     {
         int line = dev->data.loopNum;
+        autoRate(dev->data.line[0].vol.value);
         for(int i=0; i<line; ++i)
         {
             QStringList list;

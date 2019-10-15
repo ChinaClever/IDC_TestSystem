@@ -30,6 +30,8 @@ public:
 
     bool clearEleCmd(sTestSetCmd &it);
     bool setFactoryCmd(sTestSetCmd &it);
+
+    int rtuTransDelay() {return 70;}
 };
 
 #endif // MTEST_CORETHREAD_H

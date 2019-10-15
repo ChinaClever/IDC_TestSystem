@@ -60,17 +60,6 @@ bool M_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
     int len = mRtuSent->sentCmdBuff(addr, reg, value, buf);
     if(mSerial) {
         int rtn = mSerial->transmit(buf, len, sent, msecs);
-//        qDebug()<< rtn;
-//        QByteArray array;
-//        QString strArray;
-//        //输出转换
-//        array.append((char *)sent, len);
-//        //qDebug()<< "send:" << array.toHex();
-//        strArray = array.toHex(); // 十六进制
-//        for(int i=0; i<array.size(); ++i)
-//            strArray.insert(2+3*i, " "); // 插入空格
-//        qDebug()<< "recv:" << strArray;
-
         if(5 == rtn) {
             if(memcmp(sent, normalbuf,rtn) == 0)
                 ret = true;

@@ -8,6 +8,7 @@
 
 LineTableWid::LineTableWid(QWidget *parent) : ComTableWid(parent)
 {
+    mRate = 1;
     initWid();
 }
 
@@ -39,6 +40,17 @@ void LineTableWid::setAlarm(sObjData &unit, int row)
     setItemColor(row, column++, value);
 }
 
+double LineTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
+
 void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
     QString  str = tr("断开");;
@@ -46,13 +58,14 @@ void LineTableWid::setObjUnit(sObjData &unit, QStringList &list)
         str = tr("闭合");
     }
     list << str;
+    autoRate(unit.vol.value);
 
     str = "---";
-    double value = unit.vol.value /COM_RATE_VOL;
+    double value = unit.vol.value * mRate / COM_RATE_VOL;
     if(value > 0) str = QString::number(value) + "V";
     list << str;
 
-    value = unit.cur.value / COM_RATE_CUR;
+    value = unit.cur.value * mRate / COM_RATE_CUR;
     list << QString::number(value) + "A";
 
     if(unit.pow) {
