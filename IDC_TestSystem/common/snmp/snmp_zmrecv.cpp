@@ -161,7 +161,7 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
     case 3: obj->cur.value = data.toDouble()*100; break;
     case 4: obj->vol.value = data.toDouble()*10; break;
     case 5: obj->ele = data.toDouble()*10 ; break;
-    case 6: obj->activePow = data.toDouble()*1000;break;
+    case 6: obj->pow = data.toDouble()*1000;break;
 
     case 7: obj->cur.min = data.toDouble()*100 ; break;
     case 8: obj->cur.crMin = data.toDouble()*100; break;
@@ -177,15 +177,16 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
 {
     bool ok;
     int item = getItemByOid(3);
-    static int count = 0;
+    static int count1 = 0;
+    static int count2 = 0; //防止第二次判断回路时，用上一次的数据
     switch (item) {
     case 1:{
         sprintf(mDataPacket->name, "%s",data.data());
-        if(count == 1){
+        if(count1 == 1){
             mDataPacket->txType |= 0x01;
-            count = 0;
+            count1 = 0;
         }
-        else count++;
+        else count1++;
     }
         break;
     case 2:{
@@ -193,7 +194,12 @@ void SNMP_ZmRecv::devInfo(const QByteArray &data)
         sprintf(string, "%s", data.data());
         QString str(string);
         int value = (str == "A type"||str == "A")?1:(str == "B type"||str == "B"?2:(str == "C type"||str == "C"?3:0));
-        devTypeData(value, mDataPacket);
+        if(count2 == 1)
+        {
+            devTypeData(value, mDataPacket);
+            count2 = 0;
+        }
+        else count2++;
         break;
     }
     case 3: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16); break;

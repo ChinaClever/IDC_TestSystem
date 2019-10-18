@@ -293,6 +293,16 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="breakerCheckBox">
+        <property name="text">
+         <string>延时断路器</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="2" column="0">

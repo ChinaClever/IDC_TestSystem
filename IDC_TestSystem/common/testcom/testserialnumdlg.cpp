@@ -37,6 +37,7 @@ void TestSerialNumDlg::init(TestConfig *con)
     ui->barCodeLineEdit->setText(mItem->barCode);
     ui->clearRadioButton->setChecked(mItem->snClear);
     ui->typeComboBox->setCurrentText(mItem->name);
+    ui->breakerCheckBox->setChecked(mItem->isDelayBreaker);
     if(!mItem->batch.isEmpty()) ui->batchComboBox->setCurrentText(mItem->batch);
     if(!mItem->purpose.isEmpty()) ui->purposeComboBox->setCurrentText(mItem->purpose);
 }
@@ -121,6 +122,7 @@ bool TestSerialNumDlg::inputCheck()
     mItem->snClear = ui->clearRadioButton->isChecked();
     mItem->errStop = ui->errStopCheckBox->isChecked();
     mItem->isSave = ui->saveCheckBox->isChecked();
+    mItem->isDelayBreaker = ui->breakerCheckBox->isChecked();
 
     return true;
 }

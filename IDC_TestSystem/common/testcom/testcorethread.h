@@ -109,11 +109,11 @@ protected:
     virtual int getLoopNum();
     virtual int getLinePorts();
     virtual int getLoopPorts();
-    virtual int getLinePow(int id);
-    virtual int getOutputPow(int id);
+    virtual bool getLinePow(int id , int &measure);
+    virtual bool getOutputPow(int id, int &measure);
     virtual int getEnvs();
     virtual int bigCurDelay() {return 5;}
-    virtual void curCheckDelay() {sleep(5);}
+    virtual void curCheckDelay() {sleep(10);}
     virtual bool curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item);
 
     virtual void lineVolAlarm();
@@ -178,7 +178,7 @@ private:
     void outputSwCtr();
     void switchCtr();
 
-    bool powAccuracy(int expect, int measured, sTestDataItem &item);
+    bool powAccuracy(int expect, int measured, sTestDataItem &item ,QString str);
     void linePow();
     void loopPow();
     bool outputPow();
@@ -211,6 +211,7 @@ private:
     void initSwitch();
     void resDev();
     double autoRate(int vol);
+    void controlNoDelayBreaker(int id);
 
 protected:
     int mItemId;

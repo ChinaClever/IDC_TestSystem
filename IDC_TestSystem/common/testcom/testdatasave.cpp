@@ -40,7 +40,7 @@ QString TestDataSave::bulidFileName(sSerialNumItem *item)
 QString TestDataSave::bulidPath(sSerialNumItem *item)
 {
     QDir dir;
-    QString path = "E:/" + tr("测试日志") + '/';
+    QString path = "C:/" + tr("测试日志") + '/';
     path += item->purpose  + '/';
     path += item->name  + '/';
     path += "工装条码_"+item->barCode  + '/';

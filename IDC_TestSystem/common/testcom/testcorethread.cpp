@@ -592,7 +592,7 @@ void TestCoreThread::loopCur()
 
     if( num <= 0 ) return;
 
-    int loop = getLinePorts();
+    int loop = getLoopPorts();
     for(int i = 0; i < num; ++i)
     {// 增加假的测试项目
         item.subItem = tr("C%1 电流值").arg(i+1);
@@ -883,7 +883,7 @@ void TestCoreThread::switchCtr()
 }
 
 
-bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item)
+bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item,QString str)
 {
     bool ret = false;
     int value = expect - measured;
@@ -898,17 +898,18 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item)
         ret = false;
     }
 
-    item.expect = QString::number(expect / COM_RATE_POW) + "kVA";
-    item.measured = QString::number(measured / COM_RATE_POW) + "kVA";
+    item.expect = QString::number(expect / COM_RATE_POW) + str;
+    item.measured = QString::number(measured / COM_RATE_POW) + str;
     item.status = ret;
     appendResult(item);
 
     return ret;
 }
 
-int TestCoreThread::getLinePow(int id)
+bool TestCoreThread::getLinePow(int id, int &measure)
 {
-    return mDevPacket->data.line[id].pow;
+    measure = mDevPacket->data.line[id].pow;
+    return true;
 }
 
 void TestCoreThread::linePow()
@@ -917,16 +918,25 @@ void TestCoreThread::linePow()
     if(num <= 0) return;
 
     int loop = getLinePorts();
+    QString str ="kVA";
     for(int i = 0; i < num; ++i)
     {
         sTestDataItem item;
         item.item = tr("相功率检查");
         item.subItem = tr(" L %1 功率检查").arg(i+1);
+
+        int measuredValue = 0;
+        bool powOrActivePowFlag = false;
+        powOrActivePowFlag = getLinePow(i,measuredValue);
+
         int expectValue = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
         expectValue *= IN_DataPackets::bulid()->getTgValueByIndex(1,i+1) / COM_RATE_CUR2;
 
-        int measuredValue = getLinePow(i);
-        powAccuracy(expectValue, measuredValue, item);
+        if(powOrActivePowFlag) {
+            expectValue = IN_DataPackets::bulid()->getTgPowByStratAndEnd(i*loop, (i+1)*loop);
+            str = "kW";
+        }
+        powAccuracy(expectValue, measuredValue, item ,str);
     }
 }
 
@@ -935,24 +945,33 @@ void TestCoreThread::loopPow()
     int num = mDevPacket->data.loopNum;
     if(num <= 0) return;
 
-    int loop = getLinePorts();
+    QString str ="kVA";
+    int loop = getLoopPorts();
     for(int i = 0; i < num; ++i)
     {
         sTestDataItem item;
         item.item = tr("回路功率检查");
         item.subItem = tr(" C %1 功率检查").arg(i+1);
+        int measuredValue = mDevPacket->data.loop[i].pow?mDevPacket->data.loop[i].pow:mDevPacket->data.loop[i].activePow;
+        bool powOrActivePowFlag=false;
+        powOrActivePowFlag = mDevPacket->data.loop[i].pow?true:false;
         int expectValue  = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
         expectValue *= IN_DataPackets::bulid()->getTgValueByIndex(1,i+1) / COM_RATE_CUR2;
-        int measuredValue = mDevPacket->data.loop[i].activePow;
-        powAccuracy(expectValue, measuredValue, item);
+
+        if(powOrActivePowFlag) {
+            expectValue = IN_DataPackets::bulid()->getTgPowByStratAndEnd(i*loop, (i+1)*loop);
+            str = "kW";
+        }
+
+        powAccuracy(expectValue, measuredValue, item ,str);
     }
 }
 
 
-int TestCoreThread::getOutputPow(int id)
+bool TestCoreThread::getOutputPow(int id , int &measure)
 {
-    // mDevPacket->data.output[i].cur.value*mDevPacket->data.line[0].vol.value*mDevPacket->data.output[i].pf/1000;
-    return mDevPacket->data.output[id].pow;
+    measure = mDevPacket->data.output[id].pow;
+    return true;
 }
 
 bool TestCoreThread::outputPow()
@@ -961,13 +980,20 @@ bool TestCoreThread::outputPow()
     sTestDataItem item;
     item.item = tr("输出位功率检查");
 
+    QString str = "kVA";
     int num = mDevPacket->data.outputNum; sleep(10);    ///////防止输出位没有电流
     for(int i = 0; i < num; ++i)
     {
         item.subItem = tr("输出位 %1 功率值").arg(i+1);
-        int measuredValue = getOutputPow(i);
+        int measuredValue =0;
+        bool powOrActivePowFlag=false;
+        powOrActivePowFlag = getOutputPow(i,measuredValue);
         int expect = IN_DataPackets::bulid()->getApPow(i);
-        ret = powAccuracy(expect, measuredValue, item);
+        if(powOrActivePowFlag) {
+            expect = IN_DataPackets::bulid()->getObjData(i+8)->pow;
+            str = "kW";
+        }
+        ret = powAccuracy(expect, measuredValue, item , str);
     }
 
     return ret;
@@ -1329,9 +1355,13 @@ void TestCoreThread::bigCurPowCheck(int i , int addr)
     //    int measuredValue = devData->output[i].cur.value * devData->line[0].vol.value * devData->output[i].pf/1000;
     //    int expect = IN_DataPackets::bulid()->getTgValueByIndex( 3 , addr);
 
-    int measuredValue = getOutputPow(i);
-    int expect = IN_DataPackets::bulid()->getTgPow(i, addr);
-    powAccuracy(expect, measuredValue, item);
+    int measuredValue = 0;
+    bool powOrActivePowFlag=false;
+    QString str = "kVA";
+    powOrActivePowFlag = getOutputPow(i,measuredValue);
+    if(powOrActivePowFlag) str = "kW";
+    int expect = IN_DataPackets::bulid()->getTgPow(i, addr , powOrActivePowFlag);
+    powAccuracy(expect, measuredValue, item , str);
 }
 
 
@@ -1376,46 +1406,60 @@ void TestCoreThread::setBigCurCmd()
             curBigAccuracy(index, measuredValue, item);
             ret = checkOutputZeroCur(i, item , true);
             if(ret) {
-            int expect = IN_DataPackets::bulid()->getTgValueByIndex(2, index+1);
-            curAccuracy(expect, *measuredValue, item, COM_RATE_CUR2);
+                int expect = IN_DataPackets::bulid()->getTgValueByIndex(2, index+1);
+                curAccuracy(expect, *measuredValue, item, COM_RATE_CUR2);
             }
         }
         bigCurPowCheck(i , addr);
 
-        if(bit == 7){
+        bool noDelayFlag = true;
+        if(bit == 7 && addr < 3){
             // for(int j = 0 ; j < 8 ; j++){
             //    ELoad_RtuSent::bulid()->setResData(addr,ELoad_DP_1+j,res[addr*8+j]);
             //    if(addr != 3) ELoad_RtuSent::bulid()->setResData(addr+1,ELoad_DP_1+j,18000);
             //    }
             nextaddr = addr + 1;
             nextbit = 0;
-        } else nextbit = bit+1;
+            if(!mItem->serialNum.isDelayBreaker){
+                controlNoDelayBreaker(nextaddr);
+                noDelayFlag = false;
+            }
+        } else {
+            nextbit = bit+1;
+            noDelayFlag = true;
+        }
 
-        if(i < num-1){
+        if(i < num-1 && noDelayFlag){
             ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); msleep(50);//打开第i+1位继电器
             ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); msleep(50);//打开第i+1位继电器
             ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); msleep(50);//关闭第i位继电器
-            ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); sleep(3);//关闭第i位继电器
+            ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); sleep(5);//关闭第i位继电器
             //  bigCurDelay();
         }
+
     }
 }
 
 void TestCoreThread::bigCurCheck()
 {
-    openOrCloseBigCur(true);//打开大电流模式
-    //    QList<int> res;
-    //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-    //    for(int i = 1 ; i <= 3 ; i ++)
-    //        for(int j = 0 ;j < 8 ; j ++){
-    //            res.append(config->getResistance(i,j));
-    //        }
-    //    for(int i = 0 ; i < 8 ; i++)
-    //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
-    //    }
+    if(mItem->serialNum.isDelayBreaker){
+        openOrCloseBigCur(true);//打开大电流模式
+        //    QList<int> res;
+        //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
+        //    for(int i = 1 ; i <= 3 ; i ++)
+        //        for(int j = 0 ;j < 8 ; j ++){
+        //            res.append(config->getResistance(i,j));
+        //        }
+        //    for(int i = 0 ; i < 8 ; i++)
+        //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
+        //    }
 
-    ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
-    ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);sleep(20); ///====
+        ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
+        ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);sleep(20); ///====
+    }else{
+        ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器
+        controlNoDelayBreaker(1);
+    }
 
     //setBigCurCmd(res);//大电流输出位电流检查
     setBigCurCmd();//大电流输出位电流检查
@@ -1423,6 +1467,37 @@ void TestCoreThread::bigCurCheck()
     ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
+void TestCoreThread::controlNoDelayBreaker(int id)
+{
+    if( id <= 0 ) return;
+    if(id>=2)
+    {
+        ELoad_RtuSent::bulid()->setBigCur(id-1, false);//关闭大电流模式
+        msleep(600);
+        ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
+        msleep(50);
+        ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
+        msleep(50);
+    }
+    for(int i = 0 ; i < 8; i++)
+    {
+        ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
+        msleep(50);
+        ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
+        msleep(50);
+    }
+    ELoad_RtuSent::bulid()->setBigCur(id, true);//打开大电流模式
+    msleep(600);
+
+    for(int i = 1 ; i < 8; i++)
+    {
+        ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
+        msleep(50);
+        ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
+        msleep(50);
+    }
+    sleep(5);
+}
 
 void TestCoreThread::resDev()
 {

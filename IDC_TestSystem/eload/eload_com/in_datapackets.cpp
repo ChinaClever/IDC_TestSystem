@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -159,13 +159,21 @@ int IN_DataPackets::getApPow(int i)
 
 }
 
-int IN_DataPackets::getTgPow(int i , int addr)
+int IN_DataPackets::getTgPow(int i , int addr ,bool powOrActivePowFlag)
 {
     int expect = 0; i += 8;
-    if(getObjData(i)->pf != 0)
+    if(getObjData(i)->pf != 0  && !powOrActivePowFlag)
         expect = (double)getTgValueByIndex(3 ,addr)/getObjData(i)->pf*COM_RATE_CUR2;
     else
         expect = getTgValueByIndex(3 ,addr);
 
     return expect;
+}
+
+int IN_DataPackets::getTgPowByStratAndEnd(int s , int e)
+{
+    int sumPow = 0;
+    for(int i = s ; i < e ; i++)
+        sumPow += getObjData(i+8)->pow;
+    return sumPow;
 }

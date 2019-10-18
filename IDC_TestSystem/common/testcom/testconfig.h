@@ -1,4 +1,4 @@
-#ifndef TESTCONFIGFILE_H
+﻿#ifndef TESTCONFIGFILE_H
 #define TESTCONFIGFILE_H
 #include "common.h"
 
@@ -22,6 +22,7 @@ struct sSerialNumItem
     bool snClear;
     bool errStop;
     bool isSave;
+    bool isDelayBreaker;
 };
 
 struct sTestProgress
@@ -110,6 +111,9 @@ protected:
 
     bool getSnClear();
     void setSnClear(bool mode);
+
+    bool getDelayBreaker();
+    void setDelayBreaker(bool mode);
 
     virtual QString getPrefix()=0;
 };

@@ -84,14 +84,12 @@ void RtuTrans::envData(ZM_sEnv &rtuData, sEnvData &data)
 
 void RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
 {
-    int num = data.lineNum = rtuData.line.num;
+    int num = rtuData.line.num = data.lineNum;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.line, i, data.line[i] , true);
     }
 
-    if(data.loopNum > rtuData.loop.num)
-           num = rtuData.loop.num = data.loopNum;
-    else num = data.loopNum = rtuData.loop.num;
+    num = rtuData.loop.num = data.loopNum;
     for(int i=0; i<num; ++i) {
         //devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);//RTU可能读不到
         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;

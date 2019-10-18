@@ -77,14 +77,16 @@ bool RTest_CoreThread::curBigAccuracy(ushort index, ushort *measured, sTestDataI
     return ret;
 }
 
-int RTest_CoreThread::getOutputPow(int id)
+bool RTest_CoreThread::getOutputPow(int id , int &measure)
 {
-    return mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+    measure = mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+    return false;
 }
 
-int RTest_CoreThread::getLinePow(int id)
+bool RTest_CoreThread::getLinePow(int id , int &measure)
 {
-    return mDevPacket->data.line[id].cur.value*mDevPacket->data.line[id].vol.value/COM_RATE_CUR;
+    measure = mDevPacket->data.line[id].cur.value*mDevPacket->data.line[id].vol.value/COM_RATE_CUR;
+    return false;
 }
 
 int RTest_CoreThread::getEnvs()

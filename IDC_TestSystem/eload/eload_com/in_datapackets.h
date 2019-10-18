@@ -1,4 +1,4 @@
-#ifndef I_DATAPACKETS_H
+﻿#ifndef I_DATAPACKETS_H
 #define I_DATAPACKETS_H
 #include "eload_configfile.h"
 
@@ -20,7 +20,8 @@ public:
 
     int getTgCur(int s, int e);
     int getApPow(int id);
-    int getTgPow(int i, int addr);
+    int getTgPow(int i, int addr, bool powOrActivePowFlag);
+    int getTgPowByStratAndEnd(int s , int e);
 
 };
 

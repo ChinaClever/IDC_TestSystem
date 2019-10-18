@@ -163,7 +163,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     uint *ptrInt = nullptr;
 
     switch (reg) {
-    case ZM_RtuReg_DevType: devTypeData(buf, len, pkt); break;
+    case ZM_RtuReg_DevType:devTypeData(buf, len, pkt); break;
     case ZM_RtuReg_DevIP: devIpAddr(buf, len, pkt); break;
     case ZM_RtuReg_DevMac: devMac(buf, len, pkt); break;
     case ZM_RtuReg_OutputNum: ptrShort = &(pkt.output.num); break;
