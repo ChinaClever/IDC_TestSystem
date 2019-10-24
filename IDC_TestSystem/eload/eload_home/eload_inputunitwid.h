@@ -18,6 +18,9 @@ public:
     ~ELoad_InputUnitWid();
 
     void init(int addr, int bit);
+    int getValue();
+    void setValue(int value);
+    void setResistance(int id , int value);
 
 protected:
     void updateWid();
@@ -28,6 +31,7 @@ protected:
 private slots:
     void initFunSLot();
     void setFunSLot();
+    void setResSLot();
     void timeoutDone();
     void on_openBtn_clicked();
     void on_closeBtn_clicked();
@@ -42,11 +46,7 @@ private:
     QTimer *timer;
     sObjData *mObjData;
     ELoad_RtuSent *mRtu;
-    int mAddr, mBit ;
-    QMap<int,QLabel *> mQmapRes;
-    QMap<int,QScrollBar *> mQmapScroll;
-    QMap<int,bool> mQmapIsSend;
-    QMap<int,bool> mQmapIsSet;
+    int mAddr, mBit ,mValue;
 };
 void setRes(int addr,int bit,int value,bool ret);
 #endif // ELOAD_INPUTUNITWID_H

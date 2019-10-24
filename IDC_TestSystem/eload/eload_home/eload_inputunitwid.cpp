@@ -9,6 +9,10 @@
 
 int gAddr=1,gBit=0,gValue=0;
 bool gflag = false;
+QMap<int,QLabel *> gQmapRes;
+QMap<int,QScrollBar *> gQmapScroll;
+QMap<int,bool> gQmapIsSend;
+QMap<int,bool> gQmapIsSet;
 void setRes(int addr,int bit,int value, bool ret)
 {
     gAddr = addr;
@@ -36,6 +40,7 @@ ELoad_InputUnitWid::~ELoad_InputUnitWid()
 void ELoad_InputUnitWid::initFunSLot()
 {
     mRtu = ELoad_RtuSent::bulid();
+    mValue = 0;
 
     timer = new QTimer(this);
     timer->start(1000);
@@ -52,10 +57,10 @@ void ELoad_InputUnitWid::init(int addr, int bit)
     ui->label->setText(labstr);
     mAddr = addr;
     mBit = bit;
-    mQmapRes.insert(addr*10+bit,ui->resLab);
-    mQmapScroll.insert(addr*10+bit,ui->horizontalScrollBar);
-    mQmapIsSend.insert(addr*10+bit,false);
-    mQmapIsSet.insert(addr*10+bit,false);
+    gQmapRes.insert(addr*10+bit,ui->resLab);
+    gQmapScroll.insert(addr*10+bit,ui->horizontalScrollBar);
+    gQmapIsSend.insert(addr*10+bit,false);
+    gQmapIsSet.insert(addr*10+bit,false);
     //qDebug()<<addr<<bit<<ui->resLab<<ui->horizontalScrollBar;
 
     ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
@@ -70,6 +75,16 @@ void ELoad_InputUnitWid::init(int addr, int bit)
         ui->resLab->setText("0Ω");
         ui->horizontalScrollBar->setValue(0);
     }
+}
+
+int ELoad_InputUnitWid::getValue()
+{
+    return ui->horizontalScrollBar->value();
+}
+
+void ELoad_InputUnitWid::setValue(int value)
+{
+    ui->horizontalScrollBar->setValue(value);
 }
 
 void ELoad_InputUnitWid::updateWid()
@@ -96,8 +111,12 @@ void ELoad_InputUnitWid::updateWid()
     {
         staticSetCurUpdate();
     }
+    if(mRtu->mSerial->mSerial->isOpened())
+        ui->horizontalScrollBar->setEnabled(true);
+    else
+        ui->horizontalScrollBar->setEnabled(false);
     //else
-     //   autoSetCurUpdate(addr,bit,flag);
+    //   autoSetCurUpdate(addr,bit,flag);
 }
 
 void ELoad_InputUnitWid::timeoutDone()
@@ -118,21 +137,21 @@ void ELoad_InputUnitWid::on_closeBtn_clicked()
 void ELoad_InputUnitWid::on_checkBox_clicked(bool checked)
 {
     ui->horizontalScrollBar->setEnabled(!checked);
-   if(checked) {
+    if(checked) {
         mRtu->setDpAdjust(mAddr, ELoad_DP_1+mBit, 1000 , 10000, 60000);
-   }
-//   else {
-//        mRtu->setData(mAddr, ELoad_DP_1+mBit, 0);
-//    }
+    }
+    //   else {
+    //        mRtu->setData(mAddr, ELoad_DP_1+mBit, 0);
+    //    }
 }
 
 void ELoad_InputUnitWid::setFunSLot()
 {
-    if(!mQmapIsSend[mAddr*10+mBit]){
-    int value = ui->horizontalScrollBar->value();
-    mQmapIsSend[mAddr*10+mBit] = true;
-    mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
-    qDebug()<<"eload_inputunitwid.cpp 101th line "<<value;
+    if(!gQmapIsSend[mAddr*10+mBit]){
+        int value = ui->horizontalScrollBar->value();
+        gQmapIsSend[mAddr*10+mBit] = true;
+        mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
+        //qDebug()<<"eload_inputunitwid.cpp 101th line "<<value;
     }
 }
 
@@ -155,7 +174,7 @@ void ELoad_InputUnitWid::setText(ushort value , ushort alarm,QString text,QLabel
             pe.setColor(QPalette::WindowText,Qt::black);
         }
         lab->setPalette(pe);
-     }else{
+    }else{
         QString str = QString::number(0) + text;
         lab->setText(str);
         pe.setColor(QPalette::WindowText,Qt::black);
@@ -165,8 +184,8 @@ void ELoad_InputUnitWid::setText(ushort value , ushort alarm,QString text,QLabel
 
 void ELoad_InputUnitWid::on_horizontalScrollBar_sliderReleased()
 {
-    if(!mQmapIsSet[mAddr*10+mBit]) {
-        mQmapIsSet[mAddr*10+mBit] = true;
+    if(!gQmapIsSet[mAddr*10+mBit]) {
+        gQmapIsSet[mAddr*10+mBit] = true;
         QTimer::singleShot(3*1000,this,SLOT(setFunSLot())); //延时初始化
         ui->horizontalScrollBar->setEnabled(false);
     }
@@ -174,40 +193,39 @@ void ELoad_InputUnitWid::on_horizontalScrollBar_sliderReleased()
 
 void ELoad_InputUnitWid::staticSetCurUpdate()
 {
-    if((mQmapIsSet[mAddr*10+mBit]&&mQmapIsSend[mAddr*10+mBit])
-            || (gAddr != -1 && gBit != -1 && mQmapIsSet[gAddr*10+gBit] && mQmapIsSend[gAddr*10+gBit])){
+    if(gQmapIsSet[mAddr*10+mBit]&&gQmapIsSend[mAddr*10+mBit]){
         ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
         if(!gflag && gValue == 1){//更改阻值失败
             int oldValue = config->getResistance(mAddr,mBit);
-            //qDebug()<<"fail"<<mAddr<<mBit<<mQmapRes[mAddr*10+mBit]<<mQmapScroll[mAddr*10+mBit]<<oldValue;
-            if(mQmapRes[mAddr*10+mBit]&&mQmapScroll[mAddr*10+mBit]){
+            //qDebug()<<"fail"<<mAddr<<mBit<<gQmapRes[mAddr*10+mBit]<<gQmapScroll[mAddr*10+mBit]<<oldValue;
+            if(gQmapRes[mAddr*10+mBit]&&gQmapScroll[mAddr*10+mBit]){
                 if(oldValue){
-                    mQmapRes[mAddr*10+mBit]->setText(QString(tr("%1Ω")).arg(oldValue));
-                    mQmapScroll[mAddr*10+mBit]->setValue(oldValue);
-                    mQmapScroll[mAddr*10+mBit]->setEnabled(true);
+                    gQmapRes[mAddr*10+mBit]->setText(QString(tr("%1Ω")).arg(oldValue));
+                    gQmapScroll[mAddr*10+mBit]->setValue(oldValue);
+                    gQmapScroll[mAddr*10+mBit]->setEnabled(true);
                 }
                 else{
-                    mQmapRes[mAddr*10+mBit]->setText("0Ω");
-                    mQmapScroll[mAddr*10+mBit]->setValue(0);
-                    mQmapScroll[mAddr*10+mBit]->setEnabled(true);
+                    gQmapRes[mAddr*10+mBit]->setText("0Ω");
+                    gQmapScroll[mAddr*10+mBit]->setValue(0);
+                    gQmapScroll[mAddr*10+mBit]->setEnabled(true);
                 }
 
-                mQmapIsSet[mAddr*10+mBit] = false;
-                mQmapIsSend[mAddr*10+mBit] = false;
+                gQmapIsSet[mAddr*10+mBit] = false;
+                gQmapIsSend[mAddr*10+mBit] = false;
                 gValue = 0;
             }
         }
-        else if(gflag && gAddr != -1 && gBit != -1){//更改阻值成功
-            //qDebug()<<"success"<<mQmapRes[gAddr*10+gBit]<<mQmapScroll[gAddr*10+gBit]<<gValue;
-            if(mQmapRes[gAddr*10+gBit] && mQmapScroll[gAddr*10+gBit]){
+        else if(gflag){//更改阻值成功
+            //qDebug()<<"success"<<gQmapRes[gAddr*10+gBit]<<gQmapScroll[gAddr*10+gBit]<<gValue;
+            if(gQmapRes[gAddr*10+gBit] && gQmapScroll[gAddr*10+gBit]){
                 config->setResistance(gAddr,gBit,gValue);
-                mQmapRes[gAddr*10+gBit]->setText( QString(tr("%1Ω")).arg(gValue) );
-                mQmapScroll[gAddr*10+gBit]->setValue(gValue);
-                mQmapScroll[gAddr*10+gBit]->setEnabled(true);
+                gQmapRes[gAddr*10+gBit]->setText( QString(tr("%1Ω")).arg(gValue) );
+                gQmapScroll[gAddr*10+gBit]->setValue(gValue);
+                gQmapScroll[gAddr*10+gBit]->setEnabled(true);
 
-                mQmapIsSet[mAddr*10+mBit] = false;
-                mQmapIsSend[mAddr*10+mBit] = false;
-                gValue = 0;gAddr = -1;gBit = -1;gflag = false;
+                gQmapIsSet[mAddr*10+mBit] = false;
+                gQmapIsSend[mAddr*10+mBit] = false;
+                gValue = 0;gflag = false;
             }
         }
     }
@@ -217,15 +235,15 @@ void ELoad_InputUnitWid::autoSetCurUpdate(int addr , int bit , QList<bool> flag)
 {
     ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
 
-    if(gflag && gAddr != -1 && gBit != -1){//更改阻值成功
-        //qDebug()<<"auto success"<<mQmapRes[gAddr*10+gBit]<<mQmapScroll[gAddr*10+gBit]<<gValue;
-        if(mQmapRes[gAddr*10+gBit] && mQmapScroll[gAddr*10+gBit]){
+    if(gflag){//更改阻值成功
+        //qDebug()<<"auto success"<<gQmapRes[gAddr*10+gBit]<<gQmapScroll[gAddr*10+gBit]<<gValue;
+        if(gQmapRes[gAddr*10+gBit] && gQmapScroll[gAddr*10+gBit]){
             config->setResistance(gAddr,gBit,gValue);
-            mQmapRes[gAddr*10+gBit]->setText( QString(tr("%1Ω")).arg(gValue) );
-            mQmapScroll[gAddr*10+gBit]->setValue(gValue);
-            mQmapScroll[gAddr*10+gBit]->setEnabled(true);
+            gQmapRes[gAddr*10+gBit]->setText( QString(tr("%1Ω")).arg(gValue) );
+            gQmapScroll[gAddr*10+gBit]->setValue(gValue);
+            gQmapScroll[gAddr*10+gBit]->setEnabled(true);
 
-            flag[gAddr*8+gBit] = false;gValue = 0;gAddr = -1;gBit = -1;gflag = false;
+            flag[gAddr*8+gBit] = false;gValue = 0;gflag = false;
             ELoad_RtuSent::bulid()->setValue(gAddr , gBit, flag);
         }
     }
@@ -237,22 +255,48 @@ void ELoad_InputUnitWid::autoSetCurUpdate(int addr , int bit , QList<bool> flag)
                 return;
             }
             int oldValue = config->getResistance(addr,bit);
-            //qDebug()<<"auto fail"<<mAddr<<mBit<<mQmapRes[mAddr*10+mBit]<<mQmapScroll[mAddr*10+mBit]<<oldValue;
-            if(mQmapRes[addr*10+bit]&&mQmapScroll[addr*10+bit]){
+            //qDebug()<<"auto fail"<<mAddr<<mBit<<gQmapRes[mAddr*10+mBit]<<gQmapScroll[mAddr*10+mBit]<<oldValue;
+            if(gQmapRes[addr*10+bit]&&gQmapScroll[addr*10+bit]){
                 if(oldValue){
-                    mQmapRes[addr*10+bit]->setText(QString(tr("%1Ω")).arg(oldValue));
-                    mQmapScroll[addr*10+bit]->setValue(oldValue);
-                    mQmapScroll[addr*10+bit]->setEnabled(true);
+                    gQmapRes[addr*10+bit]->setText(QString(tr("%1Ω")).arg(oldValue));
+                    gQmapScroll[addr*10+bit]->setValue(oldValue);
+                    gQmapScroll[addr*10+bit]->setEnabled(true);
                 }
                 else{
-                    mQmapRes[addr*10+bit]->setText("0Ω");
-                    mQmapScroll[addr*10+bit]->setValue(0);
-                    mQmapScroll[addr*10+bit]->setEnabled(true);
+                    gQmapRes[addr*10+bit]->setText("0Ω");
+                    gQmapScroll[addr*10+bit]->setValue(0);
+                    gQmapScroll[addr*10+bit]->setEnabled(true);
                 }
 
-                flag[addr*8+bit] = false;gValue = 0;count = 0;addr = -1;bit = -1;
+                flag[addr*8+bit] = false;gValue = 0;count = 0;
                 ELoad_RtuSent::bulid()->setValue(addr , bit, flag);
             }
         }
+    }
+}
+
+void ELoad_InputUnitWid::setResistance(int id , int value)
+{
+    mAddr = (id-1)/ 8 + 1;
+    mBit = (id-1) % 8;
+    mValue = value;
+    if(mRtu->mSerial->mSerial->isOpened())
+    {
+        if(!gQmapIsSet[mAddr*10+mBit]) {
+        gQmapIsSet[mAddr*10+mBit] = true;
+        QTimer::singleShot(3*1000,this,SLOT(setResSLot())); //延时初始化
+        gQmapScroll[mAddr*10+mBit]->setEnabled(false);
+        }
+    }
+}
+
+void ELoad_InputUnitWid::setResSLot()
+{
+    if(!gQmapIsSend[mAddr*10+mBit]){
+        int value = mValue;
+        gQmapIsSend[mAddr*10+mBit] = true;
+        mRtu->setData(mAddr, ELoad_DP_1+mBit, value);
+        gQmapRes[mAddr*10+mBit]->setText( QString(tr("%1Ω")).arg(value) );
+        gQmapScroll[mAddr*10+mBit]->setValue(value);
     }
 }

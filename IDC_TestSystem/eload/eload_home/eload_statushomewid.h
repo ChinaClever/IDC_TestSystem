@@ -28,8 +28,11 @@ protected:
     void stopFun();
     void openInput();
     void setMode();
+    void show();
+    void hide();
 signals:
     void updateIndexSig(int index,QString str);
+    void sendResistanceCmdSig(int start,int end,int value);
 
 private slots:
     void timeoutDone();
@@ -39,6 +42,8 @@ private slots:
     void on_closeBtn_clicked();
 
     void on_eleBtn_clicked();
+
+    void on_modeBox_currentIndexChanged(int index);
 
 private:
     Ui::ELoad_StatusHomeWid *ui;

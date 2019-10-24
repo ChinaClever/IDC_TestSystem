@@ -51,12 +51,12 @@ public:
 
     int switchOpenAll();
     int switchCloseAll();
+    IN_RtuTrans *mSerial;
 
 protected:
     int setDataBuf(uchar addr, uchar fn, ushort reg, ushort value);
 
 private:
-    IN_RtuTrans *mSerial;
     uchar *mSentBuf;
     int mSentLen;
     int mAddr,mBit;

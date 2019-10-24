@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -6,7 +6,7 @@
  */
 #include "in_rtuthread.h"
 #include "eload_dp/eload_dpthread.h"
-
+extern void setRes(int addr,int bit,int value,bool ret);
 IN_RtuThread::IN_RtuThread(QObject *parent) : RtuThread(parent)
 {
 
@@ -100,5 +100,4 @@ void IN_RtuThread::workDown()
         if(isRun) msleep(680);
         else return;
     }
-
 }

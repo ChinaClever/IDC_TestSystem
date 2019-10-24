@@ -20,13 +20,14 @@ ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     gridLayout->addWidget(this);
     mSec = 0;
     isRun = false;
+    ui->resistanceLineEdit->setValidator(new QIntValidator(40, 20000, this));
     ui->modeBox->setCurrentIndex(2);
     timer = new QTimer(this);
     timer->start(1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
     ui->eleBtn->setStyleSheet("QPushButton{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
-                                    "QPushButton:hover{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
-                                    "QPushButton:pressed{background-color:rgb(219,241,252);color:rgb(0,0,0);}");
+                              "QPushButton:hover{background-color:rgb(219,241,252);color:rgb(0,0,0);}"
+                              "QPushButton:pressed{background-color:rgb(219,241,252);color:rgb(0,0,0);}");
 }
 
 ELoad_StatusHomeWid::~ELoad_StatusHomeWid()
@@ -177,6 +178,29 @@ void ELoad_StatusHomeWid::setMode()
     case 2: // 手动模式
 
         break;
+    case 3: // 多个手动静态模式
+    {
+        int start = ui->inputStartSpinBox->value();
+        int end = ui->inputEndSpinBox->value();
+        int value = ui->resistanceLineEdit->text().toInt();
+        if(ELoad_RtuSent::bulid()->mSerial->mSerial->isOpened()){
+            if(value<40 || value>20000){
+                InfoMsgBox box(this, tr("阻值不在范围！！"));
+                return;
+            }else{
+                InfoMsgBox box(this, tr("设置成功！！"));
+                emit sendResistanceCmdSig(start,end,value);
+                /////////循环发送起始输出位和结束输出位，阻值命令函数
+            }
+        }
+        else {
+                InfoMsgBox box(this, tr("注意串口是否打开！！"));
+        }
+    }
+        break;
+    default:
+
+        break;
     }
 }
 
@@ -194,13 +218,16 @@ void ELoad_StatusHomeWid::startUp()
         return;
     }
     mSec = 0;
-    isRun = true;
-
     //openInput();
     setMode();
-    ui->groupBox->setEnabled(false);
-    ui->startBtn->setText(tr("停止"));
-    ELoad_ConfigFile::bulid()->item->testMode = ELoad_Test_Simulate;
+    int ret = getMode();
+    if(ret != 3)
+    {
+        isRun = true;
+        ui->groupBox->setEnabled(false);
+        ui->startBtn->setText(tr("停止"));
+        ELoad_ConfigFile::bulid()->item->testMode = ELoad_Test_Simulate;
+    }
 }
 
 void ELoad_StatusHomeWid::stopFun()
@@ -210,8 +237,7 @@ void ELoad_StatusHomeWid::stopFun()
     if(ui->modeBox->currentIndex() == 1 && ui->startBtn->text() == tr("停止") ){
         int start = ui->inputStartSpinBox->value();
         int end = ui->inputEndSpinBox->value();
-        for(int i = start ; i <= end ; i++ )
-        {
+        for(int i = start ; i <= end ; i++ ){
             ELoad_RtuSent::bulid()->setBigCur(i,0);//关闭大电流模式
             Delay_MSec(1000);
         }
@@ -250,4 +276,60 @@ void ELoad_StatusHomeWid::on_eleBtn_clicked()
     cmd.reg = 0x1039;
     cmd.len = 0;
     IN_RtuThread::bulid()->sentCmd(cmd);
+}
+
+void ELoad_StatusHomeWid::on_modeBox_currentIndexChanged(int index)
+{
+    switch(index) {
+    case 0: // 全部自动调整模块
+    {
+        ui->startBtn->setText(tr("启动"));
+        ui->label_5->setText(tr("输出位"));
+        show();
+    }
+        break;
+    case 1: // 大电流模式
+    {
+        ui->startBtn->setText(tr("启动"));
+        ui->label_5->setText(tr("地址"));
+        show();
+    }
+        break;
+    case 2: // 手动模式
+    {
+        ui->startBtn->setText(tr("启动"));
+        hide();
+    }
+        break;
+    case 3: // 多个手动静态模式
+    {
+        ui->startBtn->setText(tr("设置"));
+        ui->label_5->setText(tr("输出位"));
+        show();
+    }
+        break;
+    default:
+        break;
+    }
+}
+
+void ELoad_StatusHomeWid::show()
+{
+    ui->resistanceLineEdit->show();
+    ui->inputStartSpinBox->show();
+    ui->inputEndSpinBox->show();
+    ui->inputLab->show();
+    ui->inputCheckBox->show();
+    ui->lab_3->show();
+    ui->label_5->show();
+}
+void ELoad_StatusHomeWid::hide()
+{
+    ui->resistanceLineEdit->hide();
+    ui->inputStartSpinBox->hide();
+    ui->inputEndSpinBox->hide();
+    ui->inputLab->hide();
+    ui->inputCheckBox->hide();
+    ui->lab_3->hide();
+    ui->label_5->hide();
 }

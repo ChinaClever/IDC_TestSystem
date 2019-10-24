@@ -6,7 +6,6 @@
  */
 #include "eload_inputhomewid.h"
 #include "ui_eload_inputhomewid.h"
-#include "eload_inputunitwid.h"
 #include <QGridLayout>
 ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QWidget(parent),
@@ -16,7 +15,6 @@ ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
     initWid();
-
 }
 
 ELoad_InputHomeWid::~ELoad_InputHomeWid()
@@ -35,6 +33,7 @@ void ELoad_InputHomeWid::initWid()
         for(int j=0; j<8; j++)
         {
             ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);
+            mListPointer.append(wid);
             wid->init(i+1, j);
         }
     }
@@ -55,3 +54,13 @@ void ELoad_InputHomeWid::updateIndexSlot(int index,QString str)
         break;
     }
 }
+
+void ELoad_InputHomeWid::recvResistanceCmdSlot(int start,int end,int value)
+{
+    for(int i = start ; i <= end; i++)
+    {
+        mListPointer.at(i-1)->setResistance(i,value);
+        Delay_MSec(10000);
+    }
+}
+
