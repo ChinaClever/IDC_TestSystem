@@ -36,6 +36,7 @@ signals:
 
 private slots:
     void timeoutDone();
+    void sendResFinishSlot();
 
     void on_startBtn_clicked();
     void on_openBtn_clicked();

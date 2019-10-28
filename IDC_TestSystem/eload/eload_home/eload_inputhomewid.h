@@ -17,6 +17,8 @@ public:
 
 protected:
     void initWid();
+signals:
+    void sendResFinishSig();
 private slots:
     void updateIndexSlot(int index, QString str);
     void recvResistanceCmdSlot(int start,int end,int value);

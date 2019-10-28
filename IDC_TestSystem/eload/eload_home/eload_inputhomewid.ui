@@ -13,7 +13,7 @@
   <property name="font">
    <font>
     <family>微软雅黑</family>
-    <pointsize>12</pointsize>
+    <pointsize>10</pointsize>
     <weight>50</weight>
     <italic>false</italic>
     <bold>false</bold>
@@ -23,13 +23,22 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">font: 12pt &quot;微软雅黑&quot;;</string>
+   <string notr="true">font: 10pt &quot;微软雅黑&quot;;</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>6</number>
+   </property>
    <property name="leftMargin">
     <number>0</number>
    </property>
    <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -37,7 +46,7 @@
      <property name="font">
       <font>
        <family>微软雅黑</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -46,45 +55,279 @@
      <property name="styleSheet">
       <string notr="true">QGroupBox{
 border:2px solid rgb(15,80,232);
-border-radius:15px
+border-radius:15px;
+background-color: rgb(240, 240, 240);
 }</string>
      </property>
      <property name="title">
       <string>电子可控负载一</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>10</number>
       </property>
       <property name="topMargin">
-       <number>5</number>
+       <number>15</number>
       </property>
-      <property name="spacing">
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QWidget" name="widget_1" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_1" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>微软雅黑</family>
+          <pointsize>10</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_1{
+background-color: rgb(255, 255, 255);
+}
+
+#widget_1:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QWidget" name="widget_2" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+#widget_2{
+background-color: rgb(240, 240, 240);
+}
+#widget_2:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QWidget" name="widget_3" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_3" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_3{
+background-color: rgb(255, 255, 255);
+}
+#widget_3:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QWidget" name="widget_4" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_4" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_4{
+background-color: rgb(240, 240, 240);
+}
+#widget_4:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QWidget" name="widget_5" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_5" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_5{
+background-color: rgb(255, 255, 255);
+}
+#widget_5:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QWidget" name="widget_6" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_6" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_6{
+background-color: rgb(240, 240, 240);
+}
+#widget_6:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QWidget" name="widget_7" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_7" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_7{
+background-color: rgb(255, 255, 255);
+}
+#widget_7:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QWidget" name="widget_8" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_8" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_8{
+background-color: rgb(240, 240, 240);
+}
+#widget_8:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -94,7 +337,7 @@ border-radius:15px
      <property name="font">
       <font>
        <family>微软雅黑</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -103,45 +346,268 @@ border-radius:15px
      <property name="styleSheet">
       <string notr="true">QGroupBox{
 border:2px solid rgb(15,80,232);
-border-radius:15px
+border-radius:15px;
+background-color: rgb(240, 240, 240);
 }</string>
      </property>
      <property name="title">
       <string>电子可控负载二</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>10</number>
       </property>
       <property name="topMargin">
-       <number>5</number>
+       <number>15</number>
       </property>
-      <property name="spacing">
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QWidget" name="widget_9" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_9" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_9{
+background-color: rgb(255, 255, 255);
+}
+#widget_9:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QWidget" name="widget_10" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_10" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_10{
+background-color: rgb(240, 240, 240);
+}
+#widget_10:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QWidget" name="widget_11" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_11" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_11{
+background-color: rgb(255, 255, 255);
+}
+#widget_11:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QWidget" name="widget_12" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_12" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_12{
+background-color: rgb(240, 240, 240);
+}
+#widget_12:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QWidget" name="widget_13" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_13" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_13{
+background-color: rgb(255, 255, 255);
+}
+#widget_13:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QWidget" name="widget_14" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_14" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_14{
+background-color: rgb(240, 240, 240);
+}
+#widget_14:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QWidget" name="widget_15" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_15" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_15{
+background-color: rgb(255, 255, 255);
+}
+#widget_15:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QWidget" name="widget_16" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_16" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_16{
+background-color: rgb(240, 240, 240);
+}
+#widget_16:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -151,7 +617,7 @@ border-radius:15px
      <property name="font">
       <font>
        <family>微软雅黑</family>
-       <pointsize>12</pointsize>
+       <pointsize>10</pointsize>
        <weight>50</weight>
        <italic>false</italic>
        <bold>false</bold>
@@ -160,45 +626,269 @@ border-radius:15px
      <property name="styleSheet">
       <string notr="true">QGroupBox{
 border:2px solid rgb(15,80,232);
-border-radius:15px
+border-radius:15px;
+background-color: rgb(240, 240, 240);
 }</string>
      </property>
      <property name="title">
       <string>电子可控负载三</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_3">
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <property name="spacing">
+       <number>1</number>
+      </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>10</number>
       </property>
       <property name="topMargin">
-       <number>5</number>
+       <number>15</number>
       </property>
-      <property name="spacing">
+      <property name="rightMargin">
+       <number>10</number>
+      </property>
+      <property name="bottomMargin">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QWidget" name="widget_17" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_17" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_17{
+background-color: rgb(255, 255, 255);
+}
+#widget_17:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QWidget" name="widget_18" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_18" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_18{
+background-color: rgb(240, 240, 240);
+}
+#widget_18:hover{
+background-color: rgb(255,238,188);
+}
+</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QWidget" name="widget_19" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_19" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_19{
+background-color: rgb(255, 255, 255);
+}
+#widget_19:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="0" column="3">
-       <widget class="QWidget" name="widget_20" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_20" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_20{
+background-color: rgb(240, 240, 240);
+}
+#widget_20:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QWidget" name="widget_21" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_21" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_21{
+background-color: rgb(255, 255, 255);
+}
+#widget_21:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QWidget" name="widget_22" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_22" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_22{
+background-color: rgb(240, 240, 240);
+}
+#widget_22:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QWidget" name="widget_23" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_23" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_23{
+background-color: rgb(255, 255, 255);
+}
+#widget_23:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QWidget" name="widget_24" native="true"/>
+      <item>
+       <widget class="QWidget" name="widget_24" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>16</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#widget_24{
+background-color: rgb(240, 240, 240);
+}
+#widget_24:hover{
+background-color: rgb(255,238,188);
+}</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

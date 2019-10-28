@@ -17,6 +17,7 @@ ELoad_StatusHomeWid::ELoad_StatusHomeWid(QWidget *parent) :
     ui->setupUi(this);
 
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
+    gridLayout->setContentsMargins(0, 0, 0, 0);
     gridLayout->addWidget(this);
     mSec = 0;
     isRun = false;
@@ -188,6 +189,7 @@ void ELoad_StatusHomeWid::setMode()
                 InfoMsgBox box(this, tr("阻值不在范围！！"));
                 return;
             }else{
+                ui->startBtn->setEnabled(false);
                 InfoMsgBox box(this, tr("设置成功！！"));
                 emit sendResistanceCmdSig(start,end,value);
                 /////////循环发送起始输出位和结束输出位，阻值命令函数
@@ -332,4 +334,9 @@ void ELoad_StatusHomeWid::hide()
     ui->inputCheckBox->hide();
     ui->lab_3->hide();
     ui->label_5->hide();
+}
+
+void ELoad_StatusHomeWid::sendResFinishSlot()
+{
+    ui->startBtn->setEnabled(true);
 }

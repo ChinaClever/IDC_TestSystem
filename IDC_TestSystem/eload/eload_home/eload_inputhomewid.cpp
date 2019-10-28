@@ -32,7 +32,7 @@ void ELoad_InputHomeWid::initWid()
     {
         for(int j=0; j<8; j++)
         {
-            ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);
+            ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);;
             mListPointer.append(wid);
             wid->init(i+1, j);
         }
@@ -62,5 +62,6 @@ void ELoad_InputHomeWid::recvResistanceCmdSlot(int start,int end,int value)
         mListPointer.at(i-1)->setResistance(i,value);
         Delay_MSec(10000);
     }
+    emit sendResFinishSig();
 }
 
