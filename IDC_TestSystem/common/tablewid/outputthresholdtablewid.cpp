@@ -25,9 +25,20 @@ void OutputThresholdTableWid::setAlarm(sObjData &unit, int row)
    setItemColor(row, 2, value);
 }
 
+double OutputThresholdTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
 
 void OutputThresholdTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
+   autoRate(unit.vol.value);
    double value = unit.cur.value * mRate/ COM_RATE_CUR;
    list << QString::number(value) + "A";
 

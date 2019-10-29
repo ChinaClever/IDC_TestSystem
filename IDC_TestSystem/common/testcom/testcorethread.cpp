@@ -683,16 +683,14 @@ void TestCoreThread::lineCurAlarm()
         sObjData *obj = &(mDevPacket->data.line[i]); sleep(1);
         item.subItem = tr("修改 L%1 电流最小值").arg(i+1);
         int expectValue  = Test_Abnormal_CurMin *COM_RATE_CUR;
-        int measuredValue = obj->cur.min;
-        curAccuracy(expectValue, measuredValue, item);
+        curThresholdAccuracy(expectValue, obj->cur.min, item);
     }
 
     for(int i = 0; i < num; ++i) {
         sObjData *obj = &(mDevPacket->data.line[i]);
         item.subItem = tr("修改 L%1 电流最大值").arg(i+1);
         int expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
-        int measuredValue = obj->cur.max;
-        curAccuracy(expectValue, measuredValue, item);
+        curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
     setLineCurCmd(false);
 }
@@ -940,6 +938,12 @@ void TestCoreThread::linePow()
     }
 }
 
+bool TestCoreThread::getLoopPow(int id, int &measure)
+{
+    measure = mDevPacket->data.loop[id].pow;
+    return true;
+}
+
 void TestCoreThread::loopPow()
 {
     int num = mDevPacket->data.loopNum;
@@ -952,9 +956,9 @@ void TestCoreThread::loopPow()
         sTestDataItem item;
         item.item = tr("回路功率检查");
         item.subItem = tr(" C %1 功率检查").arg(i+1);
-        int measuredValue = mDevPacket->data.loop[i].pow?mDevPacket->data.loop[i].pow:mDevPacket->data.loop[i].activePow;
+        int measuredValue = 0;
         bool powOrActivePowFlag=false;
-        powOrActivePowFlag = mDevPacket->data.loop[i].pow?true:false;
+        powOrActivePowFlag = getLoopPow(i,measuredValue);
         int expectValue  = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
         expectValue *= IN_DataPackets::bulid()->getTgValueByIndex(1,i+1) / COM_RATE_CUR2;
 

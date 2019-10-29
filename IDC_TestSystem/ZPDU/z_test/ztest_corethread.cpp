@@ -70,8 +70,11 @@ bool ZTest_CoreThread::lineCurCmd(sTestSetCmd &it)
         snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
         snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
 
-        rtuCmd.reg = Z_RtuReg_LineCurMin+i;
-        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.append(rtuCmd);
+        rtuCmd.reg = ZM_RtuReg_LineCurCrMin+i;
+        rtuCmd.value = Test_Normal_CurMin+1; it.rtuMin.push_front(rtuCmd);
+        rtuCmd.value = Test_Abnormal_CurMin+1; it.rtuAlarmMin.append(rtuCmd);
+        rtuCmd.reg = ZM_RtuReg_LineCurMin+i;
+        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.push_front(rtuCmd);
         rtuCmd.value = Test_Abnormal_CurMin; it.rtuAlarmMin.append(rtuCmd);
 
         snmpCmd.oid = QString("%1.%2.%3.2.%4.8.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
@@ -80,8 +83,12 @@ bool ZTest_CoreThread::lineCurCmd(sTestSetCmd &it)
         snmpCmd.oid = QString("%1.%2.%3.2.%4.9.0").arg(MIB_OID_CLEVER).arg(Z_MIB_OID).arg(addr).arg(i+1);
         snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
         snmpCmd.value = QString("%1.0").arg(Test_Normal_LineCurMax).toUtf8();  it.sMax.push_front(snmpCmd);
-        rtuCmd.reg = Z_RtuReg_LineCurMax+i;
-        rtuCmd.value = Test_Normal_LineCurMax; it.rtuMax.append(rtuCmd);
+
+        rtuCmd.reg = ZM_RtuReg_LineCurCrMax+i;
+        rtuCmd.value = Test_Abnormal_CurMax-1; it.rtuMax.push_front(rtuCmd);
+        rtuCmd.value = Test_Abnormal_CurMax-1; it.rtuAlarmMin.append(rtuCmd);
+        rtuCmd.reg = ZM_RtuReg_LineCurMax+i;
+        rtuCmd.value = Test_Abnormal_CurMax; it.rtuMax.push_front(rtuCmd);
         rtuCmd.value = Test_Abnormal_CurMax; it.rtuAlarmMax.append(rtuCmd);
     }
 
@@ -343,4 +350,17 @@ bool ZTest_CoreThread::setFactoryCmd(sTestSetCmd &it)
     rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
     return true;
 }
+
+bool ZTest_CoreThread::getLinePow(int id, int &measure)
+{
+    measure = mDevPacket->data.line[id].pow;
+    return false;
+}
+
+bool ZTest_CoreThread::getLoopPow(int id, int &measure)
+{
+    measure = mDevPacket->data.loop[id].pow;
+    return false;
+}
+
 

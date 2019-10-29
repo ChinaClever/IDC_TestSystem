@@ -31,7 +31,7 @@ ELoad_InputUnitWid::ELoad_InputUnitWid(QWidget *parent) :
     gridLayout->setContentsMargins(0, 0, 0, 0);
     gridLayout->addWidget(this);
     QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
-    shadow->setColor(Qt::darkMagenta);
+    shadow->setColor(QColor(248,186,65,150));
     shadow->setOffset(2,2);
     shadow->setBlurRadius(1);
     parent->setGraphicsEffect(shadow);

@@ -58,7 +58,12 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
     switch (item) {
     case 1:
         obj->cur.value = data.toDouble() * 100;
-        obj->vol.value =(&(mDataPacket->data.line[id/8]))->vol.value;
+        if(mDataPacket->data.lineNum == 1)
+            obj->vol.value = (&(mDataPacket->data.line[0]))->vol.value;
+        else
+        obj->vol.value =(&(mDataPacket->data.line[id/8]))->vol.value
+                ?(&(mDataPacket->data.line[id/8]))->vol.value
+            :(&(mDataPacket->data.loop[id/8]))->vol.value;
         if(obj->pf)
         {
             obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
@@ -124,7 +129,13 @@ void SNMP_ZmRecv::lineData(const QByteArray &data)
     case 1: obj->cur.value = data.toDouble() * 100;/*qDebug()<<"line cur.value"<<id<<obj->cur.value;*/break;
     case 2: obj->vol.value = data.toDouble() * 10;
             if(obj->vol.value) obj->sw=1; else obj->sw=0;break;
-    case 3: obj->pow = data.toDouble()*1000; break;
+    case 3:
+    {
+        if(mDataPacket->name[0]=='Z')
+            obj->pow = data.toDouble();
+        else
+            obj->pow = data.toDouble()*1000;
+    }break;
     case 4: obj->pf = data.toDouble()*100 ; break;
     case 5: obj->ele = data.toDouble()*10 ; break;
 
@@ -161,8 +172,12 @@ void SNMP_ZmRecv::loopData(const QByteArray &data)
     case 3: obj->cur.value = data.toDouble()*100; break;
     case 4: obj->vol.value = data.toDouble()*10; break;
     case 5: obj->ele = data.toDouble()*10 ; break;
-    case 6: obj->pow = data.toDouble()*1000;break;
-
+    case 6: {
+        if(mDataPacket->name[0]=='Z')
+            obj->pow = data.toDouble();
+        else
+            obj->pow = data.toDouble()*1000;
+    }break;
     case 7: obj->cur.min = data.toDouble()*100 ; break;
     case 8: obj->cur.crMin = data.toDouble()*100; break;
     case 9: obj->cur.crMax = data.toDouble()*100 ; break;

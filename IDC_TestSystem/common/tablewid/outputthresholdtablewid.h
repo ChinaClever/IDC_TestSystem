@@ -1,4 +1,4 @@
-#ifndef OUTPUTTHRESHOLDTABLEWID_H
+﻿#ifndef OUTPUTTHRESHOLDTABLEWID_H
 #define OUTPUTTHRESHOLDTABLEWID_H
 
 #include "outputtablewid.h"
@@ -13,6 +13,7 @@ protected:
     void initWid();
     void setAlarm(sObjData &unit,int row);
     void setObjUnit(sObjData &unit, QStringList &list);
+    double autoRate(int vol);
 };
 
 #endif // OUTPUTTHRESHOLDTABLEWID_H

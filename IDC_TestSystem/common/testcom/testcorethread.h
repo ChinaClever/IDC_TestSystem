@@ -110,6 +110,7 @@ protected:
     virtual int getLinePorts();
     virtual int getLoopPorts();
     virtual bool getLinePow(int id , int &measure);
+    virtual bool getLoopPow(int id, int &measure);
     virtual bool getOutputPow(int id, int &measure);
     virtual int getEnvs();
     virtual int bigCurDelay() {return 5;}

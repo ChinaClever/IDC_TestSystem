@@ -141,15 +141,22 @@ void RtuZmRecv::devMac(uchar *buf, int len, ZM_sRtuPacket &pkt)
 
 void RtuZmRecv::devTypeData(uchar *buf, int len, ZM_sRtuPacket &pkt)
 {
+  /*01~04表示单相两路A~D系列
+    05~08表示三相三路A~D系列
+    09~0C表示单相四路A~D系列
+    0D~10表示三相六路A~D系列
+    11~14表示单相一路A~D系列*/
     ushort array[3] = {0};
     rtuRecvData(buf, len, array);
 
     int value = array[0], line=3, loop=6;
-    if((value<5) || ((value>8) &&(value<13))) line = 1;
+    if((value<5) || ((value>8) &&(value<13)) || (value>16)) line = 1;
 
     if(value < 5) loop = 2;
     else if(value < 9) loop = 3;
     else if(value < 13) loop = 4;
+    else if(value < 17) loop = 6;
+    else  loop = 1;
 
     pkt.line.num = line;
     pkt.loop.num = loop;
