@@ -11,8 +11,8 @@ public:
 
 
 protected:
-    virtual int snmpTransDelay() {return 15;}
-    virtual int rtuTransDelay() {return 40;}
+    virtual int snmpTransDelay() {return 15;}//15
+    virtual int rtuTransDelay() {return 40;}//40
     virtual void lineCurAlarmDelay() {sleep(10);}
     virtual int outputCurAlarmDelay() {return 30;}
     virtual int outputSwCtrDelay();
