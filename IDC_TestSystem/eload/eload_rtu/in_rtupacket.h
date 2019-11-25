@@ -1,4 +1,4 @@
-#ifndef IN_RTUPACKET_H
+﻿#ifndef IN_RTUPACKET_H
 #define IN_RTUPACKET_H
 #include "in_rtusent.h"
 
@@ -15,7 +15,7 @@ struct IN_sRtuLine {
     ushort maxCur; // 最大电流
 
     ushort wave; // 谐波值
-    uchar pf; // 功率因素
+    uchar pf; // 功率因数
     uchar sw; // 开关
 };
 

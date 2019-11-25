@@ -30,7 +30,7 @@ struct MV1_sObjData
     ushort pow[MV1_UNIT_NUM]; // 功率
     uint ele[MV1_UNIT_NUM]; // 电能
 
-    ushort pf[MV1_UNIT_NUM]; // 功率因素
+    ushort pf[MV1_UNIT_NUM]; // 功率因数
     ushort sw[MV1_UNIT_NUM]; // 开关状态 0 表示未启用
 
     ushort activePow[MV1_UNIT_NUM]; // 有功功率值
@@ -77,6 +77,8 @@ protected:
 
     uchar *rtuRecvData(uchar *ptr, int num, uint *value);
     uchar *rtuRecvData(uchar *ptr, int num, ushort *value);
+    uchar *rtuRecvData(uchar *ptr, int num, ushort *value1,uint *value2);
+    uchar *rtuRecvData(uchar *ptr, int num, uint *value1,ushort *value2);
 
     void rtuLineData(uchar *buf, ZM_sObjData &pkt);
     void rtuOutputData(uchar *buf, ZM_sObjData &pkt);

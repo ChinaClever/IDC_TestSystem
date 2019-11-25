@@ -1,4 +1,4 @@
-#ifndef BUS_RTURECV_H
+﻿#ifndef BUS_RTURECV_H
 #define BUS_RTURECV_H
 #include "bus_rtusent.h"
 #include "bus_rtucmdenum.h"
@@ -16,7 +16,7 @@ struct BUS_RtuRecvLine {
     ushort maxCur; // 最大电流
 
     ushort wave; // 谐波值
-    uchar pf; // 功率因素
+    uchar pf; // 功率因数
     uchar sw; // 开关
 };
 

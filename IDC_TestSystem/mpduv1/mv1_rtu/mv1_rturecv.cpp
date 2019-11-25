@@ -47,10 +47,30 @@ uchar *MV1_RtuRecv::rtuRecvData(uchar *ptr, int num, uint *value)
     return ptr;
 }
 
+uchar *MV1_RtuRecv::rtuRecvData(uchar *ptr, int num, uint *value1,ushort *value2)
+{
+    for(int i=0; i<num; ++i) {
+        value2[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能高8位
+        value2[i] <<= 8; // 左移8位
+        value2[i] +=  (*ptr) * 256 + *(ptr+1);  ptr += 2; // 读取电能底8位
+    }
+
+    return ptr;
+}
+
 uchar *MV1_RtuRecv::rtuRecvData(uchar *ptr, int num, ushort *value)
 {
     for(int i=0; i<num; ++i) {
         value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return ptr;
+}
+
+uchar *MV1_RtuRecv::rtuRecvData(uchar *ptr, int num, ushort *value1,uint *value2)
+{
+    for(int i=0; i<num; ++i) {
+        value2[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
     }
 
     return ptr;
@@ -62,8 +82,8 @@ void MV1_RtuRecv::rtuLineData(uchar *buf, ZM_sObjData &pkt)
     int num = 3;
     buf = rtuRecvData(buf, num, pkt.vol.value);
     buf = rtuRecvData(buf, num, pkt.cur.value);
-    buf = rtuRecvData(buf, num, pkt.pow);
-    buf = rtuRecvData(buf, num, pkt.ele);
+    buf = rtuRecvData(buf, num, (ushort *)(pkt.pow),pkt.pow);
+    buf = rtuRecvData(buf, num, (uint *)(pkt.ele),pkt.ele);
     buf = rtuRecvData(buf, num, pkt.pf);
 }
 
@@ -71,13 +91,13 @@ void MV1_RtuRecv::rtuOutputData(uchar *buf, ZM_sObjData &pkt)
 {
     int num = 24;
     buf = rtuRecvData(buf, num, pkt.cur.value);
-    buf = rtuRecvData(buf, num, pkt.pow);
+    buf = rtuRecvData(buf, num, (ushort *)(pkt.pow),pkt.pow);
 }
 
 void MV1_RtuRecv::rtuOutputEle(uchar *buf, ZM_sObjData &pkt)
 {
     int num = 24;
-    buf = rtuRecvData(buf, num, pkt.ele);
+    buf = rtuRecvData(buf, num, (uint *)(pkt.ele),pkt.ele);
     buf = rtuRecvData(buf, num, pkt.pf);
 }
 
