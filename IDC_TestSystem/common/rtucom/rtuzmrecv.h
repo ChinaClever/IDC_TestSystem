@@ -26,7 +26,7 @@ struct ZM_sObjData
     ZM_sDataUnit vol; // 电压
     ZM_sDataUnit cur; // 电流
 
-    ushort pow[ZM_UNIT_NUM]; // 功率
+    uint pow[ZM_UNIT_NUM]; // 功率
     ushort ele[ZM_UNIT_NUM]; // 电能
 
     ushort pf[ZM_UNIT_NUM]; // 功率因素
@@ -88,6 +88,7 @@ protected:
     int rtuRecvHead(uchar *ptr,  ZM_sRtuRecv *pkt);
 
     uchar *rtuRecvData(uchar *ptr, int num, uint *value1, ushort *value2);
+    uchar *rtuRecvData(uchar *ptr, int num, uchar *value1 , uint *value2);
     uchar *rtuRecvData(uchar *ptr, int num, ushort *value);
     uchar *rtuRecvData(uchar *ptr, int num, uchar *value);
 };

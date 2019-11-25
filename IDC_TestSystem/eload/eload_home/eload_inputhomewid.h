@@ -22,10 +22,13 @@ signals:
 private slots:
     void updateIndexSlot(int index, QString str);
     void recvResistanceCmdSlot(int start,int end,int value);
+    void timeoutDone();
 
 private:
     Ui::ELoad_InputHomeWid *ui;
     QList<ELoad_InputUnitWid*> mListPointer;
+    QTimer *timer;
+    ELoad_RtuSent *mRtu;
 };
 
 #endif // ELOAD_INPUTHOMEWID_H

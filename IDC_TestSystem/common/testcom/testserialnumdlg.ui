@@ -153,6 +153,11 @@
           <string>RPDU</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>MPDUV1</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>

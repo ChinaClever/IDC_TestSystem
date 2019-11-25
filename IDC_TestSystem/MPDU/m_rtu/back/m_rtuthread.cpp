@@ -80,7 +80,6 @@ void M_RtuThread::workDown()
             }
             if(isRun) msleep(755);
             else return;
-            if(!ret) break;
         }
 
         if(ret) { // 正常收到数据

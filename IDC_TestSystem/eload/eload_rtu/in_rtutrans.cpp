@@ -231,21 +231,21 @@ void IN_RtuTrans::transgetStatus(int addr, sDataPacket *packet, int msecs)
         mCount = 0;
     }
     else{
-        if(mCount == 0){
-            for(int i=0; i<dev->inputNum; i++)
-            {
-                sObjData *obj = &dev->input[i];
-                obj->sw = 0x01;
-            }
-            mCount ++;
-        }
-        else{//第二次没有接收到返回才判断失败
-            for(int i=0; i<dev->inputNum; i++)
-            {
-                sObjData *obj = &dev->input[i];
-                obj->sw = 0x00;
-            }
-        }
+//        if(mCount == 0){
+//            for(int i=0; i<dev->inputNum; i++)
+//            {
+//                sObjData *obj = &dev->input[i];
+//                obj->sw = 0x01;
+//            }
+//            mCount ++;
+//        }
+//        else{//第二次没有接收到返回才判断失败
+//            for(int i=0; i<dev->inputNum; i++)
+//            {
+//                sObjData *obj = &dev->input[i];
+//                obj->sw = 0x00;
+//            }
+//        }
     }
 }
 

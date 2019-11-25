@@ -127,7 +127,7 @@ int RTest_CoreThread::getDoors()
 void RTest_CoreThread::curCheckDelay()
 {
     if(mDevPacket->data.lineNum == 1) sleep(10);
-    sleep(45);
+    sleep(55);
 }
 
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)

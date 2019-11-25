@@ -7,6 +7,7 @@
 #include "eload_inputhomewid.h"
 #include "ui_eload_inputhomewid.h"
 #include <QGridLayout>
+QList<QPair<QPair<int,int>,int>> gListSw;
 ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ELoad_InputHomeWid)
@@ -37,6 +38,10 @@ void ELoad_InputHomeWid::initWid()
             wid->init(i+1, j);
         }
     }
+    timer = new QTimer(this);
+    timer->start(3000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    mRtu = ELoad_RtuSent::bulid();
 }
 
 void ELoad_InputHomeWid::updateIndexSlot(int index,QString str)
@@ -65,3 +70,18 @@ void ELoad_InputHomeWid::recvResistanceCmdSlot(int start,int end,int value)
     emit sendResFinishSig();
 }
 
+void ELoad_InputHomeWid::timeoutDone()
+{
+    if(gListSw.size())
+    {
+        if(gListSw.front().second){
+            //qDebug()<<gListSw.front().first.first<< gListSw.front().first.second;
+            mRtu->switchOpenCtr(gListSw.front().first.first, gListSw.front().first.second);
+            gListSw.pop_front();
+        }
+        else{
+            mRtu->switchCloseCtr(gListSw.front().first.first, gListSw.front().first.second);
+            gListSw.pop_front();
+        }
+    }
+}

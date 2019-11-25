@@ -110,6 +110,7 @@ background-color: rgb(240, 240, 240);
         <property name="styleSheet">
          <string notr="true">#widget_1{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 
 #widget_1:hover{
@@ -142,6 +143,7 @@ background-color: rgb(255,238,188);
          <string notr="true">
 #widget_2{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_2:hover{
 background-color: rgb(255,238,188);
@@ -172,6 +174,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_3{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_3:hover{
 background-color: rgb(255,238,188);
@@ -202,6 +205,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_4{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_4:hover{
 background-color: rgb(255,238,188);
@@ -232,6 +236,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_5{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_5:hover{
 background-color: rgb(255,238,188);
@@ -262,6 +267,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_6{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_6:hover{
 background-color: rgb(255,238,188);
@@ -292,6 +298,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_7{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_7:hover{
 background-color: rgb(255,238,188);
@@ -322,6 +329,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_8{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_8:hover{
 background-color: rgb(255,238,188);
@@ -392,6 +400,7 @@ background-color: rgb(240, 240, 240);
         <property name="styleSheet">
          <string notr="true">#widget_9{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_9:hover{
 background-color: rgb(255,238,188);
@@ -422,6 +431,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_10{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_10:hover{
 background-color: rgb(255,238,188);
@@ -452,6 +462,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_11{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_11:hover{
 background-color: rgb(255,238,188);
@@ -482,6 +493,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_12{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_12:hover{
 background-color: rgb(255,238,188);
@@ -512,6 +524,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_13{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_13:hover{
 background-color: rgb(255,238,188);
@@ -542,6 +555,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_14{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_14:hover{
 background-color: rgb(255,238,188);
@@ -572,6 +586,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_15{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_15:hover{
 background-color: rgb(255,238,188);
@@ -602,6 +617,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_16{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_16:hover{
 background-color: rgb(255,238,188);
@@ -672,6 +688,7 @@ background-color: rgb(240, 240, 240);
         <property name="styleSheet">
          <string notr="true">#widget_17{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_17:hover{
 background-color: rgb(255,238,188);
@@ -702,6 +719,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_18{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_18:hover{
 background-color: rgb(255,238,188);
@@ -733,6 +751,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_19{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_19:hover{
 background-color: rgb(255,238,188);
@@ -763,6 +782,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_20{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_20:hover{
 background-color: rgb(255,238,188);
@@ -793,6 +813,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_21{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_21:hover{
 background-color: rgb(255,238,188);
@@ -823,6 +844,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_22{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_22:hover{
 background-color: rgb(255,238,188);
@@ -853,6 +875,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_23{
 background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_23:hover{
 background-color: rgb(255,238,188);
@@ -883,6 +906,7 @@ background-color: rgb(255,238,188);
         <property name="styleSheet">
          <string notr="true">#widget_24{
 background-color: rgb(240, 240, 240);
+border-bottom: 1px solid rgb(248,186,65);
 }
 #widget_24:hover{
 background-color: rgb(255,238,188);

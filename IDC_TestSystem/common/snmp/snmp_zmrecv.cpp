@@ -56,7 +56,7 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
 
     int item = getItemByOid(3);
     switch (item) {
-    case 1:
+    case 1:{
         obj->cur.value = data.toDouble() * 100;
         if(mDataPacket->data.lineNum == 1)
             obj->vol.value = (&(mDataPacket->data.line[0]))->vol.value;
@@ -69,6 +69,10 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
             obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
         }
         obj->activePow = obj->cur.value*obj->vol.value/(10*100.0);
+//        if(id<=23){
+//        qDebug()<<id<<"cur"<<obj->cur.value<<"vol"<<obj->vol.value<<"pow"<<obj->pow<<"activepow"<<obj->activePow<<"pf"<<obj->pf;
+//        }
+    }
         break;
     case 2: obj->cur.min = data.toDouble() * 100 ; break;
     case 3: obj->cur.crMin = data.toDouble() * 100; break;
@@ -90,10 +94,10 @@ void SNMP_ZmRecv::envData(const QByteArray &data)
     case 3: env->hum[0].value = data.toDouble(); break;
     case 4: env->hum[1].value = data.toDouble(); break;
 
-    case 5: env->door[0] = data.toDouble() ; break;
-    case 6: env->door[1] = data.toDouble() ; break;
-    case 7: env->smoke[0] = data.toDouble() ; break;
-    case 8: env->water[0] = data.toDouble() ; break;
+    case 5: env->door[0] = data.toStdString()=="None."?0:(data.toStdString()=="Closed."?1:2); break;
+    case 6: env->door[1] = data.toStdString()=="None."?0:(data.toStdString()=="Closed."?1:2); break;
+    case 7: env->smoke[0] = data.toStdString()=="None."?0:(data.toStdString()=="Normal."?1:2); break;
+    case 8: env->water[0] = data.toStdString()=="None."?0:(data.toStdString()=="Normal."?1:2); break;
 
     case 9: env->tem[0].min = data.toDouble() ; break;
     case 10: env->tem[0].crMin = data.toDouble(); break;
@@ -126,7 +130,7 @@ void SNMP_ZmRecv::lineData(const QByteArray &data)
 
     int item = getItemByOid(4);
     switch (item) {
-    case 1: obj->cur.value = data.toDouble() * 100;/*qDebug()<<"line cur.value"<<id<<obj->cur.value;*/break;
+    case 1: obj->cur.value = data.toDouble() * 100;break;
     case 2: obj->vol.value = data.toDouble() * 10;
             if(obj->vol.value) obj->sw=1; else obj->sw=0;break;
     case 3:

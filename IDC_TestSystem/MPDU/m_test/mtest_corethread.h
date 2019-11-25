@@ -32,6 +32,7 @@ public:
     bool setFactoryCmd(sTestSetCmd &it);
 
     int rtuTransDelay() {return 70;}
+    int getDoors(){return 0;}
 };
 
 #endif // MTEST_CORETHREAD_H

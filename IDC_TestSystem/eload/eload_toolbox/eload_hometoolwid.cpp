@@ -99,7 +99,7 @@ void ELoad_HomeToolWid::updateDevNum(int num)
 void ELoad_HomeToolWid::initDevNum()
 {
     ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
-    int num = config->getDevNum();;
+    int num = config->getDevNum();
     updateDevNum(num);
     ui->spinBox->setValue(num);
 }

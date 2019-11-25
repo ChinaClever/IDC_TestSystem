@@ -14,6 +14,7 @@ QMap<int,QLabel *> gQmapRes;
 QMap<int,QScrollBar *> gQmapScroll;
 QMap<int,bool> gQmapIsSend;
 QMap<int,bool> gQmapIsSet;
+extern QList<QPair<QPair<int,int>,int>> gListSw;
 void setRes(int addr,int bit,int value, bool ret)
 {
     gAddr = addr;
@@ -30,11 +31,11 @@ ELoad_InputUnitWid::ELoad_InputUnitWid(QWidget *parent) :
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->setContentsMargins(0, 0, 0, 0);
     gridLayout->addWidget(this);
-    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
-    shadow->setColor(QColor(248,186,65,150));
-    shadow->setOffset(2,2);
-    shadow->setBlurRadius(1);
-    parent->setGraphicsEffect(shadow);
+//    QGraphicsDropShadowEffect *shadow = new QGraphicsDropShadowEffect(this);
+//    shadow->setColor(QColor(248,186,65,150));
+//    shadow->setOffset(2,2);
+//    shadow->setBlurRadius(1);
+//    parent->setGraphicsEffect(shadow);
     QTimer::singleShot(1500,this,SLOT(initFunSLot())); //延时初始化
 }
 
@@ -133,12 +134,14 @@ void ELoad_InputUnitWid::timeoutDone()
 
 void ELoad_InputUnitWid::on_openBtn_clicked()
 {
-    mRtu->switchOpenCtr(mAddr, mBit);
+    gListSw.append(QPair<QPair<int,int>,int>(QPair<int,int>(mAddr,mBit),1));
+    //mRtu->switchOpenCtr(mAddr, mBit);
 }
 
 void ELoad_InputUnitWid::on_closeBtn_clicked()
 {
-    mRtu->switchCloseCtr(mAddr, mBit);
+   gListSw.append(QPair<QPair<int,int>,int>(QPair<int,int>(mAddr,mBit),0));
+   //mRtu->switchCloseCtr(mAddr, mBit);
 }
 
 void ELoad_InputUnitWid::on_checkBox_clicked(bool checked)

@@ -299,6 +299,8 @@ int TestItems::getDoors()
     }
     if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
         num = 0;
+    if(mItem->serialNum.name == "ZPDU") num = 1;
+    if(mItem->serialNum.name == "MPDU" ||mItem->serialNum.name == "MPDUV1") num = 0;
 
     return num;
 }

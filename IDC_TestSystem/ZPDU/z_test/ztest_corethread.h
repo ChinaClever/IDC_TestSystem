@@ -13,6 +13,7 @@ public:
     bool loopVolCmd(sTestSetCmd &it);
 
     bool lineCurCmd(sTestSetCmd &it);
+    int lineVolAlarmDelay() {return 15;}
     bool loopCurCmd(sTestSetCmd &it);
     bool outputCurCmd(sTestSetCmd &it);
 
@@ -32,6 +33,10 @@ public:
     bool setFactoryCmd(sTestSetCmd &it);
     int rtuTransDelay() {return 70;}
     int outputCurAlarmDelay() {return 20;}
+    int bigCurDelay() {return 25;}
+    void curCheckDelay() {sleep(60);}
+    void getSwDelay(){sleep(15);}
+    int getCheckPow(){return 35;}
     int getDoors(){return 1;}
     bool getLinePow(int id, int &measure);
     bool getLoopPow(int id, int &measure);

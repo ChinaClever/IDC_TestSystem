@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年1月1日
@@ -42,6 +42,9 @@ void MainWindow::initWid()
     mMpduWid = new MPDU_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mMpduWid);
 
+    mMpduV1Wid = new MPDUV1_MainWid(ui->stackedWid);
+    ui->stackedWid->addWidget(mMpduV1Wid);
+
     mZpduWid = new ZPDU_MainWid(ui->stackedWid);
     ui->stackedWid->addWidget(mZpduWid);
 
@@ -84,5 +87,10 @@ void MainWindow::on_eloadBtn_clicked()
 
 void MainWindow::on_rpduBtn_clicked()
 {
-    ui->stackedWid->setCurrentWidget(mRpduWid);
+     ui->stackedWid->setCurrentWidget(mRpduWid);
+}
+
+void MainWindow::on_mpduv1Btn_clicked()
+{
+     ui->stackedWid->setCurrentWidget(mMpduV1Wid);
 }

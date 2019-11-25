@@ -106,6 +106,16 @@ uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uint *value1 , ushort *value2
     return ptr;
 }
 
+uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uchar *value1 , uint *value2)
+{
+    for(int i=0; i<num/3; ++i) {
+        value2[i] =(*ptr) * 65536 + *(ptr+1) * 256 + *(ptr+2);  ptr += 3; // 读取电能高8位
+    }
+
+    return ptr;
+}
+
+
 uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, ushort *value)
 {
     for(int i=0; i<num/2; ++i) {
@@ -168,6 +178,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     bool ret = true;
     ushort *ptrShort = nullptr;
     uint *ptrInt = nullptr;
+    uchar *ptrChar = nullptr;
 
     switch (reg) {
     case ZM_RtuReg_DevType:devTypeData(buf, len, pkt); break;
@@ -188,7 +199,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_LineVolCrMin: ptrShort = pkt.line.vol.crMin; break;
     case ZM_RtuReg_LineVolCrMax: ptrShort = pkt.line.vol.crMax; break;
 
-    case ZM_RtuReg_LinePow: ptrShort = pkt.line.pow; break;
+    case ZM_RtuReg_LinePow: ptrInt = pkt.line.pow; ptrChar = (uchar * )pkt.line.pow;break;
     case ZM_RtuReg_LinePF: ptrShort = pkt.line.pf; break;
     case ZM_RtuReg_LineEle: ptrShort = pkt.line.ele; ptrInt = (uint * )pkt.line.ele;break;
 
@@ -231,6 +242,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     }
 
     if(ptrShort&&ptrInt){rtuRecvData(buf, len, ptrInt , ptrShort);}
+    else if(ptrInt&&ptrChar) {rtuRecvData(buf, len,ptrChar, ptrInt);}
     else if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
 
 

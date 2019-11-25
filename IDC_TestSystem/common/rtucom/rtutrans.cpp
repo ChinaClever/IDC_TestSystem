@@ -30,6 +30,7 @@ void RtuTrans::getAlarm(sDataUnit &data)
 
 void RtuTrans::dataUnit(int i, ZM_sDataUnit &rtu, sDataUnit &data, int rate)
 {
+    //qDebug()<<i<<data.value<< rtu.value[i] / rate;
     data.value = rtu.value[i] / rate;
     data.min = rtu.min[i] / rate;
     data.max = rtu.max[i] / rate;

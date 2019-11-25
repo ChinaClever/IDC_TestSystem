@@ -111,11 +111,14 @@ protected:
     virtual int getLoopPorts();
     virtual bool getLinePow(int id , int &measure);
     virtual bool getLoopPow(int id, int &measure);
-    virtual bool getOutputPow(int id, int &measure);
+    virtual bool getOutputPow(int id, ushort &measure);
+    virtual bool getBigOutputPow(int id, ushort **measure);
     virtual int getEnvs();
-    virtual int bigCurDelay() {return 5;}
-    virtual void curCheckDelay() {sleep(10);}
-    virtual bool curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item);
+    virtual int bigCurDelay() {return 15;}
+    virtual void curCheckDelay() {sleep(30);}
+    virtual void getSwDelay(){sleep(5);}
+    virtual int getCheckPow(){return 5;}
+    virtual bool curBigAccuracy(ushort index, ushort *premeasured, ushort *measured, sTestDataItem &item);
 
     virtual void lineVolAlarm();
     virtual bool devSpecCheck();
@@ -124,6 +127,7 @@ protected:
 
     virtual void temHumAlarm();
     bool curAcc(int expect, int measured, sTestDataItem &item, double f);
+    bool curAcc(int expect,int premeasured, int measured, sTestDataItem &item, double f);
 
 private:
     void stopThread();
@@ -180,6 +184,7 @@ private:
     void switchCtr();
 
     bool powAccuracy(int expect, int measured, sTestDataItem &item ,QString str);
+    bool powBigAccuracy(int expect, ushort *measured, sTestDataItem &item, QString str);
     void linePow();
     void loopPow();
     bool outputPow();
