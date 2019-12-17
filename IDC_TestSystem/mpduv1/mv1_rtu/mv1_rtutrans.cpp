@@ -64,6 +64,16 @@ bool MV1_RtuTrans::sentSetCmd(int addr, int reg, ushort value, int msecs)
         }
     }
 
+    if((reg>=1079)&&(reg<=1090)||(reg>=1099)&&(reg<=1204)||(reg>=1205)&&(reg<=1210)) {sleep(1);
+        if((reg>=1079)&&(reg<=1090)||(reg>=1205)&&(reg<=1210)) {
+            transData(addr, 4, mDataPkt, msecs);
+        } else {
+            transData(addr, 5, mDataPkt, msecs);
+        }
+    }
+
+
+
     return ret;
 }
 
@@ -196,6 +206,7 @@ int MV1_RtuTrans::transData(int addr, int cmd, sDataPacket *pkt, int msecs)
     int ret = transData(addr, reg, len, mRtuPkt, msecs);
     if(ret)  devDataPacket(mRtuPkt, pkt);
     else pkt->id = addr;
+    mDataPkt = pkt;
 
     return ret;
 }

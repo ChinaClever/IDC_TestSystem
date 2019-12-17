@@ -62,6 +62,8 @@ uchar *MV1_RtuRecv::rtuRecvData(uchar *ptr, int num, ushort *value)
 {
     for(int i=0; i<num; ++i) {
         value[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+//        if( mpkt->data.output.cur.min == value)
+//            qDebug()<<"rtu mpkt->data.output.cur.min"<<value[i];
     }
 
     return ptr;
@@ -241,6 +243,7 @@ bool MV1_RtuRecv::rtuRecvPacket(uchar *buf, int len, ZM_sRtuRecv *pkt)
 bool MV1_RtuRecv::recvPacket(uchar *buf, int len, ZM_sRtuRecv *pkt)
 {
     bool ret = false;
+    mpkt = pkt;
     if((len > 2) && (len < 1024)) {
         ret =  rtuRecvCrc(buf, len, pkt);
         if(ret) {

@@ -95,12 +95,12 @@ int IN_RtuRecv::rtuRecvData(uchar *ptr, IN_sRtuLine *msg)
     msg->minCur =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
 
     msg->wave =  (*ptr) * 256 + *(ptr+1);  ptr += 2;    // 谐波值
-    msg->pf =  *(ptr++);// 功率因数
+    msg->pf =  *(ptr++);// 功率因素
     msg->sw =  *(ptr++);// 开关状态
 
     msg->apPow = msg->vol * msg->cur / 10.0; // 视在功率
 
-    return 22;   //功率因数之后，是为22
+    return 22;   //功率因素之后，是为22
 }
 
 

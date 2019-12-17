@@ -2,7 +2,7 @@
 #define MV1_SNMPSEND_H
 #include "snmp_zmrecv.h"
 
-#define MV1_MIB_OID "5"
+#define MV1_MIB_OID "10.8"
 
 class MV1_SnmpSend
 {

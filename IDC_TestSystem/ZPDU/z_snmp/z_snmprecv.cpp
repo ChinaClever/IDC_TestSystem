@@ -31,12 +31,24 @@ void Z_SnmpRecv::devTypeData(int value, sDataPacket *pkt)
 //    pkt->data.loopNum = loop;
 //    pkt->devSpec = value%4;
     int count = 0;
-    for(int i=0 ; i<3 ; i++){
+    for(int i=0 ; i<6 ; i++){
         if((&(mDataPacket->data.loop[i]))->num)
             count++;
     }
-    if(count == 3)
+    if(count == 6)
+    {
+        pkt->data.lineNum = 3;
+        pkt->data.loopNum = 6;
+    }
+    else if(count == 4)
+    {
+        pkt->data.lineNum = 1;
+        pkt->data.loopNum = 4;
+    }
+    else if(count == 3)
+    {
         pkt->data.lineNum = pkt->data.loopNum = 3;
+    }
     else if(count < 3 && count > 0){
         pkt->data.loopNum = count;
         pkt->data.lineNum = 1;

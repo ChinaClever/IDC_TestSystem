@@ -76,6 +76,8 @@ void MV1_RtuThread::workDown()
         {
             for(int j=0; j< item->cmdModel; ++j) { // 双命令模式
                 ret = mRtu->transData(addr, i, dev,item->msecs);
+
+                qDebug()<<"MV1_RtuThread rtu"<< k << i <<j<<ret;
                 if(ret) break;
             }
             if(isRun) msleep(755);

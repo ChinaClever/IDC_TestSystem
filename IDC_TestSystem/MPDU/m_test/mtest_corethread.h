@@ -33,6 +33,7 @@ public:
 
     int rtuTransDelay() {return 70;}
     int getDoors(){return 0;}
+    void firstOpDelay(){sleep(50);}
 };
 
 #endif // MTEST_CORETHREAD_H

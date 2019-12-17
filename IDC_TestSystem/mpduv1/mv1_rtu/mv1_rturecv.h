@@ -93,6 +93,7 @@ protected:
     void rtuEnvThreshold(uchar *buf, ZM_sRtuPacket &pkt);
     void rtuDevAddr(uchar *buf, ZM_sRtuPacket &pkt);
     void rtuLineNum(uchar *buf, ZM_sObjData &pkt);
+    ZM_sRtuRecv *mpkt;//调试用的
 };
 
 #endif // MV1_RTURECV_H

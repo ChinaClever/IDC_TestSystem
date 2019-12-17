@@ -55,7 +55,6 @@ void SnmpThread::startRun()
         if(msec == 0) msec = 2000 + (rand() % 500);
         if(!m_timer->isActive()) m_timer->start(msec);
         if(!timer->isActive()) timer->start(getDelay());//100 2019-7-29
-
         makeRequest();
         clearCount();
         start();
@@ -86,7 +85,7 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
-            current_time_pr(cmd.oid);
+            //current_time_pr(cmd.oid);
             mSetCmdList.removeFirst();
         }
     }

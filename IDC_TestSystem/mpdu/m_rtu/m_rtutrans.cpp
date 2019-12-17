@@ -131,3 +131,25 @@ QByteArray M_RtuTrans::getRecvCmd()
     return array;
 }
 
+void M_RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
+{
+    int num = rtuData.line.num >= data.lineNum?rtuData.line.num:data.lineNum;
+    for(int i=0; i<num; ++i) {
+        devObjData(rtuData.line, i, data.line[i] , true);
+    }
+
+    num = rtuData.loop.num >= data.loopNum?rtuData.loop.num:data.loopNum;
+    for(int i=0; i<num; ++i) {
+        //devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);//RTU可能读不到
+        data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
+    }
+
+    num = data.outputNum = rtuData.output.num;
+    for(int i=0; i<num; ++i) {
+        data.output[i].vol.value = rtuData.output.vol.value[i] = data.line[0].vol.value? data.line[0].vol.value : 220;
+        devObjData(rtuData.output, i, data.output[i] ,false);
+        data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
+    }
+
+    envData(rtuData.env, data.env);
+}

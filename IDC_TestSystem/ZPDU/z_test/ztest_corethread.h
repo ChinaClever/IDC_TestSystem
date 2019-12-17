@@ -32,11 +32,12 @@ public:
     bool clearEleCmd(sTestSetCmd &it);
     bool setFactoryCmd(sTestSetCmd &it);
     int rtuTransDelay() {return 70;}
-    int outputCurAlarmDelay() {return 20;}
+    int outputCurAlarmDelay() {return 30;}
     int bigCurDelay() {return 25;}
     void curCheckDelay() {sleep(60);}
     void getSwDelay(){sleep(15);}
-    int getCheckPow(){return 35;}
+    int getCheckPow(){return 55;}
+    int getCheckActivePow(){return 3;}
     int getDoors(){return 1;}
     bool getLinePow(int id, int &measure);
     bool getLoopPow(int id, int &measure);

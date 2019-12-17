@@ -98,8 +98,11 @@ void TestItems::volObjData(const QString & itemStr ,QList<sTestItem> &items)
     str =  tr("相")+ itemStr;
     unitItem(str, mSpec->lineNum, items);
 
-    str = tr("回路") + itemStr;
-    unitItem(str, mSpec->loopNum, items);
+    if(mItem->serialNum.name != "MPDUV1")
+    {
+        str = tr("回路") + itemStr;
+        unitItem(str, mSpec->loopNum, items);
+    }
 
     if(mItem->serialNum.name != "RPDU")
     {
@@ -115,8 +118,11 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
 
-    str = tr("回路") + itemStr;
-    unitItem(str, mSpec->loopNum, items);
+    if(mItem->serialNum.name != "MPDUV1")
+    {
+        str = tr("回路") + itemStr;
+        unitItem(str, mSpec->loopNum, items);
+    }
 
     if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
@@ -126,8 +132,11 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("相") + itemStr;
     nocurUnitItem(str, mSpec->lineNum, items);
 
-    str = tr("回路") + itemStr;
-    nocurUnitItem(str, mSpec->loopNum, items);
+    if(mItem->serialNum.name != "MPDUV1")
+    {
+        str = tr("回路") + itemStr;
+        nocurUnitItem(str, mSpec->loopNum, items);
+    }
 
     if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
@@ -137,8 +146,11 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("相") + itemStr;
     maxminObjData(str, mSpec->lineNum, items);
 
-    str = tr("回路") + itemStr;
-    maxminObjData(str, mSpec->loopNum, items);
+    if(mItem->serialNum.name != "MPDUV1")
+    {
+        str = tr("回路") + itemStr;
+        maxminObjData(str, mSpec->loopNum, items);
+    }
 
     if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;
@@ -199,8 +211,11 @@ void TestItems::powObjData(const QString & itemStr,QList<sTestItem> &items)
     str = tr("相") + itemStr;
     powUnitItem(str, mSpec->lineNum, items);
 
-    str = tr("回路") + itemStr;
-    powUnitItem(str, mSpec->loopNum, items);
+    if(mItem->serialNum.name != "MPDUV1")
+    {
+        str = tr("回路") + itemStr;
+        powUnitItem(str, mSpec->loopNum, items);
+    }
 
     if(mSpec->spec != 3) {
         str = tr("输出位")+ itemStr;

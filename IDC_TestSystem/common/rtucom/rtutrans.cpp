@@ -47,7 +47,7 @@ void RtuTrans::devObjData(ZM_sObjData &rtuData, int i, sObjData &data , bool fla
     dataUnit(i, rtuData.vol, data.vol, 1);
     dataUnit(i, rtuData.cur, data.cur, 1);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 1000;
+    data.activePow = (data.vol.value>1000&&data.vol.value<3000?data.vol.value/10:data.vol.value) * data.cur.value / 100;
     data.pf = rtuData.pf[i];
     data.sw = rtuData.sw[i];
 
@@ -64,8 +64,8 @@ void RtuTrans::devObjData(ZM_sObjData &rtuData, int i, sObjData &data , bool fla
     }
     if(rtuData.pow[i] > 0) {
         data.pow = rtuData.pow[i] / 1000;
-    } else {
-        data.pow = data.activePow * data.pf / 100.0;
+    } else if(data.pf){
+        data.pow = (data.vol.value>1000&&data.vol.value<3000?data.vol.value/10:data.vol.value) * data.cur.value * data.pf / (100*100.0);
     }
 }
 
@@ -98,7 +98,7 @@ void RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
 
     num = data.outputNum = rtuData.output.num;
     for(int i=0; i<num; ++i) {
-        rtuData.output.vol.value[i] = rtuData.line.vol.value[i/8]? rtuData.line.vol.value[i/8] : 220;
+        data.output[i].vol.value = rtuData.output.vol.value[i] = data.line[0].vol.value? data.line[0].vol.value : 220;
         devObjData(rtuData.output, i, data.output[i] ,false);
         data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
     }

@@ -116,8 +116,10 @@ protected:
     virtual int getEnvs();
     virtual int bigCurDelay() {return 15;}
     virtual void curCheckDelay() {sleep(30);}
+    virtual void firstOpDelay() {sleep(50);}
     virtual void getSwDelay(){sleep(5);}
-    virtual int getCheckPow(){return 5;}
+    virtual int getCheckPow(){return 30;}
+    virtual int getCheckActivePow(){return 1;}
     virtual bool curBigAccuracy(ushort index, ushort *premeasured, ushort *measured, sTestDataItem &item);
 
     virtual void lineVolAlarm();

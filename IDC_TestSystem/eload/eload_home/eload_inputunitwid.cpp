@@ -60,7 +60,6 @@ void ELoad_InputUnitWid::init(int addr, int bit)
 {
     mObjData = &(IN_DataPackets::bulid()->getDev(addr)->data.input[bit]);
     QString str = QString::number((addr-1) * 8 + bit+1);
-    ui->inputLab->setText(tr(""));
     QString labstr = ui->label->text()+str;
     ui->label->setText(labstr);
     mAddr = addr;

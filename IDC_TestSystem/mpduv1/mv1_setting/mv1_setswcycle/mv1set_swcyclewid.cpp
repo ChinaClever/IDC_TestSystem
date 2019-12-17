@@ -87,10 +87,19 @@ void MV1Set_SwCycleWid::on_radioButton_clicked(bool checked)
  */
 QString MV1Set_SwCycleWid::getOid(int i)
 {
-    QString oid = QString("%1.%2.%3.1.9.%4.0")
+    int addr = ui->spinBox->value();
+    switch(addr)
+    {
+    case 1:addr = 7;break;
+    case 2:addr = 14;break;
+    case 3:addr = 21;break;
+    case 4:addr = 28;break;
+    default: addr = 7;break;
+    }
+    QString oid = QString("%1.%2.%3.%4.0")
             .arg(MIB_OID_CLEVER)
             .arg(MV1_MIB_OID)
-            .arg(ui->spinBox->value())
+            .arg(addr)
             .arg(i+1);
     return oid;
 }
