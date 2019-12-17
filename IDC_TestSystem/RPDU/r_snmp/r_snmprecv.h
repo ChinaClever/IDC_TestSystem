@@ -11,6 +11,7 @@ public:
     void onResponseReceived(const QString &ip, const QByteArray &oid, const QByteArray &data);
 protected:
     void devTypeData(int value, sDataPacket *pkt);
+    void getBreakerManagerOPNum(sObjData *obj,const QByteArray &data){}
     void devInfo(const QByteArray &data);
     void lineData(const QByteArray &data);
     void envData(const QByteArray &data);

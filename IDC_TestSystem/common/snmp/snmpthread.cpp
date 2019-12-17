@@ -6,7 +6,7 @@
  */
 #include "snmpthread.h"
 #include <cassert>
-
+void current_time_pr(const QString &s);
 SnmpThread::SnmpThread(QObject *parent) : QThread(parent)
 {
     mId = 1;
@@ -86,6 +86,7 @@ void SnmpThread::setSlot()
         if( ! m_snmp_client->isBusy() ) {
             sSnmpSetCmd cmd = mSetCmdList.first();
             m_snmp_client->setValue("private", cmd.oid, cmd.type, cmd.value);
+            current_time_pr(cmd.oid);
             mSetCmdList.removeFirst();
         }
     }

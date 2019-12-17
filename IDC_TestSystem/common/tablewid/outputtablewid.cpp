@@ -18,16 +18,27 @@ void OutputTableWid::initWid()
     QStringList header;
     header << tr("设备号") << tr("输出位")  << tr("开关")
            << tr("电压") << tr("电流") << tr("功率")
-           << tr("功率因素") << tr("电能");
+           << tr("功率因数") << tr("电能");
     initTableWid(header, 1, title);
 }
 
+double OutputTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
 
 int OutputTableWid::updateDev(sDataPacket *dev, int row)
 {
     if(dev->offLine)
     {
         int line = dev->data.outputNum;
+        autoRate(dev->data.line[0].vol.value);
         for(int i=0; i<line; ++i)
         {
             QStringList list;

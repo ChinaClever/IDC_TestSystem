@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>347</width>
+    <width>423</width>
     <height>522</height>
    </rect>
   </property>
@@ -338,6 +338,11 @@ border-radius:15px
             <string>手动静态模式</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>多个手动静态模式</string>
+           </property>
+          </item>
          </widget>
         </item>
        </layout>
@@ -499,6 +504,28 @@ border-radius:15px
           </property>
           <property name="maximum">
            <number>24</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="resistanceLineEdit">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>50</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>微软雅黑</family>
+            <pointsize>12</pointsize>
+           </font>
           </property>
          </widget>
         </item>

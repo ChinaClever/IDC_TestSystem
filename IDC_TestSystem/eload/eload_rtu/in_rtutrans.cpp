@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -83,16 +83,18 @@ bool IN_RtuTrans::sentSetCmd(int addr,int fn, int reg, ushort value, int msecs)
             if(memcmp(buf, sent,rtn) == 0){
                 ret = true;
                 if(sent[1] == 0x11){
-                setRes(sent[0],sent[3],(sent[4]*256+sent[5]),ret);
-                memset(mSentBuf,0,len);
-                return ret;
+                    setRes(sent[0],sent[3],(sent[4]*256+sent[5]),ret);
+                    memset(mSentBuf,0,len);
+                    return ret;
                 }
             }
             else{
                 qDebug() << "IN si sent Set Cmd Err";
             }
         }
-        if(!ret) setRes(-1,0,1,ret);
+        if(!ret) {
+            setRes(addr,reg-0x0101,1,ret);
+        }
     }
     msleep(300);
 
@@ -229,21 +231,21 @@ void IN_RtuTrans::transgetStatus(int addr, sDataPacket *packet, int msecs)
         mCount = 0;
     }
     else{
-        if(mCount == 0){
-            for(int i=0; i<dev->inputNum; i++)
-            {
-                sObjData *obj = &dev->input[i];
-                obj->sw = 0x01;
-            }
-            mCount ++;
-        }
-        else{//第二次没有接收到返回才判断失败
-            for(int i=0; i<dev->inputNum; i++)
-            {
-                sObjData *obj = &dev->input[i];
-                obj->sw = 0x00;
-            }
-        }
+//        if(mCount == 0){
+//            for(int i=0; i<dev->inputNum; i++)
+//            {
+//                sObjData *obj = &dev->input[i];
+//                obj->sw = 0x01;
+//            }
+//            mCount ++;
+//        }
+//        else{//第二次没有接收到返回才判断失败
+//            for(int i=0; i<dev->inputNum; i++)
+//            {
+//                sObjData *obj = &dev->input[i];
+//                obj->sw = 0x00;
+//            }
+//        }
     }
 }
 

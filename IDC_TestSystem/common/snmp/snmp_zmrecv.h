@@ -14,6 +14,7 @@ protected:
     void getMS(const QByteArray &oid);
     void devInfo(const QByteArray &data);
     virtual void devTypeData(int value, sDataPacket *pkt)=0;
+    virtual void getBreakerManagerOPNum(sObjData *obj,const QByteArray &data)=0;
 
     void lineData(const QByteArray &data);
     void loopData(const QByteArray &data);

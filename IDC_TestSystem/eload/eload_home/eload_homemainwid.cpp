@@ -17,6 +17,8 @@ ELoad_HomeMainWid::ELoad_HomeMainWid(QWidget *parent) :
     mStatusWid = new ELoad_StatusHomeWid(ui->widget_1);
     mInputWid = new ELoad_InputHomeWid(ui->widget_2);
     connect(mStatusWid,SIGNAL(updateIndexSig(int,QString)),mInputWid,SLOT(updateIndexSlot(int,QString)));
+    connect(mStatusWid,SIGNAL(sendResistanceCmdSig(int,int,int)),mInputWid,SLOT(recvResistanceCmdSlot(int,int,int)));
+    connect(mInputWid,SIGNAL(sendResFinishSig()),mStatusWid,SLOT(sendResFinishSlot()));
 }
 
 ELoad_HomeMainWid::~ELoad_HomeMainWid()

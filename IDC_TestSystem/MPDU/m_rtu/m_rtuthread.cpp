@@ -80,9 +80,10 @@ void M_RtuThread::workDown()
                 ret = mRtu->transData(addr, i, dev,item->msecs);
                 if(ret) break;
             }
-            if(isRun) msleep(1455);
+            if((i == 37||i == 38||i == 39)&&ret) dev->txType |= 0x02;
+            if(isRun && (i>=25 && i<=31))msleep(2000);
+            else if(isRun) msleep(1455);
             else return;
-            if(!ret) break;
         }
 
         if(ret) { // 正常收到数据

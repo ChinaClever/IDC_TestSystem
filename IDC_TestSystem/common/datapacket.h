@@ -17,7 +17,7 @@
 #define COM_RATE_CUR2	100.0    // 电流
 #define COM_RATE_POW	1000.0  // 功率
 #define COM_RATE_ELE	10.0    // 电能
-#define COM_RATE_PF     100.0   // 功率因素
+#define COM_RATE_PF     100.0   // 功率因数
 #define COM_RATE_TEM	1.0    // 温度
 #define COM_RATE_HUM	1.0    // 湿度
 
@@ -41,6 +41,7 @@ struct sDataUnit {
 struct sObjData
 {
     int id;
+    int num;//记录MPDU回路位数
     char name[NAME_SIZE];
 
     sDataUnit vol; // 电压
@@ -49,7 +50,7 @@ struct sObjData
     ushort pow; // 功率
     uint ele; // 电能
 
-    uchar pf; // 功率因素
+    uchar pf; // 功率因数
     uchar sw; // 开关状态 0 表示未启用
 
     uchar hz; // 电压频率

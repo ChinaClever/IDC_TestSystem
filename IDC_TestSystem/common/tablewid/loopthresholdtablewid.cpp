@@ -27,6 +27,7 @@ int LoopThresholdTableWid::updateDev(sDataPacket *dev, int row)
     if(dev->offLine)
     {
         int line = dev->data.loopNum;
+        autoRate(dev->data.line[0].vol.value);
         for(int i=0; i<line; ++i)
         {
             QStringList list;

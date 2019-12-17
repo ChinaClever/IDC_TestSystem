@@ -30,6 +30,7 @@ void RtuTrans::getAlarm(sDataUnit &data)
 
 void RtuTrans::dataUnit(int i, ZM_sDataUnit &rtu, sDataUnit &data, int rate)
 {
+    //qDebug()<<i<<data.value<< rtu.value[i] / rate;
     data.value = rtu.value[i] / rate;
     data.min = rtu.min[i] / rate;
     data.max = rtu.max[i] / rate;
@@ -43,10 +44,10 @@ void RtuTrans::dataUnit(int i, ZM_sDataUnit &rtu, sDataUnit &data, int rate)
 void RtuTrans::devObjData(ZM_sObjData &rtuData, int i, sObjData &data , bool flag)
 {
     data.id = i;
-    dataUnit(i, rtuData.vol, data.vol, 10);
-    dataUnit(i, rtuData.cur, data.cur, 10);
+    dataUnit(i, rtuData.vol, data.vol, 1);
+    dataUnit(i, rtuData.cur, data.cur, 1);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 10;
+    data.activePow = data.vol.value * data.cur.value / 1000;
     data.pf = rtuData.pf[i];
     data.sw = rtuData.sw[i];
 
@@ -84,23 +85,20 @@ void RtuTrans::envData(ZM_sEnv &rtuData, sEnvData &data)
 
 void RtuTrans::devData(ZM_sRtuPacket &rtuData, sDevData &data)
 {
-    int vol =220;
-
-    int num = data.lineNum = rtuData.line.num;
+    int num = rtuData.line.num = data.lineNum;
     for(int i=0; i<num; ++i) {
         devObjData(rtuData.line, i, data.line[i] , true);
-        vol = rtuData.line.vol.value[0];
     }
 
-    num = data.loopNum = rtuData.loop.num;
+    num = rtuData.loop.num = data.loopNum;
     for(int i=0; i<num; ++i) {
-        devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);
-         data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
+        //devObjData(rtuData.loop, i, data.loop[i] , data.line[i/2].sw);//RTU可能读不到
+        data.loop[i].vol.alarm = data.loop[i].vol.crAlarm = 0;
     }
 
     num = data.outputNum = rtuData.output.num;
     for(int i=0; i<num; ++i) {
-        rtuData.output.vol.value[i] = vol;
+        rtuData.output.vol.value[i] = rtuData.line.vol.value[i/8]? rtuData.line.vol.value[i/8] : 220;
         devObjData(rtuData.output, i, data.output[i] ,false);
         data.output[i].vol.alarm = data.output[i].vol.crAlarm = 0;
     }
@@ -117,7 +115,6 @@ void RtuTrans::devDataPacket(ZM_sRtuRecv *pkt, sDataPacket *packet)
     packet->devSpec = pkt->data.devSpec;
     strcpy(packet->ip, pkt->data.ip);
     strcpy(packet->mac, pkt->data.mac);
-    packet->txType = 2;
 
     devData(pkt->data, packet->data);
 }

@@ -10,6 +10,7 @@ public:
 
 protected:
     void devTypeData(int value, sDataPacket *pkt);
+    void getBreakerManagerOPNum(sObjData *obj,const QByteArray &data);
     void lineData(const QByteArray &data);
 };
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -114,15 +114,6 @@ void TestItems::curObjData(const QString & itemStr,QList<sTestItem> &items)
     sTestItem item;
     str = tr("相") + itemStr;
     unitItem(str, mSpec->lineNum, items);
-
-    if(mSpec->loopNum > 1) {
-        item.item = tr("回路电流检查");
-        item.id = mId++;
-        item.isModubs = false;
-        item.subItem = tr("回路总电流检查");
-        item.eResult = tr("回路总电流值与负载测试柜值在误差范围内");
-        items << item;
-    }
 
     str = tr("回路") + itemStr;
     unitItem(str, mSpec->loopNum, items);
@@ -270,7 +261,7 @@ int TestItems::getEnvs()
                 (mSpec->spec == 1 && mSpec->lineNum == 3))
             outputNum = 24;
     }
-    if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
+    if(mSpec->lineNum == 1 && outputNum == 8 || mItem->serialNum.name != "RPDU")//水平只检测2个温湿度
         num = 2;
 
     return num;
@@ -308,6 +299,8 @@ int TestItems::getDoors()
     }
     if(mSpec->lineNum == 1 && outputNum == 8)//水平只检测2个温湿度
         num = 0;
+    if(mItem->serialNum.name == "ZPDU") num = 1;
+    if(mItem->serialNum.name == "MPDU" ||mItem->serialNum.name == "MPDUV1") num = 0;
 
     return num;
 }

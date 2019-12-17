@@ -6,8 +6,8 @@
  */
 #include "eload_inputhomewid.h"
 #include "ui_eload_inputhomewid.h"
-#include "eload_inputunitwid.h"
 #include <QGridLayout>
+QList<QPair<QPair<int,int>,int>> gListSw;
 ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ELoad_InputHomeWid)
@@ -16,7 +16,6 @@ ELoad_InputHomeWid::ELoad_InputHomeWid(QWidget *parent) :
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
     initWid();
-
 }
 
 ELoad_InputHomeWid::~ELoad_InputHomeWid()
@@ -34,10 +33,15 @@ void ELoad_InputHomeWid::initWid()
     {
         for(int j=0; j<8; j++)
         {
-            ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);
+            ELoad_InputUnitWid* wid = new ELoad_InputUnitWid(unitWid[i][j]);;
+            mListPointer.append(wid);
             wid->init(i+1, j);
         }
     }
+    timer = new QTimer(this);
+    timer->start(3000);
+    connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
+    mRtu = ELoad_RtuSent::bulid();
 }
 
 void ELoad_InputHomeWid::updateIndexSlot(int index,QString str)
@@ -53,5 +57,31 @@ void ELoad_InputHomeWid::updateIndexSlot(int index,QString str)
     default:
         ui->groupBox->setTitle(tr("电子可控负载一")+str);
         break;
+    }
+}
+
+void ELoad_InputHomeWid::recvResistanceCmdSlot(int start,int end,int value)
+{
+    for(int i = start ; i <= end; i++)
+    {
+        mListPointer.at(i-1)->setResistance(i,value);
+        Delay_MSec(10000);
+    }
+    emit sendResFinishSig();
+}
+
+void ELoad_InputHomeWid::timeoutDone()
+{
+    if(gListSw.size())
+    {
+        if(gListSw.front().second){
+            //qDebug()<<gListSw.front().first.first<< gListSw.front().first.second;
+            mRtu->switchOpenCtr(gListSw.front().first.first, gListSw.front().first.second);
+            gListSw.pop_front();
+        }
+        else{
+            mRtu->switchCloseCtr(gListSw.front().first.first, gListSw.front().first.second);
+            gListSw.pop_front();
+        }
     }
 }

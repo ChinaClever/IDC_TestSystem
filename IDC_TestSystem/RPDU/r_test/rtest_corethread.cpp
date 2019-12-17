@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -77,9 +77,16 @@ bool RTest_CoreThread::curBigAccuracy(ushort index, ushort *measured, sTestDataI
     return ret;
 }
 
-int RTest_CoreThread::getOutputPow(int id)
+bool RTest_CoreThread::getOutputPow(int id , int &measure)
 {
-    return mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+    measure = mDevPacket->data.output[id].cur.value*mDevPacket->data.line[0].vol.value/COM_RATE_CUR;
+    return false;
+}
+
+bool RTest_CoreThread::getLinePow(int id , int &measure)
+{
+    measure = mDevPacket->data.line[id].cur.value*mDevPacket->data.line[id].vol.value/COM_RATE_CUR;
+    return false;
 }
 
 int RTest_CoreThread::getEnvs()
@@ -120,7 +127,7 @@ int RTest_CoreThread::getDoors()
 void RTest_CoreThread::curCheckDelay()
 {
     if(mDevPacket->data.lineNum == 1) sleep(10);
-    sleep(45);
+    sleep(55);
 }
 
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)
@@ -180,7 +187,7 @@ bool RTest_CoreThread::lineCurCmd(sTestSetCmd &it)
         //        snmpCmd.value = QString("%1.0").arg(Test_Normal_LineCurMax).toUtf8();  it.sMax.push_front(snmpCmd);
 
         rtuCmd.reg = R_RtuReg_LineCurMax+i;
-        rtuCmd.value = Test_Normal_LineCurMax*COM_RATE_CUR; it.rtuMax.append(rtuCmd);
+        rtuCmd.value = Test_Abnormal_CurMax*COM_RATE_CUR; it.rtuMax.append(rtuCmd);
         rtuCmd.value = Test_Abnormal_CurMax*COM_RATE_CUR; it.rtuAlarmMax.append(rtuCmd);
     }
 

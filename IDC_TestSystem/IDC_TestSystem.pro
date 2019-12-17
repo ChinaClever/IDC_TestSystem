@@ -34,18 +34,18 @@ include(SI-PDU/SI-PDU.pri)
 include(IP-PDU/IP-PDU.pri)
 include(RPDU/RPDU.pri)
 include(MPDU/MPDU.pri)
+include(MPDUV1/MPDUV1.pri)
 include(ZPDU/ZPDU.pri)
 include(SI-BusBar/SI-BusBar.pri)
 include(eload/eload.pri)
 include(test/test.pri)
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \  
+    main.cpp \
+    mainwindow.cpp
 
 HEADERS += \
-        mainwindow.h \   
-
+        mainwindow.h
 FORMS += \
         mainwindow.ui \
 

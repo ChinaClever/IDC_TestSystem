@@ -26,6 +26,7 @@ void TestConfig::initConfig(sSerialNumItem *it)
     it->batch = getBatch();
     it->purpose = getPurpose();
     it->snClear = getSnClear();
+    it->isDelayBreaker = getDelayBreaker();
 }
 
 void TestConfig::saveConfig(sSerialNumItem *it)
@@ -43,6 +44,7 @@ void TestConfig::saveConfig(sSerialNumItem *it)
     setBatch(it->batch);
     setPurpose(it->purpose);
     setSnClear(it->snClear);
+    setDelayBreaker(it->isDelayBreaker);
 }
 
 
@@ -190,7 +192,7 @@ void TestConfig::setPurpose(const QString &arg)
 
 /**
  * @brief 获取相数
- * @return
+ * @return ret
  */
 bool TestConfig::getSnClear()
 {
@@ -204,7 +206,7 @@ bool TestConfig::getSnClear()
 
 /**
  * @brief 设置相数
- * @param num
+ * @param mode
  */
 void TestConfig::setSnClear(bool mode)
 {
@@ -212,5 +214,32 @@ void TestConfig::setSnClear(bool mode)
     if(mode) ret = 1;
     QString prefix = getPrefix();
     QString str = QString("%1_snclear").arg(prefix);
+    sys_configFile_writeParam(str, QString::number(ret), prefix);
+}
+
+/**
+ * @brief 获取是否为延时断路器状态
+ * @return ret
+ */
+bool TestConfig::getDelayBreaker()
+{
+    bool ret = true;
+    QString prefix = getPrefix();
+    QString str = QString("%1_delaybreaker").arg(prefix);
+    int rtn = sys_configFile_readInt(str, prefix);
+    if(rtn == 0)  ret = false;
+    return ret;
+}
+
+/**
+ * @brief 设置是否为延时断路器状态
+ * @param mode
+ */
+void TestConfig::setDelayBreaker(bool mode)
+{
+    int ret = 0;
+    if(mode) ret = 1;
+    QString prefix = getPrefix();
+    QString str = QString("%1_delaybreaker").arg(prefix);
     sys_configFile_writeParam(str, QString::number(ret), prefix);
 }

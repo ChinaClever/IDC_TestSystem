@@ -9,6 +9,7 @@
 #include "ip_mainwid.h"
 #include "eload_mainwid.h"
 #include "rpdu_mainwid.h"
+#include "mpduv1_mainwid.h"
 
 namespace Ui {
 class MainWindow;
@@ -33,8 +34,8 @@ private slots:
     void on_ippduBtn_clicked();
     void on_zpduBtn_clicked();
     void on_eloadBtn_clicked();
-
     void on_rpduBtn_clicked();
+    void on_mpduv1Btn_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -46,6 +47,7 @@ private:
     IP_MainWid *mIpWid;
     ELoad_MainWid *mELoadWid;
     RPDU_MainWid *mRpduWid;
+    MPDUV1_MainWid *mMpduV1Wid;
 };
 
 #endif // MAINWINDOW_H

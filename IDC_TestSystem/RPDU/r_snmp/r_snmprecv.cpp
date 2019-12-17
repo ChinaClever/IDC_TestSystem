@@ -37,8 +37,8 @@ void R_SnmpRecv::devInfo(const QByteArray &data)
         std::string str = data.toStdString();
         int value = (str == "A" || str == "M")?1:(str == "B" || str == "N"?2:(str == "C" || str == "S"?3:0));
         devTypeData(value , mDataPacket);
-    }
         break;
+    }
     case 3: case 4: case 5:lineData(data);break;
     case 6: envData(data);break;
     case 7: mDataPacket->data.outputNum = data.toHex().toInt(&ok,16);break;

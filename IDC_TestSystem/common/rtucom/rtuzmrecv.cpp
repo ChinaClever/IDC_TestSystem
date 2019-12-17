@@ -106,6 +106,16 @@ uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uint *value1 , ushort *value2
     return ptr;
 }
 
+uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, uchar *value1 , uint *value2)
+{
+    for(int i=0; i<num/3; ++i) {
+        value2[i] =(*ptr) * 65536 + *(ptr+1) * 256 + *(ptr+2);  ptr += 3; // 读取电能高8位
+    }
+
+    return ptr;
+}
+
+
 uchar *RtuZmRecv::rtuRecvData(uchar *ptr, int num, ushort *value)
 {
     for(int i=0; i<num/2; ++i) {
@@ -141,15 +151,22 @@ void RtuZmRecv::devMac(uchar *buf, int len, ZM_sRtuPacket &pkt)
 
 void RtuZmRecv::devTypeData(uchar *buf, int len, ZM_sRtuPacket &pkt)
 {
+  /*01~04表示单相两路A~D系列
+    05~08表示三相三路A~D系列
+    09~0C表示单相四路A~D系列
+    0D~10表示三相六路A~D系列
+    11~14表示单相一路A~D系列*/
     ushort array[3] = {0};
     rtuRecvData(buf, len, array);
 
     int value = array[0], line=3, loop=6;
-    if((value<5) || ((value>8) &&(value<13))) line = 1;
+    if((value<5) || ((value>8) &&(value<13)) || (value>16)) line = 1;
 
     if(value < 5) loop = 2;
     else if(value < 9) loop = 3;
     else if(value < 13) loop = 4;
+    else if(value < 17) loop = 6;
+    else  loop = 1;
 
     pkt.line.num = line;
     pkt.loop.num = loop;
@@ -160,9 +177,11 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
 {
     bool ret = true;
     ushort *ptrShort = nullptr;
+    uint *ptrInt = nullptr;
+    uchar *ptrChar = nullptr;
 
     switch (reg) {
-    case ZM_RtuReg_DevType: devTypeData(buf, len, pkt); break;
+    case ZM_RtuReg_DevType:devTypeData(buf, len, pkt); break;
     case ZM_RtuReg_DevIP: devIpAddr(buf, len, pkt); break;
     case ZM_RtuReg_DevMac: devMac(buf, len, pkt); break;
     case ZM_RtuReg_OutputNum: ptrShort = &(pkt.output.num); break;
@@ -180,9 +199,9 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_LineVolCrMin: ptrShort = pkt.line.vol.crMin; break;
     case ZM_RtuReg_LineVolCrMax: ptrShort = pkt.line.vol.crMax; break;
 
-    case ZM_RtuReg_LinePow: ptrShort = pkt.line.pow; break;
+    case ZM_RtuReg_LinePow: ptrInt = pkt.line.pow; ptrChar = (uchar * )pkt.line.pow;break;
     case ZM_RtuReg_LinePF: ptrShort = pkt.line.pf; break;
-    case ZM_RtuReg_LineEle: ptrShort = pkt.line.ele; break;
+    case ZM_RtuReg_LineEle: ptrShort = pkt.line.ele; ptrInt = (uint * )pkt.line.ele;break;
 
     case ZM_RtuReg_LoopCur: ptrShort = pkt.loop.cur.value; break;
     case ZM_RtuReg_LoopCurMin: ptrShort = pkt.loop.cur.min; break;
@@ -190,7 +209,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_LoopCurCrMin: ptrShort = pkt.loop.cur.crMin; break;
     case ZM_RtuReg_LoopCurCrMax: ptrShort = pkt.loop.cur.crMax; break;
     case ZM_RtuReg_LoopVol: ptrShort = pkt.loop.vol.value; break;
-    case ZM_RtuReg_LoopEle: ptrShort = pkt.loop.ele; break;
+    case ZM_RtuReg_LoopEle: ptrShort = pkt.loop.ele; ptrInt = (uint * )pkt.loop.ele;break;
 
     case ZM_RtuReg_OutputCur: ptrShort = pkt.output.cur.value; break;
     case ZM_RtuReg_OutputCurMin: ptrShort = pkt.output.cur.min; break;
@@ -198,7 +217,7 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
     case ZM_RtuReg_OutputCurCrMin: ptrShort = pkt.output.cur.crMin; break;
     case ZM_RtuReg_OutputCurCrMax: ptrShort = pkt.output.cur.crMax; break;
     case ZM_RtuReg_OutputPF: ptrShort = pkt.output.pf; break;
-    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele;break;
+    case ZM_RtuReg_OutputEle: ptrShort = pkt.output.ele; ptrInt = (uint * )pkt.output.ele;break;
 
     case ZM_RtuReg_TemData: ptrShort = pkt.env.tem.value; break;
     case ZM_RtuReg_TemMin: ptrShort = pkt.env.tem.min; break;
@@ -222,7 +241,9 @@ bool RtuZmRecv::rtuRecvPacket(uchar *buf, int len, ushort reg, ZM_sRtuPacket &pk
         break;
     }
 
-    if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
+    if(ptrShort&&ptrInt){rtuRecvData(buf, len, ptrInt , ptrShort);}
+    else if(ptrInt&&ptrChar) {rtuRecvData(buf, len,ptrChar, ptrInt);}
+    else if(ptrShort) {rtuRecvData(buf, len, ptrShort);}
 
 
     return ret;

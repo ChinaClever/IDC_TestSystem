@@ -35,24 +35,35 @@ void LineThresholdTableWid::setAlarm(sObjData &unit, int row)
     setItemColor(row, 5, value);
 }
 
+double LineThresholdTableWid::autoRate(int vol)
+{
+    double ret = 1;
+    if(vol > 1000 && vol < 3000) {
+        ret = 0.1;
+    }
+    mRate = ret;
+
+    return ret;
+}
 
 void LineThresholdTableWid::setObjUnit(sObjData &unit, QStringList &list)
 {
-    double value = unit.vol.value / COM_RATE_VOL;
+    autoRate(unit.vol.value);
+    double value = unit.vol.value * mRate/ COM_RATE_VOL;
     list << QString::number(value) + "V";
 
-    value = unit.vol.min / COM_RATE_VOL;
+    value = unit.vol.min * mRate/ COM_RATE_VOL;
     list << QString::number(value) + "V";
 
-    value = unit.vol.max / COM_RATE_VOL;
+    value = unit.vol.max * mRate/ COM_RATE_VOL;
     list << QString::number(value) + "V";
 
-    value = unit.cur.value / COM_RATE_CUR;
+    value = unit.cur.value * mRate/ COM_RATE_CUR;
     list << QString::number(value) + "A";
 
-    value = unit.cur.min / COM_RATE_CUR;
+    value = unit.cur.min * mRate/ COM_RATE_CUR;
     list << QString::number(value) + "A";
 
-    value = unit.cur.max / COM_RATE_CUR;
+    value = unit.cur.max * mRate/ COM_RATE_CUR;
     list << QString::number(value) + "A";
 }
