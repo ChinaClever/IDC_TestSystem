@@ -63,6 +63,7 @@ void TestCoreThread::conditionExec(bool s)
     if(mItem->mode == Test_Pause) {
         do{
             mdelay(1);
+            if(mItem->mode == Test_Over) break;
         } while(mItem->mode == Test_Pause);
     }
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -63,18 +63,28 @@ void TestMainWid::startTest()
         mCoreThread->startThread();
         mItemTableWid->startSlot();
         mResultWid->startSlot();
-        mDataTableWid->startSLot();        
+        mDataTableWid->startSLot();
     }
 }
 
 void TestMainWid::pauseTest()
 {
-    mConfig->item->mode = Test_Pause;
+    if(Test_Start == mConfig->item->mode) {
+        QuMsgBox box(this, tr("是否暂停测试?"));
+        if(box.Exec()){
+            mConfig->item->mode = Test_Pause;
+        }
+    }
 }
 
 void TestMainWid::continueTest()
 {
-    mConfig->item->mode = Test_Start;
+    if(Test_Pause == mConfig->item->mode) {
+        QuMsgBox box(this, tr("是否继续测试?"));
+        if(box.Exec()){
+            mConfig->item->mode = Test_Start;
+        }
+    }
 }
 
 void TestMainWid::overSlot()
@@ -92,9 +102,12 @@ void TestMainWid::overSlot()
 
 void TestMainWid::overTest()
 {
-    QuMsgBox box(this, tr("是否停止测试?"));
-    if(box.Exec()){
-        overSlot();
+    if(mConfig->item->mode == Test_Stop) return;
+    if(mConfig->item->mode != Test_Over) {
+        QuMsgBox box(this, tr("是否停止测试?"));
+        if(box.Exec()){
+            overSlot();
+        }
     }
 }
 
