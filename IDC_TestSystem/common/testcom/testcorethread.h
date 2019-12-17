@@ -1,4 +1,4 @@
-﻿#ifndef TESTCORETHREAD_H
+#ifndef TESTCORETHREAD_H
 #define TESTCORETHREAD_H
 
 #include "testtransthread.h"
@@ -99,9 +99,12 @@ protected slots:
 
 protected:
     void run();
+    void delay(int t) {if(isRun) sleep(t);}
+    void mdelay(int t) {if(isRun) msleep(t);}
+
     virtual int snmpTransDelay() {return 10;}
     virtual int rtuTransDelay() {return 30;}
-    virtual void lineCurAlarmDelay() {msleep(600);}
+    virtual int lineCurAlarmDelay() {return (600);}
     virtual int lineVolAlarmDelay() {return 10;}
     virtual int outputCurAlarmDelay() {return 10;}
     virtual int outputSwCtrDelay() {return 30;}
@@ -115,8 +118,8 @@ protected:
     virtual bool getBigOutputPow(int id, ushort **measure);
     virtual int getEnvs();
     virtual int bigCurDelay() {return 15;}
-    virtual void curCheckDelay() {sleep(30);}
-    virtual void getSwDelay(){sleep(5);}
+    virtual int curCheckDelay() {return (30);}
+    virtual int getSwDelay(){return (5);}
     virtual int getCheckPow(){return 5;}
     virtual bool curBigAccuracy(ushort index, ushort *premeasured, ushort *measured, sTestDataItem &item);
 
@@ -226,6 +229,7 @@ protected:
     sDataPacket *mDevPacket;
     sDevPackets *mPackets;
     double mRate;
+    bool isRun;
 };
 
 #endif // TESTCORETHREAD_H

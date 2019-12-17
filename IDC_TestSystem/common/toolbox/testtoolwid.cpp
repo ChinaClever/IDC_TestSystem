@@ -1,4 +1,4 @@
-﻿#include "testtoolwid.h"
+#include "testtoolwid.h"
 #include "ui_testtoolwid.h"
 
 TestToolWid::TestToolWid(QWidget *parent) :
@@ -8,9 +8,9 @@ TestToolWid::TestToolWid(QWidget *parent) :
     ui->setupUi(this);
     QGridLayout *gridLayout = new QGridLayout(parent);//控制ToolBox自适应
     gridLayout->addWidget(this);
-    ui->continueBtn->hide();
-    ui->pauseBtn->hide();
-    ui->overBtn->hide();
+//    ui->continueBtn->hide();
+//    ui->pauseBtn->hide();
+//    ui->overBtn->hide();
 }
 
 TestToolWid::~TestToolWid()

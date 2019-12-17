@@ -1,4 +1,4 @@
-﻿#ifndef ZTEST_CORETHREAD_H
+#ifndef ZTEST_CORETHREAD_H
 #define ZTEST_CORETHREAD_H
 
 #include "ztest_transthread.h"
@@ -34,8 +34,8 @@ public:
     int rtuTransDelay() {return 70;}
     int outputCurAlarmDelay() {return 20;}
     int bigCurDelay() {return 25;}
-    void curCheckDelay() {sleep(60);}
-    void getSwDelay(){sleep(15);}
+    int curCheckDelay() {return (60);}
+    int  getSwDelay(){return (15);}
     int getCheckPow(){return 35;}
     int getDoors(){return 1;}
     bool getLinePow(int id, int &measure);

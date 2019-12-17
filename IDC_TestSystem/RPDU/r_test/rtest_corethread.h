@@ -1,4 +1,4 @@
-﻿#ifndef RTEST_CORETHREAD_H
+#ifndef RTEST_CORETHREAD_H
 #define RTEST_CORETHREAD_H
 
 #include "rtest_transthread.h"
@@ -13,7 +13,7 @@ public:
 protected:
     virtual int snmpTransDelay() {return 15;}//15
     virtual int rtuTransDelay() {return 40;}//40
-    virtual void lineCurAlarmDelay() {sleep(10);}
+    virtual int lineCurAlarmDelay() {return (10);}
     virtual int outputCurAlarmDelay() {return 30;}
     virtual int outputSwCtrDelay();
     virtual bool getLinePow(int id, int &measure);
@@ -22,7 +22,7 @@ protected:
     virtual void temHumAlarm(){}
     virtual int getDoors();
     virtual int bigCurDelay() {return 21;}
-    virtual void curCheckDelay();
+    virtual int curCheckDelay();
 
     virtual int getLineNum();
     virtual int getLoopNum();

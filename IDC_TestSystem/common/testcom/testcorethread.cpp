@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -12,14 +12,16 @@ extern void current_time_pr(const QString &s);
 TestCoreThread::TestCoreThread(QObject *parent) : QThread(parent)
 {
     mTrans = nullptr;
+    isRun = true;
     mRate = 1;
 }
 
 TestCoreThread::~TestCoreThread()
 {
+    stopThread();
+    wait();
     quit();
     terminate();
-    wait();
 }
 
 void TestCoreThread::init(sTestConfigItem *item, sDevPackets *packets, TestTransThread *trans)
@@ -47,22 +49,20 @@ void TestCoreThread::updateData()
     } else {
         mTrans->rtuUpdateData();
     }
-    sleep(5);
+    delay(5);
 }
 
 void TestCoreThread::stopThread()
 {
+    isRun = false;
     emit overSig();
-    QThread::exit(0);
-    quit();
-    terminate();
 }
 
 void TestCoreThread::conditionExec(bool s)
 {
     if(mItem->mode == Test_Pause) {
         do{
-            msleep(1);
+            mdelay(1);
         } while(mItem->mode == Test_Pause);
     }
 
@@ -86,7 +86,7 @@ void TestCoreThread::updateProgress(bool status, QString &str)
     p->finishNum++;
     p->status = tr("测试项:%1  %2").arg(p->finishNum).arg(str);
 
-    msleep(10);
+    mdelay(10);
 }
 
 
@@ -98,6 +98,7 @@ void TestCoreThread::allNumsSlot(int nums)
 
 bool TestCoreThread::appendResult(sTestDataItem &item)
 {
+    if(!isRun) return false;
     QString str = tr("失败");
     if(item.status) {
         str = tr("成功");
@@ -125,7 +126,7 @@ bool TestCoreThread::snmpTrans()
     QString str = tr("SNMP通讯失败");
     int t = snmpTransDelay();
     for(int i=0; i<t; i++) {
-        sleep(1);
+        delay(1);
         if(mDevPacket->txType & 0x1) {
             ret = true;
             str = tr("SNMP通讯成功");
@@ -151,7 +152,7 @@ bool TestCoreThread::rtuTrans()
     QString str = tr("Modbus通讯失败");
     int t = rtuTransDelay();
     for(int i=0; i<t; i++) {
-        sleep(1);
+        delay(1);
         if(mDevPacket->txType & 0x2) {
             ret = true;
             str = tr("Modbus通讯成功");
@@ -298,7 +299,7 @@ bool TestCoreThread::volAccuracy(int expect, ushort& measured, sTestDataItem &it
     int t = lineVolAlarmDelay();
     for(int i=0 ; i<t ; i++)
     {
-        sleep(1);
+        delay(1);
         int value = expect - measured*mRate;
         if((value >= min) && (value <= max)) {
             ret = true;
@@ -376,7 +377,7 @@ void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
             mTrans->setRtuValue(cmd.rtuMax);
         }
     }
-    sleep(14);
+    delay(14);
 }
 
 void TestCoreThread::setLineVolCmd(bool alrm)
@@ -384,9 +385,9 @@ void TestCoreThread::setLineVolCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    lineVolCmd(cmd);
+    if(isRun) lineVolCmd(cmd);
 
-    setAlarmCmd(cmd, alrm);
+    if(isRun) setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setLoopVolCmd(bool alrm)
@@ -394,9 +395,9 @@ void TestCoreThread::setLoopVolCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.loopNum;
     cmd.devId = mItem->devId;
-    loopVolCmd(cmd);
+    if(isRun) loopVolCmd(cmd);
 
-    setAlarmCmd(cmd, alrm);
+    if(isRun) setAlarmCmd(cmd, alrm);
 }
 
 
@@ -404,9 +405,9 @@ void TestCoreThread::lineVolAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电压告警检查");
-    setLineVolCmd(true);
+    if(isRun) setLineVolCmd(true);
     int num = mDevPacket->data.lineNum;
-    sleep(3);
+    delay(3);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.line[i]);
@@ -422,7 +423,7 @@ void TestCoreThread::lineVolAlarm()
         int expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         volAccuracy(expectValue, obj->vol.max, item);
     }
-    setLineVolCmd(false);
+    if(isRun) setLineVolCmd(false);
 }
 
 void TestCoreThread::loopVolAlarm()
@@ -432,7 +433,7 @@ void TestCoreThread::loopVolAlarm()
     int num = mDevPacket->data.loopNum;
     if(num <= 0) return;
 
-    setLoopVolCmd(true);
+    if(isRun) setLoopVolCmd(true);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -448,16 +449,17 @@ void TestCoreThread::loopVolAlarm()
         int expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         volAccuracy(expectValue, obj->vol.max, item);
     }
-    setLoopVolCmd(false);
+    if(isRun) setLoopVolCmd(false);
 }
 
 void TestCoreThread::volCheck()
 {
-    lineVol();
-    loopVol();
-
-    lineVolAlarm();
-    //loopVolAlarm();
+    if(isRun) {
+        lineVol();
+        loopVol();
+        lineVolAlarm();
+        //loopVolAlarm();
+    }
 }
 
 bool TestCoreThread::curAcc(int expect, int measured, sTestDataItem &item, double f)
@@ -636,7 +638,7 @@ void TestCoreThread::outputCur()
 
 void TestCoreThread::curCheck()
 {
-    //ELoad_RtuSent::bulid()->switchOpenAll(); sleep(15);
+    //ELoad_RtuSent::bulid()->switchOpenAll(); delay(15);
     //curCheckDelay();
 
     lineCur();
@@ -645,15 +647,15 @@ void TestCoreThread::curCheck()
         outputCur();
     }
 
-    ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);
-    curCheckDelay();
+    ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);
+    int t=curCheckDelay(); delay(t);
 
     lineNoCur();
     loopNoCur();
     if(mDevPacket->devSpec!=3 && mDevPacket->devSpec!=1) {
         outputNoCur();
     }
-    ELoad_RtuSent::bulid()->switchOpenAll();
+    if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
 
@@ -662,9 +664,9 @@ void TestCoreThread::setLineCurCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    lineCurCmd(cmd);
+    if(isRun) lineCurCmd(cmd);
 
-    setAlarmCmd(cmd, alrm);
+    if(isRun) setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setLoopCurCmd(bool alrm)
@@ -674,7 +676,7 @@ void TestCoreThread::setLoopCurCmd(bool alrm)
     cmd.devId = mItem->devId;
     loopCurCmd(cmd);
 
-    setAlarmCmd(cmd, alrm);
+    if(isRun) setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setOutputCurCmd(bool alrm)
@@ -682,9 +684,9 @@ void TestCoreThread::setOutputCurCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    outputCurCmd(cmd);
+    if(isRun) outputCurCmd(cmd);
 
-    setAlarmCmd(cmd, alrm);
+    if(isRun) setAlarmCmd(cmd, alrm);
 }
 
 
@@ -692,12 +694,12 @@ void TestCoreThread::lineCurAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电流告警检查");
-    setLineCurCmd(true); sleep(18);//////20
+    if(isRun) setLineCurCmd(true); delay(18);//////20
 
     int num = mDevPacket->data.lineNum;
     for(int i = 0; i < num; ++i)
     {
-        sObjData *obj = &(mDevPacket->data.line[i]); sleep(1);
+        sObjData *obj = &(mDevPacket->data.line[i]); delay(1);
         item.subItem = tr("修改 L%1 电流最小值").arg(i+1);
         int expectValue  = Test_Abnormal_CurMin *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.min, item);
@@ -709,7 +711,7 @@ void TestCoreThread::lineCurAlarm()
         int expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
-    setLineCurCmd(false);
+    if(isRun) setLineCurCmd(false);
 }
 
 
@@ -720,10 +722,10 @@ void TestCoreThread::loopCurAlarm()
     int num = mDevPacket->data.loopNum;
     if(num <= 0) return;
 
-    setLoopCurCmd(true); sleep(18);
+    if(isRun) setLoopCurCmd(true); delay(18);
     for(int i = 0; i < num; ++i)
     {
-        sObjData *obj = &(mDevPacket->data.loop[i]); sleep(1);
+        sObjData *obj = &(mDevPacket->data.loop[i]); delay(1);
         item.subItem = tr("修改 C%1 电流最小值").arg(i+1);
         ushort expectValue  = Test_Abnormal_CurMin *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.min, item);
@@ -735,7 +737,7 @@ void TestCoreThread::loopCurAlarm()
         ushort expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
-    setLoopCurCmd(false);
+    if(isRun) setLoopCurCmd(false);
 }
 
 
@@ -745,7 +747,7 @@ bool TestCoreThread::curThresholdAccuracy(ushort expect, ushort &measured, sTest
 
     int t = outputCurAlarmDelay();
     for(int i=0; i<t; ++i) {
-        sleep(1);
+        delay(1);
         if(expect-measured*mRate) {
             ret = false;
         }  else {
@@ -769,7 +771,7 @@ void TestCoreThread::outputCurAlarm()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return;
 
-    setOutputCurCmd(true);
+    if(isRun) setOutputCurCmd(true);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -785,11 +787,12 @@ void TestCoreThread::outputCurAlarm()
         ushort expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
-    setOutputCurCmd(false);
+    if(isRun) setOutputCurCmd(false);
 }
 
 void TestCoreThread::curAlarmCheck()
 {
+    if(!isRun) return;
     lineCurAlarm();
     loopCurAlarm();
     if(mDevPacket->devSpec != 3) {
@@ -806,7 +809,8 @@ bool TestCoreThread::swAccuracy(ushort &measured, sTestDataItem &item , uchar &s
 
     int t = outputSwCtrDelay();
     for(int i=0; i<t; ++i) {
-        sleep(1);
+        if(isRun) delay(1); else break;
+
         if(isOpen) {
             if(measured || sw) {
                 str = tr("开");
@@ -854,14 +858,14 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    outputSwCmd(cmd);
+    if(isRun) outputSwCmd(cmd);
 
     if(alrm){
         mTrans->setSnmpValue(cmd.sAlarmMin);
     } else{
         mTrans->setSnmpValue(cmd.sAlarmMax);
     }
-    sleep(10);
+    delay(10);
 }
 
 void TestCoreThread::outputSwCtr()
@@ -872,8 +876,8 @@ void TestCoreThread::outputSwCtr()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return;
 
-    setOutputSwCmd(true);
-    getSwDelay();
+    if(isRun) setOutputSwCmd(true);
+    int t=getSwDelay(); delay(t);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -881,8 +885,8 @@ void TestCoreThread::outputSwCtr()
         swAccuracy(obj->cur.value, item , obj->sw , true);
     }
 
-    ELoad_RtuSent::bulid()->switchOpenAll();
-    setOutputSwCmd(false); sleep(2);
+    if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
+    if(isRun) setOutputSwCmd(false); delay(2);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -895,7 +899,7 @@ void TestCoreThread::outputSwCtr()
 void TestCoreThread::switchCtr()
 {
     if((mDevPacket->devSpec != 1) && (mDevPacket->devSpec != 2))
-        outputSwCtr();
+        if(isRun) outputSwCtr();
 }
 
 
@@ -930,7 +934,7 @@ bool TestCoreThread::powBigAccuracy(int expect, ushort *measured, sTestDataItem 
     int max =  2*COM_RATE_POW;
     int t = getCheckPow();
     for(int i = 0 ; i < t ; i++){
-        sleep(1);
+        delay(1);
         if( expect != 0 && *measured != 0 )
         {
             if((value > min) && (value < max)) {
@@ -1048,7 +1052,7 @@ bool TestCoreThread::outputPow()
     item.item = tr("输出位功率检查");
 
     QString str = "kVA";
-    int num = mDevPacket->data.outputNum; sleep(10);    ///////防止输出位没有电流
+    int num = mDevPacket->data.outputNum; delay(10);    ///////防止输出位没有电流
     for(int i = 0; i < num; ++i)
     {
         item.subItem = tr("输出位 %1 功率值").arg(i+1);
@@ -1096,9 +1100,9 @@ void TestCoreThread::setOutputEleCmd()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    outputEleCmd(cmd);
+    if(isRun) outputEleCmd(cmd);
 
-    setAlarmCmd(cmd, false);
+    if(isRun) setAlarmCmd(cmd, false);
 }
 
 
@@ -1107,8 +1111,8 @@ void TestCoreThread::setLineEleCmd()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    lineEleCmd(cmd);
-    setAlarmCmd(cmd, false);
+    if(isRun) lineEleCmd(cmd);
+    if(isRun) setAlarmCmd(cmd, false);
 }
 
 
@@ -1119,7 +1123,7 @@ int TestCoreThread::outputEle()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return num;
 
-    setOutputEleCmd();
+    if(isRun) setOutputEleCmd();
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1139,7 +1143,7 @@ int TestCoreThread::lineEle()
     int num = mDevPacket->data.lineNum;
     if(num <= 0) return num;
 
-    setLineEleCmd();
+    if(isRun) setLineEleCmd();
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.line[i]);
@@ -1300,8 +1304,7 @@ void TestCoreThread::temHumAlarm()
     sTestDataItem item;
     item.item = tr("温度湿度告警检查");
 
-    setTemHumAlarmCmd(true);
-
+    if(isRun) setTemHumAlarmCmd(true);
     for(int i = 0; i < num; ++i)
     {
         sEnvData *obj = &(mDevPacket->data.env);
@@ -1329,7 +1332,7 @@ void TestCoreThread::temHumAlarm()
         measuredValue = obj->hum[i].max;
         humAccuracy(expectValue, measuredValue, item);
     }
-    setTemHumAlarmCmd(false);
+    if(isRun) setTemHumAlarmCmd(false);
 }
 
 
@@ -1383,8 +1386,8 @@ void TestCoreThread::sensorsCheck()
 void TestCoreThread::openOrCloseBigCur(bool mode)
 {
     for(int i=1; i<4; ++i){
-        ELoad_RtuSent::bulid()->setBigCur(i, mode);//打开关闭大电流模式
-        msleep(600);
+        if(isRun) ELoad_RtuSent::bulid()->setBigCur(i, mode);//打开关闭大电流模式
+        mdelay(600);
     }
 }
 
@@ -1440,7 +1443,7 @@ bool TestCoreThread::curBigAccuracy(ushort index,ushort *premeasured, ushort *me
     ushort expect = 0;
     int t = bigCurDelay();
     for(int i=0; i< t; ++i){
-        sleep(1);
+        delay(1);
         expect = IN_DataPackets::bulid()->getTgValueByIndex(2, index+1);
         ret = curAcc(expect,*premeasured, *measured, item, COM_RATE_CUR2);
         if(ret) break;
@@ -1483,7 +1486,7 @@ void TestCoreThread::setBigCurCmd()
                 curAccuracy(expect, *measuredValue, item, COM_RATE_CUR2);
             }
         }
-        bigCurPowCheck(i , addr);
+        if(isRun) bigCurPowCheck(i , addr);
 
         bool noDelayFlag = true;
         if(bit == 7 && addr < 3){
@@ -1496,27 +1499,27 @@ void TestCoreThread::setBigCurCmd()
             if(!mItem->serialNum.isDelayBreaker){
                 controlNoDelayBreaker(nextaddr);
                 noDelayFlag = false;
-                sleep(35);
+                delay(35);
             }
         } else {
             nextbit = bit+1;
             noDelayFlag = true;
         }
 
-        if(i < num-1 && noDelayFlag){
-            ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); msleep(50);//打开第i+1位继电器
-            ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); msleep(50);//打开第i+1位继电器
-            ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); msleep(50);//关闭第i位继电器
-            ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); sleep(5);//关闭第i位继电器
+        if(i < num-1 && noDelayFlag && isRun){
+            if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); mdelay(50);//打开第i+1位继电器
+            if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(nextaddr, nextbit); mdelay(50);//打开第i+1位继电器
+            if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); mdelay(50);//关闭第i位继电器
+            if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(addr, bit); delay(5);//关闭第i位继电器
         }
-
+        if(!isRun) break;
     }
 }
 
 void TestCoreThread::bigCurCheck()
 {
     if(mItem->serialNum.isDelayBreaker){
-        openOrCloseBigCur(true);//打开大电流模式
+        if(isRun) openOrCloseBigCur(true);//打开大电流模式
         //    QList<int> res;
         //    ELoad_ConfigFile *config = ELoad_ConfigFile::bulid();
         //    for(int i = 1 ; i <= 3 ; i ++)
@@ -1527,49 +1530,49 @@ void TestCoreThread::bigCurCheck()
         //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
         //    }
 
-        ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器，并且打开第一位
-        ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);sleep(20); ///====
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器，并且打开第一位
+        if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);delay(20); ///====
     }else{
-        ELoad_RtuSent::bulid()->switchCloseAll(); sleep(15);//关闭所有电子负载的继电器
-        controlNoDelayBreaker(1);sleep(45);
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器
+        if(isRun) controlNoDelayBreaker(1);delay(45);
     }
 
     //setBigCurCmd(res);//大电流输出位电流检查
-    setBigCurCmd();//大电流输出位电流检查
+    if(isRun) setBigCurCmd();//大电流输出位电流检查
+    if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
     openOrCloseBigCur(false);//关闭大电流模式
-    ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
 void TestCoreThread::controlNoDelayBreaker(int id)
 {
-    if( id <= 0 ) return;
+    if( id <= 0 && !isRun) return;
     if(id>=2)
     {
         ELoad_RtuSent::bulid()->setBigCur(id-1, false);//关闭大电流模式
-        msleep(600);
+        mdelay(600);
         ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
-        msleep(50);
+        mdelay(50);
         ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
-        msleep(50);
+        mdelay(50);
     }
     for(int i = 0 ; i < 8; i++)
     {
         ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
-        msleep(50);
+        mdelay(50);
         ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
-        msleep(50);
+        mdelay(50);
     }
     ELoad_RtuSent::bulid()->setBigCur(id, true);//打开大电流模式
-    msleep(600);
+    mdelay(600);
 
     for(int i = 1 ; i < 8; i++)
     {
         ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
-        msleep(50);
+        mdelay(50);
         ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
-        msleep(50);
+        mdelay(50);
     }
-    sleep(5);
+    delay(5);
 }
 
 void TestCoreThread::resDev()
@@ -1603,22 +1606,23 @@ void TestCoreThread::initSwitch()
 
 void TestCoreThread::run()
 {
+    isRun = true;
     current_time_pr("start");
-    initSwitch();    current_time_pr("initSwitch");
-    bool ret = transmission();  current_time_pr("transmission");
+    if(isRun) initSwitch();
+    bool ret = transmission();
     if(ret)  {
-        devInfoCheck();     current_time_pr("devInfoCheck");
-        volCheck();     current_time_pr("volCheck");
-        powCheck();     current_time_pr("powCheck");
-        curCheck();     current_time_pr("curCheck");
-        curAlarmCheck(); current_time_pr("curAlarmCheck");
+        if(isRun) devInfoCheck();
+        if(isRun) volCheck();
+        if(isRun) powCheck();
+        if(isRun) curCheck();
+        if(isRun) curAlarmCheck();
 
-        switchCtr();    current_time_pr("switchCtr");
-        // eleCheck();
-        envCheck();     current_time_pr("envCheck");
+        if(isRun) switchCtr();
+        // if(isRun) eleCheck();
+        if(isRun) envCheck();
 
         if(mDevPacket->devSpec != 3 && mDevPacket->devSpec != 1)
-            bigCurCheck();  current_time_pr("bigCurCheck");
+            if(isRun) bigCurCheck();
         //resDev();
     }
 

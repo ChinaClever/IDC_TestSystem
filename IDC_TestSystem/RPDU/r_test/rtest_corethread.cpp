@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -67,7 +67,7 @@ bool RTest_CoreThread::curBigAccuracy(ushort index, ushort *measured, sTestDataI
     int count = 0;
     int t = bigCurDelay();
     for(int i=0; i< t; ++i){
-        sleep(1);
+        delay(1);
         expect = IN_DataPackets::bulid()->getTgValueByIndex(2, index+1);
         ret = curAcc(expect, *measured, item, COM_RATE_CUR2);
         if(ret && count == 6) break;
@@ -124,10 +124,11 @@ int RTest_CoreThread::getDoors()
     return num;
 }
 
-void RTest_CoreThread::curCheckDelay()
+int RTest_CoreThread::curCheckDelay()
 {
-    if(mDevPacket->data.lineNum == 1) sleep(10);
-    sleep(55);
+    int ret = 55;
+    if(mDevPacket->data.lineNum == 1) ret += 10;
+    return ret;
 }
 
 bool RTest_CoreThread::lineVolCmd(sTestSetCmd &it)
