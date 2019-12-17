@@ -279,7 +279,7 @@ bool TestCoreThread::transmission()
 {
     bool ret=true, snmpRet=true;
 
-    updateData();
+    if(isRun) updateData();
     if(mItem->isSnmp) {
         snmpRet = snmpTrans();
     }
