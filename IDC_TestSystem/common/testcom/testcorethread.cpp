@@ -1599,6 +1599,7 @@ void current_time_pr(const QString &s)
 
 void TestCoreThread::initSwitch()
 {
+    isRun = true;
     ELoad_RtuSent::bulid()->switchOpenAll();
     if((mDevPacket->devSpec != 1) && (mDevPacket->devSpec != 2)) {
         setOutputSwCmd(false); /// 打开PDU所有输出位
@@ -1607,9 +1608,7 @@ void TestCoreThread::initSwitch()
 
 void TestCoreThread::run()
 {
-    isRun = true;
-    current_time_pr("start");
-    if(isRun) initSwitch();
+    initSwitch();
     bool ret = transmission();
     if(ret)  {
         if(isRun) devInfoCheck();
