@@ -63,6 +63,7 @@ void SnmpThread::startRun()
 
 void SnmpThread::stopRun()
 {
+    timer->stop();
     m_timer->stop();
     isRun = false;
 }

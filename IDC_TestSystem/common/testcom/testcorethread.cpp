@@ -55,6 +55,7 @@ void TestCoreThread::updateData()
 void TestCoreThread::stopThread()
 {
     isRun = false;
+    mTrans->stopRun();
     emit overSig();
 }
 
@@ -363,6 +364,7 @@ void TestCoreThread::loopVol()
 
 void TestCoreThread::setAlarmCmd(sTestSetCmd &cmd, bool alrm)
 {
+    if(!isRun) return;
     if(alrm){
         if(mItem->isSnmp && !cmd.sAlarmMin.isEmpty()) {
             mTrans->setSnmpValue(cmd.sAlarmMin);
@@ -389,9 +391,8 @@ void TestCoreThread::setLineVolCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    if(isRun) lineVolCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, alrm);
+    lineVolCmd(cmd);
+    setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setLoopVolCmd(bool alrm)
@@ -399,9 +400,8 @@ void TestCoreThread::setLoopVolCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.loopNum;
     cmd.devId = mItem->devId;
-    if(isRun) loopVolCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, alrm);
+    loopVolCmd(cmd);
+    setAlarmCmd(cmd, alrm);
 }
 
 
@@ -409,9 +409,8 @@ void TestCoreThread::lineVolAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电压告警检查");
-    if(isRun) setLineVolCmd(true);
-    int num = mDevPacket->data.lineNum;
-    delay(3);
+    setLineVolCmd(true);
+    int num = mDevPacket->data.lineNum; delay(3);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.line[i]);
@@ -427,7 +426,7 @@ void TestCoreThread::lineVolAlarm()
         int expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         volAccuracy(expectValue, obj->vol.max, item);
     }
-    if(isRun) setLineVolCmd(false);
+    setLineVolCmd(false);
 }
 
 void TestCoreThread::loopVolAlarm()
@@ -437,7 +436,7 @@ void TestCoreThread::loopVolAlarm()
     int num = mDevPacket->data.loopNum;
     if(num <= 0) return;
 
-    if(isRun) setLoopVolCmd(true);
+    setLoopVolCmd(true);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.loop[i]);
@@ -453,17 +452,15 @@ void TestCoreThread::loopVolAlarm()
         int expectValue  = Test_Abnormal_VolMax *COM_RATE_VOL;
         volAccuracy(expectValue, obj->vol.max, item);
     }
-    if(isRun) setLoopVolCmd(false);
+    setLoopVolCmd(false);
 }
 
 void TestCoreThread::volCheck()
 {
-    if(isRun) {
-        lineVol();
-        loopVol();
-        lineVolAlarm();
-        //loopVolAlarm();
-    }
+    lineVol();
+    loopVol();
+    lineVolAlarm();
+    //loopVolAlarm();
 }
 
 bool TestCoreThread::curAcc(int expect, int measured, sTestDataItem &item, double f)
@@ -684,9 +681,8 @@ void TestCoreThread::setLineCurCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    if(isRun) lineCurCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, alrm);
+    lineCurCmd(cmd);
+    setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setLoopCurCmd(bool alrm)
@@ -695,8 +691,7 @@ void TestCoreThread::setLoopCurCmd(bool alrm)
     cmd.num = mDevPacket->data.loopNum;
     cmd.devId = mItem->devId;
     loopCurCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, alrm);
+    setAlarmCmd(cmd, alrm);
 }
 
 void TestCoreThread::setOutputCurCmd(bool alrm)
@@ -704,9 +699,8 @@ void TestCoreThread::setOutputCurCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    if(isRun) outputCurCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, alrm);
+    outputCurCmd(cmd);
+    setAlarmCmd(cmd, alrm);
 }
 
 
@@ -714,7 +708,7 @@ void TestCoreThread::lineCurAlarm()
 {
     sTestDataItem item;
     item.item = tr("相电流告警检查");
-    if(isRun) setLineCurCmd(true); delay(18);//////20
+    setLineCurCmd(true); delay(18);//////20
 
     int num = mDevPacket->data.lineNum;
     for(int i = 0; i < num; ++i)
@@ -731,7 +725,7 @@ void TestCoreThread::lineCurAlarm()
         int expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
-    if(isRun) setLineCurCmd(false);
+    setLineCurCmd(false);
 }
 
 
@@ -794,7 +788,7 @@ void TestCoreThread::outputCurAlarm()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return;
 
-    if(isRun) setOutputCurCmd(true);
+    setOutputCurCmd(true);
     for(int i=0; i<num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -810,7 +804,7 @@ void TestCoreThread::outputCurAlarm()
         ushort expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
         curThresholdAccuracy(expectValue, obj->cur.max, item);
     }
-    if(isRun) setOutputCurCmd(false);
+    setOutputCurCmd(false);
 }
 
 void TestCoreThread::curAlarmCheck()
@@ -881,7 +875,7 @@ void TestCoreThread::setOutputSwCmd(bool alrm)
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    if(isRun) outputSwCmd(cmd);
+    outputSwCmd(cmd);
 
     if(alrm){
         mTrans->setSnmpValue(cmd.sAlarmMin);
@@ -899,7 +893,7 @@ void TestCoreThread::outputSwCtr()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return;
 
-    if(isRun) setOutputSwCmd(true);
+    setOutputSwCmd(true);
     int t=getSwDelay(); delay(t);
     for(int i=0; i<num; ++i)
     {
@@ -909,7 +903,7 @@ void TestCoreThread::outputSwCtr()
     }
 
     if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
-    if(isRun) setOutputSwCmd(false); delay(2);
+    setOutputSwCmd(false); delay(2);
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1138,9 +1132,8 @@ void TestCoreThread::setOutputEleCmd()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.outputNum;
     cmd.devId = mItem->devId;
-    if(isRun) outputEleCmd(cmd);
-
-    if(isRun) setAlarmCmd(cmd, false);
+    outputEleCmd(cmd);
+    setAlarmCmd(cmd, false);
 }
 
 
@@ -1149,8 +1142,8 @@ void TestCoreThread::setLineEleCmd()
     sTestSetCmd cmd;
     cmd.num = mDevPacket->data.lineNum;
     cmd.devId = mItem->devId;
-    if(isRun) lineEleCmd(cmd);
-    if(isRun) setAlarmCmd(cmd, false);
+    lineEleCmd(cmd);
+    setAlarmCmd(cmd, false);
 }
 
 
@@ -1161,7 +1154,7 @@ int TestCoreThread::outputEle()
     int num = mDevPacket->data.outputNum;
     if(num <= 0) return num;
 
-    if(isRun) setOutputEleCmd();
+    setOutputEleCmd();
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.output[i]);
@@ -1181,7 +1174,7 @@ int TestCoreThread::lineEle()
     int num = mDevPacket->data.lineNum;
     if(num <= 0) return num;
 
-    if(isRun) setLineEleCmd();
+    setLineEleCmd();
     for(int i = 0; i < num; ++i)
     {
         sObjData *obj = &(mDevPacket->data.line[i]);
@@ -1330,7 +1323,6 @@ void TestCoreThread::setTemHumAlarmCmd(bool alrm)
     cmd.num = mDevPacket->data.env.envNum;
     cmd.devId = mItem->devId;
     temHumCmd(cmd);
-
     setAlarmCmd(cmd, alrm);
 }
 
@@ -1342,7 +1334,7 @@ void TestCoreThread::temHumAlarm()
     sTestDataItem item;
     item.item = tr("温度湿度告警检查");
 
-    if(isRun) setTemHumAlarmCmd(true);
+    setTemHumAlarmCmd(true);
     for(int i = 0; i < num; ++i)
     {
         sEnvData *obj = &(mDevPacket->data.env);
@@ -1370,7 +1362,7 @@ void TestCoreThread::temHumAlarm()
         measuredValue = obj->hum[i].max;
         humAccuracy(expectValue, measuredValue, item);
     }
-    if(isRun) setTemHumAlarmCmd(false);
+    setTemHumAlarmCmd(false);
 }
 
 
@@ -1570,17 +1562,17 @@ void TestCoreThread::bigCurCheck()
         //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
         //    }
 
-        ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器，并且打开第一位
-        ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);delay(firstOpDelay()); ///====20
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器，并且打开第一位
+        if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);delay(firstOpDelay()); ///====20
     }else{
-        ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器
-        controlNoDelayBreaker(1);delay(firstOpDelay());
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器
+        if(isRun) controlNoDelayBreaker(1);delay(firstOpDelay());
     }
 
     //setBigCurCmd(res);//大电流输出位电流检查
     if(isRun) setBigCurCmd();//大电流输出位电流检查
-    if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
     openOrCloseBigCur(false);//关闭大电流模式
+    if(isRun) ELoad_RtuSent::bulid()->switchOpenAll();
 }
 
 void TestCoreThread::controlNoDelayBreaker(int id)
@@ -1588,29 +1580,22 @@ void TestCoreThread::controlNoDelayBreaker(int id)
     if( id <= 0 && !isRun) return;
     if(id>=2)
     {
-        ELoad_RtuSent::bulid()->setBigCur(id-1, false);//关闭大电流模式
-        mdelay(600);
-        ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
-        mdelay(50);
-        ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7);
-        mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->setBigCur(id-1, false); mdelay(600);//关闭大电流模式
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7); mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(id-1, 7); mdelay(50);
     }
     for(int i = 0 ; i < 8; i++)
     {
-        ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
-        mdelay(50);
-        ELoad_RtuSent::bulid()->switchOpenCtr(id, i);
-        mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(id, i); mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(id, i); mdelay(50);
     }
-    ELoad_RtuSent::bulid()->setBigCur(id, true);//打开大电流模式
-    mdelay(600);
+    if(isRun) ELoad_RtuSent::bulid()->setBigCur(id, true); mdelay(600);//打开大电流模式
+
 
     for(int i = 1 ; i < 8; i++)
     {
-        ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
-        mdelay(50);
-        ELoad_RtuSent::bulid()->switchCloseCtr(id, i);
-        mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(id, i); mdelay(50);
+        if(isRun) ELoad_RtuSent::bulid()->switchCloseCtr(id, i); mdelay(50);
     }
     delay(5);
 }
@@ -1639,6 +1624,7 @@ void current_time_pr(const QString &s)
 void TestCoreThread::initSwitch()
 {
     isRun = true;
+    mTrans->startRun();
     ELoad_RtuSent::bulid()->switchOpenAll();
     if((mDevPacket->devSpec != 1) && (mDevPacket->devSpec != 2)) {
         setOutputSwCmd(false); /// 打开PDU所有输出位
