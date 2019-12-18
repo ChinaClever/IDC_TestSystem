@@ -9,7 +9,7 @@ public:
     explicit RTest_TransThread(QObject *parent = nullptr);
 
 protected:
-    virtual void delay() {sleep(3);}
+    virtual int delay() {return (3000);}
 
 public slots:
      void initFunSLot();

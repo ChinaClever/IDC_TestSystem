@@ -29,7 +29,7 @@ public:
     void stopRun() { isRun=false; stopUpdate();}
 
 protected:
-    virtual void delay() {msleep(1000);}
+    virtual int delay() {return (1000);}
 
 protected slots:
     void run();

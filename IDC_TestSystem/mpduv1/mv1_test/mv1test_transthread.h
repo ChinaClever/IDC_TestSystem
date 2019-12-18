@@ -1,4 +1,4 @@
-﻿#ifndef MV1TEST_TRANSTHREAD_H
+#ifndef MV1TEST_TRANSTHREAD_H
 #define MV1TEST_TRANSTHREAD_H
 
 #include "testcorethread.h"
@@ -11,7 +11,7 @@ public:
 
 signals:
 protected:
-    void delay() {msleep(1800);}
+    int delay() {return (1800);}
 
 public slots:
     void initFunSLot();
