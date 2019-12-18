@@ -1,4 +1,4 @@
-﻿#ifndef MTEST_CORETHREAD_H
+#ifndef MTEST_CORETHREAD_H
 #define MTEST_CORETHREAD_H
 
 #include "mtest_transthread.h"
@@ -33,7 +33,7 @@ public:
 
     int rtuTransDelay() {return 70;}
     int getDoors(){return 0;}
-    void firstOpDelay(){sleep(50);}
+    int firstOpDelay(){return (50);}
 };
 
 #endif // MTEST_CORETHREAD_H
