@@ -1,4 +1,4 @@
-﻿/*
+/*
  * excel_exportlogthread.cpp
  * excel导出线程
  *
@@ -8,7 +8,6 @@
 #include "excel_exportlogthread.h"
 #include "qexcel.h"
 #include "common.h"
-#include "icom.h"
 
 extern void DB_selectTableByTime(QString &name, QString &start, QString &end, QList<QStringList> &list);
 Excel_ExportLogThread::Excel_ExportLogThread(QObject *parent): QThread(parent)
