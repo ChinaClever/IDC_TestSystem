@@ -1,4 +1,4 @@
-﻿/*
+/*
  *
  *
  *  Created on: 2018年10月1日
@@ -102,6 +102,10 @@ void TestResultWid::resultSlot()
 
 void TestResultWid::progressSlot()
 {
+    if(Test_Pause == mItem->mode) {
+        ui->statusLab->setText(tr("已暂停！！！")); return;
+    }
+
     sTestProgress *arg = &(mItem->progress);
     int progress = (arg->finishNum * 100.0) / arg->allNum;
     if(progress > 100) return;
