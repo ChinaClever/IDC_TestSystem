@@ -29,7 +29,7 @@ struct ZM_sObjData
     uint pow[ZM_UNIT_NUM]; // 功率
     ushort ele[ZM_UNIT_NUM]; // 电能
 
-    ushort pf[ZM_UNIT_NUM]; // 功率因数
+    ushort pf[ZM_UNIT_NUM]; // 功率因素
     ushort sw[ZM_UNIT_NUM]; // 开关状态 0 表示未启用
 
     ushort activePow[ZM_UNIT_NUM]; // 有功功率值

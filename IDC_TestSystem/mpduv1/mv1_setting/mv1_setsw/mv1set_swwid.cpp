@@ -67,7 +67,15 @@ void MV1Set_SwWid::sendSnmp(int i)
 {
     sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
-    QString oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
+    switch(addr)
+    {
+    case 1:addr = 8;break;
+    case 2:addr = 15;break;
+    case 3:addr = 22;break;
+    case 4:addr = 29;break;
+    default: addr = 8;break;
+    }
+    QString oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
     // QString oid = QString("%1.%2.%3.5.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
 
     cmd.oid = oid;

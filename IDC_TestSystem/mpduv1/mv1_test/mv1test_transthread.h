@@ -10,6 +10,8 @@ public:
     explicit MV1Test_TransThread(QObject *parent = nullptr);
 
 signals:
+protected:
+    void delay() {msleep(1800);}
 
 public slots:
     void initFunSLot();

@@ -37,6 +37,7 @@ private:
     ZM_sRtuRecv *mRtuPkt;
     MV1_RtuSent *mRtuSent;
     MV1_RtuRecv *mRtuRecv;
+    sDataPacket *mDataPkt;
 };
 
 #endif // MV1_RTUTRANS_H

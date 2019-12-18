@@ -69,9 +69,7 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
             obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
         }
         obj->activePow = obj->cur.value*obj->vol.value/(10*100.0);
-//        if(id<=23){
-//        qDebug()<<id<<"cur"<<obj->cur.value<<"vol"<<obj->vol.value<<"pow"<<obj->pow<<"activepow"<<obj->activePow<<"pf"<<obj->pf;
-//        }
+
     }
         break;
     case 2: obj->cur.min = data.toDouble() * 100 ; break;

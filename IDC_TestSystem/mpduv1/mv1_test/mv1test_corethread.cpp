@@ -32,17 +32,10 @@ bool MV1Test_CoreThread::lineVolCmd(sTestSetCmd &it)
 
 int MV1Test_CoreThread::getLoopNum()
 {
-    int count = 0;
-    mDevPacket->data.loopNum = count;
-    if(mDevPacket->data.lineNum < 3) {
-        for(int i = 0 ; i < 3 ; i++)
-            if(mDevPacket->data.line[i].vol.value != 0) count++;
-        if(count == 3) count -= 1;
-    }  else {
-        count = 3;
-    }
+    int ret = mDevPacket->data.loopNum;
+    mDevPacket->data.loopNum = 0;
 
-    return count;
+    return ret;
 }
 
 bool MV1Test_CoreThread::loopVolCmd(sTestSetCmd &it)
@@ -120,15 +113,22 @@ bool MV1Test_CoreThread::outputSwCmd(sTestSetCmd &it)
     sSnmpSetCmd snmpCmd;
     int addr = it.devId;
     rtuCmd.addr  = addr;
+    switch(addr)
+    {
+    case 1:addr = 8;break;
+    case 2:addr = 15;break;
+    case 3:addr = 22;break;
+    case 4:addr = 29;break;
+    default: addr = 8;break;
+    }
     snmpCmd.type = SNMP_STRING_TYPE;
-
     for(int i=0; i<it.num; ++i) {
-        snmpCmd.oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
         snmpCmd.value = "OFF"; it.sAlarmMin.append(snmpCmd);
 
         rtuCmd.reg = 1003+i;
         rtuCmd.value = 1; it.rtuMin.append(rtuCmd);
-        snmpCmd.oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
         snmpCmd.value = "ON"; it.sAlarmMax.append(snmpCmd);
     }
 
@@ -141,8 +141,16 @@ void MV1Test_CoreThread::outputCloseSwCmd(sTestSetCmd &it)
     int addr = it.devId;
     snmpCmd.type = SNMP_STRING_TYPE;
 
+    switch(addr)
+    {
+    case 1:addr = 8;break;
+    case 2:addr = 15;break;
+    case 3:addr = 22;break;
+    case 4:addr = 29;break;
+    default: addr = 8;break;
+    }
     for(int i = 0; i < it.num; ++i) {
-        snmpCmd.oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
         if(i != 0 )
             snmpCmd.value = "OFF";
         else
@@ -157,14 +165,22 @@ void MV1Test_CoreThread::outputCloseAndOpenIndexSwCmd(sTestSetCmd &it,int index)
     int addr = it.devId;
     snmpCmd.type = SNMP_STRING_TYPE;
 
+    switch(addr)
+    {
+    case 1:addr = 8;break;
+    case 2:addr = 15;break;
+    case 3:addr = 22;break;
+    case 4:addr = 29;break;
+    default: addr = 8;break;
+    }
     if(!it.sAlarmMin.isEmpty()){
         it.sAlarmMin.clear();
     }
 
-    snmpCmd.oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(index);
+    snmpCmd.oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(index);
     snmpCmd.value = "OFF"; it.sAlarmMin.append(snmpCmd);
 
-    snmpCmd.oid = QString("%1.%2.%3.1.9.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(index+1);
+    snmpCmd.oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(index+1);
     snmpCmd.value = "ON"; it.sAlarmMin.append(snmpCmd);
 }
 
@@ -255,4 +271,9 @@ bool MV1Test_CoreThread::setFactoryCmd(sTestSetCmd &it)
     rtuCmd.reg = ZM_RtuReg_SetFactory;
     rtuCmd.value = 0; it.rtuMin.append(rtuCmd);
     return true;
+}
+
+int MV1Test_CoreThread::getLoopPorts()
+{
+    return 0;
 }

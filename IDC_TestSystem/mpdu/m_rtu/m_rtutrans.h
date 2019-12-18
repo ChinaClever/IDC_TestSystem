@@ -15,6 +15,7 @@ public:
 
     QByteArray getSentCmd();
     QByteArray getRecvCmd();
+    void devData(ZM_sRtuPacket &rtuData, sDevData &data);
 
 protected:
     int transData(int addr, ushort reg, ushort len, ZM_sRtuRecv *pkt, int msecs);

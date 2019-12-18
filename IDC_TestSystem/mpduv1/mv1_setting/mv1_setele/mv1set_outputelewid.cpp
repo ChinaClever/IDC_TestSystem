@@ -59,7 +59,15 @@ void MV1Set_OutputEleWid::sendSnmp(int i)
 {
     sSnmpSetCmd cmd;
     int addr = ui->spinBox->value();
-    QString oid = QString("%1.%2.%3.1.13.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
+    switch(addr)
+    {
+    case 1:addr = 7;break;
+    case 2:addr = 14;break;
+    case 3:addr = 21;break;
+    case 4:addr = 28;break;
+    default: addr = 7;break;
+    }
+    QString oid = QString("%1.%2.%3.%4.0").arg(MIB_OID_CLEVER).arg(MV1_MIB_OID).arg(addr).arg(i+1);
     cmd.oid = oid;
     cmd.type = SNMP_STRING_TYPE;
 

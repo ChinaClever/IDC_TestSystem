@@ -46,23 +46,23 @@ void MV1Set_EnvUnitWid::getCmdList(int addr, QList<sRtuSetCmd> &list)
 }
 void MV1Set_EnvUnitWid::getCmdList(int index ,int addr, QList<sSnmpSetCmd> &list)
 {
-    for(int i=0; i<2; ++i) {
-        for(int j=0; j<2; j++) {
-            MV1Set_ThresholdItemWid *item = mWid[i]->mWid[j];
-            if(item->select()) {
-                 sSnmpSetCmd cmd;
-//                 cmd.oid  = QString("%1.%2.%3.4.%4.0")
-//                         .arg(MIB_OID_CLEVER)
-//                         .arg(MV1_MIB_OID)
-//                         .arg(addr)
-//                         .arg(getIndex(index , i , j));
-                 cmd.type = SNMP_STRING_TYPE;
-                 cmd.value.append(QString("%1.0").arg(item->status()));
-                 //qDebug()<< cmd.oid  << cmd.value;
-                 list.append(cmd);
-            }
-        }
-    }
+//    for(int i=0; i<2; ++i) {
+//        for(int j=0; j<2; j++) {
+//            MV1Set_ThresholdItemWid *item = mWid[i]->mWid[j];
+//            if(item->select()) {
+//                 sSnmpSetCmd cmd;
+////                 cmd.oid  = QString("%1.%2.%3.4.%4.0")
+////                         .arg(MIB_OID_CLEVER)
+////                         .arg(MV1_MIB_OID)
+////                         .arg(addr)
+////                         .arg(getIndex(index , i , j));
+//                 cmd.type = SNMP_STRING_TYPE;
+//                 cmd.value.append(QString("%1.0").arg(item->status()));
+//                 //qDebug()<< cmd.oid  << cmd.value;
+//                 list.append(cmd);
+//            }
+//        }
+//    }
 }
 /**
  * @brief getIndex

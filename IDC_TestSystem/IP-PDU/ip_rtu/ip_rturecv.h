@@ -1,4 +1,4 @@
-﻿#ifndef IP_RTURECV_H
+#ifndef IP_RTURECV_H
 #define IP_RTURECV_H
 #include "ip_rtusent.h"
 
@@ -24,7 +24,7 @@ struct IP_RtuRecvLine {
     ushort br;  // 00	表示波特率9600(00默认9600，01为4800，02为9600，03为19200，04为38400)
 
     ushort activePow[IP_LINE_NUM]; // 有功功率值
-    uchar pf[IP_LINE_NUM]; // 功率因数
+    uchar pf[IP_LINE_NUM]; // 功率因素
     ushort sw[IP_LINE_NUM]; // 开关  01表示断路器闭合，00表示打开)
     ushort lineNum; // 表示单三相 (01表示单相，03表示三相)
     ushort version;

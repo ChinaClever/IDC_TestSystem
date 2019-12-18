@@ -346,14 +346,17 @@ void TestCoreThread::lineVol()
 void TestCoreThread::loopVol()
 {
     int num = mDevPacket->data.loopNum;
-    for(int i = 0; i < num; ++i)
-    {
-        sTestDataItem item;
-        item.item = tr("回路电压检查");
-        item.subItem = tr(" C%1 电压检查").arg(i+1);
-        int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i/2+1);
-        //volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value, item);
-        volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value, item);
+    int loop = getLoopPorts();
+    if(loop){
+        for(int i = 0; i < num; ++i)
+        {
+            sTestDataItem item;
+            item.item = tr("回路电压检查");
+            item.subItem = tr(" C%1 电压检查").arg(i+1);
+            int expectValue  = IN_DataPackets::bulid()->getTgValueByIndex(1,i/2+1);
+            //volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value==0?mDevPacket->data.line[i/2].vol.value:mDevPacket->data.loop[i].vol.value, item);
+            volAccuracy(expectValue, mDevPacket->data.loop[i].vol.value, item);
+        }
     }
 }
 
@@ -469,8 +472,8 @@ bool TestCoreThread::curAcc(int expect, int measured, sTestDataItem &item, doubl
     int value = f>10?expect/COM_RATE_CUR - measured*mRate:expect- measured*mRate;
     item.expect = QString::number(f>10?expect/COM_RATE_CUR2:expect/COM_RATE_CUR) + "A";
 
-    int min = -2*COM_RATE_CUR;
-    int max =  2*COM_RATE_CUR;
+    int min = -3*COM_RATE_VOL;
+    int max =  3*COM_RATE_VOL;
     if( expect != 0 && measured != 0 ) {
         if((value > min) && (value < max)) {
             ret = true;
@@ -486,8 +489,8 @@ bool TestCoreThread::curAcc(int expect,int premeasured, int measured, sTestDataI
     int value = f>10?expect/COM_RATE_CUR - measured*mRate:expect- measured*mRate;
     item.expect = QString::number(f>10?expect/COM_RATE_CUR2:expect/COM_RATE_CUR) + "A";
 
-    int min = -2*COM_RATE_CUR;
-    int max =  2*COM_RATE_CUR;
+    int min = -3*COM_RATE_VOL;
+    int max =  3*COM_RATE_VOL;
     if( expect != 0 && measured != 0 && premeasured == 0) {
         if((value > min) && (value < max)) {
             ret = true;
@@ -538,10 +541,13 @@ void TestCoreThread::loopNoCur()
     item.item = tr("回路电流检查");
 
     int num = mDevPacket->data.loopNum;
-    for(int i = 0; i < num; ++i) {
-        item.subItem = tr(" C%1 电流值").arg(i+1);
-        int measuredValue = mDevPacket->data.loop[i].cur.value;
-        curNoCurAccuracy(0, measuredValue, item);
+    int loop = getLoopPorts();
+    if(loop){
+        for(int i = 0; i < num; ++i) {
+            item.subItem = tr(" C%1 电流值").arg(i+1);
+            int measuredValue = mDevPacket->data.loop[i].cur.value;
+            curNoCurAccuracy(0, measuredValue, item);
+        }
     }
 }
 
@@ -613,12 +619,25 @@ void TestCoreThread::loopCur()
     if( num <= 0 ) return;
 
     int loop = getLoopPorts();
-    for(int i = 0; i < num; ++i)
-    {// 增加假的测试项目
-        item.subItem = tr("C%1 电流值").arg(i+1);
-        int measuredValue = mDevPacket->data.loop[i].cur.value;
-        int expect = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
-        curAccuracy(expect, measuredValue, item , COM_RATE_CUR2);
+    if(loop){
+        for(int i = 0; i < num; ++i)
+        {// 增加假的测试项目
+            item.subItem = tr("C%1 电流值").arg(i+1);
+            int measuredValue = mDevPacket->data.loop[i].cur.value;
+            int expect = 0;
+            if(num != 4)
+                expect = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
+            else{
+                loop = mDevPacket->data.outputNum / 6;
+                if( i == 0 || i == 3){
+                    for(int j = i ; j < i+2 ; j++)
+                        expect += IN_DataPackets::bulid()->getTgCur((i==3?j+1:j)*loop, ((i==3?j+1:j)+1)*loop);
+                }
+                else
+                    expect = IN_DataPackets::bulid()->getTgCur((i+1)*loop, (i+1+1)*loop);
+            }
+            curAccuracy(expect, measuredValue, item , COM_RATE_CUR2);
+        }
     }
 }
 
@@ -718,27 +737,30 @@ void TestCoreThread::lineCurAlarm()
 
 void TestCoreThread::loopCurAlarm()
 {
-    sTestDataItem item;
-    item.item = tr("回路电流告警检查");
-    int num = mDevPacket->data.loopNum;
-    if(num <= 0) return;
+    int loop = getLoopPorts();
+    if(loop){
+        sTestDataItem item;
+        item.item = tr("回路电流告警检查");
+        int num = mDevPacket->data.loopNum;
+        if(num <= 0) return;
 
-    if(isRun) setLoopCurCmd(true); delay(18);
-    for(int i = 0; i < num; ++i)
-    {
-        sObjData *obj = &(mDevPacket->data.loop[i]); delay(1);
-        item.subItem = tr("修改 C%1 电流最小值").arg(i+1);
-        ushort expectValue  = Test_Abnormal_CurMin *COM_RATE_CUR;
-        curThresholdAccuracy(expectValue, obj->cur.min, item);
-    }
+        setLoopCurCmd(true); delay(18);
+        for(int i = 0; i < num; ++i)
+        {
+            sObjData *obj = &(mDevPacket->data.loop[i]); delay(1);
+            item.subItem = tr("修改 C%1 电流最小值").arg(i+1);
+            ushort expectValue  = Test_Abnormal_CurMin *COM_RATE_CUR;
+            curThresholdAccuracy(expectValue, obj->cur.min, item);
+        }
 
-    for(int i = 0; i < num; ++i) {
-        sObjData *obj = &(mDevPacket->data.loop[i]);
-        item.subItem = tr("修改 C%1 电流最大值").arg(i+1);
-        ushort expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
-        curThresholdAccuracy(expectValue, obj->cur.max, item);
+        for(int i = 0; i < num; ++i) {
+            sObjData *obj = &(mDevPacket->data.loop[i]);
+            item.subItem = tr("修改 C%1 电流最大值").arg(i+1);
+            ushort expectValue  = Test_Abnormal_CurMax *COM_RATE_CUR;
+            curThresholdAccuracy(expectValue, obj->cur.max, item);
+        }
+        setLoopCurCmd(false);
     }
-    if(isRun) setLoopCurCmd(false);
 }
 
 
@@ -908,8 +930,8 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item,Q
 {
     bool ret = false;
     int value = expect - measured;
-    int min = -2*COM_RATE_POW;
-    int max =  2*COM_RATE_POW;
+    int min = -5*COM_RATE_CUR2;
+    int max =  5*COM_RATE_CUR2;
     if( expect != 0 && measured != 0 )
     {
         if((value > min) && (value < max)) {
@@ -930,19 +952,22 @@ bool TestCoreThread::powAccuracy(int expect, int measured, sTestDataItem &item,Q
 bool TestCoreThread::powBigAccuracy(int expect, ushort *measured, sTestDataItem &item, QString str)
 {
     bool ret = false;
-    int value = expect - *measured;
-    int min = -2*COM_RATE_POW;
-    int max =  2*COM_RATE_POW;
+
     int t = getCheckPow();
     for(int i = 0 ; i < t ; i++){
         delay(1);
+        int value = expect/10 - *measured/10;
+        int min = -8*COM_RATE_VOL;
+        int max =  8*COM_RATE_VOL;
         if( expect != 0 && *measured != 0 )
         {
             if((value > min) && (value < max)) {
                 ret = true;
                 break;
+            }else {
+                ret = false;
             }
-        } else {
+        }else {
             ret = false;
         }
     }
@@ -958,7 +983,6 @@ bool TestCoreThread::powBigAccuracy(int expect, ushort *measured, sTestDataItem 
 bool TestCoreThread::getLinePow(int id, int &measure)
 {
     measure = mDevPacket->data.line[id].pow;
-    qDebug()<<"bool TestCoreThread::getLinePow(int id, int &measure)"<<measure<<mDevPacket->data.line[id].pow;
     return true;
 }
 
@@ -1003,23 +1027,36 @@ void TestCoreThread::loopPow()
 
     QString str ="kVA";
     int loop = getLoopPorts();
-    for(int i = 0; i < num; ++i)
-    {
-        sTestDataItem item;
-        item.item = tr("回路功率检查");
-        item.subItem = tr(" C %1 功率检查").arg(i+1);
-        int measuredValue = 0;
-        bool powOrActivePowFlag=false;
-        powOrActivePowFlag = getLoopPow(i,measuredValue);
-        int expectValue  = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
-        expectValue *= IN_DataPackets::bulid()->getTgValueByIndex(1,i+1) / COM_RATE_CUR2;
+    if(loop){
+        for(int i = 0; i < num; ++i)
+        {
+            sTestDataItem item;
+            item.item = tr("回路功率检查");
+            item.subItem = tr(" C %1 功率检查").arg(i+1);
+            int measuredValue = 0;
+            bool powOrActivePowFlag=false;
+            powOrActivePowFlag = getLoopPow(i,measuredValue);
+            int expectValue  = 0;
+            if(num != 4)
+                expectValue = IN_DataPackets::bulid()->getTgCur(i*loop, (i+1)*loop);
+            else{
+                loop = mDevPacket->data.outputNum / 6;
+                if( i == 0 || i == 3){
+                    for(int j = i ; j < i+2 ; j++)
+                        expectValue += IN_DataPackets::bulid()->getTgCur((i==3?j+1:j)*loop, ((i==3?j+1:j)+1)*loop);
+                }
+                else
+                    expectValue = IN_DataPackets::bulid()->getTgCur((i+1)*loop, (i+1+1)*loop);
+            }
+            expectValue *= IN_DataPackets::bulid()->getTgValueByIndex(1,i/2+1) / COM_RATE_CUR2;
 
-        if(powOrActivePowFlag) {
-            expectValue = IN_DataPackets::bulid()->getTgPowByStratAndEnd(i*loop, (i+1)*loop);
-            str = "kW";
+            if(powOrActivePowFlag) {
+                expectValue = IN_DataPackets::bulid()->getTgPowByStratAndEnd(i*loop, (i+1)*loop);
+                str = "kW";
+            }
+
+            powAccuracy(expectValue, measuredValue, item ,str);
         }
-
-        powAccuracy(expectValue, measuredValue, item ,str);
     }
 }
 
@@ -1430,6 +1467,7 @@ void TestCoreThread::bigCurPowCheck(int i , int addr)
     ushort *pzero = &zero;
     ushort **measuredValue=&pzero;
     bool powOrActivePowFlag=false;
+    sleep(getCheckActivePow());
     QString str = "kVA";
     powOrActivePowFlag = getBigOutputPow(i,measuredValue);
     if(powOrActivePowFlag) str = "kW";
@@ -1500,7 +1538,8 @@ void TestCoreThread::setBigCurCmd()
             if(!mItem->serialNum.isDelayBreaker){
                 controlNoDelayBreaker(nextaddr);
                 noDelayFlag = false;
-                delay(35);
+                int t=firstOpDelay();//35
+                delay(t);
             }
         } else {
             nextbit = bit+1;
@@ -1531,11 +1570,11 @@ void TestCoreThread::bigCurCheck()
         //    {    ELoad_RtuSent::bulid()->setResData(1,ELoad_DP_1+i,18000);
         //    }
 
-        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器，并且打开第一位
-        if(isRun) ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);delay(20); ///====
+        ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器，并且打开第一位
+        ELoad_RtuSent::bulid()->switchOpenCtr(1, 0);delay(firstOpDelay()); ///====20
     }else{
-        if(isRun) ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器
-        if(isRun) controlNoDelayBreaker(1);delay(45);
+        ELoad_RtuSent::bulid()->switchCloseAll(); delay(15);//关闭所有电子负载的继电器
+        controlNoDelayBreaker(1);delay(firstOpDelay());
     }
 
     //setBigCurCmd(res);//大电流输出位电流检查

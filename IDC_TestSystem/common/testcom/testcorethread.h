@@ -118,9 +118,13 @@ protected:
     virtual bool getBigOutputPow(int id, ushort **measure);
     virtual int getEnvs();
     virtual int bigCurDelay() {return 15;}
+
     virtual int curCheckDelay() {return (30);}
+    virtual int firstOpDelay() {return (50);}
     virtual int getSwDelay(){return (5);}
-    virtual int getCheckPow(){return 5;}
+    virtual int getCheckPow(){return 30;}
+    virtual int getCheckActivePow(){return 1;}
+    
     virtual bool curBigAccuracy(ushort index, ushort *premeasured, ushort *measured, sTestDataItem &item);
 
     virtual void lineVolAlarm();

@@ -17,6 +17,7 @@ public:
     bool outputCurCmd(sTestSetCmd &it);
 
     bool outputSwCmd(sTestSetCmd &it);
+    int outputCurAlarmDelay() {return 38;}
 
     bool outputEleCmd(sTestSetCmd &it);
     bool lineEleCmd(sTestSetCmd &it);
@@ -34,6 +35,7 @@ public:
     int rtuTransDelay() {return 70;}
     int getDoors(){return 0;}
     int getLoopNum();
+    int getLoopPorts();
 };
 
 #endif // MV1TEST_CORETHREAD_H
