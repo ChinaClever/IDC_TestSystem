@@ -52,6 +52,7 @@ private:
 
     bool isRun;
     int mStep;
+    bool isRtuRun;
     QList<sRtuSetCmd> mRtuCmdList;
 };
 

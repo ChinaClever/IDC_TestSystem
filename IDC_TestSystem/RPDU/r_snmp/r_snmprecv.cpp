@@ -113,7 +113,11 @@ void R_SnmpRecv::outputInfo(const QByteArray &data)
         switch(item){
         case 8:sprintf(obj->name, "%s", data.data());break;
         case 9:obj->sw = data.toStdString()=="OFF"?0:1;break;
-        case 10:obj->cur.value = data.toDouble() * 10;break;
+        case 10:
+        {
+            obj->cur.value = data.toDouble() * 10;
+            obj->activePow = obj->cur.value*(&(mDataPacket->data.line[0]))->vol.value/10;
+        }break;
         case 11:obj->cur.min = obj->cur.crMin = data.toDouble() * 10;/*qDebug()<<"snmp cur.min"<<obj->cur.min;*/break;
         case 12:obj->cur.max = obj->cur.crMax = data.toDouble() * 10;/*qDebug()<<"snmp cur.max"<<obj->cur.max;*/break;
         case 13:obj->ele = data.toDouble()*10 ;break;

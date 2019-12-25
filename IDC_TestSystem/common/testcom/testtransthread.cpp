@@ -7,6 +7,7 @@ TestTransThread::TestTransThread(QObject *parent) : QThread(parent)
     mRtuTrans = nullptr;
     mRtuLock = false;
     isRun = true;
+    isRtuRun = false;
 
     mStep = 0;
     timer = new QTimer(this);
@@ -96,6 +97,8 @@ void TestTransThread::clearSnmpCmd()
 
 void TestTransThread::run()
 {
+    if(isRtuRun) return;
+    isRtuRun = true;
     while(mRtuCmdList.size()) {
         if(isRun) msleep(delay()); else return;
         mRtuTrans->setValue(mRtuCmdList.first());
@@ -103,4 +106,5 @@ void TestTransThread::run()
     }
 
     if(mRtuLock)   mRtu->startThread();
+    isRtuRun = false;
 }

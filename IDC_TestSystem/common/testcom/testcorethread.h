@@ -133,7 +133,7 @@ protected:
 
 
     virtual void temHumAlarm();
-    bool curAcc(int expect, int measured, sTestDataItem &item, double f);
+    virtual bool curAcc(int expect, int measured, sTestDataItem &item, double f);
     bool curAcc(int expect,int premeasured, int measured, sTestDataItem &item, double f);
 
 private:

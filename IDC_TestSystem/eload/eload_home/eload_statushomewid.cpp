@@ -196,7 +196,7 @@ void ELoad_StatusHomeWid::setMode()
             }
         }
         else {
-                InfoMsgBox box(this, tr("注意串口是否打开！！"));
+            InfoMsgBox box(this, tr("注意串口是否打开！！"));
         }
     }
         break;
@@ -339,4 +339,46 @@ void ELoad_StatusHomeWid::hide()
 void ELoad_StatusHomeWid::sendResFinishSlot()
 {
     ui->startBtn->setEnabled(true);
+}
+
+void ELoad_StatusHomeWid::on_ResetFirstEloadBtn_clicked()
+{
+    if(ELoad_RtuSent::bulid()->mSerial->mSerial->isOpened()){
+
+        InfoMsgBox box(this, tr("设置成功！！"));
+        emit sendResistanceCmdSig(1,8,40);
+        /////////循环发送起始输出位和结束输出位，阻值命令函数
+    }
+    else {
+        InfoMsgBox box(this, tr("注意串口是否打开！！"));
+    }
+
+}
+
+void ELoad_StatusHomeWid::on_ResetSecondEloadBtn_clicked()
+{
+    if(ELoad_RtuSent::bulid()->mSerial->mSerial->isOpened()){
+
+        InfoMsgBox box(this, tr("设置成功！！"));
+        emit sendResistanceCmdSig(9,16,40);
+        /////////循环发送起始输出位和结束输出位，阻值命令函数
+    }
+    else {
+        InfoMsgBox box(this, tr("注意串口是否打开！！"));
+    }
+
+}
+
+void ELoad_StatusHomeWid::on_ResetThirdEloadBtn_clicked()
+{
+    if(ELoad_RtuSent::bulid()->mSerial->mSerial->isOpened()){
+
+        InfoMsgBox box(this, tr("设置成功！！"));
+        emit sendResistanceCmdSig(17,24,40);
+        /////////循环发送起始输出位和结束输出位，阻值命令函数
+    }
+    else {
+        InfoMsgBox box(this, tr("注意串口是否打开！！"));
+    }
+
 }

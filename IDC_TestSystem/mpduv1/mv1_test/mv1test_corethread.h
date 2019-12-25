@@ -36,6 +36,7 @@ public:
     int getDoors(){return 0;}
     int getLoopNum();
     int getLoopPorts();
+    bool curAcc(int expect, int measured, sTestDataItem &item, double f);
 };
 
 #endif // MV1TEST_CORETHREAD_H

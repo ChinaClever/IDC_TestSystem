@@ -46,6 +46,12 @@ private slots:
 
     void on_modeBox_currentIndexChanged(int index);
 
+    void on_ResetFirstEloadBtn_clicked();
+
+    void on_ResetSecondEloadBtn_clicked();
+
+    void on_ResetThirdEloadBtn_clicked();
+
 private:
     Ui::ELoad_StatusHomeWid *ui;
     QTimer *timer;

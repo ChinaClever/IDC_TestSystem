@@ -152,7 +152,7 @@ void R_RtuTrans::devObjData(ZM_sObjData &rtuData, int i, sObjData &data , bool f
     dataUnit(i, rtuData.vol, data.vol, 1);
     dataUnit(i, rtuData.cur, data.cur, 1);
     data.ele = rtuData.ele[i];
-    data.activePow = data.vol.value * data.cur.value / 1;
+    data.activePow = data.vol.value * data.cur.value / 10;
     data.pf = rtuData.pf[i];
     data.sw = rtuData.sw[i];
 

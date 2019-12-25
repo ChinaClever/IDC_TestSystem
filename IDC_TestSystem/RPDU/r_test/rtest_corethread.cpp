@@ -373,3 +373,19 @@ bool RTest_CoreThread::setFactoryCmd(sTestSetCmd &it)
     return true;
 }
 
+bool RTest_CoreThread::curAcc(int expect, int measured, sTestDataItem &item, double f)
+{
+    bool ret = false;
+    int value = f>10?expect/COM_RATE_CUR - measured*mRate:expect- measured*mRate;
+    item.expect = QString::number(f>10?expect/COM_RATE_CUR2:expect/COM_RATE_CUR) + "A";
+
+    int min = -8*COM_RATE_VOL;
+    int max =  8*COM_RATE_VOL;
+    if( expect != 0 && measured != 0 ) {
+        if((value > min) && (value < max)) {
+            ret = true;
+        }
+    }
+
+    return ret;
+}

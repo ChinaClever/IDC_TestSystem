@@ -45,6 +45,7 @@ private:
 
     QTimer *timer;
     sObjData *mObjData;
+    sRtuCount *mRtuCount;
     ELoad_RtuSent *mRtu;
     int mAddr, mBit ,mValue;
 };

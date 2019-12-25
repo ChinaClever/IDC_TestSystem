@@ -128,7 +128,7 @@ bool TestCoreThread::snmpTrans()
     QString str = tr("SNMP通讯失败");
     int t = snmpTransDelay();
     for(int i=0; i<t; i++) {
-        delay(1);
+        if(isRun) delay(1); else break;
         if(mDevPacket->txType & 0x1) {
             ret = true;
             str = tr("SNMP通讯成功");
@@ -154,7 +154,7 @@ bool TestCoreThread::rtuTrans()
     QString str = tr("Modbus通讯失败");
     int t = rtuTransDelay();
     for(int i=0; i<t; i++) {
-        delay(1);
+        if(isRun) delay(1); else break;
         if(mDevPacket->txType & 0x2) {
             ret = true;
             str = tr("Modbus通讯成功");

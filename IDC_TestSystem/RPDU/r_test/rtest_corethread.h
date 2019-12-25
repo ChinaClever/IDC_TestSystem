@@ -51,6 +51,7 @@ protected:
     bool clearEleCmd(sTestSetCmd &it);
     bool setFactoryCmd(sTestSetCmd &it);
     virtual bool curBigAccuracy(ushort index, ushort *measured, sTestDataItem &item);
+    bool curAcc(int expect, int measured, sTestDataItem &item, double f);
 };
 
 #endif // RTEST_CORETHREAD_H
