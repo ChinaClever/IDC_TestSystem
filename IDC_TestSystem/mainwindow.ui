@@ -145,6 +145,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="mpduv1Btn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
            <property name="text">
             <string>MPDUV1</string>
            </property>
@@ -152,6 +158,12 @@
          </item>
          <item>
           <widget class="QPushButton" name="rpduBtn">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
            <property name="text">
             <string>RPDU</string>
            </property>

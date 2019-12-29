@@ -26,6 +26,9 @@ public:
 protected:
     void initWid();
 
+private:
+    void setButtonColor(QPushButton *button);
+
 private slots:
     void initFunSLot();
     void on_sipduBtn_clicked();
