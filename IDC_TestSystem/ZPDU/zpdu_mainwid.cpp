@@ -22,7 +22,7 @@ ZPDU_MainWid::ZPDU_MainWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(50,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(60,this,SLOT(initFunSLot())); //延时初始化
 }
 
 ZPDU_MainWid::~ZPDU_MainWid()

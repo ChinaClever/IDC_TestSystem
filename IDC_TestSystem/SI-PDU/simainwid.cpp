@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Si 主窗口
  *
  *  Created on: 2018年1月1日
@@ -20,7 +20,7 @@ SIMainWid::SIMainWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(40,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(55,this,SLOT(initFunSLot())); //延时初始化
 }
 
 SIMainWid::~SIMainWid()

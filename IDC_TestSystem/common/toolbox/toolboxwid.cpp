@@ -13,7 +13,7 @@ ToolBoxWid::ToolBoxWid(QWidget *parent) :
     mModeToolWid = nullptr;
     mTestToolWid = nullptr;
 
-    QTimer::singleShot(130,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(10000,this,SLOT(initFunSLot())); //延时初始化
     QGridLayout *gridLayout = new QGridLayout(parent);
     gridLayout->setContentsMargins(0, 0, 0, 10);
     gridLayout->addWidget(this);
@@ -54,7 +54,7 @@ void ToolBoxWid::initFunSLot()
     if(mTestToolWid) {
         mTestToolWid->setParent(ui->toolBox->widget(page++));
         connect(mTestToolWid, SIGNAL(simulateSig(int)), this, SIGNAL(toolBoxSig(int)));
-    }   
+    }
 }
 
 void ToolBoxWid::autoTestChangeSlot()

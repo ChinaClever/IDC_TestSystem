@@ -21,7 +21,7 @@ IP_MainWid::IP_MainWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(10,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(53,this,SLOT(initFunSLot())); //延时初始化
 }
 
 IP_MainWid::~IP_MainWid()

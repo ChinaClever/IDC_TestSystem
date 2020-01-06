@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -104,6 +104,17 @@ void TestResultWid::progressSlot()
 {
     if(Test_Pause == mItem->mode) {
         ui->statusLab->setText(tr("已暂停！！！")); return;
+    }
+    if(!mItem->progress.errNum) {
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
+                                  "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}");
+    } else {
+        ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
+                                  "QWidget{font: 30pt \"微软雅黑\"; color:red;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
+                                  "QProgressBar::chunk {background-color:red;}");
+        this->setStyleSheet("color:red;");
     }
 
     sTestProgress *arg = &(mItem->progress);

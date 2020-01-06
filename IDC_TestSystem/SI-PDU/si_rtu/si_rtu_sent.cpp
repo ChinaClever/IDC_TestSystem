@@ -1,4 +1,4 @@
-/*
+﻿/*
  * RTU发送数据
  *
  *  Created on: 2018年1月1日
@@ -20,10 +20,10 @@ int SI_RtuSent::sentDataBuff(uchar addr, uchar line, uchar *buf)
     QMutexLocker locker(&mutex);
 
     msg.addr = addr;
-    if(line == 1)
-        msg.len = SI_RTU_ONE_LEN;
-    else
-        msg.len = SI_RTU_THREE_LEN;
+//    if(line == 1)
+//        msg.len = SI_RTU_ONE_LEN;
+//    else
+    msg.len = SI_RTU_THREE_LEN;
     return rtu_sent_packet(&msg, buf);
 }
 

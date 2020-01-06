@@ -21,7 +21,7 @@ MPDUV1_MainWid::MPDUV1_MainWid(QWidget *parent) :
     timer = new QTimer(this);
     timer->start(1*1000);
     connect(timer, SIGNAL(timeout()),this, SLOT(timeoutDone()));
-    QTimer::singleShot(45,this,SLOT(initFunSLot())); //延时初始化
+    QTimer::singleShot(47,this,SLOT(initFunSLot())); //延时初始化
 }
 
 MPDUV1_MainWid::~MPDUV1_MainWid()
