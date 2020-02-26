@@ -1,4 +1,4 @@
-/*
+﻿/*
  * ETU接收数据
  *
  *  Created on: 2018年1月1日
@@ -90,7 +90,7 @@ static uchar *rtu_recv_unit(uchar *ptr, int line, SI_sDataUnit &unit)
 static uchar *rtu_recv_data(uchar *ptr, int line, uchar *value)
 {
     for(int i=0; i<line; ++i) {
-        value[i] =  *(ptr++);; // 读取电压
+        value[i] =  *(ptr++); // 读取电压
     }
 
     return ptr;
@@ -147,7 +147,7 @@ static int rtu_recv_data(uchar *ptr, int line, SI_RtuRecvLine *msg)
 
     msg->br =  *(ptr++); // 波特率
     ptr =  rtu_recv_data(ptr, line, msg->activePow);
-    ptr =  rtu_recv_data(ptr, line, msg->pf); // 功率因素
+    ptr =  rtu_recv_data(ptr, line, msg->pf); // 功率因数
     ptr =  rtu_recv_data(ptr, line, msg->sw); // 开关状态
 
     if(line == 1) {

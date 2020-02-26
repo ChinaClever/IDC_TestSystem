@@ -167,11 +167,17 @@ void ELoad_StatusHomeWid::setMode()
     {
         int start = ui->inputStartSpinBox->value();
         int end = ui->inputEndSpinBox->value();
-        if( ui->startBtn->text() == tr("启动") ){
-            for(int i = start ; i <= end ; i++ )
-            {
-                ELoad_RtuSent::bulid()->setBigCur(i,1);//打开大电流模式
-                Delay_MSec(1000);
+        if(start<1||start>3||end<1||end>3||start>end){
+            InfoMsgBox box(this, tr("输入1-3范围！！"));
+            return;
+        }
+        else{
+            if( ui->startBtn->text() == tr("启动") ){
+                for(int i = start ; i <= end ; i++ )
+                {
+                    ELoad_RtuSent::bulid()->setBigCur(i,1);//打开大电流模式
+                    Delay_MSec(1000);
+                }
             }
         }
         break;
@@ -186,9 +192,19 @@ void ELoad_StatusHomeWid::setMode()
         int value = ui->resistanceLineEdit->text().toInt();
         if(ELoad_RtuSent::bulid()->mSerial->mSerial->isOpened()){
             if(value<40 || value>20000){
-                InfoMsgBox box(this, tr("阻值不在范围！！"));
+                InfoMsgBox box(this, tr("阻值应在40-20000范围！！"));
                 return;
-            }else{
+            }else if(start>end){
+                InfoMsgBox box(this, tr("起始值不能大于结束值！！"));
+                return;
+            }else if(start>24||start<1){
+                InfoMsgBox box(this, tr("起始值应在1-24范围！！"));
+                return;
+            }else if(end>24||end<1){
+                InfoMsgBox box(this, tr("结束值应在1-24范围！！"));
+                return;
+            }
+            else{
                 ui->startBtn->setEnabled(false);
                 InfoMsgBox box(this, tr("设置成功！！"));
                 emit sendResistanceCmdSig(start,end,value);

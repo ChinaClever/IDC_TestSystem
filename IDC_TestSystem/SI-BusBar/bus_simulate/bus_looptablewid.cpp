@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -20,7 +20,7 @@ void BUS_LoopTableWid::initWid()
     QStringList header;
     header << tr("母线") << tr("接插箱") << tr("回路")  << tr("开关")
            << tr("电压") << tr("电流") << tr("有功功率") << tr("视在功率")
-           << tr("功率因素") << tr("电能") << tr("谐波值");
+           << tr("功率因数") << tr("电能") << tr("谐波值");
     initTableWid(header, 1, title);
 }
 

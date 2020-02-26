@@ -61,14 +61,19 @@ void SNMP_ZmRecv::outputCur(const QByteArray &data)
         if(mDataPacket->data.lineNum == 1)
             obj->vol.value = (&(mDataPacket->data.line[0]))->vol.value;
         else
-        obj->vol.value =(&(mDataPacket->data.line[id/8]))->vol.value
-                ?(&(mDataPacket->data.line[id/8]))->vol.value
-            :(&(mDataPacket->data.loop[id/8]))->vol.value;
-        if(obj->pf)
         {
-            obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
+            int index = 1;
+            if(mDataPacket->data.loopNum!=0)
+                index = mDataPacket->data.outputNum/mDataPacket->data.loopNum;
+            obj->vol.value = id<=24&&(&(mDataPacket->data.line[id/8]))->vol.value
+                    ?(&(mDataPacket->data.line[id/8]))->vol.value
+                :(&(mDataPacket->data.loop[id/index]))->vol.value;
+            if(obj->pf)
+            {
+                obj->pow = obj->cur.value*obj->vol.value*obj->pf/(10*100*100.0);
+            }
+            obj->activePow = obj->cur.value*obj->vol.value/(10*100.0);
         }
-        obj->activePow = obj->cur.value*obj->vol.value/(10*100.0);
 
     }
         break;

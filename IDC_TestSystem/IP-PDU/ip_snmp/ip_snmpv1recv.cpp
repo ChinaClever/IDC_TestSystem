@@ -1,4 +1,4 @@
-#include "ip_snmpv1recv.h"
+﻿#include "ip_snmpv1recv.h"
 
 IP_SnmpV1Recv::IP_SnmpV1Recv()
 {
@@ -20,23 +20,24 @@ void IP_SnmpV1Recv::devInfo(const QByteArray &data)
 
 void IP_SnmpV1Recv::devData(const QByteArray &data)
 {
+    bool ok;
     sObjData *obj = mDataPacket->data.line;
     int id = getItemByOid(2);
     switch (id%11) {
-    case 1: obj[0].vol.value = data.toInt(); break;
-    case 2: obj[1].vol.value = data.toInt(); break;
-    case 3: obj[2].vol.value = data.toInt(); break;
+    case 1: obj[0].vol.value = data.toHex().toInt(&ok,16); break;
+    case 2: obj[1].vol.value = data.toHex().toInt(&ok,16); break;
+    case 3: obj[2].vol.value = data.toHex().toInt(&ok,16); break;
 
-    case 4: obj[0].cur.value = data.toInt(); break;
-    case 5: obj[1].cur.value = data.toInt(); break;
-    case 6: obj[2].cur.value = data.toInt(); break;
+    case 4: obj[0].cur.value = data.toHex().toInt(&ok,16); break;
+    case 5: obj[1].cur.value = data.toHex().toInt(&ok,16); break;
+    case 6: obj[2].cur.value = data.toHex().toInt(&ok,16); break;
 
-    case 7: obj[0].ele = data.toInt(); break;
-    case 8: obj[1].ele = data.toInt(); break;
-    case 9: obj[2].ele = data.toInt(); break;
+    case 7: obj[0].ele = data.toHex().toInt(&ok,16); break;
+    case 8: obj[1].ele = data.toHex().toInt(&ok,16); break;
+    case 9: obj[2].ele = data.toHex().toInt(&ok,16); break;
 
-    case 10: mDataPacket->data.env.tem[0].value = data.toInt(); break;
-    case 0: mDataPacket->data.env.hum[0].value = data.toInt(); break;
+    case 10: mDataPacket->data.env.tem[0].value = data.toHex().toInt(&ok,16); break;
+    case 0: mDataPacket->data.env.hum[0].value = data.toHex().toInt(&ok,16); break;
     default:         break;
     }
 }

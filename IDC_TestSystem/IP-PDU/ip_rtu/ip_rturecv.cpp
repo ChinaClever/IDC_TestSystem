@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  *
  *  Created on: 2018年10月1日
@@ -89,12 +89,29 @@ static uchar *rtu_recv_unit(uchar *ptr, int line, IP_sDataUnit &unit)
 static uchar *rtu_recv_data(uchar *ptr, int line, uchar *value)
 {
     for(int i=0; i<line; ++i) {
-        value[i] =  *(ptr++);; // 读取电压
+        value[i] =  *(ptr++); // 读取电压
     }
 
     return ptr;
 }
 
+static uchar *rtu_recv_data(uchar *ptr, int line, uchar *value1,ushort *value2)
+{
+    for(int i=0; i<line; ++i) {
+        value1[i] =  (*ptr) * 256 + *(ptr+1);  ptr += 2;
+    }
+
+    return ptr;
+}
+
+static uchar *rtu_recv_data(uchar *ptr, int line, ushort *value1,uchar *value2)
+{
+    for(int i=0; i<line; ++i) {
+        value1[i] = *(ptr+1)==2?1:0;  ptr += 2;
+    }
+
+    return ptr;
+}
 
 /**
   * 功　能：读取电参数 数据
@@ -125,7 +142,7 @@ static int rtu_recv_data(uchar *ptr, IP_RtuRecvLine *msg)
 //    ptr =  rtu_recv_data(ptr, 1, msg->tem.alarm);
 //    ptr =  rtu_recv_data(ptr, 1, msg->hum.alarm);
 
-    ptr =  rtu_recv_data(ptr, 2, msg->sw); // 开关状态
+    ptr =  rtu_recv_data(ptr, 2, msg->sw,(uchar*)msg->sw); // 开关状态
     ptr =  rtu_recv_data(ptr, 1, &(msg->lineNum));
     ptr =  rtu_recv_data(ptr, 1, &(msg->version));
     ptr =  rtu_recv_data(ptr, 1, &(msg->br));
@@ -148,12 +165,12 @@ static int rtu_recv_dataV3(uchar *ptr, IP_RtuRecvLine *msg)
     int line = IP_LINE_NUM;
     ptr =  rtu_recv_data(ptr, line, msg->vol.value);
     ptr =  rtu_recv_data(ptr, line, msg->cur.value);
-    ptr =  rtu_recv_data(ptr, line, msg->pf);
+    ptr =  rtu_recv_data(ptr, line, msg->pf,(ushort*)msg->pf);
     ptr =  rtu_recv_data(ptr, line, msg->pow);
     ptr =  rtu_recv_data(ptr, line, msg->activePow);
     ptr =  rtu_recv_data(ptr, line, msg->ele);
     ptr =  rtu_recv_data(ptr, 1, msg->hz);
-    ptr =  rtu_recv_data(ptr, line, msg->sw); // 开关状态
+    ptr =  rtu_recv_data(ptr, line, msg->sw,(uchar*)msg->sw); // 开关状态
     ptr =  rtu_recv_data(ptr, 1, msg->tem.value);
     ptr =  rtu_recv_data(ptr, 1, msg->hum.value);
     ptr =  rtu_recv_unit(ptr, line, msg->vol);

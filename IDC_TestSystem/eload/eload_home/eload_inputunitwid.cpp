@@ -6,6 +6,7 @@
  */
 #include "eload_inputunitwid.h"
 #include "ui_eload_inputunitwid.h"
+#include <QGridLayout>
 #include <QGraphicsDropShadowEffect>
 
 int gAddr=1,gBit=0,gValue=0;

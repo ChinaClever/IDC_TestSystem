@@ -17,7 +17,7 @@ public:
     bool outputCurCmd(sTestSetCmd &it);
 
     bool outputSwCmd(sTestSetCmd &it);
-    int outputCurAlarmDelay() {return 38;}
+    int outputCurAlarmDelay() {return 40;}
 
     bool outputEleCmd(sTestSetCmd &it);
     bool lineEleCmd(sTestSetCmd &it);

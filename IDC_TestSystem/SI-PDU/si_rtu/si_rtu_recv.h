@@ -1,4 +1,4 @@
-#ifndef SI_RTU_RECV_H
+﻿#ifndef SI_RTU_RECV_H
 #define SI_RTU_RECV_H
 #include "si_rtu_sent.h"
 
@@ -23,7 +23,7 @@ struct SI_RtuRecvLine {
     uchar br;  // 00	表示波特率9600(00默认9600，01为4800，02为9600，03为19200，04为38400)
 
     ushort activePow[SI_LINE_NUM]; // 有功功率值
-    uchar pf[SI_LINE_NUM]; // 功率因素
+    uchar pf[SI_LINE_NUM]; // 功率因数
     uchar sw[SI_LINE_NUM]; // 开关  01表示断路器闭合，00表示打开)
     uchar lineNum; // 表示单三相 (01表示单相，03表示三相)
 };
