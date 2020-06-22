@@ -132,31 +132,32 @@ bool MTest_CoreThread::outputCurCmd(sTestSetCmd &it)
     snmpCmd.type = SNMP_STRING_TYPE;
 
     for(int i=0; i<it.num; ++i) {
-//        snmpCmd.oid = QString("%1.%2.%3.8.3.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
-//        snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
-//        snmpCmd.oid = QString("%1.%2.%3.8.2.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
-//        snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.8.3.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.8.2.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMin).toUtf8(); it.sAlarmMin.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Normal_CurMin).toUtf8();  it.sMin.push_front(snmpCmd);
 
 
-        rtuCmd.reg = ZM_RtuReg_OutputCurCrMin+i;
-        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.push_front(rtuCmd);
-        rtuCmd.value = Test_Abnormal_CurMin; it.rtuAlarmMin.append(rtuCmd);
-        rtuCmd.reg = ZM_RtuReg_OutputCurMin+i;
-        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.push_front(rtuCmd);
-        rtuCmd.value = Test_Abnormal_CurMin; it.rtuAlarmMin.append(rtuCmd);
+//        rtuCmd.reg = ZM_RtuReg_OutputCurCrMin+i;
+//        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.push_front(rtuCmd);
+//        rtuCmd.value = Test_Abnormal_CurMin; it.rtuAlarmMin.append(rtuCmd);
+//        rtuCmd.reg = ZM_RtuReg_OutputCurMin+i;
+//        rtuCmd.value = Test_Normal_CurMin; it.rtuMin.push_front(rtuCmd);
+//        rtuCmd.value = Test_Abnormal_CurMin; it.rtuAlarmMin.append(rtuCmd);1
 
-//        snmpCmd.oid = QString("%1.%2.%3.8.4.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8();  it.sMax.push_front(snmpCmd);
-//        snmpCmd.oid = QString("%1.%2.%3.8.5.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
-//        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8();  it.sMax.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.8.4.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8();  it.sMax.push_front(snmpCmd);
+        snmpCmd.oid = QString("%1.%2.%3.8.5.%4.0").arg(MIB_OID_CLEVER).arg(M_MIB_OID).arg(addr).arg(i+1);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8(); it.sAlarmMax.append(snmpCmd);
+        snmpCmd.value = QString("%1.0").arg(Test_Abnormal_CurMax).toUtf8();  it.sMax.push_front(snmpCmd);
 
-        rtuCmd.reg = ZM_RtuReg_OutputCurMax+i;
-        rtuCmd.value = Test_Abnormal_CurMax; it.rtuMax.append(rtuCmd);
-        rtuCmd.value = Test_Abnormal_CurMax; it.rtuAlarmMax.append(rtuCmd);
+//        rtuCmd.reg = ZM_RtuReg_OutputCurMax+i;
+//        rtuCmd.value = Test_Abnormal_CurMax; it.rtuMax.append(rtuCmd);
+//        rtuCmd.value = Test_Abnormal_CurMax; it.rtuAlarmMax.append(rtuCmd);1
+
         //rtuCmd.reg = ZM_RtuReg_OutputCurCrMax+i;
         //rtuCmd.value = Test_Abnormal_CurMax; it.rtuMax.append(rtuCmd);
     }

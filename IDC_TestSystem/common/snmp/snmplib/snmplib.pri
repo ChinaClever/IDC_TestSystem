@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/defines.h \
     $$PWD/win_export.h
 
-
 SOURCES += \
     $$PWD/AbstractJob.cpp \
     $$PWD/QtSnmpClient.cpp \
