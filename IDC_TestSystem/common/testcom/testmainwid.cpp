@@ -96,7 +96,7 @@ void TestMainWid::overSlot()
         mResultWid->resultSlot();
         mDataSave->saveTestData();
         mWebSocket->saveTestData();
-        mSerialNumDlg->getSerialNum();
+        //mSerialNumDlg->getSerialNum();
     }
 }
 

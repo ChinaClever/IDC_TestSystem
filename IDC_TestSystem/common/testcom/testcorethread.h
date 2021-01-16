@@ -11,8 +11,8 @@
 #define TEST_ABNORMOL_VOL_MAX 200
 
 enum {
-    Test_Normal_VolMin  = 170,
-    Test_Normal_VolMax  = 245,
+    Test_Normal_VolMin  = 80,
+    Test_Normal_VolMax  = 250,
 
     Test_Abnormal_VolMin  = 100,
     Test_Abnormal_VolMax  = 200,
@@ -21,8 +21,8 @@ enum {
     Test_Normal_LineCurMax  = 32,
     Test_Normal_OutputCurMax  = 32,
 
-    Test_Abnormal_CurMin  = 10,
-    Test_Abnormal_CurMax  = 16,
+    Test_Abnormal_CurMin  = 8,
+    Test_Abnormal_CurMax  = 10,
 
     Test_Normal_TemMin  = 0,
     Test_Normal_TemMax  = 90,
@@ -105,7 +105,7 @@ protected:
     virtual int snmpTransDelay() {return 10;}
     virtual int rtuTransDelay() {return 30;}
     virtual int lineCurAlarmDelay() {return (600);}
-    virtual int lineVolAlarmDelay() {return 10;}
+    virtual int lineVolAlarmDelay() {return 16;}
     virtual int outputCurAlarmDelay() {return 10;}
     virtual int outputSwCtrDelay() {return 30;}
     virtual int getLineNum();

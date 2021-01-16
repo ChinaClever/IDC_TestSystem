@@ -30,6 +30,8 @@ protected:
     void setBackgroundColor(int id);
     void setItemColor(int id, int column, int alarm);
     void scrollToBottomTable();
+    int columnWidth(int line);
+    void setColumnWidth(int line);
 
 protected slots:
     virtual void timeoutDone(){}
@@ -46,6 +48,7 @@ private:
     void addInitRow();
     void addTableRows(int line);
     void delTableRows(int line);
+
 
 private:
     Ui::ComTableWid *ui;

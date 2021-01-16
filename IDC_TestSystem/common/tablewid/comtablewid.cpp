@@ -45,12 +45,13 @@ void ComTableWid::initTableWidget(QStringList &header)
     ui->tableWidget->setHorizontalHeaderLabels(header);
 
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(0,QHeaderView::ResizeToContents);
+    //ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
     // ui->tableWidget->setColumnHidden(0, true);
-    // ui->tableWidget->setColumnWidth(0,200);
+    //ui->tableWidget->setColumnWidth(0,200);
 }
 
 
@@ -243,4 +244,23 @@ void ComTableWid::setItemColor(int id, int column, int alarm)
 void ComTableWid::scrollToBottomTable()
 {
     ui->tableWidget->scrollToBottom();
+}
+
+/**
+ * @brief 显示表格列宽度 调试使用
+ * @param line 某一列
+ */
+int ComTableWid::columnWidth(int line)
+{
+    return ui->tableWidget->columnWidth(line);
+}
+
+/**
+ * @brief 设置表格列宽度
+ * @param line 某一列
+ * @param size 列的宽度
+ */
+void ComTableWid::setColumnWidth(int line)
+{
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(line,QHeaderView::ResizeToContents);
 }

@@ -296,8 +296,10 @@ bool TestCoreThread::volAccuracy(int expect, ushort& measured, sTestDataItem &it
 {
     bool ret = false;
 
-    int min = -3*COM_RATE_VOL;
-    int max =  3*COM_RATE_VOL;
+//    int min = -3*COM_RATE_VOL;
+//    int max =  3*COM_RATE_VOL;
+    int min = -10*COM_RATE_VOL;
+    int max =  10*COM_RATE_VOL;
     int t = lineVolAlarmDelay();
     for(int i=0 ; i<t ; i++)
     {
@@ -1222,8 +1224,10 @@ bool TestCoreThread::temAccuracy(int expect, int measured, sTestDataItem &item)
 {
     bool ret = false;
     int value = expect - measured;
-    int min = -5*COM_RATE_TEM;
-    int max =  5*COM_RATE_TEM;
+//    int min = -5*COM_RATE_TEM;
+//    int max =  5*COM_RATE_TEM;
+    int min = -50*COM_RATE_TEM;
+    int max =  50*COM_RATE_TEM;
     if( expect != 0 && measured != 0 )
     {
         if((value > min) && (value < max)) {
@@ -1245,8 +1249,10 @@ bool TestCoreThread::humAccuracy(int expect, int measured, sTestDataItem &item)
 {
     bool ret = false;
     int value = expect - measured;
-    int min = -5*COM_RATE_HUM;
-    int max =  5*COM_RATE_HUM;
+//    int min = -5*COM_RATE_HUM;
+//    int max =  5*COM_RATE_HUM;
+    int min = -50*COM_RATE_HUM;
+    int max =  50*COM_RATE_HUM;
     if( expect != 0 && measured != 0 )
     {
         if((value > min) && (value < max)) {

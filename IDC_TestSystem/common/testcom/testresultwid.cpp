@@ -67,7 +67,7 @@ void TestResultWid::startSlot()
     QTimer::singleShot(50*1000,this,SLOT(startTimerSLot()));
     ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                               "QWidget{font: 30pt \"微软雅黑\"; color:white;}"
-                              "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}" );
+                              "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;color:white;}" );
     this->setStyleSheet("color:black;");
 
 }
@@ -86,7 +86,7 @@ void TestResultWid::resultSlot()
     } else {
         ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:red;}"
-                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;color:white;}"
                                   "QProgressBar::chunk {background-color:red;}");
         this->setStyleSheet("color:red;");
     }
@@ -112,7 +112,7 @@ void TestResultWid::progressSlot()
     } else {
         ui->widget->setStyleSheet("QWidget#widget{border-image: url(:/image/resultpix.jpg);border-radius:5px;}"
                                   "QWidget{font: 30pt \"微软雅黑\"; color:red;}"
-                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;}"
+                                  "QProgressBar {border:2px solid blue;background-color:transparent;border-radius: 5px;text-align: center;color:white;}"
                                   "QProgressBar::chunk {background-color:red;}");
         this->setStyleSheet("color:red;");
     }

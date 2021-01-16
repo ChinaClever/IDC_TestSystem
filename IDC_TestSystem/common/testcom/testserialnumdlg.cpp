@@ -71,19 +71,19 @@ void TestSerialNumDlg::on_purposeComboBox_currentTextChanged(const QString &arg1
 
 bool TestSerialNumDlg::inputCheck()
 {
-    bool ret = false;
+//    bool ret = false;
     QString str = ui->snLineEdit->text();
     if(str.isEmpty()) {
         CriticalMsgBox box(this, tr("请输入产品条码"));
         return false;
     } else {
-        ret = cm_isDigitStr(str);
-        if(!ret) {
-            CriticalMsgBox box(this, tr("产品条码应是纯数字，请重新输入!!"));
-            return false;
-        } else {
+//        ret = cm_isDigitStr(str);
+//        if(!ret) {
+//            CriticalMsgBox box(this, tr("产品条码应是纯数字，请重新输入!!"));
+//            return false;
+//        } else {
             mItem->sn = str;
-        }
+//        }
     }
 
     str = ui->opLineEdit->text();

@@ -20,6 +20,9 @@ void TestItemTableWid::initWid()
     QStringList header;
     header <<tr("执行") << tr("检查项目") << tr("测试项目描述") << tr("期望结果") << tr("Modubs通讯") << tr("SNMP通讯");
     initTableWid(header, 0, title);
+    setColumnWidth(0);//执行 列宽度保持和内容长度适应
+    setColumnWidth(4);
+    setColumnWidth(5);
 }
 
 
